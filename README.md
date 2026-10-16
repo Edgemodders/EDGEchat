@@ -4,7 +4,7 @@
 
 <p align="center">
   <a href="https://edgemodders.github.io/EDGEplugin/"><img src="docs/assets/brand/badges/docs.svg" alt="docs: read the docs"></a>
-  <img src="docs/assets/brand/badges/status.svg" alt="status: design draft">
+  <img src="docs/assets/brand/badges/status.svg" alt="status: P1 skeleton">
   <img src="docs/assets/brand/badges/game.svg" alt="game: Cyberpunk 2077">
   <img src="docs/assets/brand/badges/for.svg" alt="for: Claude Code">
   <a href="LICENSE"><img src="docs/assets/brand/badges/license.svg" alt="license: MIT"></a>
