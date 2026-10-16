@@ -25,7 +25,7 @@ claude mcp list                             # servers show as plugin:edge:<name>
 
 A server added by hand with the same URL (REDnode's **Copy setup**) hides the plugin's copy. Remove it with `claude mcp remove rednode -s user` before testing the plugin's.
 
-A scratch config has no Claude login, so `claude -p` does not work there. To test a stdio server without Claude, speak MCP to it directly: send `initialize`, then `notifications/initialized`, then `tools/call`, one JSON line each, on its stdin. P1 tested `scripts/redcode-mcp.cmd` this way with `bridge_info`.
+A scratch config has no Claude login, so `claude -p` does not work there. To test a stdio server without Claude, `tools/test/mcp-probe.cjs` speaks MCP to it directly and calls one tool. Every test and its last result is on the [tests page](testing.html).
 
 ## The dev loop
 
