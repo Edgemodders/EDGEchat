@@ -6,7 +6,8 @@ EDGEplugin is the EDGE plugin for Claude Code: skills with Cyberpunk 2077 moddin
 
 - Scaffold created 2026-10-16 from the EDGEkit session: README, license, docs site (HUD layout, design draft 0.1, dev setup), Pages workflow, brand sources and images (`tools/brand/render.ps1`: banner, social preview, icon, badges). No plugin files yet.
 - **P0 Decide under way** (2026-10-16, table at the end of the design). Done: one repo as marketplace and plugin checked with Claude Code 2.1.299; separate repo, not a folder in REDagent; REDagent C6 dropped by the user; `redcode-mcp` on npm. Open: final names (working: `edge@edgemodders`), REDagent's side of knowledge sharing, REDdeck's server on npm (asked today), how EDGEkit provides the plugin (EDGEkit session), community source licenses.
-- **Next: P1 Skeleton.** MCP servers go inline in `plugin.json`, not a root `.mcp.json` (that would also load as this repo's project servers).
+- **P1 Skeleton built** (2026-10-16): `.claude-plugin/plugin.json` (servers inline, not a root `.mcp.json`, which would also load as this repo's project servers), `marketplace.json`, `scripts/redcode-mcp.cmd` (clears empty options, see the design's facts), skills `setup` and `init-project` (facts in `skills/init-project/layouts.md`, each with its source). Installs from the checkout; `redcode` connects. **Next:** install from GitHub, the test with the game running (`/edge:setup` reports `rednode` connected) and in the VS Code extension; `reddeck` once REDdeck publishes it.
+- Asked of REDcode (through the user): `redcode-mcp` should take an empty variable as unset, and read EDGEkit's settings folder too. Then the wrapper can go.
 - The Claude Code facts were read on 2026-10-16. Claude Code changes often: recheck a fact's page before building on it, and fix the design when it has moved.
 
 ## Conventions

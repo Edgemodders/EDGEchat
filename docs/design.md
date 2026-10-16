@@ -2,7 +2,7 @@
 
 EDGEplugin is the EDGE plugin for [Claude Code](https://code.claude.com/docs/en/overview): one install that makes Claude a Cyberpunk 2077 modding assistant. It gives Claude the **context** (what the game's files, frameworks and folders are, and the EDGE house rules) and the **tools** (the EDGE MCP servers, which read the game's archives, the TweakDB and the running game). It works wherever Claude Code runs: in EDGEkit, in VS Code, and in a terminal.
 
-**Status: draft 0.2, P0 under way.** Proposed in the EDGEkit session on 2026-10-16 and agreed with the user, who created the repo. P0's checks ran on 2026-10-16 (see [P0 decisions](#p0-decisions)). No plugin files yet. Next: the names, then P1.
+**Status: draft 0.3, P1 built.** Proposed in the EDGEkit session on 2026-10-16 and agreed with the user, who created the repo. P0's checks ran on 2026-10-16 (see [P0 decisions](#p0-decisions)). P1's skeleton (manifest, marketplace, `rednode` and `redcode`, the `setup` and `init-project` skills) installs and `redcode` connects; the tests with the game running and in VS Code are next.
 
 ## Why a plugin
 
@@ -36,6 +36,8 @@ From the Claude Code docs, read on 2026-10-16. Each row names its page under `ht
 | Plugin MCP servers are named `plugin:<plugin>:<server>` | Ours show as `plugin:edge:rednode` and `plugin:edge:redcode`. **Checked in P0** | Seen in `claude mcp list` |
 | A server the user added by hand with the same URL wins; the plugin's copy is not listed | Anyone who ran REDnode's **Copy setup** keeps that entry, old token and all. The `setup` skill finds it and tells the user to `claude mcp remove` it. **Checked in P0** | Seen in `claude mcp list` |
 | A `.mcp.json` at the repo root is also read as this folder's project servers (asking for approval, with `${user_config.*}` unresolved) | The servers go inline in `plugin.json` (`mcpServers`), which validates and loads the same. **Checked in P0** | Seen in `claude mcp list` |
+| An unset optional `userConfig` value becomes an empty string in a server's `args` and `env` | `redcode-mcp` 0.2.0 takes an empty variable as set (`??`), which hides REDcode's VS Code settings and fails with "The argument 'file' cannot be empty". The plugin starts it through `scripts/redcode-mcp.cmd`, which clears empty variables first. **Checked in P1** with an env dump and an MCP probe | Seen; the docs say only that `default` is the fallback |
+| `claude plugin validate` warns that a `CLAUDE.md` at the plugin root is not loaded as context | Ours is for sessions working on this repo, as in every EDGE repo, so it stays; `--strict` fails on this one warning only | Seen in P1 |
 | `claude plugin details` shows a plugin's parts and their always-on token cost; `claude plugin configure` lists and sets `userConfig` | The cost check for skill descriptions in P2; `configure` in the README | `claude plugin --help` |
 
 ## Shape
@@ -44,6 +46,7 @@ From the Claude Code docs, read on 2026-10-16. Each row names its page under `ht
 |---|---|
 | `.claude-plugin/plugin.json` | The plugin: name, version, description, `userConfig`, and the EDGE MCP servers inline (`mcpServers`), not in a root `.mcp.json` (see the facts above) |
 | `.claude-plugin/marketplace.json` | The marketplace, listing this repo's root as its one plugin |
+| `scripts/` | `redcode-mcp.cmd`, which starts `redcode-mcp` (see the facts above) |
 | `skills/` | One folder per skill, `SKILL.md` plus reference files |
 | `evals/` | `claude plugin eval` cases: modding tasks answered with and without the plugin |
 | `docs/` | This site |
@@ -53,7 +56,7 @@ From the Claude Code docs, read on 2026-10-16. Each row names its page under `ht
 | Server | Transport | Gives | Needs |
 |---|---|---|---|
 | `rednode` | http, `http://127.0.0.1:41820/mcp`, `Authorization: Bearer ${user_config.rednode_token}` | The running game: logs, apps, game state, game API lookup and calls, live TweakDB, screenshots ([REDnode MCP](https://edgemodders.github.io/REDnode/mcp.html)) | REDnode in the game with its MCP server switched on; the token from its launcher's **Copy setup** |
-| `redcode` | stdio, `cmd /c npx -y @edgemodders/redcode-mcp@<version>` | The game's files offline through REDbridge: archives, CR2W as JSON and edits, textures, the shipped TweakDB, sound events, WolvenKit project export, import and pack ([REDcode MCP](https://edgemodders.github.io/REDcode/mcp.html)) | Windows, .NET 10, REDbridge 0.8.0 or newer, the game folder (it finds them from REDcode's settings, or `REDBRIDGE_EXE` and `REDCODE_GAME_PATH`). Published on npm as `@edgemodders/redcode-mcp` 0.2.0 (2026-10-16). `cmd /c` because npx is a `.cmd` on Windows. The plugin pins the version and raises it in its own releases. In P0 it connected with the game folder unset; whether its tools then fall back to REDcode's settings is checked in P1 |
+| `redcode` | stdio, `cmd /c scripts/redcode-mcp.cmd`, which runs `npx -y @edgemodders/redcode-mcp@<version>` | The game's files offline through REDbridge: archives, CR2W as JSON and edits, textures, the shipped TweakDB, sound events, WolvenKit project export, import and pack ([REDcode MCP](https://edgemodders.github.io/REDcode/mcp.html)) | Windows, .NET 10, REDbridge 0.8.0 or newer, the game folder (it finds them from REDcode's settings, or `REDBRIDGE_EXE` and `REDCODE_GAME_PATH`). Published on npm as `@edgemodders/redcode-mcp` 0.2.0 (2026-10-16). `cmd /c` because npx is a `.cmd` on Windows. The plugin pins the version and raises it in its own releases. With the plugin's options unset it falls back to REDcode's settings (checked in P1: game loaded, 57 archives), but only from VS Code's own settings folder (`%APPDATA%\Code\User`); in EDGEkit the options are needed. **Asked of REDcode:** take an empty variable as unset, and read EDGEkit's settings folder |
 | `reddeck` | stdio | The mod library and deploys: list, add, turn on and off, conflicts, deploy, undo (14 `reddeck_*` tools) | REDdeck's server is inside its extension today, at a path with the version in it. **Dependency:** REDdeck is publishing it on npm (asked 2026-10-16); added when it is out |
 | `edgemat` | stdio | Materials: find, describe, edit, render | EDGEmat's M1 and later |
 

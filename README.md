@@ -15,9 +15,9 @@ The EDGE plugin for [Claude Code](https://code.claude.com/docs/en/overview): it 
 **[Docs](https://edgemodders.github.io/EDGEplugin/)** · [Design](https://edgemodders.github.io/EDGEplugin/design.html) · [EDGEkit](https://github.com/Edgemodders/EDGEkit) · [REDagent](https://github.com/Edgemodders/REDagent)
 
 > [!NOTE]
-> **Status: design draft 0.2, P0 under way.** There is no plugin to install yet. Next: P1, the skeleton.
+> **Status: P1, skeleton.** It installs and connects the servers, with two commands (`/edge:setup`, `/edge:init-project`). No modding skills yet. Windows only for the servers.
 
-## Install (once it exists)
+## Install
 
 In Claude Code (the CLI, or `/plugins` in the VS Code extension and EDGEkit):
 
@@ -25,6 +25,10 @@ In Claude Code (the CLI, or `/plugins` in the VS Code extension and EDGEkit):
 /plugin marketplace add Edgemodders/EDGEplugin
 /plugin install edge@edgemodders
 ```
+
+Then run `/edge:setup`. It checks the servers and says what is missing. The plugin asks for three settings, all optional: REDnode's token (from the game's launcher, **F10**, **REDNODE** tab, **Copy setup**), the game folder and `REDbridge.exe` (not needed if REDcode is set up in VS Code). Change them later with `/plugin configure edge@edgemodders`, or the gear on the plugin in VS Code.
+
+The servers need Windows, the game with REDnode for `rednode`, and Node.js, the .NET 10 runtime and REDbridge 0.8.0 or newer for `redcode`. If you added `rednode` or `redcode` by hand before, remove that copy (`/edge:setup` explains how).
 
 `edge` and `edgemodders` are working names until the first release.
 

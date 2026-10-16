@@ -25,14 +25,17 @@ claude mcp list                             # servers show as plugin:edge:<name>
 
 A server added by hand with the same URL (REDnode's **Copy setup**) hides the plugin's copy. Remove it with `claude mcp remove rednode -s user` before testing the plugin's.
 
+A scratch config has no Claude login, so `claude -p` does not work there. To test a stdio server without Claude, speak MCP to it directly: send `initialize`, then `notifications/initialized`, then `tools/call`, one JSON line each, on its stdin. P1 tested `scripts/redcode-mcp.cmd` this way with `bridge_info`.
+
 ## The dev loop
 
 ```
 claude --plugin-dir .                # this checkout as a plugin, for one session
 /reload-plugins                      # in the session, after an edit
-claude plugin validate . --strict                       # the marketplace manifest
-claude plugin validate .claude-plugin/plugin.json --strict  # the plugin manifest
-claude plugin validate skills --strict                  # the skills
+claude plugin validate .                          # the marketplace manifest
+claude plugin validate .claude-plugin/plugin.json  # the plugin manifest
+claude plugin validate skills --strict            # the skills
+# Without --strict for the first two: they warn that this repo's own CLAUDE.md is not plugin context, which is expected.
 claude plugin eval                   # the eval cases, with and without the plugin
 ```
 
