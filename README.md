@@ -1,4 +1,14 @@
-# EDGEplugin
+<p align="center">
+  <img src="docs/assets/brand/banner.png" alt="EDGEplugin: the EDGEmodders plugin for Claude Code. Makes Claude a Cyberpunk 2077 modding assistant. For Claude Code, gives skills and MCP servers, MIT." width="100%">
+</p>
+
+<p align="center">
+  <a href="https://edgemodders.github.io/EDGEplugin/"><img src="docs/assets/brand/badges/docs.svg" alt="docs: read the docs"></a>
+  <img src="docs/assets/brand/badges/status.svg" alt="status: design draft">
+  <img src="docs/assets/brand/badges/game.svg" alt="game: Cyberpunk 2077">
+  <img src="docs/assets/brand/badges/for.svg" alt="for: Claude Code">
+  <a href="LICENSE"><img src="docs/assets/brand/badges/license.svg" alt="license: MIT"></a>
+</p>
 
 The EDGE plugin for [Claude Code](https://code.claude.com/docs/en/overview): it makes Claude a Cyberpunk 2077 modding assistant. Skills that know the game's files and frameworks, the EDGE tools that read the game's archives and the running game, and commands such as "start a new mod", in one install. It works in [EDGEkit](https://github.com/Edgemodders/EDGEkit), in VS Code, and in a terminal.
 

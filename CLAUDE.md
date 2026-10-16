@@ -4,7 +4,7 @@ EDGEplugin is the EDGE plugin for Claude Code: skills with Cyberpunk 2077 moddin
 
 ## Status and next step
 
-- Scaffold created 2026-10-16 from the EDGEkit session: README, license, docs site (HUD layout, design draft 0.1, dev setup), Pages workflow. No plugin files yet.
+- Scaffold created 2026-10-16 from the EDGEkit session: README, license, docs site (HUD layout, design draft 0.1, dev setup), Pages workflow, brand sources and images (`tools/brand/render.ps1`: banner, social preview, icon, badges). No plugin files yet.
 - **Next: P0 Decide** with the user (open questions at the end of the design): names, where shared knowledge lives (with the REDagent session), how `redcode-mcp` reaches users (with the REDcode session), and a `claude plugin validate` check that one repo can be both marketplace and plugin. Then **P1 Skeleton**.
 - The Claude Code facts were read on 2026-10-16. Claude Code changes often: recheck a fact's page before building on it, and fix the design when it has moved.
 
