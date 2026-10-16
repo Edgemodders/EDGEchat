@@ -1,0 +1,46 @@
+{
+  "name": "edge",
+  "version": "0.0.1",
+  "description": "Cyberpunk 2077 modding with the EDGE tools: modding knowledge as skills, the REDnode and REDcode MCP servers, and modding commands.",
+  "author": { "name": "EDGEmodders", "url": "https://github.com/Edgemodders" },
+  "homepage": "https://edgemodders.github.io/EDGEplugin/",
+  "repository": "https://github.com/Edgemodders/EDGEplugin",
+  "license": "MIT",
+  "keywords": ["cyberpunk-2077", "modding", "rednode", "redcode", "wolvenkit"],
+  "userConfig": {
+    "rednode_token": {
+      "type": "string",
+      "title": "REDnode MCP token",
+      "description": "In the game press F10, open the REDNODE tab, switch MCP server on and press Copy setup. Paste only the token: the text after 'Bearer ' in the copied command.",
+      "sensitive": true,
+      "required": false
+    },
+    "game_path": {
+      "type": "directory",
+      "title": "Cyberpunk 2077 folder",
+      "description": "The game's install folder (it holds archive, bin and r6). Leave empty if REDcode is set up in VS Code: redcode-mcp then reads REDcode's setting.",
+      "required": false
+    },
+    "redbridge_exe": {
+      "type": "file",
+      "title": "REDbridge.exe",
+      "description": "REDbridge, which reads the game's files. Leave empty if REDcode is set up in VS Code: redcode-mcp then reads REDcode's setting.",
+      "required": false
+    }
+  },
+  "mcpServers": {
+    "rednode": {
+      "type": "http",
+      "url": "http://127.0.0.1:41820/mcp",
+      "headers": { "Authorization": "Bearer ${user_config.rednode_token}" }
+    },
+    "redcode": {
+      "command": "cmd",
+      "args": ["/c", "${CLAUDE_PLUGIN_ROOT}/scripts/redcode-mcp.cmd"],
+      "env": {
+        "REDCODE_GAME_PATH": "${user_config.game_path}",
+        "REDBRIDGE_EXE": "${user_config.redbridge_exe}"
+      }
+    }
+  }
+}

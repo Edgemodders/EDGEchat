@@ -1,0 +1,12 @@
+{
+  "name": "edgemodders",
+  "description": "EDGEmodders plugins for Claude Code: Cyberpunk 2077 modding with the EDGE tools.",
+  "owner": { "name": "EDGEmodders", "url": "https://github.com/Edgemodders" },
+  "plugins": [
+    {
+      "name": "edge",
+      "source": "./",
+      "description": "Cyberpunk 2077 modding with the EDGE tools: modding knowledge as skills, the REDnode and REDcode MCP servers, and modding commands."
+    }
+  ]
+}
