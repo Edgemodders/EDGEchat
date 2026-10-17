@@ -2,7 +2,7 @@
 
 Every test run on EDGEchat so far: how to run it again, what to expect, and what it showed. Each phase ends with a test on the dev PC ([design, "Phases"](design.html#phases)); new tests are added here when they are first run.
 
-Last updated 2026-10-16.
+Last updated 2026-10-17.
 
 ## At a glance
 
@@ -10,7 +10,7 @@ Last updated 2026-10-16.
 |---|---|---|---|---|
 | [Validate](#validate) | CLI | P0, P1 | 2026-10-16 | Pass, one expected warning |
 | [Install from the checkout](#install-from-the-checkout) | CLI, scratch config | P0, P1 | 2026-10-16 | Pass |
-| [Install from GitHub](#install-from-github) | CLI, scratch config | P1 | 2026-10-16 | Pass |
+| [Install from GitHub](#install-from-github) | CLI, scratch config | P1 | 2026-10-17 | Pass |
 | [Plugin servers beside servers added by hand](#plugin-servers-beside-servers-added-by-hand) | CLI, scratch config | P0 | 2026-10-16 | Seen, recorded in the design |
 | [Unset options](#unset-options) | CLI, scratch config | P1 | 2026-10-16 | Seen: empty string |
 | [redcode server through the wrapper](#redcode-server-through-the-wrapper) | By hand, over stdio | P1 | 2026-10-16 | Pass |
@@ -79,7 +79,9 @@ claude plugin install edge@edgemodders
 claude mcp list
 ```
 
-Last run 2026-10-16 at `4f07db8`: **pass.** The same results as from the checkout; the plugin runs from `<config>/plugins/cache/edgemodders/edge/0.0.1/`, and `redcode` connects from there.
+Last run 2026-10-17 at `8fd75a2`, just after the repo was renamed to EDGEchat: **pass.** `redcode` connects; `rednode` is `ECONNREFUSED` with the game closed.
+
+First run 2026-10-16 at `4f07db8`, as `Edgemodders/EDGEplugin`: the same results as from the checkout; the plugin runs from `<config>/plugins/cache/edgemodders/edge/0.0.1/`, and `redcode` connects from there.
 
 ### Plugin servers beside servers added by hand
 
