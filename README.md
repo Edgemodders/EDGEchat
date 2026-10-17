@@ -1,18 +1,20 @@
 <p align="center">
-  <img src="docs/assets/brand/banner.png" alt="EDGEplugin: the EDGEmodders plugin for Claude Code. Makes Claude a Cyberpunk 2077 modding assistant. For Claude Code, gives skills and MCP servers, MIT." width="100%">
+  <img src="docs/assets/brand/banner.png" alt="EDGEchat: the EDGEmodders plugin for Claude Code. Makes Claude a Cyberpunk 2077 modding assistant. For Claude Code, gives skills and MCP servers, MIT." width="100%">
 </p>
 
 <p align="center">
-  <a href="https://edgemodders.github.io/EDGEplugin/"><img src="docs/assets/brand/badges/docs.svg" alt="docs: read the docs"></a>
+  <a href="https://edgemodders.github.io/EDGEchat/"><img src="docs/assets/brand/badges/docs.svg" alt="docs: read the docs"></a>
   <img src="docs/assets/brand/badges/status.svg" alt="status: P1 skeleton">
   <img src="docs/assets/brand/badges/game.svg" alt="game: Cyberpunk 2077">
   <img src="docs/assets/brand/badges/for.svg" alt="for: Claude Code">
   <a href="LICENSE"><img src="docs/assets/brand/badges/license.svg" alt="license: MIT"></a>
 </p>
 
-The EDGE plugin for [Claude Code](https://code.claude.com/docs/en/overview): it makes Claude a Cyberpunk 2077 modding assistant. Skills that know the game's files and frameworks, the EDGE tools that read the game's archives and the running game, and commands such as "start a new mod", in one install. It works in [EDGEkit](https://github.com/Edgemodders/EDGEkit), in VS Code, and in a terminal.
+Chat with EDGE in [Claude Code](https://code.claude.com/docs/en/overview). EDGEchat is a plugin that makes Claude a Cyberpunk 2077 modding assistant. Skills that know the game's files and frameworks, the EDGE tools that read the game's archives and the running game, and commands such as "start a new mod", in one install. It works in [EDGEkit](https://github.com/Edgemodders/EDGEkit), in VS Code, and in a terminal.
 
-**[Docs](https://edgemodders.github.io/EDGEplugin/)** · [Design](https://edgemodders.github.io/EDGEplugin/design.html) · [EDGEkit](https://github.com/Edgemodders/EDGEkit) · [REDagent](https://github.com/Edgemodders/REDagent)
+EDGEchat is not an agent: it connects Claude Code to EDGE while you build mods. [REDagent](https://github.com/Edgemodders/REDagent) is the agent in the game, with its own window and tools.
+
+**[Docs](https://edgemodders.github.io/EDGEchat/)** · [Design](https://edgemodders.github.io/EDGEchat/design.html) · [EDGEkit](https://github.com/Edgemodders/EDGEkit) · [REDagent](https://github.com/Edgemodders/REDagent)
 
 > [!NOTE]
 > **Status: P1, skeleton.** It installs and connects the servers, with two commands (`/edge:setup`, `/edge:init-project`). No modding skills yet. Windows only for the servers.
@@ -22,7 +24,7 @@ The EDGE plugin for [Claude Code](https://code.claude.com/docs/en/overview): it 
 In Claude Code (the CLI, or `/plugins` in the VS Code extension and EDGEkit):
 
 ```
-/plugin marketplace add Edgemodders/EDGEplugin
+/plugin marketplace add Edgemodders/EDGEchat
 /plugin install edge@edgemodders
 ```
 
@@ -30,7 +32,7 @@ Then run `/edge:setup`. It checks the servers and says what is missing. The plug
 
 The servers need Windows, the game with REDnode for `rednode`, and Node.js, the .NET 10 runtime and REDbridge 0.8.0 or newer for `redcode`. If you added `rednode` or `redcode` by hand before, remove that copy (`/edge:setup` explains how).
 
-`edge` and `edgemodders` are working names until the first release.
+The plugin is called `edge`, so commands stay short. `edge` and `edgemodders` are working names until the first release.
 
 ## What it will give Claude
 

@@ -1,6 +1,6 @@
 # Dev setup
 
-What a PC needs to build and test EDGEplugin. Taken from the Claude Code docs on 2026-10-16; the validate and install steps ran in P0 on a throwaway copy (below). P1 runs the rest and records exact versions.
+What a PC needs to build and test EDGEchat. Taken from the Claude Code docs on 2026-10-16; the validate and install steps ran in P0 on a throwaway copy (below). P1 runs the rest and records exact versions.
 
 | Tool | Why | Notes |
 |---|---|---|

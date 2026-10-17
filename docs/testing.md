@@ -1,6 +1,6 @@
 # <span class="y">Tests</span>
 
-Every test run on EDGEplugin so far: how to run it again, what to expect, and what it showed. Each phase ends with a test on the dev PC ([design, "Phases"](design.html#phases)); new tests are added here when they are first run.
+Every test run on EDGEchat so far: how to run it again, what to expect, and what it showed. Each phase ends with a test on the dev PC ([design, "Phases"](design.html#phases)); new tests are added here when they are first run.
 
 Last updated 2026-10-16.
 
@@ -74,7 +74,7 @@ With a local marketplace the plugin is read from the checkout (`CLAUDE_PLUGIN_RO
 What a user does. Needs the commit pushed.
 
 ```bash
-claude plugin marketplace add Edgemodders/EDGEplugin
+claude plugin marketplace add Edgemodders/EDGEchat
 claude plugin install edge@edgemodders
 claude mcp list
 ```
@@ -138,7 +138,7 @@ With the game closed it is `ECONNREFUSED` instead. `/edge:setup` tells the two a
 Not run yet. The test that ends P1 ([design](design.html#phases)). Needs your own Claude Code login, so it runs in your real config.
 
 1. Remove a `rednode` added by hand, which hides the plugin's: `claude mcp remove rednode -s user`.
-2. In the VS Code extension: `/plugins`, add the marketplace `Edgemodders/EDGEplugin`, install `edge`.
+2. In the VS Code extension: `/plugins`, add the marketplace `Edgemodders/EDGEchat`, install `edge`.
 3. Start the game. **F10**, **REDNODE** tab, **MCP server** on, **Copy setup**. Put only the token (after `Bearer `) in the plugin's `rednode_token`: the gear on the `edge` row.
 4. Start a new session and run `/edge:setup`.
 

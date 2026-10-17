@@ -25,7 +25,7 @@ $chrome = @(
 if (-not $chrome) { throw 'Chrome or Edge not found.' }
 
 $url = 'file:///' + ($src -replace '\\', '/')
-$profileDir = Join-Path $env:TEMP 'edgeplugin-brand-chrome'
+$profileDir = Join-Path $env:TEMP 'edgechat-brand-chrome'
 
 function Render($query, $file, $width, $height, $scale) {
     $target = Join-Path $out $file

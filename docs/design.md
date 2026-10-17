@@ -1,14 +1,14 @@
-# EDGEplugin design
+# EDGEchat design
 
-EDGEplugin is the EDGE plugin for [Claude Code](https://code.claude.com/docs/en/overview): one install that makes Claude a Cyberpunk 2077 modding assistant. It gives Claude the **context** (what the game's files, frameworks and folders are, and the EDGE house rules) and the **tools** (the EDGE MCP servers, which read the game's archives, the TweakDB and the running game). It works wherever Claude Code runs: in EDGEkit, in VS Code, and in a terminal.
+EDGEchat is the EDGE plugin for [Claude Code](https://code.claude.com/docs/en/overview): one install that makes Claude a Cyberpunk 2077 modding assistant. It gives Claude the **context** (what the game's files, frameworks and folders are, and the EDGE house rules) and the **tools** (the EDGE MCP servers, which read the game's archives, the TweakDB and the running game). It works wherever Claude Code runs: in EDGEkit, in VS Code, and in a terminal.
 
-**Status: draft 0.3, P1 built.** Proposed in the EDGEkit session on 2026-10-16 and agreed with the user, who created the repo. P0's checks ran on 2026-10-16 (see [P0 decisions](#p0-decisions)). P1's skeleton (manifest, marketplace, `rednode` and `redcode`, the `setup` and `init-project` skills) installs and `redcode` connects; the tests with the game running and in VS Code are next.
+**Status: draft 0.4, P1 built; renamed from EDGEplugin to EDGEchat on 2026-10-17.** Proposed in the EDGEkit session on 2026-10-16 and agreed with the user, who created the repo. P0's checks ran on 2026-10-16 (see [P0 decisions](#p0-decisions)). P1's skeleton (manifest, marketplace, `rednode` and `redcode`, the `setup` and `init-project` skills) installs and `redcode` connects; the tests with the game running and in VS Code are next.
 
 ## Why a plugin
 
 Claude Code already runs in EDGEkit (from Open VSX) and in VS Code. Out of the box it knows little about Cyberpunk modding and cannot see the game. Claude Code has four standard ways to change that; a plugin carries the first three in one install.
 
-| Mechanism | What it gives Claude | Role in EDGEplugin |
+| Mechanism | What it gives Claude | Role in EDGEchat |
 |---|---|---|
 | Skills | Instructions loaded only when a task needs them; their short descriptions are always in context | The modding knowledge, one skill per topic |
 | MCP servers | Real tools | REDcode's `redcode-mcp` (archives, CR2W, TweakDB, sounds, offline), REDnode's kernel server (the running game), later EDGEmat's `edgemat-mcp` |
@@ -23,7 +23,7 @@ From the Claude Code docs, read on 2026-10-16. Each row names its page under `ht
 |---|---|---|
 | A plugin is a folder with `.claude-plugin/plugin.json` (only `name` is required); `skills/<name>/SKILL.md`, `agents/`, `hooks/hooks.json`, `.mcp.json` and `bin/` sit at the plugin root | The repo root is the plugin | `plugins/manifest-reference` |
 | A marketplace is `.claude-plugin/marketplace.json` with `name`, `owner.name` and `plugins` (each with `name` and `source`). A source of `"./"` means the marketplace's own root | This repo is both the marketplace and the plugin. **Checked in P0** (Claude Code 2.1.299): both manifests pass `claude plugin validate --strict`, and `marketplace add` of the folder then `plugin install edge@edgemodders` installs it. `--strict` wants a top-level `description` in `marketplace.json`. `validate .` checks the marketplace manifest; validate `plugin.json` by its path too | `plugins/marketplace-reference` |
-| Users install with `/plugin marketplace add Edgemodders/EDGEplugin`, then `/plugin install <plugin>@<marketplace>`; recent versions also take `claude plugin install <plugin> --marketplace Edgemodders/EDGEplugin` | The README gives these two commands | `plugins/install` |
+| Users install with `/plugin marketplace add Edgemodders/EDGEchat`, then `/plugin install <plugin>@<marketplace>`; recent versions also take `claude plugin install <plugin> --marketplace Edgemodders/EDGEchat` | The README gives these two commands | `plugins/install` |
 | Plugin and marketplace names are kebab-case and must not look like Anthropic's (for example not starting `claude-` or `anthropic-`) | See the naming question in P0 | `plugins/manifest-reference` |
 | Skills: YAML frontmatter (`name`, `description`, `when_to_use`, `disable-model-invocation`, `user-invocable`, `allowed-tools`, ...), then Markdown. Descriptions are always in context (cut at 1,536 characters with `when_to_use`); the body loads when used. Keep `SKILL.md` under 500 lines; reference files and `scripts/` can sit beside it | Many small skills with sharp descriptions, details in reference files | `skills` |
 | Plugin skills are namespaced: `/<plugin>:<skill>` | Commands read like `/edge:new-mod` if the plugin is named `edge` | `skills` |
@@ -92,13 +92,13 @@ Knowledge skills load on their own when a task matches; command skills are calle
 
 ### One source of truth with REDagent
 
-REDagent briefs Claude for modding in the game (`briefing.md`, about 50 lines, plus REDnode's overlay apps guide copied in at build). Modders must not get different advice from REDagent and from Claude Code with EDGEplugin.
+REDagent briefs Claude for modding in the game (`briefing.md`, about 50 lines, plus REDnode's overlay apps guide copied in at build). Modders must not get different advice from REDagent and from Claude Code with EDGEchat.
 
-The two do not overlap. REDagent is an Agent SDK product inside the game, on the player's API key, with `settingSources: []` (it reads no Claude Code settings, skills or plugins) and a rule that it must not look like Claude Code. EDGEplugin is for Claude Code, wherever that runs. They share the `rednode` server. Its phase C6 (REDagent in REDcode) would have put a second assistant in the editor; **the user dropped C6 on 2026-10-16**, because Claude Code with EDGEplugin covers the editor.
+The two do not overlap. REDagent is a whole agent, powered by Claude: its own window, tools and briefing. EDGEchat is not an agent: it connects Claude Code to EDGE, so you chat with EDGE while you build mods. REDagent is an Agent SDK product inside the game, on the player's API key, with `settingSources: []` (it reads no Claude Code settings, skills or plugins) and a rule that it must not look like Claude Code. EDGEchat is for Claude Code, wherever that runs. They share the `rednode` server. Its phase C6 (REDagent in REDcode) would have put a second assistant in the editor; **the user dropped C6 on 2026-10-16**, because Claude Code with EDGEchat covers the editor.
 
 **Where knowledge lives (proposed in P0; REDagent's side to agree with its session):**
 
-| Knowledge | Lives in | Reaches EDGEplugin and REDagent by |
+| Knowledge | Lives in | Reaches EDGEchat and REDagent by |
 |---|---|---|
 | One EDGE tool's own use (REDnode's guides, REDcode's MCP docs) | That tool's repo | Copied at build, the way REDagent already copies REDnode's `overlay-apps.md` |
 | How to call a server's tools | The server's own instructions and tool descriptions | The server; skills do not repeat it |
@@ -122,10 +122,11 @@ Phases are P0 to P5. **Unverified:** that no other EDGE repo uses P. Each ends w
 
 | Question | Status |
 |---|---|
-| Plugin and marketplace names | **Working names**, changeable until P4: marketplace `edgemodders`, plugin `edge`, so commands read `/edge:new-mod` and install is `/plugin install edge@edgemodders`. A marketplace is just the `marketplace.json` in this repo; the names are not registered anywhere, they only must not start with `claude-` or `anthropic-` |
+| Product name | **EDGEchat**, decided by the user 2026-10-17 (was EDGEplugin): it names what the user does, chat with EDGE, without the word plugin; and it is not an agent, so not EDGEagent. The repo, docs site and brand were renamed the same day |
+| Plugin and marketplace names | **Working names**, changeable until P4; the plugin stays `edge` after the rename, for short commands: marketplace `edgemodders`, plugin `edge`, so commands read `/edge:new-mod` and install is `/plugin install edge@edgemodders`. A marketplace is just the `marketplace.json` in this repo; the names are not registered anywhere, they only must not start with `claude-` or `anthropic-` |
 | One repo as marketplace and plugin | **Checked** 2026-10-16, see the facts above |
 | Separate repo, or a plugin folder in REDagent | **Separate**, decided 2026-10-16. REDagent is a game product that must not look like Claude Code; the plugin covers every EDGE tool; the shared knowledge lives in REDnode and REDcode, not REDagent |
-| REDagent C6 | **Dropped** by the user 2026-10-16; Claude Code with EDGEplugin is the editor's assistant |
+| REDagent C6 | **Dropped** by the user 2026-10-16; Claude Code with EDGEchat is the editor's assistant |
 | Where shared knowledge lives | **Proposed**, the table above. REDagent's side to agree with its session |
 | How `redcode-mcp` reaches users | **Done** by REDcode: npm, `@edgemodders/redcode-mcp` 0.2.0 |
 | How REDdeck's server reaches users | **Asked** of the REDdeck session 2026-10-16: npm, like `redcode-mcp` |

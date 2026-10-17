@@ -1,10 +1,10 @@
 {
   "name": "edge",
   "version": "0.0.1",
-  "description": "Cyberpunk 2077 modding with the EDGE tools: modding knowledge as skills, the REDnode and REDcode MCP servers, and modding commands.",
+  "description": "EDGEchat: Cyberpunk 2077 modding with the EDGE tools: modding knowledge as skills, the REDnode and REDcode MCP servers, and modding commands.",
   "author": { "name": "EDGEmodders", "url": "https://github.com/Edgemodders" },
-  "homepage": "https://edgemodders.github.io/EDGEplugin/",
-  "repository": "https://github.com/Edgemodders/EDGEplugin",
+  "homepage": "https://edgemodders.github.io/EDGEchat/",
+  "repository": "https://github.com/Edgemodders/EDGEchat",
   "license": "MIT",
   "keywords": ["cyberpunk-2077", "modding", "rednode", "redcode", "wolvenkit"],
   "userConfig": {

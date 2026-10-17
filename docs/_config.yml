@@ -2,10 +2,10 @@
 # Every markdown page in docs/ renders with the HUD layout in _layouts/default.html.
 # Built and deployed by .github/workflows/pages.yml.
 
-title: EDGEplugin
+title: EDGEchat
 url: https://edgemodders.github.io
-baseurl: /EDGEplugin
-repo: https://github.com/Edgemodders/EDGEplugin
+baseurl: /EDGEchat
+repo: https://github.com/Edgemodders/EDGEchat
 
 markdown: kramdown
 kramdown:
