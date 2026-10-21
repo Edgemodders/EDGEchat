@@ -17,10 +17,10 @@ Last updated 2026-10-21.
 | [redcode server through the wrapper](#redcode-server-through-the-wrapper) | By hand, over stdio | P1 | 2026-10-16 | Pass |
 | [edgedeck server through the wrapper](#edgedeck-server-through-the-wrapper) | By hand, over stdio | P1 | 2026-10-21 | Pass |
 | [rednode with no token](#rednode-with-no-token) | CLI, game running | P1 | 2026-10-16 | Seen: HTTP 401 |
-| [P1 test in VS Code with the game](#p1-test-in-vs-code-with-the-game) | By hand, in a session | P1 | Not run | |
+| [P1 test in VS Code with the game](#p1-test-in-vs-code-with-the-game) | By hand, in a session | P1 | 2026-10-21 | Pass; two checks not seen |
 | [init-project on a real project](#init-project-on-a-real-project) | By hand, in a session | P1 | Not run | |
 
-The skills have not run in a Claude Code session yet. A scratch config has no Claude login, so every test so far checked how the plugin installs and starts its servers, not what Claude does with it. The last two tests are the first ones in a session.
+A scratch config has no Claude login, so the CLI tests check how the plugin installs and starts its servers, not what Claude does with it. The P1 test on 2026-10-21 was the first run of a skill in a session.
 
 ## A scratch config
 
@@ -190,7 +190,7 @@ With the game closed it is `ECONNREFUSED` instead. `/edge:setup` tells the two a
 
 ### P1 test in VS Code with the game
 
-Not run yet. The test that ends P1 ([design](design.html#phases)). Needs your own Claude Code login, so it runs in your real config.
+The test that ends P1 ([design](design.html#phases)). Needs your own Claude Code login, so it runs in your real config.
 
 1. Remove a `rednode` added by hand, which hides the plugin's: `claude mcp remove rednode -s user`.
 2. In the VS Code extension: `/plugins`, add the marketplace `Edgemodders/EDGEchat`, install `edge`.
@@ -199,10 +199,23 @@ Not run yet. The test that ends P1 ([design](design.html#phases)). Needs your ow
 
 | Check | Expected |
 |---|---|
-| The settings form | Opens after install with the three options |
-| `/edge:setup` | A table: `rednode` connected with the game state, `redcode` connected with REDbridge's version and the archive count |
-| The tool names | `mcp__plugin_edge_rednode__*` and `mcp__plugin_edge_redcode__*` |
-| `api_call` | Asks before it runs |
+| The settings form | Opens after install with the four options |
+| `/edge:setup` | A table: `rednode` connected with the game state, `redcode` connected with REDbridge's version and the archive count, `edgedeck` connected with the mods |
+| The tool names | `mcp__plugin_edge_rednode__*`, `mcp__plugin_edge_redcode__*`, `mcp__plugin_edge_edgedeck__*` |
+| `api_call`, `edgedeck_deploy`, `edgedeck_undo` | Ask before they run |
+
+First run 2026-10-21, plugin 0.0.2 installed from GitHub on a second PC (the user's laptop, with the game, EDGEdeck and REDcode's REDbridge), in the VS Code extension. Steered from the dev PC's session, which could not run `/plugins` through Remote Control ("isn't available in this environment"), so the user installed it locally. **Pass**, two checks not seen.
+
+| Check | Seen |
+|---|---|
+| The settings form | **Pass**: opened after install with the four options, empty |
+| `/edge:setup`, game closed, options empty | A correct table: `edgedeck` connected (18 mods, frameworks line "game 2.31"); `redcode` started (REDbridge 0.10.0, WolvenKit 9.1.0) with no game folder and 0 archives, and the next step named the right folder, the one EDGEdeck uses; `rednode` refused, "start the game". It found `edgemat` added by hand and said it duplicates nothing. It changed nothing |
+| `/edge:setup` after setting `game_path` and `rednode_token`, game at the main menu | **Pass**: all three connected. `rednode`: REDnode 0.26.15, main menu, overlay interactive. `redcode`: REDbridge 0.10.0, 57 archives, 583,798 files. `edgedeck`: 18 mods, 15 on |
+| The tool names | Not looked at; the skill called each server's tools, so they loaded |
+| Asks before `api_call`, deploy, undo | Not tried. The skill told the user to keep them on "ask", and added `archives_reload` (it replaces files in the game's mod folder) |
+| An approval step for the servers | Not reported |
+
+Found on the way: the user did not know where "the REDNODE tab" was. 0.0.3 names the REDnode launcher everywhere. `redcode` did not fall back to REDcode's VS Code setting on that PC (whether REDcode's setting is set there, or the editor was EDGEkit, is not known), so `game_path` was needed.
 
 ### init-project on a real project
 
