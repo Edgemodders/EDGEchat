@@ -1,6 +1,6 @@
 {
   "name": "edge",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "description": "EDGEchat: Cyberpunk 2077 modding with the EDGE tools: modding knowledge as skills, the REDnode, REDcode and EDGEdeck MCP servers, and modding commands.",
   "author": { "name": "EDGEmodders", "url": "https://github.com/Edgemodders" },
   "homepage": "https://edgemodders.github.io/EDGEchat/",
@@ -11,7 +11,7 @@
     "rednode_token": {
       "type": "string",
       "title": "REDnode MCP token",
-      "description": "In the game press F10, open the REDNODE tab, switch MCP server on and press Copy setup. Paste only the token: the text after 'Bearer ' in the copied command.",
+      "description": "In the game, open the REDnode launcher: press F10 for REDnode's overlay, then click the REDNODE tab at the bottom left. Switch MCP server on and press Copy setup. Do not run the copied command; paste only the token, the text after 'Bearer '.",
       "sensitive": true,
       "required": false
     },

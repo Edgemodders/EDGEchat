@@ -57,4 +57,4 @@ From REDnode `docs/overlay-apps.md` and `packages/overlay/README.md`:
 - It needs no packing: the folder itself goes to `red4ext/plugins/REDnode/apps/<id>/`.
 - With the launcher's **Hot reload** switch on, saving a mod's file restarts the mod and saving an app's file reloads its page. Write data to `dataDir`, never to the package's own folder, which hot reload watches.
 - A Node mod's `console.log` goes to `red4ext/logs/rednode-mods.log` and the in-game Mod log app.
-- To turn it on: in the game, **F10**, **REDNODE** tab, **Mod Manager**.
+- To turn it on: in the game, the REDnode launcher (**F10** for REDnode's overlay, then the **REDNODE** tab at the bottom left), then **Mod Manager**.

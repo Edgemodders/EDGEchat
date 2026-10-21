@@ -194,7 +194,7 @@ Not run yet. The test that ends P1 ([design](design.html#phases)). Needs your ow
 
 1. Remove a `rednode` added by hand, which hides the plugin's: `claude mcp remove rednode -s user`.
 2. In the VS Code extension: `/plugins`, add the marketplace `Edgemodders/EDGEchat`, install `edge`.
-3. Start the game. **F10**, **REDNODE** tab, **MCP server** on, **Copy setup**. Put only the token (after `Bearer `) in the plugin's `rednode_token`: the gear on the `edge` row.
+3. Start the game and load a save. Open the REDnode launcher (**F10** for REDnode's overlay, then the **REDNODE** tab at the bottom left): **MCP server** on, **Copy setup**. Do not run the copied command. Put only the token (after `Bearer `) in the plugin's `rednode_token`: the gear on the `edge` row.
 4. Start a new session and run `/edge:setup`.
 
 | Check | Expected |

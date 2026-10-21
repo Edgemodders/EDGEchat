@@ -28,7 +28,7 @@ In Claude Code (the CLI, or `/plugins` in the VS Code extension and EDGEkit):
 /plugin install edge@edgemodders
 ```
 
-Then run `/edge:setup`. It checks the servers and says what is missing. The plugin asks for four settings, all optional: REDnode's token (from the game's launcher, **F10**, **REDNODE** tab, **Copy setup**), the game folder and `REDbridge.exe` (not needed if REDcode is set up in VS Code), and EDGEdeck's library folder (only if you moved it from the default). Change them later with `/plugin configure edge@edgemodders`, or the gear on the plugin in VS Code.
+Then run `/edge:setup`. It checks the servers and says what is missing. The plugin asks for four settings, all optional: REDnode's token (in the game, the REDnode launcher's **Copy setup**: **F10**, then the **REDNODE** tab at the bottom left), the game folder and `REDbridge.exe` (not needed if REDcode is set up in VS Code), and EDGEdeck's library folder (only if you moved it from the default). Change them later with `/plugin configure edge@edgemodders`, or the gear on the plugin in VS Code.
 
 The servers need Windows and Node.js 20 or newer; the game with REDnode for `rednode`; the .NET 10 runtime and REDbridge 0.8.0 or newer for `redcode`. If you added `rednode`, `redcode` or `edgedeck` by hand before, remove that copy (`/edge:setup` explains how).
 

@@ -38,8 +38,8 @@ Call `game_state` on the rednode server (it only reads).
 | What happens | Why | Next step |
 |---|---|---|
 | It answers | Connected | Report the game state in one line |
-| No rednode tools, and `claude mcp list` says "Failed to connect" or ECONNREFUSED | The game is not running, or REDnode's MCP server is off | Start the game with REDnode. Press **F10**, open the **REDNODE** tab at the lower left, switch **MCP server** on. Then reconnect from `/mcp`, or start a new session |
-| `claude mcp list` says HTTP 401, "A valid token is required" | The plugin has no token, or an old one | In the game, **F10**, **REDNODE** tab, **Copy setup**. The copied command ends with `Bearer <token>"`. Put only the token in the plugin's `rednode_token` option: in VS Code, `/plugins`, then the gear on the `edge` row; in the terminal, `/plugin configure edge@edgemodders`. Then restart Claude Code |
+| No rednode tools, and `claude mcp list` says "Failed to connect" or ECONNREFUSED | The game is not running, or REDnode's MCP server is off | Start the game with REDnode and load a save. Open the REDnode launcher (**F10** for REDnode's overlay, then the **REDNODE** tab at the bottom left), switch **MCP server** on. Then reconnect from `/mcp`, or start a new session |
+| `claude mcp list` says HTTP 401, "A valid token is required" | The plugin has no token, or an old one | In the game, open the REDnode launcher (**F10** for REDnode's overlay, then the **REDNODE** tab at the bottom left) and press **Copy setup**. The copied command ends with `Bearer <token>"`. Do not run it: it would add a second `rednode` by hand (step 1). Put only the token in the plugin's `rednode_token` option: in VS Code, `/plugins`, then the gear on the `edge` row; in the terminal, `/plugin configure edge@edgemodders`. Then restart Claude Code |
 
 You only see a server's tools when it connected at session start. To see why it failed, run `claude mcp list` if `claude` is on the PATH; otherwise ask the user to open `/mcp` and read the status of `plugin:edge:rednode`.
 
