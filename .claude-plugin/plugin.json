@@ -1,12 +1,12 @@
 {
   "name": "edge",
-  "version": "0.0.1",
-  "description": "EDGEchat: Cyberpunk 2077 modding with the EDGE tools: modding knowledge as skills, the REDnode and REDcode MCP servers, and modding commands.",
+  "version": "0.0.2",
+  "description": "EDGEchat: Cyberpunk 2077 modding with the EDGE tools: modding knowledge as skills, the REDnode, REDcode and EDGEdeck MCP servers, and modding commands.",
   "author": { "name": "EDGEmodders", "url": "https://github.com/Edgemodders" },
   "homepage": "https://edgemodders.github.io/EDGEchat/",
   "repository": "https://github.com/Edgemodders/EDGEchat",
   "license": "MIT",
-  "keywords": ["cyberpunk-2077", "modding", "rednode", "redcode", "wolvenkit"],
+  "keywords": ["cyberpunk-2077", "modding", "rednode", "redcode", "edgedeck", "wolvenkit"],
   "userConfig": {
     "rednode_token": {
       "type": "string",
@@ -26,6 +26,12 @@
       "title": "REDbridge.exe",
       "description": "REDbridge, which reads the game's files. Leave empty if REDcode is set up in VS Code: redcode-mcp then reads REDcode's setting.",
       "required": false
+    },
+    "edgedeck_library": {
+      "type": "directory",
+      "title": "EDGEdeck library",
+      "description": "EDGEdeck's mod library folder. Leave empty for the default, the EDGEdeck folder in your user folder. Set it only if you changed EDGEdeck's Library Path setting in VS Code.",
+      "required": false
     }
   },
   "mcpServers": {
@@ -40,6 +46,14 @@
       "env": {
         "REDCODE_GAME_PATH": "${user_config.game_path}",
         "REDBRIDGE_EXE": "${user_config.redbridge_exe}"
+      }
+    },
+    "edgedeck": {
+      "command": "cmd",
+      "args": ["/c", "${CLAUDE_PLUGIN_ROOT}/scripts/edgedeck-mcp.cmd"],
+      "env": {
+        "EDGEDECK_LIBRARY": "${user_config.edgedeck_library}",
+        "EDGEDECK_GAME": "${user_config.game_path}"
       }
     }
   }

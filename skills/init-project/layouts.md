@@ -1,6 +1,6 @@
 # Mod layouts
 
-Facts for `init-project`, each with its source in the EDGE repos (read 2026-10-16). REDdeck's classifier is the code that decides where a mod's files deploy, so its paths are the ones REDdeck will use.
+Facts for `init-project`, each with its source in the EDGE repos (read 2026-10-16; REDdeck was renamed EDGEdeck on 2026-10-17, and its tool names were rechecked on 2026-10-21). EDGEdeck's classifier is the code that decides where a mod's files deploy, so its paths are the ones EDGEdeck will use.
 
 ## Where each kind of file deploys
 
@@ -8,17 +8,17 @@ Paths are under the game's install folder.
 
 | Kind | Deploys to | Source |
 |---|---|---|
-| Archive | `archive/pc/mod/<name>.archive` | REDdeck `src/classifier.ts` |
-| ArchiveXL | `archive/pc/mod/<name>.archive.xl`, beside the archive | REDdeck `src/classifier.ts` |
-| redscript | `r6/scripts/<ModName>/<file>.reds` | REDdeck `src/classifier.ts` |
-| TweakXL | `r6/tweaks/<ModName>/<file>.yaml` (or `.yml`, `.tweak`) | REDdeck `src/classifier.ts` |
-| Cyber Engine Tweaks | `bin/x64/plugins/cyber_engine_tweaks/mods/<ModName>/`, a folder with `init.lua` | REDdeck `src/classifier.ts` |
-| RED4ext plugin | `red4ext/plugins/<ModName>/<file>.dll` | REDdeck `src/classifier.ts` |
-| REDmod | `mods/<ModName>/`, with `info.json`; the game loads it after `redMod.exe deploy` and with `-modded` | REDdeck `src/classifier.ts`, `docs/design.html` |
-| REDnode package | `red4ext/plugins/REDnode/apps/<id>/`, a folder with `rednode-app.json` | REDdeck `src/classifier.ts`; REDnode `docs/overlay-apps.md` |
-| Audioware, input, config | `r6/audioware`, `r6/input`, `r6/config`, `engine/config`, path kept | REDdeck `src/classifier.ts` |
+| Archive | `archive/pc/mod/<name>.archive` | EDGEdeck `src/classifier.ts` |
+| ArchiveXL | `archive/pc/mod/<name>.archive.xl`, beside the archive | EDGEdeck `src/classifier.ts` |
+| redscript | `r6/scripts/<ModName>/<file>.reds` | EDGEdeck `src/classifier.ts` |
+| TweakXL | `r6/tweaks/<ModName>/<file>.yaml` (or `.yml`, `.tweak`) | EDGEdeck `src/classifier.ts` |
+| Cyber Engine Tweaks | `bin/x64/plugins/cyber_engine_tweaks/mods/<ModName>/`, a folder with `init.lua` | EDGEdeck `src/classifier.ts` |
+| RED4ext plugin | `red4ext/plugins/<ModName>/<file>.dll` | EDGEdeck `src/classifier.ts` |
+| REDmod | `mods/<ModName>/`, with `info.json`; the game loads it after `redMod.exe deploy` and with `-modded` | EDGEdeck `src/classifier.ts`, `docs/design.html` |
+| REDnode package | `red4ext/plugins/REDnode/apps/<id>/`, a folder with `rednode-app.json` | EDGEdeck `src/classifier.ts`; REDnode `docs/overlay-apps.md` |
+| Audioware, input, config | `r6/audioware`, `r6/input`, `r6/config`, `engine/config`, path kept | EDGEdeck `src/classifier.ts` |
 
-Load order: there is no plugin list; the folder is the registry. Archives in `archive/pc/mod` load in alphabetical order and the one loaded first wins; `modlist.txt` in that folder names archives to load first (REDdeck `docs/design.html`).
+Load order: there is no plugin list; the folder is the registry. Archives in `archive/pc/mod` load in alphabetical order and the one loaded first wins; `modlist.txt` in that folder names archives to load first (EDGEdeck `docs/design.html`).
 
 ## A WolvenKit project
 
@@ -38,7 +38,7 @@ Packing (REDcode `extensions/redcode/src/pack.ts`, `docs/design/ship.md`):
 - `.xl` files from `source/resources` go beside the archive. Every other resource keeps its path under `packed/`.
 - `.tweak` files are packed only from `r6/tweaks`.
 
-To test in the game: pack, then REDdeck installs the project (`reddeck_install_project` with the `.cpmodproj` path, or REDcode's command) and deploys it (`reddeck_deploy`). Deploy and undo write to the game folder, so ask the user first (REDdeck `src/mcp.ts`).
+To test in the game: pack, then EDGEdeck installs the project (`edgedeck_install_project` with the `.cpmodproj` path, or REDcode's command) and deploys it (`edgedeck_deploy`). Deploy and undo write to the game folder, so ask the user first (EDGEdeck `src/mcp.ts`).
 
 ## Editing game files (CR2W)
 

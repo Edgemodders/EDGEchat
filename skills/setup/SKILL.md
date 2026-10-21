@@ -1,6 +1,6 @@
 ---
 name: setup
-description: Check the EDGE plugin's connections to Cyberpunk 2077 (the rednode server for the running game, the redcode server for the game's files), explain what is missing and give the one next step for each. Use when the user runs setup, or when rednode or redcode tools are missing, fail, or answer 401.
+description: Check the EDGE plugin's connections to Cyberpunk 2077 (the rednode server for the running game, redcode for the game's files, edgedeck for the mod library and deploys), find EDGE servers added by hand that duplicate them, explain what is missing and give the one next step for each. Use when the user runs setup, or when rednode, redcode or edgedeck tools are missing, fail, appear twice, or answer 401.
 when_to_use: The user asks to set up or check the EDGE tools, or a modding task needs a server that is not there.
 ---
 
@@ -14,15 +14,21 @@ The plugin's servers:
 |---|---|---|
 | `rednode` | The running game: logs, apps, game state, game API lookup and calls, live TweakDB, screenshots. Only answers while the game runs | `mcp__plugin_edge_rednode__*` |
 | `redcode` | The game's files, offline: archives, CR2W as JSON and edits, textures, the shipped TweakDB, sounds, WolvenKit project export, import and pack | `mcp__plugin_edge_redcode__*` |
-
-REDdeck's server (the mod library and deploys) is not in the plugin yet. If the user has it, it was added by hand from REDdeck's **Connect an assistant (MCP)** command.
+| `edgedeck` | EDGEdeck's mod library: list, add, turn on and off, conflicts, deploy into the game and undo | `mcp__plugin_edge_edgedeck__*` |
 
 ## 1. Servers added by hand
 
-If you have tools named `mcp__rednode__*` or `mcp__redcode__*` (no `plugin_edge_` in the name), the user added that server by hand before: REDnode's **Copy setup** command or REDcode's `claude mcp add redcode ...` line. A server added by hand with the same name and URL as the plugin's hides the plugin's copy (seen with `rednode` on 2026-10-16), so it keeps any old token it was given.
+Tools named `mcp__<server>__*`, with no `plugin_edge_` in the name, come from a server the user added by hand before the plugin. The EDGE ones:
 
-- Suggest removing the hand-added one so there is one copy. `claude mcp get rednode` shows its scope; then `claude mcp remove rednode -s <scope>`. Same for `redcode`.
-- Ask before running either command. Removing the hand-added `rednode` means the plugin's needs its token (step 2).
+| Server added by hand | Where it came from | What it does beside the plugin |
+|---|---|---|
+| `rednode` | REDnode's **Copy setup** | Hides the plugin's copy (same name and URL, seen 2026-10-16), and keeps any old token it was given |
+| `redcode` | REDcode's `claude mcp add redcode ...` line | Runs beside the plugin's copy: every tool twice |
+| `edgedeck` | EDGEdeck's **Connect an assistant (MCP)** command, or its README's `claude mcp add edgedeck ...` | Runs beside the plugin's copy: every tool twice (seen 2026-10-21) |
+| `reddeck` | REDdeck, before it was renamed EDGEdeck (2026-10-17) | An old server with the old library; EDGEdeck does not read it |
+
+- Suggest removing each one so there is one copy. `claude mcp get <server>` shows its scope; then `claude mcp remove <server> -s <scope>`.
+- Ask before running any of these commands. Removing the hand-added `rednode` means the plugin's needs its token (step 2). If the hand-added `edgedeck` had `--library <folder>`, put that folder in the plugin's `edgedeck_library` option first.
 - Never print, quote or log a token, even if a command or a config file shows one.
 
 ## 2. rednode
@@ -50,10 +56,23 @@ Call `bridge_info` on the redcode server. It returns `version`, `wolvenKit`, `ga
 
 redcode-mcp falls back to REDcode's settings only from VS Code's own settings folder (`%APPDATA%\Code\User`). In EDGEkit or another VS Code build, set the plugin's options instead.
 
-## 4. Safety
+## 4. edgedeck
+
+Call `edgedeck_list` on the edgedeck server (it only reads).
+
+| What happens | Why | Next step |
+|---|---|---|
+| It lists mods, or says "no mods" | Connected | Report the number of mods and the frameworks line |
+| "no mods", but the user has mods in EDGEdeck | The server opened a different library. It does not read EDGEdeck's VS Code settings: without the plugin's `edgedeck_library` option it uses the `EDGEdeck` folder in the user's folder | Set `edgedeck_library` to the folder in EDGEdeck's **Library Path** setting, then restart Claude Code |
+| No edgedeck tools | The server did not start | As for redcode: Node.js 20 or newer must be installed; the first start downloads the package |
+
+The game folder comes from the plugin's `game_path` option, then the one the library remembers, then Steam, GOG or Epic.
+
+## 5. Safety
 
 - `api_call` on the rednode server changes the player's game (money, health, anything the game API can do). Tell the user to keep it on "ask": allow the read-only tools freely, never `api_call`. Do not add it to an allow list.
-- Mods never change the game's own files. They are deployed into the game folder by REDdeck, which can undo a deploy.
+- Mods never change the game's own files. They are deployed into the game folder by EDGEdeck, which can undo a deploy.
+- `edgedeck_deploy` and `edgedeck_undo` write to the game folder. Keep them on "ask" too.
 
 ## Report
 
@@ -63,3 +82,4 @@ End with this table, one row per server, then the next step the user should take
 |---|---|---|
 | rednode | Connected / not running / no token / added by hand | ... |
 | redcode | Connected / no game folder / no REDbridge / not started / added by hand | ... |
+| edgedeck | Connected / other library / not started / added by hand | ... |
