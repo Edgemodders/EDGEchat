@@ -10,7 +10,7 @@ The EDGE plugin for Claude Code: Cyberpunk 2077 modding knowledge as skills, the
 
 | Document | What it covers |
 |---|---|
-| [Design](design.html) | Why a plugin, the facts from the Claude Code docs that shape it, its shape (MCP servers, skills, commands), where the knowledge comes from, sharing with REDagent, phases P0 to P5, the P0 decisions. Draft 0.4 |
+| [Design](design.html) | Why a plugin, the facts from the Claude Code docs that shape it, its shape (MCP servers, skills, commands), where the knowledge comes from, sharing with REDagent, phases P0 to P5, the P0 decisions. Draft 0.5 |
 | [Dev setup](dev-setup.html) | What a PC needs to build and test the plugin |
 | [Tests](testing.html) | Every test run so far, by CLI and by hand: how to run it again, what to expect, and what it showed |
 
@@ -18,8 +18,8 @@ The EDGE plugin for Claude Code: Cyberpunk 2077 modding knowledge as skills, the
 
 | Phase | Status |
 |---|---|
-| P0 Decide | Under way. Done: the name EDGEchat (was EDGEplugin), the single-repo marketplace check, separate repo (not in REDagent), REDagent C6 dropped, `redcode-mcp` on npm. Open: plugin names (working names `edge@edgemodders`), knowledge sharing with REDagent, REDdeck's server on npm, community source licenses |
-| P1 Skeleton | Built. Manifest, marketplace, `rednode` and `redcode`, `/edge:setup` and `/edge:init-project`; installs, and `redcode` connects. Next: the test with the game running and in VS Code, then `reddeck` once on npm |
+| P0 Decide | Under way. Done: the name EDGEchat (was EDGEplugin), the single-repo marketplace check, separate repo (not in REDagent), REDagent C6 dropped, `redcode-mcp` and `edgedeck-mcp` on npm. Open: plugin names (working names `edge@edgemodders`), knowledge sharing with REDagent, how EDGEkit provides the plugin, community source licenses |
+| P1 Skeleton | Built. Manifest, marketplace, `rednode`, `redcode` and `edgedeck` (0.0.2), `/edge:setup` and `/edge:init-project`; installs, and `redcode` and `edgedeck` connect. Next: the test with the game running and in VS Code. `edgemat` once on npm |
 | P2 Knowledge | Not started. The modding skills, checked against the game, with evals |
 | P3 Commands | Not started. New mod, check mod |
 | P4 Ship | Not started. Version 0.1.0, provided by EDGEkit, in its docs and welcome page |

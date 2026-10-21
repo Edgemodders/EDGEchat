@@ -2,18 +2,20 @@
 
 Every test run on EDGEchat so far: how to run it again, what to expect, and what it showed. Each phase ends with a test on the dev PC ([design, "Phases"](design.html#phases)); new tests are added here when they are first run.
 
-Last updated 2026-10-17.
+Last updated 2026-10-21.
 
 ## At a glance
 
 | Test | Kind | Phase | Last run | Result |
 |---|---|---|---|---|
-| [Validate](#validate) | CLI | P0, P1 | 2026-10-16 | Pass, one expected warning |
-| [Install from the checkout](#install-from-the-checkout) | CLI, scratch config | P0, P1 | 2026-10-16 | Pass |
+| [Validate](#validate) | CLI | P0, P1 | 2026-10-21 | Pass, one expected warning |
+| [Install from the checkout](#install-from-the-checkout) | CLI, scratch config | P0, P1 | 2026-10-21 | Pass |
 | [Install from GitHub](#install-from-github) | CLI, scratch config | P1 | 2026-10-17 | Pass |
-| [Plugin servers beside servers added by hand](#plugin-servers-beside-servers-added-by-hand) | CLI, scratch config | P0 | 2026-10-16 | Seen, recorded in the design |
+| [Update from GitHub](#update-from-github) | CLI, scratch config | P1 | 2026-10-21 | See the section |
+| [Plugin servers beside servers added by hand](#plugin-servers-beside-servers-added-by-hand) | CLI, scratch config | P0, P1 | 2026-10-21 | Seen, recorded in the design |
 | [Unset options](#unset-options) | CLI, scratch config | P1 | 2026-10-16 | Seen: empty string |
 | [redcode server through the wrapper](#redcode-server-through-the-wrapper) | By hand, over stdio | P1 | 2026-10-16 | Pass |
+| [edgedeck server through the wrapper](#edgedeck-server-through-the-wrapper) | By hand, over stdio | P1 | 2026-10-21 | Pass |
 | [rednode with no token](#rednode-with-no-token) | CLI, game running | P1 | 2026-10-16 | Seen: HTTP 401 |
 | [P1 test in VS Code with the game](#p1-test-in-vs-code-with-the-game) | By hand, in a session | P1 | Not run | |
 | [init-project on a real project](#init-project-on-a-real-project) | By hand, in a session | P1 | Not run | |
@@ -38,7 +40,7 @@ claude plugin validate .claude-plugin/plugin.json
 claude plugin validate skills --strict
 ```
 
-Last run 2026-10-16 with Claude Code 2.1.299: **pass.**
+Last run 2026-10-21 with Claude Code 2.1.302, at 0.0.2: **pass**, the same one warning. First run 2026-10-16 with 2.1.299.
 
 | Check | Expected |
 |---|---|
@@ -58,14 +60,14 @@ claude plugin configure edge@edgemodders
 claude mcp list
 ```
 
-Last run 2026-10-16: **pass.**
+Last run 2026-10-21 at 0.0.2 with Claude Code 2.1.302: **pass.** First run 2026-10-16 at 0.0.1, with the same results less `edgedeck` and its option.
 
 | Check | Expected |
 |---|---|
-| Install | "Successfully installed plugin: edge@edgemodders (scope: user)" and "3 userConfig options not yet set" |
-| `details` | Skills `init-project`, `setup`; MCP servers `rednode`, `redcode`; always-on cost about 150 tokens |
-| `configure` | `game_path`, `rednode_token` (sensitive), `redbridge_exe`, all optional and not set |
-| `mcp list` | `plugin:edge:redcode ... Connected`. `plugin:edge:rednode` connects only while the game runs (see [rednode with no token](#rednode-with-no-token)) |
+| Install | "Successfully installed plugin: edge@edgemodders (scope: user)" and "4 userConfig options not yet set" |
+| `details` | `edge 0.0.2`; skills `init-project`, `setup`; MCP servers `rednode`, `redcode`, `edgedeck`; always-on cost about 150 tokens |
+| `configure` | `game_path`, `rednode_token` (sensitive), `redbridge_exe`, `edgedeck_library`, all optional and not set |
+| `mcp list` | `plugin:edge:redcode ... Connected` and `plugin:edge:edgedeck ... Connected`, each through its wrapper under the checkout's path. `plugin:edge:rednode` connects only while the game runs (see [rednode with no token](#rednode-with-no-token)) |
 
 With a local marketplace the plugin is read from the checkout (`CLAUDE_PLUGIN_ROOT` is the checkout itself), and the checkout's path has spaces: `redcode` still connects.
 
@@ -83,6 +85,30 @@ Last run 2026-10-17 at `8fd75a2`, just after the repo was renamed to EDGEchat: *
 
 First run 2026-10-16 at `4f07db8`, as `Edgemodders/EDGEplugin`: the same results as from the checkout; the plugin runs from `<config>/plugins/cache/edgemodders/edge/0.0.1/`, and `redcode` connects from there.
 
+### Update from GitHub
+
+What an existing user sees when a release adds a server and an option. Install the old version from GitHub first, push the new one, then update.
+
+```bash
+claude plugin marketplace add Edgemodders/EDGEchat     # before the push: installs the old version
+claude plugin install edge@edgemodders
+# push the new version, then:
+claude plugin marketplace update edgemodders
+claude plugin update edge@edgemodders
+claude plugin details edge@edgemodders
+claude mcp list
+```
+
+First run 2026-10-21, 0.0.1 to 0.0.2 (`5dbcc7c`), Claude Code 2.1.302: **pass**, with one gap.
+
+| Check | Seen |
+|---|---|
+| `plugin update` | "Plugin "edge" updated from 0.0.1 to 0.0.2 for scope user. Restart to apply changes." |
+| `details` | `edge 0.0.2`, MCP servers `rednode`, `redcode`, `edgedeck` |
+| `mcp list` | `redcode` and `edgedeck` Connected from `<config>/plugins/cache/edgemodders/edge/0.0.2/` |
+| `configure` | The new `edgedeck_library` listed, not set |
+| The gap | The update says nothing about the new option, unlike install ("N userConfig options not yet set"). Whether the form opens after an update in VS Code is not seen yet. A new option a server cannot do without must say so in the release notes and in `/edge:setup` |
+
 ### Plugin servers beside servers added by hand
 
 Run 2026-10-16 in P0, on a throwaway copy of the plugin. Results, recorded in the [design's facts](design.html#facts-that-shape-the-design):
@@ -91,6 +117,7 @@ Run 2026-10-16 in P0, on a throwaway copy of the plugin. Results, recorded in th
 |---|---|
 | Plugin installed | `plugin:edge:redcode` and `plugin:edge:rednode`: plugin servers are named `plugin:<plugin>:<server>` |
 | Plugin installed, plus `claude mcp add --transport http --scope user rednode http://127.0.0.1:41820/mcp ...` | Only the hand-added `rednode`; the plugin's copy is not listed. After `claude mcp remove rednode -s user`, `plugin:edge:rednode` is back |
+| Plugin 0.0.2 installed, plus `claude mcp add --scope user edgedeck -- npx -y @edgemodders/edgedeck-mcp@0.27.3` (run 2026-10-21) | Both `plugin:edge:edgedeck` and `edgedeck`, each Connected: a stdio server added by hand runs beside the plugin's, so Claude would see every tool twice. `/edge:setup` finds it |
 | Working inside a folder with the servers in a root `.mcp.json` | The servers also show as that folder's project servers, "Pending approval". With the servers inline in `plugin.json`, they do not |
 
 ### Unset options
@@ -124,6 +151,32 @@ Last run 2026-10-16: **pass.**
 | `npx` directly, without the wrapper | Fails: "The argument 'file' cannot be empty. Received ''"; exit 1. This is why the wrapper exists ([design](design.html#mcp-servers)) |
 
 On the dev PC, REDcode's setting points at a Release build in the REDbridge checkout, not an installed REDbridge.
+
+### edgedeck server through the wrapper
+
+Speaks MCP to the server directly and calls `edgedeck_list`, which only reads. Needs Node.js 20 or newer. With options set, it makes an empty library in the folder it is given, so give it a scratch folder.
+
+```bash
+node tools/test/mcp-probe.cjs --empty EDGEDECK_LIBRARY --empty EDGEDECK_GAME "scripts\edgedeck-mcp.cmd" edgedeck_list
+EDGEDECK_LIBRARY='<scratch>\deck lib (x86)' EDGEDECK_GAME='<game folder>' node tools/test/mcp-probe.cjs "scripts\edgedeck-mcp.cmd" edgedeck_list
+```
+
+First run 2026-10-21 with edgedeck-mcp 0.27.3: **pass.**
+
+| Run | Expected |
+|---|---|
+| Both options empty | The default library in `%USERPROFILE%\EDGEdeck`: the dev PC's mods, starting `[x] archivexl 1.26.8` |
+| Library only, a scratch folder | `no mods`, and the folder gets a `library` folder |
+| Library with spaces and parentheses, plus the game folder | The same, in that folder |
+
+What the first runs found, and why the wrapper is written as it is:
+
+| Tried | Seen |
+|---|---|
+| The folders as `args` in `plugin.json`, through the probe: `npx ... --library "" --game ""` | The server got the quotes: `mkdir '...\""\library'`. The probe's own quoting may add to it, but arguments through `cmd` and `npx` are fragile, so the plugin passes variables |
+| The wrapper with `npx ... !ARGS!` (delayed expansion) | The default library, whatever was set: `npx.cmd` got the text `!ARGS!`. The wrapper's own `echo !ARGS!` showed the right value, which hid it |
+| `endlocal & npx ... -- %ARGS%` | Works: `%ARGS%` is expanded before `npx.cmd` runs |
+| The probe running a wrapper from a folder with a space in its name | No answer, for `redcode-mcp.cmd` too: the probe's quoting from Git Bash. Claude Code starts both wrappers from such a folder ([install from the checkout](#install-from-the-checkout)) |
 
 ### rednode with no token
 

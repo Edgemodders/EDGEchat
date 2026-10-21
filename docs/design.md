@@ -2,7 +2,7 @@
 
 EDGEchat is the EDGE plugin for [Claude Code](https://code.claude.com/docs/en/overview): one install that makes Claude a Cyberpunk 2077 modding assistant. It gives Claude the **context** (what the game's files, frameworks and folders are, and the EDGE house rules) and the **tools** (the EDGE MCP servers, which read the game's archives, the TweakDB and the running game). It works wherever Claude Code runs: in EDGEkit, in VS Code, and in a terminal.
 
-**Status: draft 0.4, P1 built; renamed from EDGEplugin to EDGEchat on 2026-10-17.** Proposed in the EDGEkit session on 2026-10-16 and agreed with the user, who created the repo. P0's checks ran on 2026-10-16 (see [P0 decisions](#p0-decisions)). P1's skeleton (manifest, marketplace, `rednode` and `redcode`, the `setup` and `init-project` skills) installs and `redcode` connects; the tests with the game running and in VS Code are next.
+**Status: draft 0.5, P1 built; renamed from EDGEplugin to EDGEchat on 2026-10-17; `edgedeck` added 2026-10-21 (plugin 0.0.2).** Proposed in the EDGEkit session on 2026-10-16 and agreed with the user, who created the repo. P0's checks ran on 2026-10-16 (see [P0 decisions](#p0-decisions)). P1's skeleton (manifest, marketplace, `rednode`, `redcode` and `edgedeck`, the `setup` and `init-project` skills) installs, and `redcode` and `edgedeck` connect; the tests with the game running and in VS Code are next. The plugin is the one place every EDGE tool's MCP server reaches Claude Code, with every setting they need in one form ([Every EDGE server](#every-edge-server-in-the-plugin)).
 
 ## Why a plugin
 
@@ -11,7 +11,7 @@ Claude Code already runs in EDGEkit (from Open VSX) and in VS Code. Out of the b
 | Mechanism | What it gives Claude | Role in EDGEchat |
 |---|---|---|
 | Skills | Instructions loaded only when a task needs them; their short descriptions are always in context | The modding knowledge, one skill per topic |
-| MCP servers | Real tools | REDcode's `redcode-mcp` (archives, CR2W, TweakDB, sounds, offline), REDnode's kernel server (the running game), later EDGEmat's `edgemat-mcp` |
+| MCP servers | Real tools | REDcode's `redcode-mcp` (archives, CR2W, TweakDB, sounds, offline), REDnode's kernel server (the running game), EDGEdeck's `edgedeck-mcp` (the mod library and deploys), later EDGEmat's `edgemat-mcp` and the other EDGE tools' servers |
 | Skills the user calls (slash commands) | Repeatable tasks | Set up, start a mod, check a mod, write a project's CLAUDE.md |
 | A project `CLAUDE.md` | Always-on context for one folder | A plugin cannot ship one (Claude Code ignores a plugin's CLAUDE.md). A skill writes one into the mod's project when the user asks |
 
@@ -39,6 +39,11 @@ From the Claude Code docs, read on 2026-10-16. Each row names its page under `ht
 | An unset optional `userConfig` value becomes an empty string in a server's `args` and `env` | `redcode-mcp` 0.2.0 takes an empty variable as set (`??`), which hides REDcode's VS Code settings and fails with "The argument 'file' cannot be empty". The plugin starts it through `scripts/redcode-mcp.cmd`, which clears empty variables first. **Checked in P1** with an env dump and an MCP probe | Seen; the docs say only that `default` is the fallback |
 | `claude plugin validate` warns that a `CLAUDE.md` at the plugin root is not loaded as context | Ours is for sessions working on this repo, as in every EDGE repo, so it stays; `--strict` fails on this one warning only | Seen in P1 |
 | `claude plugin details` shows a plugin's parts and their always-on token cost; `claude plugin configure` lists and sets `userConfig` | The cost check for skill descriptions in P2; `configure` in the README | `claude plugin --help` |
+| A `sensitive` option is masked and kept in the platform's secure credential store, not `settings.json`. `${user_config.KEY}` is substituted in MCP server `command`, `args` and `env`; in skill content a sensitive value becomes a placeholder. Options show after install as a form, and later under the gear on the plugin's row | API keys for the EDGE servers (Gemini and OpenAI for `edgemat`) are asked in the plugin's form and reach the server as its usual variable. Read 2026-10-21 | `plugins/manifest-reference` |
+| `claude plugin update` raises the version and says "Restart to apply changes", but does not mention options the new version added (install does: "N userConfig options not yet set") | Every new option is optional, with a working default, and `setup` names it. Whether VS Code shows the form after an update is unverified. **Checked** 2026-10-21, 0.0.1 to 0.0.2 | Seen in the CLI |
+| Claude Code cannot read VS Code's secret storage | A key the tool's own extension keeps there (EDGEmat's, EDGEwave's) is entered a second time in the plugin's form | VS Code's secret storage is an extension API |
+| A server added by hand with the same name as a stdio plugin server runs beside it; both show as Connected | Claude sees every tool twice. `setup` finds `edgedeck`, `redcode` and the old `reddeck` added by hand. **Checked** 2026-10-21 with `edgedeck` | Seen in `claude mcp list` |
+| The VS Code extension has no contribution point or API through which another VS Code extension adds plugins, skills or MCP servers. It shares `~/.claude` (settings, plugins, MCP config) with the CLI. It bundles its own CLI and does not put `claude` on the PATH. A user-level `enabledPlugins` entry, with the marketplace in `extraKnownMarketplaces`, makes Claude Code fetch the plugin | EDGEchat is a plugin, not a VS Code extension, and is not published to the extension marketplaces. An extension such as EDGEkit could install it for the user, with `claude plugin install edge --marketplace Edgemodders/EDGEchat` (needs the standalone CLI) or by writing those two settings (the docs do not say other programs may). EDGEkit's choice. Read 2026-10-19 | `vs-code`, `plugins/loading`, `plugins/org` |
 
 ## Shape
 
@@ -46,7 +51,7 @@ From the Claude Code docs, read on 2026-10-16. Each row names its page under `ht
 |---|---|
 | `.claude-plugin/plugin.json` | The plugin: name, version, description, `userConfig`, and the EDGE MCP servers inline (`mcpServers`), not in a root `.mcp.json` (see the facts above) |
 | `.claude-plugin/marketplace.json` | The marketplace, listing this repo's root as its one plugin |
-| `scripts/` | `redcode-mcp.cmd`, which starts `redcode-mcp` (see the facts above) |
+| `scripts/` | `redcode-mcp.cmd` and `edgedeck-mcp.cmd`, which start those servers ([MCP servers](#mcp-servers)) |
 | `skills/` | One folder per skill, `SKILL.md` plus reference files |
 | `evals/` | `claude plugin eval` cases: modding tasks answered with and without the plugin |
 | `docs/` | This site |
@@ -57,10 +62,24 @@ From the Claude Code docs, read on 2026-10-16. Each row names its page under `ht
 |---|---|---|---|
 | `rednode` | http, `http://127.0.0.1:41820/mcp`, `Authorization: Bearer ${user_config.rednode_token}` | The running game: logs, apps, game state, game API lookup and calls, live TweakDB, screenshots ([REDnode MCP](https://edgemodders.github.io/REDnode/mcp.html)) | REDnode in the game with its MCP server switched on; the token from its launcher's **Copy setup** |
 | `redcode` | stdio, `cmd /c scripts/redcode-mcp.cmd`, which runs `npx -y @edgemodders/redcode-mcp@<version>` | The game's files offline through REDbridge: archives, CR2W as JSON and edits, textures, the shipped TweakDB, sound events, WolvenKit project export, import and pack ([REDcode MCP](https://edgemodders.github.io/REDcode/mcp.html)) | Windows, .NET 10, REDbridge 0.8.0 or newer, the game folder (it finds them from REDcode's settings, or `REDBRIDGE_EXE` and `REDCODE_GAME_PATH`). Published on npm as `@edgemodders/redcode-mcp` 0.2.0 (2026-10-16). `cmd /c` because npx is a `.cmd` on Windows. The plugin pins the version and raises it in its own releases. With the plugin's options unset it falls back to REDcode's settings (checked in P1: game loaded, 57 archives), but only from VS Code's own settings folder (`%APPDATA%\Code\User`); in EDGEkit the options are needed. **Asked of REDcode:** take an empty variable as unset, and read EDGEkit's settings folder |
-| `reddeck` | stdio | The mod library and deploys: list, add, turn on and off, conflicts, deploy, undo (14 `reddeck_*` tools) | REDdeck's server is inside its extension today, at a path with the version in it. **Dependency:** REDdeck is publishing it on npm (asked 2026-10-16); added when it is out |
-| `edgemat` | stdio | Materials: find, describe, edit, render | EDGEmat's M1 and later |
+| `edgedeck` | stdio, `cmd /c scripts/edgedeck-mcp.cmd`, which runs `npx -y @edgemodders/edgedeck-mcp@<version> -- [--library <folder>] [--game <folder>]` | The mod library and deploys: list, add, turn on and off, move, conflicts, loadouts, install a WolvenKit project, deploy, undo, Vortex import (15 `edgedeck_*` tools) | Node.js 20 or newer, Windows. Published on npm as `@edgemodders/edgedeck-mcp` (0.27.3, 2026-10-17; REDdeck was renamed EDGEdeck that day, and `@edgemodders/reddeck-mcp` is deprecated). In the plugin since 0.0.2. The library is `edgedeck_library`, else `%USERPROFILE%\EDGEdeck`: the server does not read EDGEdeck's VS Code settings, so someone who moved the library sets the option. The game is `game_path`, else the one the library remembers, else Steam, GOG or Epic. It takes its folders only as arguments, so the wrapper turns the options, passed as variables, into arguments and leaves out an empty one. **Checked** 2026-10-21: empty options open the default library; a library path with spaces and parentheses opens that folder; `claude mcp list` connects it from a checkout whose path has spaces |
+| `edgemat` | stdio, `npx -y @edgemodders/edgemat-mcp@<version>` (planned) | Materials: find, describe, edit, apply, generate from words or a photo | The game folder and REDbridge (`EDGEMAT_GAME_PATH`, `REDBRIDGE_EXE`, from `game_path` and `redbridge_exe`), and for `mat_generate` the user's own key, `GEMINI_API_KEY` or `OPENAI_API_KEY`, from two `sensitive` options. It already takes an empty variable as unset. **Dependency:** on npm; today 0.3.0 is a `.cjs` file users download (EDGEweb's wiki). To ask of EDGEmat |
+| EDGEfab, EDGEquest, EDGEmods, EDGEwave | stdio | Each design plans an MCP server beside its extension | Added as each one is published |
 
-`api_call` on the `rednode` server can change the player's game. The setup skill tells the user to keep it on "ask".
+`api_call` on the `rednode` server can change the player's game, and `edgedeck_deploy` and `edgedeck_undo` write to the game folder. The setup skill tells the user to keep them on "ask".
+
+### Every EDGE server in the plugin
+
+The plugin is how every EDGE tool's MCP server reaches Claude Code: no `claude mcp add` step per tool, and every setting the servers need in one form. Shared settings are asked once (the game folder and REDbridge feed `redcode`, `edgedeck` and later `edgemat`). For a server to go in, it should:
+
+| Need | Why |
+|---|---|
+| Be on npm as `@edgemodders/<tool>-mcp`, run with `npx -y` at a pinned version | No download step; the plugin raises the version in its own releases |
+| Take every setting as an environment variable, and an empty one as unset | An unset option reaches the server as an empty string. Arguments through `cmd` and `npx` need a wrapper (`redcode`, `edgedeck` have one) |
+| Read an AI service's key from the service's usual variable (`GEMINI_API_KEY`, `OPENAI_API_KEY`, `ELEVENLABS_API_KEY`) | The plugin fills it from a `sensitive` option |
+| Fall back to the tool's VS Code settings when nothing is set | Works with the plugin's options left empty, for anyone with the tool set up in VS Code |
+
+Each new server is then a server entry in `plugin.json`, options for what it needs, a row in `setup`, and a version raise.
 
 ### Skills (first set, P2)
 
@@ -68,7 +87,7 @@ Knowledge skills load on their own when a task matches; command skills are calle
 
 | Skill | Kind | Covers |
 |---|---|---|
-| `modding-basics` | Knowledge | The game's folders, the frameworks (RED4ext, CET, redscript, TweakXL, ArchiveXL, Codeware, REDmod) and what each is for, load order, the rule that mods never change the game's own files, deploying with REDdeck |
+| `modding-basics` | Knowledge | The game's folders, the frameworks (RED4ext, CET, redscript, TweakXL, ArchiveXL, Codeware, REDmod) and what each is for, load order, the rule that mods never change the game's own files, deploying with EDGEdeck |
 | `wolvenkit-projects` | Knowledge | The `.cpmodproj` project: `source/archive`, `source/raw`, `packed`; export, import and pack through `redcode-mcp` |
 | `archives-and-cr2w` | Knowledge | Archive paths and hashes, CR2W as JSON (dotted paths, 32-bit floats, `compiledData`, defaults not stored), the one-call edit |
 | `tweakxl` | Knowledge | TweakDB records and flats, `.yaml` and `.tweak` files, finding records with the TweakDB tools |
@@ -112,7 +131,7 @@ Phases are P0 to P5. **Unverified:** that no other EDGE repo uses P. Each ends w
 | Phase | Builds | The test proves |
 |---|---|---|
 | **P0 Decide** | The decisions below, with the user. The single-repo marketplace checked. The knowledge sources' licenses read | The plan is agreed |
-| **P1 Skeleton** | `plugin.json` with `userConfig` (game folder, REDbridge path, REDnode token) and the servers `rednode`, `redcode`, and `reddeck` once published; `marketplace.json`; the `setup` skill (servers answer, hand-added duplicates found); `init-project` | Installed from GitHub in the Claude Code CLI and in the VS Code extension, `setup` reports every server connected while the game runs |
+| **P1 Skeleton** | `plugin.json` with `userConfig` (game folder, REDbridge path, REDnode token) and the servers `rednode`, `redcode` and `edgedeck` (added 2026-10-21); `marketplace.json`; the `setup` skill (servers answer, hand-added duplicates found); `init-project` | Installed from GitHub in the Claude Code CLI and in the VS Code extension, `setup` reports every server connected while the game runs |
 | **P2 Knowledge** | The knowledge skills, each checked against the game through the MCP servers; eval cases for each. First the ones our own tools can check (`rednode-mods`, `archives-and-cr2w`, `wolvenkit-projects`, `tweakxl`), then the ones from community sources once their licenses are read (`modding-basics`, `redscript`, `archivexl`, `cet-lua`) | `claude plugin eval`: the plugin answers set modding tasks correctly where plain Claude Code does not |
 | **P3 Commands** | `new-mod`, `check-mod` | A non-coder makes a small working mod from `/edge:new-mod` alone, in the game |
 | **P4 Ship** | Version 0.1.0, README install steps, docs, EDGEkit providing the plugin (its welcome page and docs, and how it sets up Claude Code, agreed with the EDGEkit session), a line on EDGEkit's Nexus page, an EDGEweb wiki page; the REDagent knowledge sharing in place | A fresh PC installs Claude Code, adds the marketplace, installs the plugin and is modding |
@@ -129,7 +148,7 @@ Phases are P0 to P5. **Unverified:** that no other EDGE repo uses P. Each ends w
 | REDagent C6 | **Dropped** by the user 2026-10-16; Claude Code with EDGEchat is the editor's assistant |
 | Where shared knowledge lives | **Proposed**, the table above. REDagent's side to agree with its session |
 | How `redcode-mcp` reaches users | **Done** by REDcode: npm, `@edgemodders/redcode-mcp` 0.2.0 |
-| How REDdeck's server reaches users | **Asked** of the REDdeck session 2026-10-16: npm, like `redcode-mcp` |
+| How REDdeck's server reaches users | **Done**: REDdeck became EDGEdeck (2026-10-17) and publishes `@edgemodders/edgedeck-mcp` on npm; in the plugin since 0.0.2 (2026-10-21) |
 | EDGEkit | EDGEkit should provide the plugin, not only point to it (user, 2026-10-16). To agree with the EDGEkit session; its design (line 126) says today it does not configure Claude Code |
 | The REDnode token | `userConfig` with `sensitive: true`, entered once from REDnode's **Copy setup**. Whether REDnode could hand it over by itself later is REDnode's question |
 | Windows only? | The game and REDbridge are Windows; Claude Code runs anywhere. Knowledge skills work everywhere, the servers on Windows |
