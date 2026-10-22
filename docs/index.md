@@ -10,7 +10,7 @@ The EDGE plugin for Claude Code: Cyberpunk 2077 modding knowledge as skills, the
 
 | Document | What it covers |
 |---|---|
-| [Design](design.html) | Why a plugin, the facts from the Claude Code docs that shape it, its shape (MCP servers, skills, commands), where the knowledge comes from, sharing with REDagent, phases P0 to P5, the P0 decisions. Draft 0.5 |
+| [Design](design.html) | Why a plugin, the facts from the Claude Code docs that shape it, its shape (MCP servers, skills, commands), where the knowledge comes from, sharing with REDagent, phases P0 to P5, the P0 decisions. Draft 0.6 |
 | [Dev setup](dev-setup.html) | What a PC needs to build and test the plugin |
 | [Tests](testing.html) | Every test run so far, by CLI and by hand: how to run it again, what to expect, and what it showed |
 

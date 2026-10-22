@@ -25,9 +25,9 @@ Fill the angle brackets; drop the rows and sections that do not apply.
 - Never change the game's own files. Everything this mod changes lives in this project and reaches the game through EDGEdeck, which can undo a deploy.
 - Do not write into the game folder by hand.
 - Editing CR2W files: edit `components`, never `compiledData`; numbers are 32-bit floats; defaults are not stored.
-- The rednode server's `api_call` changes the running game: keep it on "ask".
+- Read the running game with the rednode server's `api_read`. Its `api_call` and `archives_reload` change the game: use them only for a change the user asked for (Claude Code asks before each call).
 
 ## Tools
 
-The EDGE plugin for Claude Code gives the `rednode` server (the running game) and the `redcode` server (the game's files). `/edge:setup` checks them.
+The EDGE plugin for Claude Code gives the `rednode` server (the running game), the `redcode` server (the game's files) and the `edgedeck` server (the mod library and deploys). `/edge:setup` checks them.
 ```

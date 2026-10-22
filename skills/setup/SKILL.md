@@ -12,7 +12,7 @@ The plugin's servers:
 
 | Server | Gives | Its tools are named |
 |---|---|---|
-| `rednode` | The running game: logs, apps, game state, game API lookup and calls, live TweakDB, screenshots. Only answers while the game runs | `mcp__plugin_edge_rednode__*` |
+| `rednode` | The running game: logs, apps, game state, game API lookup, reads (`api_read`) and calls (`api_call`), live TweakDB, screenshots. Only answers while the game runs | `mcp__plugin_edge_rednode__*` |
 | `redcode` | The game's files, offline: archives, CR2W as JSON and edits, textures, the shipped TweakDB, sounds, WolvenKit project export, import and pack | `mcp__plugin_edge_redcode__*` |
 | `edgedeck` | EDGEdeck's mod library: list, add, turn on and off, conflicts, deploy into the game and undo | `mcp__plugin_edge_edgedeck__*` |
 
@@ -38,6 +38,7 @@ Call `game_state` on the rednode server (it only reads).
 | What happens | Why | Next step |
 |---|---|---|
 | It answers | Connected | Report the game state in one line |
+| It answers, but rednode has no `api_read` tool | REDnode is older than 0.26.16, so its `api_call` and `archives_reload` do not make Claude Code ask before every call (step 5) | Update REDnode |
 | No rednode tools, and `claude mcp list` says "Failed to connect" or ECONNREFUSED | The game is not running, or REDnode's MCP server is off | Start the game with REDnode and load a save. Open the REDnode launcher (**F10** for REDnode's overlay, then the **REDNODE** tab at the bottom left), switch **MCP server** on. Then reconnect from `/mcp`, or start a new session |
 | `claude mcp list` says HTTP 401, "A valid token is required" | The plugin has no token, or an old one | In the game, open the REDnode launcher (**F10** for REDnode's overlay, then the **REDNODE** tab at the bottom left) and press **Copy setup**. The copied command ends with `Bearer <token>"`. Do not run it: it would add a second `rednode` by hand (step 1). Put only the token in the plugin's `rednode_token` option: in VS Code, `/plugins`, then the gear on the `edge` row; in the terminal, `/plugin configure edge@edgemodders`. Then restart Claude Code |
 
@@ -70,9 +71,18 @@ The game folder comes from the plugin's `game_path` option, then the one the lib
 
 ## 5. Safety
 
-- `api_call` on the rednode server changes the player's game (money, health, anything the game API can do). Tell the user to keep it on "ask": allow the read-only tools freely, never `api_call`. Do not add it to an allow list.
+A server can mark a tool so that Claude Code asks the user before every call of it, in every permission mode (auto included), with no "don't ask again". The tools that change things:
+
+| Tool | Does | Asks before every call |
+|---|---|---|
+| rednode `api_read` | Game API calls that read: functions named `Get`, `Is`, `Has`, `Can` or `Find` with no change word after it, and TweakDB records' methods. It refuses the rest | No, and it needs no asking |
+| rednode `api_call` | Any game API call: it can change the player's game (money, health, anything the game API can do) | Yes, from REDnode 0.26.16 |
+| rednode `archives_reload` | Swaps archives into the running game. It replaces files in the game's mod folder, and a broken archive can crash the game | Yes, from REDnode 0.26.16 |
+| edgedeck `edgedeck_deploy`, `edgedeck_undo`, `edgedeck_remove` | Write to the game folder, or delete a mod from the library | Not yet: the edgedeck-mcp the plugin runs (0.27.3) does not mark them. In auto mode, `edgedeck_deploy` ran without asking (2026-10-21) |
+
+- Read the game with `api_read`. Use `api_call` only for a change the user asked for.
+- Until the plugin runs an edgedeck-mcp that marks them, say what a deploy, undo or remove will change and wait for the user's yes in the chat before calling it, in every permission mode.
 - Mods never change the game's own files. They are deployed into the game folder by EDGEdeck, which can undo a deploy.
-- `edgedeck_deploy` and `edgedeck_undo` write to the game folder. Keep them on "ask" too.
 
 ## Report
 
@@ -80,6 +90,6 @@ End with this table, one row per server, then the next step the user should take
 
 | Server | State | Next step |
 |---|---|---|
-| rednode | Connected / not running / no token / added by hand | ... |
+| rednode | Connected / older than 0.26.16 / not running / no token / added by hand | ... |
 | redcode | Connected / no game folder / no REDbridge / not started / added by hand | ... |
 | edgedeck | Connected / other library / not started / added by hand | ... |

@@ -202,7 +202,7 @@ The test that ends P1 ([design](design.html#phases)). Needs your own Claude Code
 | The settings form | Opens after install with the four options |
 | `/edge:setup` | A table: `rednode` connected with the game state, `redcode` connected with REDbridge's version and the archive count, `edgedeck` connected with the mods |
 | The tool names | `mcp__plugin_edge_rednode__*`, `mcp__plugin_edge_redcode__*`, `mcp__plugin_edge_edgedeck__*` |
-| `api_call`, `edgedeck_deploy`, `edgedeck_undo` | Ask before they run |
+| `api_call`, `edgedeck_deploy`, `edgedeck_undo` | Ask before they run (now its own test, [asks before changes](#asks-before-changes)) |
 
 First run 2026-10-21, plugin 0.0.2 installed from GitHub on a second PC (the user's laptop, with the game, EDGEdeck and REDcode's REDbridge), in the VS Code extension. Steered from the dev PC's session, which could not run `/plugins` through Remote Control ("isn't available in this environment"), so the user installed it locally. **Pass**, one check not seen.
 
@@ -212,10 +212,24 @@ First run 2026-10-21, plugin 0.0.2 installed from GitHub on a second PC (the use
 | `/edge:setup`, game closed, options empty | A correct table: `edgedeck` connected (18 mods, frameworks line "game 2.31"); `redcode` started (REDbridge 0.10.0, WolvenKit 9.1.0) with no game folder and 0 archives, and the next step named the right folder, the one EDGEdeck uses; `rednode` refused, "start the game". It found `edgemat` added by hand and said it duplicates nothing. It changed nothing |
 | `/edge:setup` after setting `game_path` and `rednode_token`, game at the main menu | **Pass**: all three connected. `rednode`: REDnode 0.26.15, main menu, overlay interactive. `redcode`: REDbridge 0.10.0, 57 archives, 583,798 files. `edgedeck`: 18 mods, 15 on |
 | The tool names | Not looked at; the skill called each server's tools, so they loaded |
-| Asks before `api_call`, deploy, undo | Not tried. The skill told the user to keep them on "ask", and added `archives_reload` (it replaces files in the game's mod folder) |
+| Asks before `api_call`, deploy, undo | **Fail** for deploy. Asked to deploy, Claude called `edgedeck_deploy` with no prompt; only EDGEdeck's refusal while the game runs stopped it (that refusal comes from inside the deploy, so the call was made). Whether `api_call` prompted was not noted. The session's permission mode was not reported; auto mode is the likely reason. Fixed in the servers: see [asks before changes](#asks-before-changes) |
 | An approval step for the servers | None: the servers connected without asking (the user's recollection) |
 
 Found on the way: the user did not know where "the REDNODE tab" was. 0.0.3 names the REDnode launcher everywhere. `redcode` did not fall back to REDcode's VS Code setting on that PC (whether REDcode's setting is set there, or the editor was EDGEkit, is not known), so `game_path` was needed.
+
+### Asks before changes
+
+Not run yet. Needs REDnode 0.26.16 or newer in the game, and for the `edgedeck` rows a plugin version that pins an edgedeck-mcp with the flag (0.27.3 has none). Run it in **auto** mode, the mode that skipped the prompt in P1, then once in the default mode. Game at a loaded save for the rednode rows, closed for the edgedeck rows. Deny every prompt.
+
+| Ask Claude | Expected |
+|---|---|
+| "What's the player's money?" (or another read) | It uses `api_read`, which runs without a prompt |
+| "Give the player 1 eddie" | `api_call` prompts, with no "don't ask again"; denied, nothing changes |
+| Again, after allowing `api_call` once | It prompts again |
+| "Reload my mod's archive" | `archives_reload` prompts |
+| "Deploy my mods" | `edgedeck_deploy` prompts; denied, the game folder is unchanged |
+| "Undo the last deploy", "Remove mod X" | `edgedeck_undo`, `edgedeck_remove` prompt |
+| `/edge:setup` with REDnode older than 0.26.16 | It says to update REDnode, since `api_read` is missing |
 
 ### init-project on a real project
 
