@@ -18,8 +18,8 @@ Last updated 2026-10-23.
 | [edgedeck server through the wrapper](#edgedeck-server-through-the-wrapper) | By hand, over stdio | P1 | 2026-10-23 | Pass |
 | [edgemat server](#edgemat-server) | By hand, over stdio | P1 | 2026-10-23 | Pass |
 | [rednode with no token](#rednode-with-no-token) | CLI, game running | P1 | 2026-10-16 | Seen: HTTP 401 |
-| [P1 test in VS Code with the game](#p1-test-in-vs-code-with-the-game) | By hand, in a session | P1 | 2026-10-21 | Pass; the ask before deploy failed |
-| [Asks before changes](#asks-before-changes) | By hand, in a session | P1 | Not run | |
+| [P1 test in VS Code with the game](#p1-test-in-vs-code-with-the-game) | By hand, in a session | P1 | 2026-10-21 | Pass; the ask before deploy failed, fixed in 0.0.5 ([asks before changes](#asks-before-changes)) |
+| [Asks before changes](#asks-before-changes) | By hand, in a session | P1 | 2026-10-23 | Pass |
 | [init-project on a real project](#init-project-on-a-real-project) | By hand, in a session | P1 | Not run | |
 | [EDGEkit one-click setup](#edgekit-one-click-setup) | By hand, in EDGEkit | P4 | Not run | |
 | [Evals: archives-and-cr2w](#evals-archives-and-cr2w) | `claude plugin eval` | P2 | 2026-10-23 | Skill fires; Δ 0.00 |
@@ -239,7 +239,7 @@ Found on the way: the user did not know where "the REDNODE tab" was. 0.0.3 names
 
 ### Asks before changes
 
-Not run yet. Needs REDnode 0.26.16 or newer in the game, and plugin 0.0.5 or newer for the `edgedeck` rows (it runs edgedeck-mcp 0.28.0, the first with the flag). Run it in **auto** mode, the mode that skipped the prompt in P1, then once in the default mode. Game at a loaded save for the rednode rows, closed for the edgedeck rows. Deny every prompt.
+Needs REDnode 0.26.16 or newer in the game, and plugin 0.0.5 or newer for the `edgedeck` rows (it runs edgedeck-mcp 0.28.0, the first with the flag). Run it in **auto** mode, the mode that skipped the prompt in P1. Game at a loaded save for the rednode rows, closed for the edgedeck rows. Deny every prompt, except the one allowed `api_call`.
 
 | Ask Claude | Expected |
 |---|---|
@@ -250,6 +250,20 @@ Not run yet. Needs REDnode 0.26.16 or newer in the game, and plugin 0.0.5 or new
 | "Deploy my mods" | `edgedeck_deploy` prompts; denied, the game folder is unchanged |
 | "Undo the last deploy", "Remove mod X" | `edgedeck_undo`, `edgedeck_remove` prompt |
 | `/edge:setup` with REDnode older than 0.26.16 | It says to update REDnode, since `api_read` is missing |
+
+First run 2026-10-23 on the user's laptop, in the VS Code extension in auto mode, plugin 0.0.5, REDnode 0.32.1: **pass.** The user's words: every prompt appeared as expected, and each was allowed or denied as the steps said.
+
+| Asked | Seen |
+|---|---|
+| "How much money does V have right now? Just read it." | No prompt (`api_read`) |
+| "Give V 1 eddie.", denied | `api_call` prompted |
+| "Give V 1 eddie." again, allowed | Prompted |
+| "Give V 1 more eddie.", denied | Prompted again after the allow |
+| Reload an archive in `archive/pc/mod`, denied | `archives_reload` prompted |
+| Game closed: "Deploy my mods.", denied | `edgedeck_deploy` prompted. In P1 it ran without one |
+| "Undo the last deploy.", denied | `edgedeck_undo` prompted |
+
+Not run: "remove a mod" (`edgedeck_remove` carries the same flag in edgedeck-mcp 0.28.0; not tried, to keep the mods safe), the default mode, and `/edge:setup` with an old REDnode.
 
 ### EDGEkit one-click setup
 
