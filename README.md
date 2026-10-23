@@ -4,7 +4,7 @@
 
 <p align="center">
   <a href="https://edgemodders.github.io/EDGEchat/"><img src="docs/assets/brand/badges/docs.svg" alt="docs: read the docs"></a>
-  <img src="docs/assets/brand/badges/status.svg" alt="status: P1 skeleton">
+  <img src="docs/assets/brand/badges/status.svg" alt="status: P2 knowledge">
   <img src="docs/assets/brand/badges/game.svg" alt="game: Cyberpunk 2077">
   <img src="docs/assets/brand/badges/for.svg" alt="for: Claude Code">
   <a href="LICENSE"><img src="docs/assets/brand/badges/license.svg" alt="license: MIT"></a>
@@ -17,7 +17,7 @@ EDGEchat is not an agent: it connects Claude Code to EDGE while you build mods. 
 **[Docs](https://edgemodders.github.io/EDGEchat/)** · [Design](https://edgemodders.github.io/EDGEchat/design.html) · [EDGEkit](https://github.com/Edgemodders/EDGEkit) · [REDagent](https://github.com/Edgemodders/REDagent)
 
 > [!NOTE]
-> **Status: P1, skeleton.** It installs and connects the servers, with two commands (`/edge:setup`, `/edge:init-project`). No modding skills yet. Windows only for the servers.
+> **Status: P2, knowledge.** It installs and connects the REDnode, REDcode, EDGEdeck and EDGEmat servers, with two commands (`/edge:setup`, `/edge:init-project`). The modding skills are being written. Windows only for the servers.
 
 ## Install
 
