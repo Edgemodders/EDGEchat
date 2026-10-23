@@ -253,7 +253,7 @@ Not run yet. Needs REDnode 0.26.16 or newer in the game, and plugin 0.0.5 or new
 
 ### EDGEkit one-click setup
 
-Not run yet. EDGEkit builds it (`da32f12`, [EDGEkit#5](https://github.com/Edgemodders/EDGEkit/issues/5)); EDGEkit checked that the keys are written, with no Claude login. This test is the part EDGEkit could not do. In an EDGEkit with Claude Code signed in, and the plugin not installed:
+Not run yet. EDGEkit builds it (`da32f12`, [EDGEkit#5](https://github.com/Edgemodders/EDGEkit/issues/5)); EDGEkit checked that the keys are written, with no Claude login. This test is the part EDGEkit could not do. It waits for EDGEkit's next release, which EDGEkit will announce on #5. Report the result on #5, and close the issue if it passes (EDGEkit's request). In an EDGEkit with Claude Code signed in, and the plugin not installed:
 
 | Step | Expected |
 |---|---|
