@@ -7,4 +7,4 @@ setlocal EnableDelayedExpansion
 set "ARGS="
 if not "!EDGEDECK_LIBRARY!"=="" set ARGS=--library "!EDGEDECK_LIBRARY!"
 if not "!EDGEDECK_GAME!"=="" set ARGS=!ARGS! --game "!EDGEDECK_GAME!"
-endlocal & npx -y @edgemodders/edgedeck-mcp@0.27.3 -- %ARGS%
+endlocal & npx -y @edgemodders/edgedeck-mcp@0.28.0 -- %ARGS%

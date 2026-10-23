@@ -28,9 +28,9 @@ In Claude Code (the CLI, or `/plugins` in the VS Code extension and EDGEkit):
 /plugin install edge@edgemodders
 ```
 
-Then run `/edge:setup`. It checks the servers and says what is missing. The plugin asks for four settings, all optional: REDnode's token (in the game, the REDnode launcher's **Copy setup**: **F10**, then the **REDNODE** tab at the bottom left), the game folder and `REDbridge.exe` (not needed if REDcode is set up in VS Code), and EDGEdeck's library folder (only if you moved it from the default). Change them later with `/plugin configure edge@edgemodders`, or the gear on the plugin in VS Code.
+Then run `/edge:setup`. It checks the servers and says what is missing. The plugin asks for six settings, all optional: REDnode's token (in the game, the REDnode launcher's **Copy setup**: **F10**, then the **REDNODE** tab at the bottom left), the game folder and `REDbridge.exe` (not needed if REDcode is set up in VS Code), EDGEdeck's library folder (only if you moved it from the default), and a Google Gemini or OpenAI key for EDGEmat's materials from words (your own key, billed to you). The token and keys are kept in your system's credential store. Change them later with `/plugin configure edge@edgemodders`, or the gear on the plugin in VS Code.
 
-The servers need Windows and Node.js 20 or newer; the game with REDnode for `rednode`; the .NET 10 runtime and REDbridge 0.8.0 or newer for `redcode`. If you added `rednode`, `redcode` or `edgedeck` by hand before, remove that copy (`/edge:setup` explains how).
+The servers need Windows and Node.js 20 or newer; the game with REDnode for `rednode`; the .NET 10 runtime and REDbridge 0.8.0 or newer for `redcode`. If you added `rednode`, `redcode`, `edgedeck` or `edgemat` by hand before, remove that copy (`/edge:setup` explains how).
 
 The plugin is called `edge`, so commands stay short. `edge` and `edgemodders` are working names until the first release.
 
@@ -39,7 +39,7 @@ The plugin is called `edge`, so commands stay short. `edge` and `edgemodders` ar
 | Part | What |
 |---|---|
 | Skills | Modding knowledge, loaded only when a task needs it: the game's folders and frameworks, WolvenKit projects, archives and CR2W, TweakXL, ArchiveXL, redscript, CET, REDnode mods |
-| MCP servers | [REDnode](https://edgemodders.github.io/REDnode/mcp.html)'s kernel server (the running game), [REDcode](https://edgemodders.github.io/REDcode/mcp.html)'s `redcode-mcp` (the game's files, offline) and [EDGEdeck](https://github.com/Edgemodders/EDGEdeck)'s `edgedeck-mcp` (mods and deploys); EDGEmat's and the other EDGE tools' as they are published, with every setting they need in the plugin's one form |
+| MCP servers | [REDnode](https://edgemodders.github.io/REDnode/mcp.html)'s kernel server (the running game), [REDcode](https://edgemodders.github.io/REDcode/mcp.html)'s `redcode-mcp` (the game's files, offline) and [EDGEdeck](https://github.com/Edgemodders/EDGEdeck)'s `edgedeck-mcp` (mods and deploys) and [EDGEmat](https://github.com/Edgemodders/EDGEmat)'s `edgemat-mcp` (materials); the other EDGE tools' as they are published, with every setting they need in the plugin's one form |
 | Commands | Set up and check the connections, start a mod, check a mod, write a project's `CLAUDE.md` |
 
 Made by EDGEmodders. Not affiliated with Anthropic or CD PROJEKT RED. Claude and Claude Code are trademarks of Anthropic; Cyberpunk 2077 is a trademark of CD PROJEKT.

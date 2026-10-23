@@ -1,12 +1,12 @@
 {
   "name": "edge",
-  "version": "0.0.4",
-  "description": "EDGEchat: Cyberpunk 2077 modding with the EDGE tools: modding knowledge as skills, the REDnode, REDcode and EDGEdeck MCP servers, and modding commands.",
+  "version": "0.0.5",
+  "description": "EDGEchat: Cyberpunk 2077 modding with the EDGE tools: modding knowledge as skills, the REDnode, REDcode, EDGEdeck and EDGEmat MCP servers, and modding commands.",
   "author": { "name": "EDGEmodders", "url": "https://github.com/Edgemodders" },
   "homepage": "https://edgemodders.github.io/EDGEchat/",
   "repository": "https://github.com/Edgemodders/EDGEchat",
   "license": "MIT",
-  "keywords": ["cyberpunk-2077", "modding", "rednode", "redcode", "edgedeck", "wolvenkit"],
+  "keywords": ["cyberpunk-2077", "modding", "rednode", "redcode", "edgedeck", "edgemat", "wolvenkit"],
   "userConfig": {
     "rednode_token": {
       "type": "string",
@@ -32,6 +32,20 @@
       "title": "EDGEdeck library",
       "description": "EDGEdeck's mod library folder. Leave empty for the default, the EDGEdeck folder in your user folder. Set it only if you changed EDGEdeck's Library Path setting in VS Code.",
       "required": false
+    },
+    "gemini_api_key": {
+      "type": "string",
+      "title": "Google Gemini API key",
+      "description": "For EDGEmat's materials from words (mat_generate), billed to your Google account. From aistudio.google.com > Get API key. Leave empty if you do not make materials from words, or use OpenAI.",
+      "sensitive": true,
+      "required": false
+    },
+    "openai_api_key": {
+      "type": "string",
+      "title": "OpenAI API key",
+      "description": "The other service for EDGEmat's materials from words, billed to your OpenAI account. From platform.openai.com > API keys. If both keys are set, Gemini is used unless you ask for OpenAI.",
+      "sensitive": true,
+      "required": false
     }
   },
   "mcpServers": {
@@ -54,6 +68,16 @@
       "env": {
         "EDGEDECK_LIBRARY": "${user_config.edgedeck_library}",
         "EDGEDECK_GAME": "${user_config.game_path}"
+      }
+    },
+    "edgemat": {
+      "command": "cmd",
+      "args": ["/c", "npx", "-y", "@edgemodders/edgemat-mcp@0.3.1"],
+      "env": {
+        "EDGEMAT_GAME_PATH": "${user_config.game_path}",
+        "REDBRIDGE_EXE": "${user_config.redbridge_exe}",
+        "GEMINI_API_KEY": "${user_config.gemini_api_key}",
+        "OPENAI_API_KEY": "${user_config.openai_api_key}"
       }
     }
   }

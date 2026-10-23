@@ -2,22 +2,24 @@
 
 Every test run on EDGEchat so far: how to run it again, what to expect, and what it showed. Each phase ends with a test on the dev PC ([design, "Phases"](design.html#phases)); new tests are added here when they are first run.
 
-Last updated 2026-10-21.
+Last updated 2026-10-23.
 
 ## At a glance
 
 | Test | Kind | Phase | Last run | Result |
 |---|---|---|---|---|
-| [Validate](#validate) | CLI | P0, P1 | 2026-10-21 | Pass, one expected warning |
-| [Install from the checkout](#install-from-the-checkout) | CLI, scratch config | P0, P1 | 2026-10-21 | Pass |
+| [Validate](#validate) | CLI | P0, P1 | 2026-10-23 | Pass, one expected warning |
+| [Install from the checkout](#install-from-the-checkout) | CLI, scratch config | P0, P1 | 2026-10-23 | Pass |
 | [Install from GitHub](#install-from-github) | CLI, scratch config | P1 | 2026-10-17 | Pass |
 | [Update from GitHub](#update-from-github) | CLI, scratch config | P1 | 2026-10-21 | See the section |
 | [Plugin servers beside servers added by hand](#plugin-servers-beside-servers-added-by-hand) | CLI, scratch config | P0, P1 | 2026-10-21 | Seen, recorded in the design |
 | [Unset options](#unset-options) | CLI, scratch config | P1 | 2026-10-16 | Seen: empty string |
-| [redcode server through the wrapper](#redcode-server-through-the-wrapper) | By hand, over stdio | P1 | 2026-10-16 | Pass |
-| [edgedeck server through the wrapper](#edgedeck-server-through-the-wrapper) | By hand, over stdio | P1 | 2026-10-21 | Pass |
+| [redcode server through the wrapper](#redcode-server-through-the-wrapper) | By hand, over stdio | P1 | 2026-10-23 | Pass |
+| [edgedeck server through the wrapper](#edgedeck-server-through-the-wrapper) | By hand, over stdio | P1 | 2026-10-23 | Pass |
+| [edgemat server](#edgemat-server) | By hand, over stdio | P1 | 2026-10-23 | Pass |
 | [rednode with no token](#rednode-with-no-token) | CLI, game running | P1 | 2026-10-16 | Seen: HTTP 401 |
-| [P1 test in VS Code with the game](#p1-test-in-vs-code-with-the-game) | By hand, in a session | P1 | 2026-10-21 | Pass; one check not seen |
+| [P1 test in VS Code with the game](#p1-test-in-vs-code-with-the-game) | By hand, in a session | P1 | 2026-10-21 | Pass; the ask before deploy failed |
+| [Asks before changes](#asks-before-changes) | By hand, in a session | P1 | Not run | |
 | [init-project on a real project](#init-project-on-a-real-project) | By hand, in a session | P1 | Not run | |
 
 A scratch config has no Claude login, so the CLI tests check how the plugin installs and starts its servers, not what Claude does with it. The P1 test on 2026-10-21 was the first run of a skill in a session.
@@ -40,7 +42,7 @@ claude plugin validate .claude-plugin/plugin.json
 claude plugin validate skills --strict
 ```
 
-Last run 2026-10-21 with Claude Code 2.1.302, at 0.0.2: **pass**, the same one warning. First run 2026-10-16 with 2.1.299.
+Last run 2026-10-23 with Claude Code 2.1.302, at 0.0.5: **pass**, the same one warning. First run 2026-10-16 with 2.1.299.
 
 | Check | Expected |
 |---|---|
@@ -60,7 +62,7 @@ claude plugin configure edge@edgemodders
 claude mcp list
 ```
 
-Last run 2026-10-21 at 0.0.2 with Claude Code 2.1.302: **pass.** First run 2026-10-16 at 0.0.1, with the same results less `edgedeck` and its option.
+Last run 2026-10-23 at 0.0.5 with Claude Code 2.1.302: **pass**: "6 userConfig options not yet set"; `details` lists the four servers, always-on cost about 185 tokens; `configure` lists the six options, `gemini_api_key` and `openai_api_key` sensitive; `mcp list` connects `redcode`, `edgedeck` and `edgemat` (`rednode` refused, game closed). Run 2026-10-21 at 0.0.2 with the results below. First run 2026-10-16 at 0.0.1, with the same results less `edgedeck` and its option.
 
 | Check | Expected |
 |---|---|
@@ -142,7 +144,7 @@ node tools/test/mcp-probe.cjs --empty REDCODE_GAME_PATH --empty REDBRIDGE_EXE "s
 node tools/test/mcp-probe.cjs --empty REDCODE_GAME_PATH --empty REDBRIDGE_EXE "npx -y @edgemodders/redcode-mcp@0.2.0" bridge_info
 ```
 
-Last run 2026-10-16: **pass.**
+Last run 2026-10-23 through the wrapper with redcode-mcp 0.3.0: **pass**, REDbridge 0.10.0, game loaded, 57 archives, 583,798 files. First run 2026-10-16 with 0.2.0: **pass.**
 
 | Run | Expected |
 |---|---|
@@ -161,7 +163,7 @@ node tools/test/mcp-probe.cjs --empty EDGEDECK_LIBRARY --empty EDGEDECK_GAME "sc
 EDGEDECK_LIBRARY='<scratch>\deck lib (x86)' EDGEDECK_GAME='<game folder>' node tools/test/mcp-probe.cjs "scripts\edgedeck-mcp.cmd" edgedeck_list
 ```
 
-First run 2026-10-21 with edgedeck-mcp 0.27.3: **pass.**
+Last run 2026-10-23 with both options empty and edgedeck-mcp 0.28.0: **pass**, the dev PC's library. First run 2026-10-21 with 0.27.3: **pass.**
 
 | Run | Expected |
 |---|---|
@@ -177,6 +179,22 @@ What the first runs found, and why the wrapper is written as it is:
 | The wrapper with `npx ... !ARGS!` (delayed expansion) | The default library, whatever was set: `npx.cmd` got the text `!ARGS!`. The wrapper's own `echo !ARGS!` showed the right value, which hid it |
 | `endlocal & npx ... -- %ARGS%` | Works: `%ARGS%` is expanded before `npx.cmd` runs |
 | The probe running a wrapper from a folder with a space in its name | No answer, for `redcode-mcp.cmd` too: the probe's quoting from Git Bash. Claude Code starts both wrappers from such a folder ([install from the checkout](#install-from-the-checkout)) |
+
+### edgemat server
+
+Speaks MCP to the server directly, with the plugin's options empty. Needs Node.js 20 or newer. `mat_library` with no arguments only reads.
+
+```bash
+node tools/test/mcp-probe.cjs --empty EDGEMAT_GAME_PATH --empty REDBRIDGE_EXE --empty GEMINI_API_KEY --empty OPENAI_API_KEY "npx -y @edgemodders/edgemat-mcp@0.3.1" mat_library
+node tools/test/mcp-probe.cjs --empty GEMINI_API_KEY --empty OPENAI_API_KEY "npx -y @edgemodders/edgemat-mcp@0.3.1" mat_generate '{"words":"red leather"}'
+```
+
+First run 2026-10-23 with edgemat-mcp 0.3.1: **pass.**
+
+| Run | Expected |
+|---|---|
+| `mat_library`, every option empty | The library's counts (17,734 setups on the dev PC), "matchesGame: not checked (the bridge is not running)", cache `%LOCALAPPDATA%\EDGEmat`; exit 0. Empty variables are taken as unset |
+| `mat_generate`, no key | "No image service key: set GEMINI_API_KEY or OPENAI_API_KEY ..."; exit 1, and no network call |
 
 ### rednode with no token
 
@@ -219,7 +237,7 @@ Found on the way: the user did not know where "the REDNODE tab" was. 0.0.3 names
 
 ### Asks before changes
 
-Not run yet. Needs REDnode 0.26.16 or newer in the game, and for the `edgedeck` rows a plugin version that pins an edgedeck-mcp with the flag (0.27.3 has none). Run it in **auto** mode, the mode that skipped the prompt in P1, then once in the default mode. Game at a loaded save for the rednode rows, closed for the edgedeck rows. Deny every prompt.
+Not run yet. Needs REDnode 0.26.16 or newer in the game, and plugin 0.0.5 or newer for the `edgedeck` rows (it runs edgedeck-mcp 0.28.0, the first with the flag). Run it in **auto** mode, the mode that skipped the prompt in P1, then once in the default mode. Game at a loaded save for the rednode rows, closed for the edgedeck rows. Deny every prompt.
 
 | Ask Claude | Expected |
 |---|---|
