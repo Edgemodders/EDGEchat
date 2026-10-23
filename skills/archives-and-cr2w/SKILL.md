@@ -1,6 +1,6 @@
 ---
 name: archives-and-cr2w
-description: How Cyberpunk 2077's game files are organised and linked. The .archive files, game paths and their hashes, what each file type holds (.ent, .app, .mesh, .mi, .mt, .mlsetup, .mlmask, .xbm, .anims, .rig, .inkwidget, .scene, .questphase, .streamingsector, .csv, .json and more), how an item in the game leads to its files (TweakDB record, factory .csv, .ent, .app, .mesh, material, texture), and how a mod archive replaces a game file. Use when finding, reading, replacing or editing the game's files, when the user names one of these file types, or asks which file something in the game comes from.
+description: Cyberpunk 2077's game files, checked against game 2.31. Archives, path hashes, file types (.ent, .app, .mesh, .mlsetup, ...), and how an item leads to its files. Use when finding, replacing or editing game files.
 ---
 
 # The game's files
