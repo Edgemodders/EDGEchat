@@ -25,6 +25,7 @@ Last updated 2026-10-23.
 | [Evals: archives-and-cr2w](#evals-archives-and-cr2w) | `claude plugin eval` | P2 | 2026-10-23 | Skill fires; Δ 0.00 |
 | [Evals: rednode-mods](#evals-rednode-mods) | `claude plugin eval` | P2 | 2026-10-23 | Δ +1.00 |
 | [rednode-mods in the game](#rednode-mods-in-the-game) | By hand, in a session | P2 | 2026-10-23 | Pass |
+| [Evals: wolvenkit-projects](#evals-wolvenkit-projects) | `claude plugin eval` | P2 | 2026-10-23 | Δ +0.33 |
 
 A scratch config has no Claude login, so the CLI tests check how the plugin installs and starts its servers, not what Claude does with it. The P1 test on 2026-10-21 was the first run of a skill in a session.
 
@@ -309,6 +310,22 @@ First run 2026-10-23, Claude Code 2.1.302, one run per arm, skill copied from RE
 | `hud-widget` (manifest, page and folder for a HUD widget showing V's position) | 1.00 | 0.00, and no `red4ext/plugins/REDnode/apps` |
 | `mod-output` (where a Node mod's `console.log` goes; `mod.js` with `import`) | 1.00 | 0.00 |
 | `data-folder` (a mod writing into its own folder restarts under hot reload) | 1.00 | 0.00, no `pkg.dataDir` |
+
+### Evals: wolvenkit-projects
+
+```bash
+claude plugin eval . --tag wolvenkit-projects --runs 1 -j 3 --no-publish --trust-plugin
+```
+
+First run 2026-10-23, Claude Code 2.1.302, one run per arm: 3 cases, $0.47, 40 s. **Δ +0.33.**
+
+| Case | With | Without | Seen |
+|---|---|---|---|
+| `into-the-game` (the steps and tools from an edited project to the game) | 1.00 | 0.00 | Without the plugin, Claude did not know the EDGE servers' flow |
+| `pack-resources` (`.xl` and tweak files missing after `project_pack`) | 1.00 | 1.00 | The prompt said `project_pack` ran on `source/archive`, which gives the answer away |
+| `changed-after-swap` (EDGEdeck reports a hot-swapped archive) | 1.00 | 1.00 | The prompt described keep and restore; plain Claude reasoned it out |
+
+The two Δ 0 cases test reasoning from a detailed prompt more than knowledge. They stay as they are: rewording prompts until plain Claude fails would only flatter the skill.
 
 ### rednode-mods in the game
 
