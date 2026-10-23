@@ -24,6 +24,7 @@ Last updated 2026-10-23.
 | [EDGEkit one-click setup](#edgekit-one-click-setup) | By hand, in EDGEkit | P4 | Not run | |
 | [Evals: archives-and-cr2w](#evals-archives-and-cr2w) | `claude plugin eval` | P2 | 2026-10-23 | Skill fires; Δ 0.00 |
 | [Evals: rednode-mods](#evals-rednode-mods) | `claude plugin eval` | P2 | 2026-10-23 | Δ +1.00 |
+| [rednode-mods in the game](#rednode-mods-in-the-game) | By hand, in a session | P2 | 2026-10-23 | Pass |
 
 A scratch config has no Claude login, so the CLI tests check how the plugin installs and starts its servers, not what Claude does with it. The P1 test on 2026-10-21 was the first run of a skill in a session.
 
@@ -308,6 +309,21 @@ First run 2026-10-23, Claude Code 2.1.302, one run per arm, skill copied from RE
 | `hud-widget` (manifest, page and folder for a HUD widget showing V's position) | 1.00 | 0.00, and no `red4ext/plugins/REDnode/apps` |
 | `mod-output` (where a Node mod's `console.log` goes; `mod.js` with `import`) | 1.00 | 0.00 |
 | `data-folder` (a mod writing into its own folder restarts under hot reload) | 1.00 | 0.00, no `pkg.dataDir` |
+
+### rednode-mods in the game
+
+What the evals cannot show: Claude building a package in the running game with the skill and the `rednode` server. Plugin 0.0.6 or newer, the game at a loaded save, **Hot reload** on in the REDnode launcher. In a new session:
+
+> Make me a small REDnode HUD widget at the top of the screen that shows V's position. Build it in my game and check it works.
+
+| Check | Expected |
+|---|---|
+| Before writing | It looks up the game functions it uses (`gameapi_lookup`) |
+| Where | A folder in `red4ext\plugins\REDnodepps\`, with `rednode-app.json` (`"kind": "hud"`) and a page; Claude Code asks before writing |
+| After writing | It checks the package with `apps`, `logs` or a screenshot, and says what it checked |
+| In the game | The widget shows V's position at the top of the screen |
+
+First run 2026-10-23 on the user's laptop, in the VS Code extension, plugin 0.0.6, REDnode 0.32.1: **pass**, in the user's words "it showed up properly and worked". The package folder can be deleted afterwards.
 
 ### init-project on a real project
 
