@@ -21,6 +21,7 @@ Last updated 2026-10-23.
 | [P1 test in VS Code with the game](#p1-test-in-vs-code-with-the-game) | By hand, in a session | P1 | 2026-10-21 | Pass; the ask before deploy failed |
 | [Asks before changes](#asks-before-changes) | By hand, in a session | P1 | Not run | |
 | [init-project on a real project](#init-project-on-a-real-project) | By hand, in a session | P1 | Not run | |
+| [EDGEkit one-click setup](#edgekit-one-click-setup) | By hand, in EDGEkit | P4 | Not run | |
 | [Evals: archives-and-cr2w](#evals-archives-and-cr2w) | `claude plugin eval` | P2 | 2026-10-23 | Skill fires; Δ 0.00 |
 
 A scratch config has no Claude login, so the CLI tests check how the plugin installs and starts its servers, not what Claude does with it. The P1 test on 2026-10-21 was the first run of a skill in a session.
@@ -249,6 +250,17 @@ Not run yet. Needs REDnode 0.26.16 or newer in the game, and plugin 0.0.5 or new
 | "Deploy my mods" | `edgedeck_deploy` prompts; denied, the game folder is unchanged |
 | "Undo the last deploy", "Remove mod X" | `edgedeck_undo`, `edgedeck_remove` prompt |
 | `/edge:setup` with REDnode older than 0.26.16 | It says to update REDnode, since `api_read` is missing |
+
+### EDGEkit one-click setup
+
+Not run yet. EDGEkit builds it (`da32f12`, [EDGEkit#5](https://github.com/Edgemodders/EDGEkit/issues/5)); EDGEkit checked that the keys are written, with no Claude login. This test is the part EDGEkit could not do. In an EDGEkit with Claude Code signed in, and the plugin not installed:
+
+| Step | Expected |
+|---|---|
+| Answer yes to "Set up Claude Code for EDGE?" | `settings.json` gains `extraKnownMarketplaces.edgemodders` and `enabledPlugins["edge@edgemodders"]`, other keys kept |
+| Start a Claude Code session | "Plugins changed. Run /reload-plugins to activate." once the marketplace is fetched |
+| `/reload-plugins`, or the next session | `edge` installed; `/edge:setup` runs |
+| `/plugins`, gear on `edge` | The settings form, all six options |
 
 ### Evals: archives-and-cr2w
 
