@@ -319,7 +319,7 @@ What the evals cannot show: Claude building a package in the running game with t
 | Check | Expected |
 |---|---|
 | Before writing | It looks up the game functions it uses (`gameapi_lookup`) |
-| Where | A folder in `red4ext\plugins\REDnodepps\`, with `rednode-app.json` (`"kind": "hud"`) and a page; Claude Code asks before writing |
+| Where | A folder in `red4ext/plugins/REDnode/apps/`, with `rednode-app.json` (`"kind": "hud"`) and a page; Claude Code asks before writing |
 | After writing | It checks the package with `apps`, `logs` or a screenshot, and says what it checked |
 | In the game | The widget shows V's position at the top of the screen |
 
