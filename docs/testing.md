@@ -21,6 +21,7 @@ Last updated 2026-10-23.
 | [P1 test in VS Code with the game](#p1-test-in-vs-code-with-the-game) | By hand, in a session | P1 | 2026-10-21 | Pass; the ask before deploy failed |
 | [Asks before changes](#asks-before-changes) | By hand, in a session | P1 | Not run | |
 | [init-project on a real project](#init-project-on-a-real-project) | By hand, in a session | P1 | Not run | |
+| [Evals: archives-and-cr2w](#evals-archives-and-cr2w) | `claude plugin eval` | P2 | 2026-10-23 | Skill fires; Δ 0.00 |
 
 A scratch config has no Claude login, so the CLI tests check how the plugin installs and starts its servers, not what Claude does with it. The P1 test on 2026-10-21 was the first run of a skill in a session.
 
@@ -248,6 +249,24 @@ Not run yet. Needs REDnode 0.26.16 or newer in the game, and plugin 0.0.5 or new
 | "Deploy my mods" | `edgedeck_deploy` prompts; denied, the game folder is unchanged |
 | "Undo the last deploy", "Remove mod X" | `edgedeck_undo`, `edgedeck_remove` prompt |
 | `/edge:setup` with REDnode older than 0.26.16 | It says to update REDnode, since `api_read` is missing |
+
+### Evals: archives-and-cr2w
+
+The P2 test ([design](design.html#phases)): each case runs with the plugin and without it, and the difference (Δ) is what the skill adds. Runs as you, on your Claude login; the plugin's servers are not started (no mocks), so only the skill is tested. The report stays local with `--no-publish`; results go to `evals/results/`, which git ignores.
+
+```bash
+claude plugin eval . --tag archives-and-cr2w --runs 1 -j 3 --no-publish --trust-plugin
+```
+
+First run 2026-10-23, Claude Code 2.1.302, one run per arm: 3 cases, $0.49, 41 s.
+
+| Case | With | Without | Seen |
+|---|---|---|---|
+| `item-to-files` (item to its files, in order, with the linking fields) | 1.00 | 1.00 | Without the plugin, Claude gave the same chain from memory, down to `colorScale` in the `.mlsetup` |
+| `path-capitals` (a replaced file with capitals in its path) | 1.00 | 1.00 | Both named the capitals and the path hash |
+| `edit-app-mesh` (`components` or `compiledData`) | 1.00 | 1.00 | Both said `components` |
+
+The skill fired in every run with the plugin. **Δ 0.00**: general WolvenKit knowledge is already in the model, so this skill adds little. See the design's P2 note.
 
 ### init-project on a real project
 

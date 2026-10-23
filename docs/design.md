@@ -138,6 +138,8 @@ Phases are P0 to P5. **Unverified:** that no other EDGE repo uses P. Each ends w
 | **P4 Ship** | Version 0.1.0, README install steps, docs, EDGEkit providing the plugin (its welcome page and docs, and how it sets up Claude Code, agreed with the EDGEkit session), a line on EDGEkit's Nexus page, an EDGEweb wiki page; the REDagent knowledge sharing in place | A fresh PC installs Claude Code, adds the marketplace, installs the plugin and is modding |
 | **P5 Grow** | EDGEmat's server and a materials skill (EDGEmat M2 onward), EDGEwave's sounds | Each new EDGE tool lands here when it ships |
 
+**P2 note (2026-10-23).** The first knowledge skill, `archives-and-cr2w`, was checked against the game and its evals ran: the skill fires, but Claude Code without the plugin answered all three cases just as well (Δ 0.00, [tests](testing.html#evals-archives-and-cr2w)). General WolvenKit knowledge (the item-to-files chain, path hashes, `compiledData`) is already in the model. A skill pays for its always-on description only where the model does not know the answer: the EDGE tools themselves (REDnode packages, EDGEdeck, REDcode's project flow, EDGEmat), facts that change with the game version, and the EDGE house rules. **Open, for the user:** narrow P2 to those, and keep or drop `archives-and-cr2w`.
+
 ## P0 decisions
 
 | Question | Status |
