@@ -26,6 +26,7 @@ Last updated 2026-10-23.
 | [Evals: rednode-mods](#evals-rednode-mods) | `claude plugin eval` | P2 | 2026-10-23 | Δ +1.00 |
 | [rednode-mods in the game](#rednode-mods-in-the-game) | By hand, in a session | P2 | 2026-10-23 | Pass |
 | [Evals: wolvenkit-projects](#evals-wolvenkit-projects) | `claude plugin eval` | P2 | 2026-10-23 | Δ +0.33 |
+| [Evals: the whole suite](#evals-the-whole-suite) | `claude plugin eval` | P2, P3 | 2026-10-23 | 12 cases, mean Δ +0.68 |
 
 A scratch config has no Claude login, so the CLI tests check how the plugin installs and starts its servers, not what Claude does with it. The P1 test on 2026-10-21 was the first run of a skill in a session.
 
@@ -310,6 +311,35 @@ First run 2026-10-23, Claude Code 2.1.302, one run per arm, skill copied from RE
 | `hud-widget` (manifest, page and folder for a HUD widget showing V's position) | 1.00 | 0.00, and no `red4ext/plugins/REDnode/apps` |
 | `mod-output` (where a Node mod's `console.log` goes; `mod.js` with `import`) | 1.00 | 0.00 |
 | `data-folder` (a mod writing into its own folder restarts under hot reload) | 1.00 | 0.00, no `pkg.dataDir` |
+
+### Evals: the whole suite
+
+Every case, three runs per arm, judged by Sonnet. The first runs used the default judge (Haiku), which failed correct answers that were long or covered more than the rubric asked (`check-mod` found all three planted problems and got FAIL three times; Sonnet passed the same case). Use `--judge-model sonnet` from now on.
+
+```bash
+claude plugin eval . --runs 3 -j 6 --judge-model sonnet --no-publish --trust-plugin
+```
+
+Run 2026-10-23 at 0.0.8, Claude Code 2.1.302: 12 cases, 10 pass, **mean Δ +0.68**, $7.91, 5 min 22 s.
+
+| Case | Skill | With | Without (3 runs) | Δ |
+|---|---|---|---|---|
+| `hud-widget`, `mod-output`, `data-folder` | `rednode-mods` | 1.00 each | 0, 0, 0 | +1.00 each |
+| `changed-after-swap` | `wolvenkit-projects` | 1.00 | 0, 0, 0 | +1.00 |
+| `into-the-game` | `wolvenkit-projects` | 0.67 (one run failed) | 0, 0, 0 | +0.67 |
+| `pack-resources` | `wolvenkit-projects` | 1.00 | 1, 1, 1 | 0.00 |
+| `money-on-screen` | `new-mod` | 1.00 | 0, 0, 0 | +1.00 |
+| `cheaper-jackets` | `new-mod` | 0.83 | 0.25 each | +0.58 |
+| `broken-package` | `check-mod` | 1.00 | 0, 0, 0 | +1.00 |
+| `edit-app-mesh` | `archives-and-cr2w` | 1.00 | 0, 1, 0 | +0.67 |
+| `item-to-files` | `archives-and-cr2w` | 1.00 | 1, 1, 0.33 | +0.22 |
+| `path-capitals` | `archives-and-cr2w` | 1.00 | 1, 1, 1 | 0.00 |
+
+Seen:
+
+- With three runs, `archives-and-cr2w` shows some gain (Δ +0.67 and +0.22), where one run each showed none.
+- `new-mod` and `check-mod` never fired on these plain-language prompts: Claude loaded `rednode-mods` instead, which carries the same knowledge, and the answers passed. The commands are for `/edge:new-mod` and `/edge:check-mod`; the in-game test runs them that way.
+- `cheaper-jackets` lost points twice on `checks-tweakdb`, a regex for `tweakdb_`: those answers said they would check "with the TweakDB tools" without the tool's name. The regex is stricter than the rubric means.
 
 ### Evals: wolvenkit-projects
 
