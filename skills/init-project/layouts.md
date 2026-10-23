@@ -54,7 +54,7 @@ From redcode-mcp's own instructions (REDcode `packages/redcode-mcp/src/server.ts
 From REDnode `docs/overlay-apps.md` and `packages/overlay/README.md`:
 
 - A folder with `rednode-app.json` and a page (`entry`) and/or a Node mod (`main`, `.mjs` for `import`). Fields: `id` (lowercase letters, digits, `-`, `_`), `name`, `version`, `entry`, `main`, `kind` (`window` or `hud`), `width`, `height`, `permissions`, `requires`.
-- It needs no packing: the folder itself goes to `red4ext/plugins/REDnode/apps/<id>/`.
+- It needs no packing: the folder itself goes to `red4ext/plugins/REDnode/apps/<id>/`. That is the only folder REDnode watches in the game (its plugin passes it as `--apps-dir`, REDnode `native/src/overlay/host.cpp`), so a package is developed there, with Hot reload on.
 - With the launcher's **Hot reload** switch on, saving a mod's file restarts the mod and saving an app's file reloads its page. Write data to `dataDir`, never to the package's own folder, which hot reload watches.
 - A Node mod's `console.log` goes to `red4ext/logs/rednode-mods.log` and the in-game Mod log app.
 - To turn it on: in the game, the REDnode launcher (**F10** for REDnode's overlay, then the **REDNODE** tab at the bottom left), then **Mod Manager**.

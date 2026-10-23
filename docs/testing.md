@@ -23,6 +23,7 @@ Last updated 2026-10-23.
 | [init-project on a real project](#init-project-on-a-real-project) | By hand, in a session | P1 | Not run | |
 | [EDGEkit one-click setup](#edgekit-one-click-setup) | By hand, in EDGEkit | P4 | Not run | |
 | [Evals: archives-and-cr2w](#evals-archives-and-cr2w) | `claude plugin eval` | P2 | 2026-10-23 | Skill fires; Δ 0.00 |
+| [Evals: rednode-mods](#evals-rednode-mods) | `claude plugin eval` | P2 | 2026-10-23 | Δ +1.00 |
 
 A scratch config has no Claude login, so the CLI tests check how the plugin installs and starts its servers, not what Claude does with it. The P1 test on 2026-10-21 was the first run of a skill in a session.
 
@@ -293,6 +294,20 @@ First run 2026-10-23, Claude Code 2.1.302, one run per arm: 3 cases, $0.49, 41 s
 | `edit-app-mesh` (`components` or `compiledData`) | 1.00 | 1.00 | Both said `components` |
 
 The skill fired in every run with the plugin. **Δ 0.00**: general WolvenKit knowledge is already in the model, so this skill adds little. See the design's P2 note.
+
+### Evals: rednode-mods
+
+```bash
+claude plugin eval . --tag rednode-mods --runs 1 -j 3 --no-publish --trust-plugin
+```
+
+First run 2026-10-23, Claude Code 2.1.302, one run per arm, skill copied from REDnode `7e0d9ca` (0.32.1): 3 cases, $0.63, 49 s. **Δ +1.00**: without the plugin, Claude failed every case; with it, it passed every one, and the skill fired each time.
+
+| Case | With | Without |
+|---|---|---|
+| `hud-widget` (manifest, page and folder for a HUD widget showing V's position) | 1.00 | 0.00, and no `red4ext/plugins/REDnode/apps` |
+| `mod-output` (where a Node mod's `console.log` goes; `mod.js` with `import`) | 1.00 | 0.00 |
+| `data-folder` (a mod writing into its own folder restarts under hot reload) | 1.00 | 0.00, no `pkg.dataDir` |
 
 ### init-project on a real project
 

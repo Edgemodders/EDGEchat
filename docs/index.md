@@ -20,7 +20,7 @@ The EDGE plugin for Claude Code: Cyberpunk 2077 modding knowledge as skills, the
 |---|---|
 | P0 Decide | **Decided** 2026-10-23: the name EDGEchat (was EDGEplugin), names `edge@edgemodders`, one repo as marketplace and plugin, a separate repo (not in REDagent), REDagent C6 dropped, every EDGE server on npm, EDGEkit's one-click setup, knowledge shared through each tool's own docs, community sources in our own words, P2 EDGE first. Waiting on the EDGEkit and REDagent sessions for their sides |
 | P1 Skeleton | **Done** 2026-10-21. Manifest, marketplace, `rednode`, `redcode`, `edgedeck` and (0.0.5) `edgemat`, `/edge:setup` and `/edge:init-project`. Installed from GitHub in VS Code on a second PC, `/edge:setup` reported all three connected with the game running |
-| P2 Knowledge | Under way (2026-10-23). The modding skills, checked against the game, with evals. First: `archives-and-cr2w` (evals show Δ 0, see the design) |
+| P2 Knowledge | Under way (2026-10-23). The modding skills, checked against the game, with evals. Done: `archives-and-cr2w` (evals Δ 0, see the design), `rednode-mods` (Δ +1.00) |
 | P3 Commands | Not started. New mod, check mod |
 | P4 Ship | Not started. Version 0.1.0, provided by EDGEkit, in its docs and welcome page |
 | P5 Grow | Not started. EDGEmat and EDGEwave as they ship |

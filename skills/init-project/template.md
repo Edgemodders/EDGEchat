@@ -23,7 +23,7 @@ Fill the angle brackets; drop the rows and sections that do not apply.
 ## Rules
 
 - Never change the game's own files. Everything this mod changes lives in this project and reaches the game through EDGEdeck, which can undo a deploy.
-- Do not write into the game folder by hand.
+- Do not write into the game folder by hand. A REDnode package under development is the exception: it lives in `red4ext/plugins/REDnode/apps/<id>/`, where REDnode hot-reloads it.
 - Editing CR2W files: edit `components`, never `compiledData`; numbers are 32-bit floats; defaults are not stored.
 - Read the running game with the rednode server's `api_read`. Its `api_call` and `archives_reload` change the game: use them only for a change the user asked for (Claude Code asks before each call).
 
