@@ -13,7 +13,7 @@ DIM = "#8a93a8"
 COLORS = {"yellow": "#fcee0a", "cyan": "#19f3ff", "green": "#5dffa1"}
 
 BADGES = [
-    ('status', 'status', 'P2 knowledge', 'yellow'),
+    ('status', 'status', 'P3 commands', 'yellow'),
     ('game', 'game', 'Cyberpunk 2077', 'cyan'),
     ('for', 'for', 'Claude Code', 'cyan'),
     ('license', 'license', 'MIT', 'green'),
