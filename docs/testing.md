@@ -20,6 +20,7 @@ Last updated 2026-10-23.
 | [rednode with no token](#rednode-with-no-token) | CLI, game running | P1 | 2026-10-16 | Seen: HTTP 401 |
 | [P1 test in VS Code with the game](#p1-test-in-vs-code-with-the-game) | By hand, in a session | P1 | 2026-10-21 | Pass; the ask before deploy failed, fixed in 0.0.5 ([asks before changes](#asks-before-changes)) |
 | [Asks before changes](#asks-before-changes) | By hand, in a session | P1 | 2026-10-23 | Pass |
+| [Changing the game folder](#changing-the-game-folder) | By hand, in a session | P3 | 2026-10-23 | Pass after a restart |
 | [init-project on a real project](#init-project-on-a-real-project) | By hand, in a session | P1 | Not run | |
 | [EDGEkit one-click setup](#edgekit-one-click-setup) | By hand, in EDGEkit | P4 | Not run | |
 | [Evals: archives-and-cr2w](#evals-archives-and-cr2w) | `claude plugin eval` | P2 | 2026-10-23 | Skill fires; Δ 0.00 |
@@ -240,6 +241,19 @@ First run 2026-10-21, plugin 0.0.2 installed from GitHub on a second PC (the use
 | An approval step for the servers | None: the servers connected without asking (the user's recollection) |
 
 Found on the way: the user did not know where "the REDNODE tab" was. 0.0.3 names the REDnode launcher everywhere. `redcode` did not fall back to REDcode's VS Code setting on that PC (whether REDcode's setting is set there, or the editor was EDGEkit, is not known), so `game_path` was needed.
+
+### Changing the game folder
+
+Run 2026-10-23 on the dev PC, plugin 0.0.8, game closed. The game had updated to 2.5, which the EDGE tools do not support yet, so the user pointed the tools at a backup of 2.31. **Pass** once the plugin's option was changed and Claude Code restarted.
+
+| Step | Seen |
+|---|---|
+| REDcode's `redcode.gamePath` in VS Code set to the backup, plugin's `game_path` still the 2.5 folder | redcode, edgedeck: still the 2.5 folder. The plugin's `game_path` comes first |
+| Plugin's `game_path` changed in `/plugins`, no restart | Saved in `settings.json`; the servers still on the 2.5 folder: they read it only at start |
+| After a restart, `/edge:setup` | All on the backup. `redcode`: 57 archives, 583,798 files (592,071 on 2.5). `edgedeck`: 12 mods, 7 on, frameworks line "game 2.31 · 2 updates", the mods shown as deployed. `edgemat`: 17,734 setups, built 2026-10-21. `rednode`: refused, game closed |
+| A session started before the update to 0.0.8 | Ran the servers from the 0.0.8 cache but the skills from the 0.0.2 cache, until a restart |
+
+To change folders: set the plugin's `game_path`, not only REDcode's setting, then restart Claude Code.
 
 ### Asks before changes
 
