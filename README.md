@@ -30,7 +30,7 @@ In Claude Code (the CLI, or `/plugins` in the VS Code extension and EDGEkit):
 
 Then run `/edge:setup`. It checks the servers and says what is missing. The plugin asks for six settings, all optional: REDnode's token (in the game, the REDnode launcher's **Copy setup**: **F10**, then the **REDNODE** tab at the bottom left), the game folder and `REDbridge.exe` (not needed if REDcode is set up in VS Code), EDGEdeck's library folder (only if you moved it from the default), and a Google Gemini or OpenAI key for EDGEmat's materials from words (your own key, billed to you). The token and keys are kept in your system's credential store. Change them later with `/plugin configure edge@edgemodders`, or the gear on the plugin in VS Code.
 
-The servers need Windows and Node.js 20 or newer; the game with REDnode for `rednode`; the .NET 10 runtime and REDbridge 0.8.0 or newer for `redcode`. If you added `rednode`, `redcode`, `edgedeck` or `edgemat` by hand before, remove that copy (`/edge:setup` explains how).
+The servers need Windows and Node.js 20 or newer; the game with REDnode for `rednode`; the .NET 10 runtime and REDbridge 0.8.0 or newer for `redcode` and `edgemat`. REDbridge needs no extension: download `REDbridge-<version>-win-x64.zip` from [its releases](https://github.com/Edgemodders/REDbridge/releases), unzip it anywhere and put the path of `REDbridge.exe` in the plugin's REDbridge setting (REDcode's **Install REDbridge** command in VS Code does the same). If you added `rednode`, `redcode`, `edgedeck` or `edgemat` by hand before, remove that copy (`/edge:setup` explains how).
 
 The plugin is called `edge`, so commands stay short. `edge` and `edgemodders` are working names until the first release.
 

@@ -1,6 +1,6 @@
 {
   "name": "edge",
-  "version": "0.0.8",
+  "version": "0.0.9",
   "description": "EDGEchat: Cyberpunk 2077 modding with the EDGE tools: modding knowledge as skills, the REDnode, REDcode, EDGEdeck and EDGEmat MCP servers, and modding commands.",
   "author": { "name": "EDGEmodders", "url": "https://github.com/Edgemodders" },
   "homepage": "https://edgemodders.github.io/EDGEchat/",
@@ -24,7 +24,7 @@
     "redbridge_exe": {
       "type": "file",
       "title": "REDbridge.exe",
-      "description": "REDbridge, which reads the game's files. Leave empty if REDcode is set up in VS Code: redcode-mcp then reads REDcode's setting.",
+      "description": "REDbridge, which reads the game's files: REDbridge-<version>-win-x64.zip from github.com/Edgemodders/REDbridge/releases, unzipped anywhere (it needs the .NET 10 runtime). Leave empty if REDcode is set up in VS Code: the servers then read REDcode's setting.",
       "required": false
     },
     "edgedeck_library": {
