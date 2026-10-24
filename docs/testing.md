@@ -219,7 +219,7 @@ The test that ends P1 ([design](design.html#phases)). Needs your own Claude Code
 
 1. Remove a `rednode` added by hand, which hides the plugin's: `claude mcp remove rednode -s user`.
 2. In the VS Code extension: `/plugins`, add the marketplace `Edgemodders/EDGEchat`, install `edge`.
-3. Start the game and load a save. Open the REDnode launcher (**F10** for REDnode's overlay, then the **REDNODE** tab at the bottom left): **MCP server** on, **Copy setup**. Do not run the copied command. Put only the token (after `Bearer `) in the plugin's `rednode_token`: the gear on the `edge` row.
+3. Start the game and load a save. Open the REDnode launcher (**F10** for REDnode's overlay, then the **REDNODE** tab at the bottom left), and its Settings panel with the gear at the right of the Theme row (REDnode 0.32.2 or newer; before that the switches were in the launcher itself): **MCP server** on, **Copy setup**. Do not run the copied command. Put only the token (after `Bearer `) in the plugin's `rednode_token`: the gear on the `edge` row.
 4. Start a new session and run `/edge:setup`.
 
 | Check | Expected |
@@ -373,7 +373,7 @@ The two Δ 0 cases test reasoning from a detailed prompt more than knowledge. Th
 
 ### rednode-mods in the game
 
-What the evals cannot show: Claude building a package in the running game with the skill and the `rednode` server. Plugin 0.0.6 or newer, the game at a loaded save, **Hot reload** on in the REDnode launcher. In a new session:
+What the evals cannot show: Claude building a package in the running game with the skill and the `rednode` server. Plugin 0.0.6 or newer, the game at a loaded save, **Hot reload** on in the REDnode launcher's Settings panel (the gear at the right of the Theme row). In a new session:
 
 > Make me a small REDnode HUD widget at the top of the screen that shows V's position. Build it in my game and check it works.
 
