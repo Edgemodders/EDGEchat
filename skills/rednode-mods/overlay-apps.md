@@ -1,8 +1,8 @@
-<!-- Copied from REDnode's docs/overlay-apps.md at 7e0d9ca 2026-10-23 by tools/sync-docs.mjs. Do not edit here: change it in REDnode. -->
+<!-- Copied from REDnode's docs/overlay-apps.md at 00c1947 2026-10-25 by tools/sync-docs.mjs. Do not edit here: change it in REDnode. -->
 
 # Overlay apps
 
-Overlay apps are small web apps drawn on top of the game: HTML, CSS and JavaScript. They talk to the game through the `rednode` package and can play the game's own UI sounds. [Node mods](#node-mods) use the same package from Node, and can open windows without writing HTML. Every app example on this page was tested in game on 2026-10-11 (Cyberpunk 2077 2.31), and the Node mod and game API examples on 2026-10-12.
+Overlay apps are small web apps drawn on top of the game: HTML, CSS and JavaScript. They talk to the game through the `rednode` package and can play the game's own UI sounds. [Node mods](#node-mods) use the same package from Node, and can open windows without writing HTML. Every example on this page was tested in game on Cyberpunk 2077 2.31, each with the REDnode version its section names.
 
 Status: **developer preview.** See the [overlay design](https://edgemodders.github.io/REDnode/overlay.html) for how it works and what is planned.
 
@@ -304,7 +304,7 @@ Import the `rednode` package, the same one Node mods use. An import map lets the
 |---|---|
 | `game.player.position()` | V's world position. Rejects at the main menu, where there is no player |
 | `game.audio.play(name)` | Plays a game sound event |
-| `game.on(name, handler)` | A game event. Today `"PlayerPuppet.OnGameAttached"`, at the main menu and on every save load |
+| `game.on(name, handler)` | A game event: `"PlayerPuppet.OnGameAttached"` (at the main menu and on every save load), `"language"` (the player changed the game's language), and the `quests.fact:<name>` events that [`quests.watch`](https://edgemodders.github.io/REDnode/quests.html) uses |
 | `game.state()`, `game.onState(handler)` | Whether a menu, photo mode, a scene or the main menu is showing, the overlay mode, and whether the game is linked |
 | `game.call(method, params)` | Any bridge method by name, for example `"game.info"` |
 
@@ -387,9 +387,25 @@ Every node has `set(props)`, which updates the open window at once.
 | Output | `console.log` goes to `red4ext/logs/rednode-mods.log`, tagged with the mod id. Open the built-in **Mod log** app from the launcher to watch it live in game; **Copy** puts the lines shown on the clipboard, ready to paste into a bug report. A crash shows only the stack lines in your own code |
 | Isolation | Each mod runs on its own thread in a mod process. A thrown error, an endless loop or `process.exit()` stops only your mod. The launcher shows it as **CRASHED** or **NOT RESPONDING** with a **Restart** button |
 | Memory | A mod process costs about 80 MB. Players can put mods in one **shared process** with the launcher; three mods then took about 92 MB in total. A native crash in the shared process stops every mod in it, so a mod with native addons should set `"isolation": "process"` |
-| Hot reload | With the launcher's **Hot reload** switch on, saving a mod's file restarts the mod, and saving an app's file reloads its page |
+| Hot reload | With **Hot reload** on in the launcher's settings (the gear at the right of the Theme row), saving a mod's file restarts the mod, and saving an app's file reloads its page |
 | New and removed packages | The host watches the apps folders while it runs. A new package folder starts (if its manifest has `"open": true`), a changed manifest restarts its package, and a removed folder stops it. A package whose manifest names a file that does not exist yet is skipped, and looked at again when any of its files changes |
+| Developing outside the game folder | Add your project's folder as a [development folder](#development-folders): the package runs from there, with hot reload, instead of its installed copy |
 | `.mjs` | Use the `.mjs` extension for `import` syntax, or add a `package.json` with `"type": "module"` |
+
+### Development folders
+
+A package can live in your own project, for example `E:\Modding\MyMod\`, and still run in the game with hot reload. You copy it into the game's apps folder only when you install it for real. REDnode 0.33.0 or later.
+
+1. Press **F10**, open the launcher and its settings (the gear at the right of the Theme row), and switch on **Developer mode**.
+2. Under **Development folders**, paste the folder's full path and press **Enter**. Its packages start at once.
+
+| Good to know | |
+|---|---|
+| What a folder holds | Either one package (the folder has its own `rednode-app.json`) or packages in subfolders, as the apps folder does |
+| A package in two places | The development copy runs. The installed copy is skipped, and the Mod Manager shows the package as **DEV** with the copy it hides. Remove the folder, or change the copy's `id`, and the installed copy runs again |
+| `pkg.dir` | The folder the package runs from. `pkg.dataDir` stays the same, so a development copy and the installed copy share their settings and saved data |
+| `pkg.appsDirs` | Holds the development folders too, before the apps folder. REDagent writes only inside these folders, so it can work on your project's packages, still showing you each change first |
+| Where it is kept | In the overlay host's `settings.json`, as `devFolders`. Each folder is kept until you press **Remove**, also when Developer mode is off, but the list shows only with Developer mode on |
 
 ## Data, secrets and the kernel
 
@@ -397,7 +413,7 @@ Every node has `set(props)`, which updates the open window at once.
 |---|---|---|
 | `pkg.id`, `pkg.dir`, `pkg.dataDir` | This package's id, its folder in the apps folder, and a data folder of its own outside it, which survives updates. Write files to `dataDir`, never to `dir`: hot reload watches `dir` | Node mods |
 | `secrets.get(name)`, `secrets.set(name, value)`, `secrets.delete(name)` | Secrets such as an API key, encrypted with the player's Windows account and kept by the host. A package reads only its own. A secret that cannot be decrypted, for example one saved under another Windows account, reads as `null` | Node mods and apps |
-| `kernel.mcp()` | The address and a token for the [kernel MCP server](https://edgemodders.github.io/REDnode/mcp.html), for an AI agent in the package. The package must list `"permissions": ["mcp"]` in its manifest, and the player must allow it in the launcher | Node mods and apps |
+| `kernel.mcp()` | The address and a token for the [kernel MCP server](https://edgemodders.github.io/REDnode/mcp.html), for an AI agent in the package. The package must list `"permissions": ["mcp"]` in its manifest, and the player must allow it in the Mod Manager | Node mods and apps |
 | `channel.post(data)`, `channel.on(handler)` | Messages between a package's pages and its own Node mod: a web UI with a Node backend | Node mods and apps |
 | `kernel.requirements()` | The package's `requires`, checked against the game folder (see [Requirements](#requirements)) | Node mods and apps |
 | `tweakdb` | TweakDB's records and flats, read from the running game (see [TweakDB](#tweakdb)) | Node mods and apps |
@@ -488,7 +504,7 @@ AI agents have the same as the [MCP tool](https://edgemodders.github.io/REDnode/
 
 Players can sort windows into **spaces**, like virtual desktops: the launcher's **Space** row makes them, the tab switches them, and so does Ctrl+1 to 9 while the overlay is open. Only the current space's windows show; REDnode's own tools show in all. A package needs nothing to take part: its windows join the space the player is in, and the player moves them from the title bar or the Mod Manager.
 
-An `rn-window` title bar shows close and up to three action icons, right to left: move to space (once there is a second space), roll up, pin to HUD, reset position (after the window was moved), and debug in Developer mode. More than three: ⋯ on the far left holds the rest. The overlay-window actions (space, pin, reset) show only on a page's only `rn-window`, since they act on the whole page. To leave one out for a window, add `no-space`, `no-rollup` or `no-debug`.
+An `rn-window` title bar shows close and up to three action icons, right to left: move to space (once there is a second space), roll up, pin to HUD, reset position (after the window was moved), and debug in Developer mode. More than three: ⋯ on the far left holds the rest. The overlay-window actions (space, pin, reset) show only on a page's only `rn-window`, since they act on the whole page. To leave one out for a window, add `no-space`, `no-rollup` or `no-debug`. A panel that belongs to the main window, such as a settings drawer beside it, takes `drawer`: it does not count as a second window, has no actions but close, and closing it only hides it.
 
 ```html
 <rn-window title="Speedometer" draggable no-rollup>...</rn-window>
@@ -528,9 +544,120 @@ await ui.solo(false);
 
 Solo ends when the package turns it off, stops or crashes, another package takes it, or the player presses **End** beside the launcher tab, which shows "SOLO" and the package's name. `ui.onSolo` hears every end, so a package can keep its own button in step. The [Layers test](https://github.com/Edgemodders/REDnode/tree/main/packages/overlay/apps/layers-test) sample shows both.
 
+## Calling other packages
+
+A package can offer functions to every other package, and call theirs: a quest mod asks a world builder for a scene's places, a HUD widget asks a stats mod for its numbers. REDnode 0.34.0 and later; descriptions from JSDoc come with 0.35.0 and AI assistants calling them as tools with 0.36.0. The design and its tests are on the [Mod services](https://edgemodders.github.io/REDnode/services.html) page.
+
+To offer some, name a **service file** in the manifest. Every function it exports can be called by other packages, by your package's id:
+
+```json
+{ "id": "counter-service", "name": "Counter service", "version": "0.1.0", "service": "service.mjs" }
+```
+
+```js
+// service.mjs
+import { service } from 'rednode';
+
+let count = 0;
+
+/**
+ * Adds to the count, and tells every connected package.
+ * @param {number} [by=1] How much to add.
+ * @returns {number} The new count.
+ */
+export function add(by = 1) {
+  count += by;
+  service.emit('changed', { count, from: service.caller()?.name });
+  return count;
+}
+```
+
+To call one, connect by the package's id; each function it exports is then a method that returns a promise:
+
+```js
+import { service } from 'rednode';
+
+const counter = await service.connect('counter-service');
+await counter.add(5);                                        // 5
+counter.$on('changed', (e) => console.log(e.count));         // its events
+await counter.$with({ timeoutMs: 60000 }).add(1);            // a longer timeout, or { signal }
+```
+
+| Rule | Detail |
+|---|---|
+| Where it runs | The service file runs in your package's Node mod, after `main`, so the two share their state (import one from the other). A package with a service and no `main` is fine |
+| What crosses | Plain JSON-like values: numbers, strings, booleans, arrays, plain objects, entity ids. Not game references: each package's references are its own |
+| Errors | What your function throws reaches the caller as an error with your message. A call fails at once when the package is not installed, offers no service, is switched off or crashed, or has no such function, with that reason |
+| Waiting | `connect` and calls wait up to 10 seconds for a package that is starting or hot-reloading. A call times out after 30 seconds; `$with({ timeoutMs })` changes it |
+| Who calls | Inside your function, `service.caller()` is `{ id, name }` of the calling package. Refuse callers you do not want by throwing |
+| Stopping | `$with({ signal })` gives a call an `AbortSignal`. Inside your function, `service.signal()` aborts when the caller gives up or the call times out: pass it on to long work |
+| Events | `service.emit(name, data)` reaches every package that connected to yours, its Node mod and its pages; `$on(name, handler)` hears them |
+| Names | Methods starting with `$` belong to the handle. Call a function with such a name, or one known only at run time, with `$call(name, ...args)` |
+| Pages | An overlay page can connect and call too. Only a Node mod offers a service |
+| Requirements | Add the other package to `requires` with a version range, such as `"requires": { "counter-service": ">=0.1" }`: the Mod Manager shows it as missing before your package runs |
+| Cost | The Task Manager shows each package's service calls a second, in and out |
+
+The [Counter service](https://github.com/Edgemodders/REDnode/tree/main/packages/overlay/apps/counter-service) and [Counter panel](https://github.com/Edgemodders/REDnode/tree/main/packages/overlay/apps/counter-panel) samples show both sides, with a timeout, Stop and errors.
+
+### Describing a service
+
+The JSDoc above each exported function is its description (REDnode 0.35.0 and later). The host reads it when the service loads and uses it three ways: it checks every call's arguments before your function sees them, the Mod Manager lists your functions in the package's details, and `service.describe(id)` hands it to other packages. From 0.36.0, functions marked `@tool` also become tools an AI assistant can call.
+
+```js
+/**
+ * Loads a saved scene into the world, near V unless it has its own place.
+ * @tool
+ * @param {string} name The scene's name, as `scenes` lists it.
+ * @param {{ x: number, y: number, z: number }} [at] Where to put it.
+ * @param {'idle' | 'walk'} [mode='idle'] What its people do.
+ * @returns {{ placed: number, missing: string[] }} What was placed, and any asset not found.
+ * @timeout 60000
+ */
+export async function load(name, at, mode = 'idle') { /* ... */ }
+
+/** @event scene-changed {{ name: string, objects: number }} A scene was saved. */
+```
+
+| Tag | Means |
+|---|---|
+| The text before the first tag | What the function does, in a sentence or two. An assistant reads it to decide when to call it |
+| `@param {type} name text` | One parameter, in order. `[name]` or `[name=default]` makes it optional. In TypeScript the type may come from the parameter list instead |
+| `@returns {type} text` | What it answers |
+| `@tool` | An AI assistant may call it (0.36.0). Without it, only other packages can |
+| `@readonly` | It changes nothing: an assistant calls it without asking the player. Every other tool asks first |
+| `@timeout ms` | How long a call may take before it fails, instead of 30 seconds |
+| `@deprecated text` | Still works; the Mod Manager marks it |
+| `@event name {type} text` | An event your service sends with `service.emit`, in any JSDoc block |
+
+| Types the host understands | Becomes |
+|---|---|
+| `string`, `number`, `integer`, `boolean`, `null`, `object`, `any` | That JSON type |
+| `'a' \| 'b'`, `1 \| 2`, `true` | A choice of those values |
+| `A \| B` | Either |
+| `T[]`, `Array<T>` | An array of T |
+| `{ x: number, label?: string }` (in JSDoc, inside the tag's braces: `{{ x: number }}`) | An object with those members, the ones without `?` required |
+
+Anything else is accepted as any value, and the Mod log says which type it could not read when the service starts. A function with no JSDoc can still be called, but its calls are not checked.
+
+**Tools for AI assistants (REDnode 0.36.0 and later):** each function marked `@tool` is offered to every assistant connected to REDnode's MCP server (Claude Code on the desktop, REDagent in the game) as the tool `<package>__<function>`, with your description and parameters. Write the description for someone who has never seen your mod: what it does, and when to use it. Mark functions that change nothing `@readonly`: they run without asking; every other tool asks the player before each call, and you cannot turn that off. `service.caller()` is `{ assistant: "<its name>" }` when an assistant calls. The player can switch any tool off in the **Tools Manager**.
+
+**Bundled or TypeScript packages:** a bundler removes comments, so describe the service from its source when you build, with the `rednode` command in the `rednode` package:
+
+```
+npx rednode describe src/service.ts
+```
+
+It writes `service.json` beside your `rednode-app.json`; ship it with the package. The host uses `service.json` when it is there, and the service file's own JSDoc otherwise. From the REDnode repo, the same command is `node packages/rednode/bin/rednode.mjs describe <file>`.
+
+## The Task Manager
+
+The **Task Manager**, in the optional [Admin Tools](https://edgemodders.github.io/REDnode/admin-tools.html) pack, lists every running package and what it costs, refreshed every second or five: CPU and memory (a Node mod's process with its windows), how busy the mod's own thread is and its heap, game calls a second with their round trip, and service calls in and out. A mod in the shared process shows the whole process's CPU and memory, since Windows sees no finer; its Thread and Heap columns are its own. **End task** stops a package now, also one stuck in an endless loop, and closes its windows; it stays switched on, so it runs again with the next game or with **Restart**. It was built into REDnode 0.34.0 to 0.36.0.
+
+To write an admin tool of your own, ask for the `admin` permission and use `admin` from the `rednode` package in a page: see [The admin permission](https://edgemodders.github.io/REDnode/admin-tools.html#the-admin-permission).
+
 ## Asking the AI assistant
 
-A package can ask the AI assistant (REDagent) a question and show the answer: a build suggestion, an explanation of an error, a summary of the game state. Add `"permissions": ["agent"]` to the manifest; the player allows it in the launcher or the Mod Manager, and REDagent must be installed and on.
+A package can ask the AI assistant (REDagent) a question and show the answer: a build suggestion, an explanation of an error, a summary of the game state. Add `"permissions": ["agent"]` to the manifest; the player allows it in the Mod Manager, and REDagent must be installed and on.
 
 ```js
 import { agent, ui } from 'rednode';
@@ -609,7 +736,7 @@ await shop.GiveItem(player, await api.MarketSystem.Money(), 100);   // a change:
 
 ## TweakDB
 
-TweakDB is the game's database of tuning data: items, weapons, vehicles, characters, perks. A **record** is one thing (`Items.Preset_Lexington_Default`, a `gamedataWeaponItem_Record`); a **flat** is one value in it (`Items.Preset_Lexington_Default.quality`). `tweakdb` reads them from the running game and needs nothing else installed. Changing them comes later, through TweakXL ([plan](https://edgemodders.github.io/REDnode/tweakdb.html)).
+TweakDB is the game's database of tuning data: items, weapons, vehicles, characters, perks. A **record** is one thing (`Items.Preset_Lexington_Default`, a `gamedataWeaponItem_Record`); a **flat** is one value in it (`Items.Preset_Lexington_Default.quality`). `tweakdb` reads them from the running game and needs nothing else installed. Changing them needs TweakXL: see [Changing TweakDB](#changing-tweakdb) below.
 
 ```js
 import { tweakdb } from 'rednode';
@@ -702,7 +829,7 @@ The [World test](https://github.com/Edgemodders/REDnode/tree/main/packages/overl
 
 ## Debugging
 
-Turn on **Developer mode** in the launcher. Every window built with the UI kit's `rn-window` then shows a debug button next to its close button. It opens Chromium's DevTools for that window's page, drawn in the game as an overlay window: elements, styles, the console, sources and breakpoints. The Mod Manager's details also open it, in the game or on the desktop (**Window debugger**). Add `no-debug` to an `rn-window` that should never show the button.
+Turn on **Developer mode** in the launcher's settings (the gear at the right of the Theme row). Every window built with the UI kit's `rn-window` then shows a debug button next to its close button. It opens Chromium's DevTools for that window's page, drawn in the game as an overlay window: elements, styles, the console, sources and breakpoints. The Mod Manager's details also open it, in the game or on the desktop (**Window debugger**). Add `no-debug` to an `rn-window` that should never show the button.
 
 A Node mod has a **Debug (Node inspector)** switch in the Mod Manager. On, the mod restarts alone in its own process with Node's inspector, and the Mod Manager shows the inspector's address:
 
