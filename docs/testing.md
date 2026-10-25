@@ -24,7 +24,7 @@ Last updated 2026-10-23.
 | [init-project on a real project](#init-project-on-a-real-project) | By hand, in a session | P1 | Not run | |
 | [EDGEkit one-click setup](#edgekit-one-click-setup) | By hand, in EDGEkit | P4 | Not run | |
 | [Evals: archives-and-cr2w](#evals-archives-and-cr2w) | `claude plugin eval` | P2 | 2026-10-23 | Skill fires; Δ 0.00 |
-| [Evals: rednode-mods](#evals-rednode-mods) | `claude plugin eval` | P2 | 2026-10-23 | Δ +1.00 |
+| [Evals: rednode-mods](#evals-rednode-mods) | `claude plugin eval` | P2 | 2026-10-25 | Δ +1.00; with `new-mod`, mean Δ +0.95 |
 | [rednode-mods in the game](#rednode-mods-in-the-game) | By hand, in a session | P2 | 2026-10-23 | Pass |
 | [Evals: wolvenkit-projects](#evals-wolvenkit-projects) | `claude plugin eval` | P2 | 2026-10-23 | Δ +0.33 |
 | [Evals: the whole suite](#evals-the-whole-suite) | `claude plugin eval` | P2, P3 | 2026-10-23 | 12 cases, mean Δ +0.68 |
@@ -49,7 +49,7 @@ claude plugin validate .claude-plugin/plugin.json
 claude plugin validate skills --strict
 ```
 
-Last run 2026-10-23 with Claude Code 2.1.302, at 0.0.5: **pass**, the same one warning. First run 2026-10-16 with 2.1.299.
+Last run 2026-10-25 with Claude Code 2.1.310, at 0.0.10: **pass**, the same one warning, plus two new "plugin directory" warnings that do not change the result: no icon (`ICON_MISSING`) and no `privacyPolicyUrl` (`PRIVACY_URL_MISSING`, since `rednode` is a remote server). Run 2026-10-23 with 2.1.302, at 0.0.5: pass, the one warning. First run 2026-10-16 with 2.1.299.
 
 | Check | Expected |
 |---|---|
@@ -317,6 +317,8 @@ The skill fired in every run with the plugin. **Δ 0.00**: general WolvenKit kno
 ```bash
 claude plugin eval . --tag rednode-mods --runs 1 -j 3 --no-publish --trust-plugin
 ```
+
+Run 2026-10-25 at 0.0.10, Claude Code 2.1.310, guide copied from REDnode `00c1947` (0.37.0), with development folders and services in the skill, together with `--tag new-mod` and `--judge-model sonnet`: 5 cases, $1.16, 71 s, **mean Δ +0.95**. The three `rednode-mods` cases Δ +1.00 each as before (`hud-widget` still names `red4ext/plugins/REDnode/apps`); `money-on-screen` +1.00, `cheaper-jackets` +0.75. `money-on-screen` again loaded `rednode-mods`, not `new-mod`.
 
 First run 2026-10-23, Claude Code 2.1.302, one run per arm, skill copied from REDnode `7e0d9ca` (0.32.1): 3 cases, $0.63, 49 s. **Δ +1.00**: without the plugin, Claude failed every case; with it, it passed every one, and the skill fired each time.
 
