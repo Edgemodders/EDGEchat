@@ -17,7 +17,7 @@ EDGEchat is not an agent: it connects Claude Code to EDGE while you build mods. 
 **[Docs](https://edgemodders.github.io/EDGEchat/)** · [Design](https://edgemodders.github.io/EDGEchat/design.html) · [EDGEkit](https://github.com/Edgemodders/EDGEkit) · [REDagent](https://github.com/Edgemodders/REDagent)
 
 > [!NOTE]
-> **Status: P3, commands. A preview (0.0.x), not released yet.** It installs and connects the REDnode, REDcode, EDGEdeck and EDGEmat servers. Skills: `rednode-mods`, `wolvenkit-projects`, `archives-and-cr2w`. Commands: `/edge:setup`, `/edge:new-mod`, `/edge:check-mod`, `/edge:init-project`. Windows only for the servers. The EDGE tools work with game version 2.31; game 2.5 waits until RED4ext, redscript and Codeware support it.
+> **Status: P3, commands. A preview (0.0.x), not released yet.** It installs and connects the REDnode, REDcode, EDGEdeck and EDGEmat servers. Skills: `rednode-mods`, `wolvenkit-projects`, `archives-and-cr2w`. Commands: `/edge:setup`, `/edge:new-mod`, `/edge:check-mod`, `/edge:init-project`. Windows only for the servers. REDnode supports game version 2.5 from 0.38.1 (0.37.0 is the last for 2.31). The skills' game facts were checked on 2.31; their recheck on 2.5 comes before the first release.
 
 ## Install
 

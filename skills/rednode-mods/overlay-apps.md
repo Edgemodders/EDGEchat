@@ -1,8 +1,8 @@
-<!-- Copied from REDnode's docs/overlay-apps.md at 00c1947 2026-10-25 by tools/sync-docs.mjs. Do not edit here: change it in REDnode. -->
+<!-- Copied from REDnode's docs/overlay-apps.md at 92629cf 2026-10-25 by tools/sync-docs.mjs. Do not edit here: change it in REDnode. -->
 
 # Overlay apps
 
-Overlay apps are small web apps drawn on top of the game: HTML, CSS and JavaScript. They talk to the game through the `rednode` package and can play the game's own UI sounds. [Node mods](#node-mods) use the same package from Node, and can open windows without writing HTML. Every example on this page was tested in game on Cyberpunk 2077 2.31, each with the REDnode version its section names.
+Overlay apps are small web apps drawn on top of the game: HTML, CSS and JavaScript. They talk to the game through the `rednode` package and can play the game's own UI sounds. [Node mods](#node-mods) use the same package from Node, and can open windows without writing HTML. Every example on this page was tested in game on Cyberpunk 2077 2.31, each with the REDnode version its section names; the sample apps passed again on game 2.5 with REDnode 0.38.1.
 
 Status: **developer preview.** See the [overlay design](https://edgemodders.github.io/REDnode/overlay.html) for how it works and what is planned.
 
