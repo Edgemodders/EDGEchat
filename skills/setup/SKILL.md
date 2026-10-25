@@ -12,7 +12,7 @@ The plugin's servers:
 
 | Server | Gives | Its tools are named |
 |---|---|---|
-| `rednode` | The running game: logs, apps, game state, game API lookup, reads (`api_read`) and calls (`api_call`), live TweakDB, screenshots. Only answers while the game runs | `mcp__plugin_edge_rednode__*` |
+| `rednode` | The running game: logs, apps, game state, game API lookup, reads (`api_read`) and calls (`api_call`), live TweakDB, screenshots, archive swaps, quest facts and journal, and installed mods' own tools (`<package>__<function>`). Only answers while the game runs | `mcp__plugin_edge_rednode__*` |
 | `redcode` | The game's files, offline: archives, CR2W as JSON and edits, textures, the shipped TweakDB, sounds, WolvenKit project export, import and pack | `mcp__plugin_edge_redcode__*` |
 | `edgedeck` | EDGEdeck's mod library: list, add, turn on and off, conflicts, deploy into the game and undo | `mcp__plugin_edge_edgedeck__*` |
 | `edgemat` | EDGEmat's materials: find a garment's materials, describe, recolor, apply, make new ones from words or an image, into a WolvenKit project | `mcp__plugin_edge_edgemat__*` |
@@ -41,8 +41,10 @@ Call `game_state` on the rednode server (it only reads).
 |---|---|---|
 | It answers | Connected | Report the game state in one line |
 | It answers, but rednode has no `api_read` tool | REDnode is older than 0.26.16, so its `api_call` and `archives_reload` do not make Claude Code ask before every call (step 6) | Update REDnode |
-| No rednode tools, and `claude mcp list` says "Failed to connect" or ECONNREFUSED | The game is not running, or REDnode's MCP server is off | Start the game with REDnode and load a save. Open the REDnode launcher (**F10** for REDnode's overlay, then the **REDNODE** tab at the bottom left), switch **MCP server** on. Then reconnect from `/mcp`, or start a new session |
-| `claude mcp list` says HTTP 401, "A valid token is required" | The plugin has no token, or an old one | In the game, open the REDnode launcher (**F10** for REDnode's overlay, then the **REDNODE** tab at the bottom left) and press **Copy setup**. The copied command ends with `Bearer <token>"`. Do not run it: it would add a second `rednode` by hand (step 1). Put only the token in the plugin's `rednode_token` option: in VS Code, `/plugins`, then the gear on the `edge` row; in the terminal, `/plugin configure edge@edgemodders`. Then restart Claude Code |
+| No rednode tools, and `claude mcp list` says "Failed to connect" or ECONNREFUSED | The game is not running, or REDnode's MCP server is off | Start the game with REDnode and load a save. Open the REDnode launcher's Settings panel (below) and switch **MCP server** on. Then reconnect from `/mcp`, or start a new session |
+| `claude mcp list` says HTTP 401, "A valid token is required" | The plugin has no token, or an old one | In the game, open the REDnode launcher's Settings panel (below) and press **Copy setup**. The copied command ends with `Bearer <token>"`. Do not run it: it would add a second `rednode` by hand (step 1). Put only the token in the plugin's `rednode_token` option: in VS Code, `/plugins`, then the gear on the `edge` row; in the terminal, `/plugin configure edge@edgemodders`. Then restart Claude Code |
+
+The launcher's Settings panel: **F10** for REDnode's overlay, the **REDNODE** tab at the bottom left, then the gear at the right of the Theme row. **MCP server**, **Copy setup** and **Hot reload** are there since REDnode 0.32.2; before that they were on the launcher itself.
 
 You only see a server's tools when it connected at session start. To see why it failed, run `claude mcp list` if `claude` is on the PATH; otherwise ask the user to open `/mcp` and read the status of `plugin:edge:rednode`.
 
@@ -90,13 +92,17 @@ A server can mark a tool so that Claude Code asks the user before every call of 
 
 | Tool | Does | Asks before every call |
 |---|---|---|
-| rednode `api_read` | Game API calls that read: functions named `Get`, `Is`, `Has`, `Can` or `Find` with no change word after it, and TweakDB records' methods. It refuses the rest | No, and it needs no asking |
+| rednode `api_read` | Game API calls that read: functions named like reads (starting `Get`, `Is`, `Has`, `Can` or `Find`), and every method of a TweakDB record. It refuses the rest, and a read name joined to a change word with `Or`, `And` or `Then` (such as `GetOrCreate…`, `GetOrAdd…`); before REDnode 0.32.1 it also refused names with a change word as a noun (`GetItemInEquipSlot`) | No |
 | rednode `api_call` | Any game API call: it can change the player's game (money, health, anything the game API can do) | Yes, from REDnode 0.26.16 |
 | rednode `archives_reload` | Swaps archives into the running game. It replaces files in the game's mod folder, and a broken archive can crash the game | Yes, from REDnode 0.26.16 |
+| rednode `game_facts_set`, `game_journal_set`, `game_teleport` | Change quest facts or journal entries in the player's save, or move V | Yes, from REDnode 0.32.0 |
+| rednode `mod_call`, and mods' own tools (`<package>__<function>`) not marked `@readonly` | Whatever the mod does | Yes, from REDnode 0.36.0 |
+| rednode `api_get`, `game_facts`, `game_journal`, `mod_services`, `mod_read`, mods' tools marked `@readonly`, and the rest (`logs`, `game_state`, `tweakdb`, `window_*`, `game_image`, ...) | Read only. `apps` changes something only with an action (open, close, restart, pin) | No |
 | edgedeck `edgedeck_deploy`, `edgedeck_undo`, `edgedeck_remove` | Write to the game folder, or delete a mod from the library | Yes, from edgedeck-mcp 0.28.0 (plugin 0.0.5) |
 | edgemat `mat_generate` | Sends the words to Google Gemini or OpenAI, billed to the user's key | No. Say which service it will use before the first call |
 
-- Read the game with `api_read`. Use `api_call` only for a change the user asked for.
+- Read the game with `api_read`, and a mod's tools with `mod_read`. Use `api_call` and the other asking tools only for a change the user asked for.
+- The player can switch any of REDnode's or a mod's tools off for every assistant in the **Tools Manager** (REDnode's optional Admin Tools pack). A tool switched off is not listed.
 - Mods never change the game's own files. They are deployed into the game folder by EDGEdeck, which can undo a deploy.
 
 ## Report
