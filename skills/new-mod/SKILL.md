@@ -40,7 +40,7 @@ A replaced game file changes every place that uses it: say so when the user pick
 
 | Kind | Where | Start with |
 |---|---|---|
-| REDnode package | `<game folder>\red4ext\plugins\REDnode\apps\<id>\` (the only folder REDnode hot-reloads) | `rednode-app.json` and one file |
+| REDnode package | `<game folder>\red4ext\plugins\REDnode\apps\<id>\`, or a folder of the user's own outside the game, added as a development folder (`rednode-mods`, "Where a package lives"). REDnode hot-reloads both | `rednode-app.json` and one file |
 | WolvenKit project (tweaks, replacers, sounds) | A folder the user picks, outside the game folder, such as `Documents\Cyberpunk Mods\<Name>\` | The project folders and `.cpmodproj` (`wolvenkit-projects`). A tweak goes in `source/resources/r6/tweaks/<mod>/<name>.yaml` |
 
 Names: an `id` or `ModName` in lowercase letters, digits and `-` or `_`, such as `money-hud` or `cheaper_jackets`. Claude Code asks before writing files; say what each file is for.
@@ -61,6 +61,6 @@ Tell the user exactly what to look at in the game ("open the inventory: the jack
 
 ## Rules
 
-- Never change the game's own files. Mods reach the game through EDGEdeck, or REDnode's apps folder while a package is being built.
+- Never change the game's own files. Mods reach the game through EDGEdeck, or, while a REDnode package is being built, REDnode's apps folder or a development folder.
 - Deploying, undoing and changes to the running game ask the user first; never work around that.
 - When you are not sure a game fact is right, check it with the servers (`tweakdb_*`, `gameapi_lookup`, `archive_search`) or say it is a guess.
