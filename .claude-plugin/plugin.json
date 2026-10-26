@@ -1,6 +1,6 @@
 {
   "name": "edge",
-  "version": "0.0.13",
+  "version": "0.0.14",
   "description": "EDGEchat: Cyberpunk 2077 modding with the EDGE tools: modding knowledge as skills, the REDnode, REDcode, EDGEdeck and EDGEmat MCP servers, and modding commands.",
   "author": { "name": "EDGEmodders", "url": "https://github.com/Edgemodders" },
   "homepage": "https://edgemodders.github.io/EDGEchat/",

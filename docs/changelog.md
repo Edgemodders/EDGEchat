@@ -13,6 +13,7 @@ With each change a user would notice, add a line under **Unreleased** in the sam
 **Changed**
 
 - REDnode connects by allowing Claude Code in the game: in `/mcp`, **Authenticate** `plugin:edge:rednode`, then **Allow** in the game's **Connect** window. No token to copy: the REDnode token setting is gone. Needs REDnode 0.40.1 or newer (game 2.5). `/edge:setup` explains each step and what to do on older REDnode.
+- `/edge:setup` and the README say where the settings form's **Save configuration** button is: below the options, scroll down.
 - REDnode's guide in `rednode-mods` copied again from REDnode 0.40.1, and the wiki in `edge-tools` from EDGEweb's update for REDnode 0.40.1 and game 2.5.
 
 **New**

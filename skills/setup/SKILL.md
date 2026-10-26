@@ -17,6 +17,8 @@ The plugin's servers:
 | `edgedeck` | EDGEdeck's mod library: list, add, turn on and off, conflicts, deploy into the game and undo | `mcp__plugin_edge_edgedeck__*` |
 | `edgemat` | EDGEmat's materials: find a garment's materials, describe, recolor, apply, make new ones from words or an image, into a WolvenKit project | `mcp__plugin_edge_edgemat__*` |
 
+To change one of the plugin's options (`game_path`, `redbridge_exe`, `edgedeck_library`, the keys): in VS Code, `/plugins`, then the gear on the `edge` row; in the terminal, `/plugin configure edge@edgemodders`. In VS Code the form's **Save configuration** button is below the options: tell the user to scroll down to it (missed on 2026-10-26). The servers read the options only when they start, so restart Claude Code (in VS Code, **Developer: Reload Window**) after saving.
+
 ## 1. Servers added by hand
 
 Tools named `mcp__<server>__*`, with no `plugin_edge_` in the name, come from a server the user added by hand before the plugin. The EDGE ones:

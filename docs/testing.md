@@ -19,6 +19,7 @@ Last updated 2026-10-23.
 | [edgemat server](#edgemat-server) | By hand, over stdio | P1 | 2026-10-23 | Pass |
 | [rednode with no token](#rednode-with-no-token) | CLI, game running | P1 | 2026-10-16 | Seen: HTTP 401 |
 | [OAuth sign-in for a plugin server](#oauth-sign-in-for-a-plugin-server) | CLI, scratch config; then in the game | P4 | 2026-10-26 | Seen with a stand-in; against REDnode 0.40.1 in game: pass |
+| [Plugin sign-in in VS Code](#plugin-sign-in-in-vs-code) | By hand, in a session | P4 | 2026-10-26 | Pass |
 | [P1 test in VS Code with the game](#p1-test-in-vs-code-with-the-game) | By hand, in a session | P1 | 2026-10-21 | Pass; the ask before deploy failed, fixed in 0.0.5 ([asks before changes](#asks-before-changes)) |
 | [Asks before changes](#asks-before-changes) | By hand, in a session | P1 | 2026-10-23 | Pass |
 | [Changing the game folder](#changing-the-game-folder) | By hand, in a session | P3 | 2026-10-23 | Pass after a restart |
@@ -232,7 +233,19 @@ Then against REDnode itself, 2026-10-26, by the user on the dev PC: game 2.5, RE
 |---|---|
 | After a Revoke, Claude Code shows the server connected until its next request, which gets a 401 | `/edge:setup` should take "connected" with a failing call as "signed out": authenticate again |
 | A plain `{"type": "http", "url": "http://127.0.0.1:41820/mcp"}` signs in by itself | The plugin can drop `rednode_token` and the `Authorization` header once REDnode 0.40.1 is released |
-| Whether the VS Code extension's `/mcp` offers Authenticate | Not noted |
+| Whether the VS Code extension's `/mcp` offers Authenticate | Yes: seen in the [plugin sign-in in VS Code](#plugin-sign-in-in-vs-code) |
+
+### Plugin sign-in in VS Code
+
+The plugin's own `rednode` (0.0.13, the URL alone) signing in from the VS Code extension, then `/edge:setup` with all four servers. Run 2026-10-26 by the user on the dev PC: plugin 0.0.13 from GitHub, game 2.5, REDnode 0.40.1, the hand-added `rednode` removed first (`claude mcp remove rednode -s user`), `game_path` set back to the 2.5 folder. **Pass.**
+
+| Step | Seen |
+|---|---|
+| `/mcp` before signing in | `plugin:edge:rednode` with **Authenticate**, and also **Reconnect** (the user's recollection) |
+| Authenticate | The browser and the game's **Connect** window showed the same code; **Allow** signed in |
+| `/edge:setup` | All four connected. `rednode`: REDnode 0.40.1, main menu, overlay interactive. `redcode`: REDbridge 0.10.0 reporting WolvenKit 10.0.0, 57 archives, 592,071 files (2.5). `edgedeck`: library `C:\Users\VYRAL\EDGEdeck`, no mods, game 2.5. `edgemat`: library built, 17,867 setups. No EDGE server added by hand |
+
+Found on the way: the plugin's settings form in VS Code has its **Save configuration** button below the fold with five options, and the user missed it, so `game_path` stayed on the 2.31 backup. It was set with `claude plugin configure edge@edgemodders --values-stdin` instead (a JSON object of strings on stdin; options left out keep their values). The README and `/edge:setup` now say to scroll down to the button.
 
 ### P1 test in VS Code with the game
 
