@@ -1,0 +1,17 @@
+{
+  "page": 35680,
+  "upload": {
+    "name": "EDGEchat",
+    "category": "main",
+    "primary": false,
+    "modManager": false,
+    "archivePrevious": true,
+    "description": "EDGEchat {version}, the EDGE plugin for Claude Code. Unzip, then in Claude Code: /plugin marketplace add \"<folder>\", /plugin install edge@edgemodders. Not a game mod: no Vortex."
+  },
+  "mod": "14315126033248",
+  "pulled": {
+    "sha256": "e88e9f9149515b2c8b8b2d5c00bc829cf0233541f0d737c25f86055af384ab8a",
+    "at": "2026-10-26T15:22:15.077Z",
+    "version": "0.0.1"
+  }
+}

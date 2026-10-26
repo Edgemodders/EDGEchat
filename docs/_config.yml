@@ -26,6 +26,8 @@ nav:
     url: /design.html
   - title: Dev setup
     url: /dev-setup.html
+  - title: Changelog
+    url: /changelog.html
   - title: Tests
     url: /testing.html
   - title: EDGEkit

@@ -1,0 +1,69 @@
+[center][img]https://raw.githubusercontent.com/Edgemodders/EDGEchat/main/docs/assets/brand/banner.png[/img][/center]
+
+[center][size=5][b][color=#fcee0a]Make Claude a Cyberpunk 2077 modding assistant.[/color][/b][/size][/center]
+
+[center][size=3]EDGEchat is a plugin for Claude Code. In one install it gives Claude skills that know the game's files and frameworks, and connects it to the EDGE tools: the running game through REDnode, the game's files through REDcode, your mod library through EDGEdeck, and materials through EDGEmat. Then ask: "start a new mod", "why doesn't my mod show?", "recolor this jacket".[/size][/center]
+
+[line]
+
+[quote][size=4][b][color=#fcee0a]STATUS: PREVIEW[/color][/b][/size]
+Version 0.0.x. It installs and connects the REDnode, REDcode, EDGEdeck and EDGEmat servers, with four commands and knowledge skills. The servers run on Windows.
+[b]This is a Claude Code plugin, not a game mod.[/b] It never touches your game folder by itself: the tools that change your game or its folder ask you before every call. Do not install it with Vortex.[/quote]
+
+[line]
+
+[size=5][b][color=#fcee0a]What EDGEchat is[/color][/b][/size]
+
+Claude Code is Anthropic's AI assistant for building software, in a terminal, in VS Code or in EDGEkit. On its own it knows little about Cyberpunk 2077's archives, records and frameworks, and it cannot see your game. EDGEchat fills that in: it teaches Claude how Cyberpunk modding works, and gives it the EDGE tools to look and act.
+
+EDGEchat is built by [url=https://edgemodders.ai/]EDGEmodders[/url], a modding community whose idea is simple: [b]anyone can mod[/b]. You describe what you want in plain words; Claude does the steps with you, and shows its work.
+
+[size=5][b][color=#fcee0a]What it gives Claude[/color][/b][/size]
+
+[size=4][b][color=#19f3ff]Commands[/color][/b][/size]
+[list]
+[*][b]/edge:setup[/b] checks every connection and gives the one next step for anything missing.[/*]
+[*][b]/edge:new-mod[/b] starts a mod with you, even if you do not code: what it should do, the simplest kind of mod for it, a first small version, and a test in the game.[/*]
+[*][b]/edge:check-mod[/b] finds what is wrong with a mod that crashes or does not show, from its files, the logs and your mod list, and says how to fix each thing. It changes nothing.[/*]
+[*][b]/edge:init-project[/b] writes a project's notes for Claude, so the next session knows it.[/*]
+[/list]
+
+[size=4][b][color=#19f3ff]Skills[/color][/b][/size]
+Modding knowledge, loaded only when a task needs it: REDnode mods and overlay apps, WolvenKit projects across the EDGE tools, and the game's archives and file types.
+
+[size=4][b][color=#19f3ff]The EDGE tools, connected[/color][/b][/size]
+[list]
+[*][b]REDnode[/b]: the running game. Mod logs, what is on screen, game types, live calls, swapping archives in without a restart.[/*]
+[*][b]REDcode[/b]: the game's files, without the game running. Search and extract archives, read and edit game files, TweakDB, sounds, localization.[/*]
+[*][b]EDGEdeck[/b]: your mod library. Turn mods on and off, find conflicts, deploy to the game.[/*]
+[*][b]EDGEmat[/b]: materials. Find a garment, recolor its layers, make a material from your words.[/*]
+[/list]
+Every setting they need sits in the plugin's one form, so there is no server to add by hand.
+
+[size=5][b][color=#fcee0a]Install[/color][/b][/size]
+
+The easy way, which also updates it. In Claude Code (the CLI, or [b]/plugins[/b] in the VS Code extension and EDGEkit):
+[code]/plugin marketplace add Edgemodders/EDGEchat
+/plugin install edge@edgemodders[/code]
+Then run [b]/edge:setup[/b].
+
+Or from the download, without GitHub: unzip it somewhere stable, run [b]/plugin marketplace add "<that folder>\EDGEchat-<version>"[/b], then [b]/plugin install edge@edgemodders[/b]. README.txt in the zip has the steps.
+
+[size=5][b][color=#fcee0a]Requirements[/color][/b][/size]
+[list]
+[*][url=https://code.claude.com/docs/en/overview]Claude Code[/url], with a Claude subscription or an Anthropic API key.[/*]
+[*]For the servers: Windows 10 or 11, 64-bit, and Node.js 20 or later.[/*]
+[*]Only for the tools you use: [url=https://www.nexusmods.com/cyberpunk2077/mods/35419]REDnode[/url] in the game; REDbridge for REDcode and EDGEmat, easiest through [url=https://github.com/Edgemodders/REDcode]REDcode[/url]; [url=https://github.com/Edgemodders/EDGEdeck]EDGEdeck[/url]; [url=https://www.nexusmods.com/cyberpunk2077/mods/35422]EDGEmat[/url]. /edge:setup tells you which are missing.[/*]
+[/list]
+
+[size=5][b][color=#fcee0a]Links[/color][/b][/size]
+[list]
+[*][url=https://edgemodders.github.io/EDGEchat/]Docs[/url][/*]
+[*][url=https://github.com/Edgemodders/EDGEchat]Source and issues[/url][/*]
+[*][url=https://github.com/Edgemodders/EDGEkit]EDGEkit[/url], the modding workbench that sets EDGEchat up for you[/*]
+[*][url=https://github.com/Edgemodders/REDagent]REDagent[/url], the assistant inside the game[/*]
+[/list]
+
+[line]
+
+[size=2]MIT license. EDGEchat is not affiliated with Anthropic or CD PROJEKT RED. Claude and Claude Code are trademarks of Anthropic. Cyberpunk 2077 is a trademark of CD PROJEKT.[/size]

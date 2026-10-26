@@ -47,3 +47,15 @@ Install it as a user would, from a local marketplace path:
 /plugin marketplace add ./
 /plugin install edge@edgemodders
 ```
+
+## Releasing
+
+The **Release** workflow (`.github/workflows/release.yml`, Actions tab, Run workflow) releases the same way as EDGEmat's and REDnode's:
+
+1. Raise `version` in `.claude-plugin/plugin.json`, rename **Unreleased** in `docs/changelog.md` to `## <version> (<date>)` and start a new empty one; commit and push.
+2. Run the workflow with **Make a release** ticked: it builds `EDGEchat-<version>.zip` (`tools/release/nexus-zip.mjs`), tags `v<version>` and makes the GitHub release with the notes from the changelog (`tools/release/notes.mjs`).
+3. Tick **Update Nexus Mods** too to upload the zip to the Nexus page (35680) with Mod Manager Download off, add the changelog and push `nexus/description.bbcode` (nexus/README.md). Needs the `NEXUS_KEY` organisation secret.
+
+Users of the marketplace get the new version from `main` either way; the release is the zip and the Nexus page. Only after every test of the builds since the last release has passed (docs/testing.md).
+
+On the dev PC, `node tools/nexus/nexus.mjs status` shows the page, and `node tools/nexus/nexus.mjs check --version <v>` what a release would do; both read the Nexus key from `%APPDATA%\Edgemodders\nexus-key.txt` (`tools/nexus/api.mjs`).
