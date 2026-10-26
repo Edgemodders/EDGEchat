@@ -28,6 +28,7 @@ Last updated 2026-10-23.
 | [Evals: rednode-mods](#evals-rednode-mods) | `claude plugin eval` | P2 | 2026-10-25 | Δ +1.00; with `new-mod`, mean Δ +0.95 |
 | [rednode-mods in the game](#rednode-mods-in-the-game) | By hand, in a session | P2 | 2026-10-23 | Pass |
 | [Evals: wolvenkit-projects](#evals-wolvenkit-projects) | `claude plugin eval` | P2 | 2026-10-23 | Δ +0.33 |
+| [Evals: edge-tools](#evals-edge-tools) | `claude plugin eval` | P3 | 2026-10-26 | Skill fires 9 of 9; Δ +1.00 |
 | [Evals: the whole suite](#evals-the-whole-suite) | `claude plugin eval` | P2, P3 | 2026-10-23 | 12 cases, mean Δ +0.68 |
 
 A scratch config has no Claude login, so the CLI tests check how the plugin installs and starts its servers, not what Claude does with it. The P1 test on 2026-10-21 was the first run of a skill in a session.
@@ -392,6 +393,20 @@ First run 2026-10-23, Claude Code 2.1.302, one run per arm: 3 cases, $0.47, 40 s
 | `changed-after-swap` (EDGEdeck reports a hot-swapped archive) | 1.00 | 1.00 | The prompt described keep and restore; plain Claude reasoned it out |
 
 The two Δ 0 cases test reasoning from a detailed prompt more than knowledge. They stay as they are: rewording prompts until plain Claude fails would only flatter the skill.
+
+### Evals: edge-tools
+
+```bash
+claude plugin eval . --tag edge-tools --runs 3 -j 6 --judge-model sonnet --no-publish --trust-plugin
+```
+
+First run 2026-10-26, Claude Code 2.1.310, plugin 0.0.12 (the wiki copied from EDGEweb `8b425af`), three runs per arm: 3 cases, $1.78, 51 s. The skill fired in all 9 runs with the plugin. **Mean Δ +0.93** as run; **+1.00** without the regex grader removed after it (below).
+
+| Case | With | Without | Seen |
+|---|---|---|---|
+| `vortex-switch` (moving from Vortex to EDGEdeck, and back) | 1.00 | 0.00 | Without the wiki, Claude did not know EDGEdeck's Import from Vortex, the purge first, or Undo deploy |
+| `edgemat-library` (where the library is, game updates, deleting it) | 1.00 | 0.00 | Without it, a wrong folder or a guess |
+| `connect-claude` (connecting Claude Code, the plugin installed) | 0.78 | 0.00 | The judge passed all 3 answers with the plugin: `/edge:setup`, REDnode's MCP server switch. A regex grader for "no `claude mcp add`" failed 2 of them, which only warned to remove servers added by hand that way. The regex was removed; the rubric fails real advice to add servers by hand. Without the plugin, Claude gave `claude mcp add` steps |
 
 ### rednode-mods in the game
 

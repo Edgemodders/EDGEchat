@@ -10,6 +10,10 @@ With each change a user would notice, add a line under **Unreleased** in the sam
 
 ## Unreleased
 
+**New**
+
+- Skill `edge-tools`: ask how any EDGE tool works (REDnode, REDcode, REDbridge, EDGEdeck, EDGEmat, EDGEwave, EDGEbuilder, EDGEkit, REDagent), and Claude answers from the EDGEmodders wiki, copied into the plugin, with a link to the live page.
+
 **Other**
 
 - A release workflow (`.github/workflows/release.yml`) as EDGEmat's and REDnode's: a zip of the plugin for installing without GitHub, the GitHub release, and the Nexus Mods page kept from `nexus/` (Mod Manager Download off: a plugin, not a game mod).

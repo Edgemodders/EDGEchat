@@ -84,7 +84,7 @@ Each new server is then a server entry in `plugin.json`, options for what it nee
 
 ### Skills (first set, P2)
 
-Knowledge skills load on their own when a task matches; command skills are called by the user. Built so far (plugin 0.0.8): `rednode-mods`, `wolvenkit-projects`, `archives-and-cr2w`, `setup`, `init-project`, `new-mod`, `check-mod`. The general skills (`modding-basics`, `tweakxl`, `archivexl`, `redscript`, `cet-lua`) are written only where an eval shows the model needs them (P2 row in [Phases](#phases)).
+Knowledge skills load on their own when a task matches; command skills are called by the user. Built so far (plugin 0.0.12): `rednode-mods`, `wolvenkit-projects`, `archives-and-cr2w`, `edge-tools`, `setup`, `init-project`, `new-mod`, `check-mod`. The general skills (`modding-basics`, `tweakxl`, `archivexl`, `redscript`, `cet-lua`) are written only where an eval shows the model needs them (P2 row in [Phases](#phases)).
 
 | Skill | Kind | Covers |
 |---|---|---|
@@ -96,6 +96,7 @@ Knowledge skills load on their own when a task matches; command skills are calle
 | `redscript` | Knowledge | Classes, `@wrapMethod` and `@replaceMethod`, where `.reds` files go, REDscript IDE |
 | `cet-lua` | Knowledge | Cyber Engine Tweaks mods: `init.lua`, events, the overlay |
 | `rednode-mods` | Knowledge | REDnode packages, overlay apps and Node mods, hot reload, the kernel tools (shared with REDagent, below) |
+| `edge-tools` | Knowledge | How the EDGE tools work for the person using them: install, settings, features, fixes. The EDGEmodders wiki (EDGEweb's `docs/wiki`), copied at build by `tools/sync-docs.mjs`, with each tool's docs site and repo. Added 2026-10-26 at the user's request: the servers explain what Claude can do with a tool, this skill what the user does in it |
 | `setup` | Command | Checks the MCP servers answer, explains what is missing, and which tools ask before every call |
 | `new-mod` | Command | Starts a mod: asks what it should do, picks the framework, makes the project |
 | `check-mod` | Command | Reads a mod's files and the game's logs and lists what is wrong |

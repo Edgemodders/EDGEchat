@@ -26,7 +26,7 @@ Then run `/edge:setup`: it checks each server and gives the one next step for wh
 | `/edge:check-mod` | Lists what is wrong with a mod (its files, the logs, EDGEdeck's view), with a fix for each, changing nothing |
 | `/edge:init-project` | Writes a `CLAUDE.md` into a mod project, so later sessions know its layout and how to test it |
 
-The knowledge skills (`rednode-mods`, `wolvenkit-projects`, `archives-and-cr2w`) load by themselves when a task needs them.
+The knowledge skills (`rednode-mods`, `wolvenkit-projects`, `archives-and-cr2w`, `edge-tools`) load by themselves when a task needs them.
 
 ## Documents
 
