@@ -23,8 +23,10 @@ Last updated 2026-10-23.
 | [P1 test in VS Code with the game](#p1-test-in-vs-code-with-the-game) | By hand, in a session | P1 | 2026-10-21 | Pass; the ask before deploy failed, fixed in 0.0.5 ([asks before changes](#asks-before-changes)) |
 | [Asks before changes](#asks-before-changes) | By hand, in a session | P1 | 2026-10-23 | Pass |
 | [Changing the game folder](#changing-the-game-folder) | By hand, in a session | P3 | 2026-10-23 | Pass after a restart |
-| [init-project on a real project](#init-project-on-a-real-project) | By hand, in a session | P1 | Not run | |
-| [EDGEkit one-click setup](#edgekit-one-click-setup) | By hand, in EDGEkit | P4 | Not run | |
+| [new-mod in the game](#new-mod-in-the-game) | By hand, in a session | P3 | 2026-10-26 | Pass |
+| [init-project on a real project](#init-project-on-a-real-project) | By hand, in a session | P3 | 2026-10-26 | Pass |
+| [Clean install](#clean-install) | By hand, fresh PC or account | P4 | 2026-10-26 | Pass |
+| [EDGEkit one-click setup](#edgekit-one-click-setup) | By hand, in EDGEkit | P4 | Not run | After the first release, with EDGEkit's |
 | [Evals: archives-and-cr2w](#evals-archives-and-cr2w) | `claude plugin eval` | P2 | 2026-10-23 | Skill fires; Δ 0.00 |
 | [Evals: rednode-mods](#evals-rednode-mods) | `claude plugin eval` | P2 | 2026-10-25 | Δ +1.00; with `new-mod`, mean Δ +0.95 |
 | [rednode-mods in the game](#rednode-mods-in-the-game) | By hand, in a session | P2 | 2026-10-23 | Pass |
@@ -319,9 +321,17 @@ First run 2026-10-23 on the user's laptop, in the VS Code extension in auto mode
 
 Not run: "remove a mod" (`edgedeck_remove` carries the same flag in edgedeck-mcp 0.28.0; not tried, to keep the mods safe), the default mode, and `/edge:setup` with an old REDnode.
 
+### new-mod in the game
+
+The P3 test: `/edge:new-mod` run by the user as a modder who does not code, with the game running: it asks what the mod should do, picks the kind of mod, makes the project, builds a first small version, and tests it in the game. Changes to the game and the game folder ask first. Run 2026-10-26 by the user on the dev PC: plugin 0.0.14, game 2.5, REDnode 0.40.1, REDbridge 0.11.0. **Pass**, by the user's report; the details were not recorded.
+
+### Clean install
+
+The P4 test: the README's steps alone on a fresh PC or Windows account, with REDbridge from its releases zip and the .NET 10 runtime, then `/edge:setup` and the REDnode sign-in. Run 2026-10-26 by the user on the dev PC: plugin 0.0.14, game 2.5, REDnode 0.40.1, REDbridge 0.11.0. **Pass**, by the user's report; the details were not recorded.
+
 ### EDGEkit one-click setup
 
-Not run yet. EDGEkit builds it (`da32f12`, [EDGEkit#5](https://github.com/Edgemodders/EDGEkit/issues/5)); EDGEkit checked that the keys are written, with no Claude login. This test is the part EDGEkit could not do. It waits for EDGEkit's next release, which EDGEkit will announce on #5. Report the result on #5, and close the issue if it passes (EDGEkit's request). In an EDGEkit with Claude Code signed in, and the plugin not installed:
+Not run yet. The user decided on 2026-10-26 that it can follow the first release, once EDGEkit releases with it. EDGEkit builds it (`da32f12`, [EDGEkit#5](https://github.com/Edgemodders/EDGEkit/issues/5)); EDGEkit checked that the keys are written, with no Claude login. This test is the part EDGEkit could not do. It waits for EDGEkit's next release, which EDGEkit will announce on #5. Report the result on #5, and close the issue if it passes (EDGEkit's request). In an EDGEkit with Claude Code signed in, and the plugin not installed:
 
 | Step | Expected |
 |---|---|
@@ -440,7 +450,9 @@ First run 2026-10-23 on the user's laptop, in the VS Code extension, plugin 0.0.
 
 ### init-project on a real project
 
-Not run yet. In a session with the plugin, in a WolvenKit project (for example one under `E:\Modding\Cyberpunk 2077\Projects`) and in a REDnode package folder:
+Run 2026-10-26 by the user on the dev PC: plugin 0.0.14, game 2.5, REDnode 0.40.1, REDbridge 0.11.0. **Pass**, by the user's report; the details were not recorded. Run on the mod made in [new-mod in the game](#new-mod-in-the-game).
+
+In a session with the plugin, in a WolvenKit project (for example one under `E:\Modding\Cyberpunk 2077\Projects`) and in a REDnode package folder:
 
 ```
 /edge:init-project
