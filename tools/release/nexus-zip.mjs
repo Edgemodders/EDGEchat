@@ -30,7 +30,7 @@ fs.writeFileSync(
     "",
     "This is a Claude Code plugin, not a game mod. Do not install it with Vortex.",
     "",
-    "EDGEkit comes with EDGEchat set up: nothing to install there.",
+    "EDGEkit 1.140.2 or newer offers EDGEchat after its first-run steps: click Set Up, then Install.",
     "",
     "The easy way, which also updates it:",
     "  In VS Code: type /plugins in the Claude Code panel. In the Marketplaces tab,",

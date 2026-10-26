@@ -10,7 +10,7 @@ A preview (plugin 0.0.x), not released yet. REDnode supports game version 2.5 fr
 
 ## Install
 
-**In EDGEkit:** nothing to install; EDGEkit comes with EDGEchat set up.
+**In EDGEkit:** EDGEkit 1.140.2 or newer offers it after its first-run steps: click **Set Up**, then **Install**.
 
 **In VS Code:** type `/plugins` in the Claude Code panel. In the **Marketplaces** tab, enter `Edgemodders/EDGEchat`; in the **Plugins** tab, click **Install** on `edge` and choose **Install for you**.
 
@@ -45,7 +45,7 @@ The knowledge skills (`rednode-mods`, `wolvenkit-projects`, `archives-and-cr2w`,
 
 | Phase | Status |
 |---|---|
-| P0 Decide | **Decided** 2026-10-23: the name EDGEchat (was EDGEplugin), names `edge@edgemodders`, one repo as marketplace and plugin, a separate repo (not in REDagent), REDagent C6 dropped, every EDGE server on npm, EDGEkit's one-click setup, knowledge shared through each tool's own docs, community sources in our own words, P2 EDGE first. EDGEkit built its side (`da32f12`, [EDGEkit#5](https://github.com/Edgemodders/EDGEkit/issues/5)), to test once it is in an EDGEkit release; REDagent's side still to tell |
+| P0 Decide | **Decided** 2026-10-23: the name EDGEchat (was EDGEplugin), names `edge@edgemodders`, one repo as marketplace and plugin, a separate repo (not in REDagent), REDagent C6 dropped, every EDGE server on npm, EDGEkit's one-click setup, knowledge shared through each tool's own docs, community sources in our own words, P2 EDGE first. EDGEkit built its side ([EDGEkit#5](https://github.com/Edgemodders/EDGEkit/issues/5)), tested and passed 2026-10-26 in EDGEkit 1.140.2; REDagent's side still to tell |
 | P1 Skeleton | **Done** 2026-10-21. Manifest, marketplace, `rednode`, `redcode`, `edgedeck` and (0.0.5) `edgemat`, `/edge:setup` and `/edge:init-project`. Installed from GitHub in VS Code on a second PC, `/edge:setup` reported all three connected with the game running |
 | P2 Knowledge | **Done** 2026-10-23: `rednode-mods` (a working HUD widget built in the game), `wolvenkit-projects`, `archives-and-cr2w`, each checked against the game, with evals. No separate EDGEdeck or EDGEmat skill: their servers explain their tools |
 | P3 Commands | Under way (2026-10-23): `/edge:new-mod` and `/edge:check-mod` in 0.0.8, with evals. Next: the in-game test, a non-coder makes a mod from `/edge:new-mod` alone |

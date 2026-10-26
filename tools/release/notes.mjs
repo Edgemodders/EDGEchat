@@ -51,7 +51,7 @@ if (nexus) {
 } else {
   write(`${section.join("\n").trim()}
 
-**Install:** EDGEkit comes with EDGEchat set up. In VS Code, type \`/plugins\` in the Claude Code panel, add \`Edgemodders/EDGEchat\` in the **Marketplaces** tab, then **Install** \`edge\` in the **Plugins** tab. From a terminal prompt:
+**Install:** EDGEkit 1.140.2 or newer offers it in one click. In VS Code, type \`/plugins\` in the Claude Code panel, add \`Edgemodders/EDGEchat\` in the **Marketplaces** tab, then **Install** \`edge\` in the **Plugins** tab. From a terminal prompt:
 
 \`\`\`
 claude plugin install edge --marketplace Edgemodders/EDGEchat

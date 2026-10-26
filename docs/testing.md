@@ -26,7 +26,7 @@ Last updated 2026-10-23.
 | [new-mod in the game](#new-mod-in-the-game) | By hand, in a session | P3 | 2026-10-26 | Pass |
 | [init-project on a real project](#init-project-on-a-real-project) | By hand, in a session | P3 | 2026-10-26 | Pass |
 | [Clean install](#clean-install) | By hand, fresh PC or account | P4 | 2026-10-26 | Pass |
-| [EDGEkit one-click setup](#edgekit-one-click-setup) | By hand, in EDGEkit | P4 | Not run | After the first release, with EDGEkit's |
+| [EDGEkit one-click setup](#edgekit-one-click-setup) | By hand, in EDGEkit | P4 | 2026-10-26 | Pass, after EDGEkit changed to the install dialog |
 | [Evals: archives-and-cr2w](#evals-archives-and-cr2w) | `claude plugin eval` | P2 | 2026-10-23 | Skill fires; Δ 0.00 |
 | [Evals: rednode-mods](#evals-rednode-mods) | `claude plugin eval` | P2 | 2026-10-25 | Δ +1.00; with `new-mod`, mean Δ +0.95 |
 | [rednode-mods in the game](#rednode-mods-in-the-game) | By hand, in a session | P2 | 2026-10-23 | Pass |
@@ -331,14 +331,23 @@ The P4 test: the README's steps alone on a fresh PC or Windows account, with RED
 
 ### EDGEkit one-click setup
 
-Not run yet. The user decided on 2026-10-26 that it can follow the first release, once EDGEkit releases with it. EDGEkit builds it (`da32f12`, [EDGEkit#5](https://github.com/Edgemodders/EDGEkit/issues/5)); EDGEkit checked that the keys are written, with no Claude login. This test is the part EDGEkit could not do. It waits for EDGEkit's next release, which EDGEkit will announce on #5. Report the result on #5, and close the issue if it passes (EDGEkit's request). In an EDGEkit with Claude Code signed in, and the plugin not installed:
+The P0 decision ([design](design.html#p0-decisions)): EDGEkit sets up the plugin in one click ([EDGEkit#5](https://github.com/Edgemodders/EDGEkit/issues/5)). In an EDGEkit with Claude Code signed in, and the plugin not installed:
 
 | Step | Expected |
 |---|---|
-| Answer yes to "Set up Claude Code for EDGE?" | `settings.json` gains `extraKnownMarketplaces.edgemodders` and `enabledPlugins["edge@edgemodders"]`, other keys kept |
-| Start a Claude Code session | "Plugins changed. Run /reload-plugins to activate." once the marketplace is fetched |
-| `/reload-plugins`, or the next session | `edge` installed; `/edge:setup` runs |
-| `/plugins`, gear on `edge` | The settings form, all five options |
+| Finish EDGEkit's first-run steps, answer **Set Up** to "Set up Claude Code for EDGE?" | Claude Code's plugin dialog opens on `edge` (its install link, `edgekit://anthropic.claude-code/install-plugin?plugin=edge&marketplace=Edgemodders/EDGEchat`) |
+| Confirm the marketplace, **Install** | `edge@edgemodders` installed (`plugins/installed_plugins.json`) |
+| After the install | EDGEkit opens a new Claude Code session with `/edge:setup` in the prompt box |
+| Run `/edge:setup` | The servers' table, as in a VS Code install |
+
+Run 2026-10-26 on the dev PC, EDGEkit 1.140.2 (signed in, Claude Code 2.1.310), plugin 0.0.15. **Pass**, by the user's report and EDGEkit's on #5, after one change in EDGEkit:
+
+| Build | What happened |
+|---|---|
+| `da32f12` (the P0 plan) | EDGEkit wrote `extraKnownMarketplaces` and `enabledPlugins["edge@edgemodders"]` into the user settings. Claude Code added the marketplace but installed nothing: `claude plugin list` said "No plugins installed". `enabledPlugins` only turns on an installed plugin (Claude Code's docs, "Choose an install scope") |
+| `d342a8b` | EDGEkit opens Claude Code's install link instead, then `/edge:setup` once the plugin is installed. Every step above passed. Released in EDGEkit 1.140.2 the same day |
+
+EDGEkit also pointed out that Claude Code leaves auto-update off for this marketplace; the README and `setup` now say how to turn it on.
 
 ### Evals: archives-and-cr2w
 

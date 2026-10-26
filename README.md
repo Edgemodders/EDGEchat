@@ -21,7 +21,7 @@ EDGEchat is not an agent: it connects Claude Code to EDGE while you build mods. 
 
 ## Install
 
-**In EDGEkit:** nothing to install. EDGEkit comes with EDGEchat set up: go to `/edge:setup` below.
+**In EDGEkit:** EDGEkit 1.140.2 or newer offers EDGEchat after its first-run steps. Click **Set Up**, then **Install** in Claude Code's plugin dialog; EDGEkit then opens a Claude Code session with `/edge:setup` ready to run.
 
 **In VS Code** (the Claude Code extension's panel):
 
@@ -73,6 +73,8 @@ claude plugin update edge@edgemodders
 ```
 
 Inside a running `claude` session, the same commands start with `/plugin` instead of `claude plugin`. In VS Code, the refresh icon in `/plugins`' **Marketplaces** tab updates EDGEchat's listing.
+
+To get new versions without asking, turn auto-update on: in the **Marketplaces** tab of `/plugins` (VS Code, EDGEkit) or `/plugin` (terminal), select `edgemodders`, then **Enable auto-update**. Claude Code then updates the plugin when a session starts, and the next session loads it.
 
 Then restart Claude Code. A new version may add settings without saying so: `/edge:setup` names them.
 
