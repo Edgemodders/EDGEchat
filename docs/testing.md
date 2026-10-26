@@ -338,7 +338,7 @@ Not run yet. The user decided on 2026-10-26 that it can follow the first release
 | Answer yes to "Set up Claude Code for EDGE?" | `settings.json` gains `extraKnownMarketplaces.edgemodders` and `enabledPlugins["edge@edgemodders"]`, other keys kept |
 | Start a Claude Code session | "Plugins changed. Run /reload-plugins to activate." once the marketplace is fetched |
 | `/reload-plugins`, or the next session | `edge` installed; `/edge:setup` runs |
-| `/plugins`, gear on `edge` | The settings form, all six options |
+| `/plugins`, gear on `edge` | The settings form, all five options |
 
 ### Evals: archives-and-cr2w
 
