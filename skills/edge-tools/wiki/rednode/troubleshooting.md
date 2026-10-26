@@ -1,5 +1,5 @@
-<!-- Copied from EDGEweb's docs/wiki/rednode/troubleshooting.md at 8b425af 2026-10-25 by tools/sync-docs.mjs. Do not edit here: change it in EDGEweb. -->
-<!-- Live page: https://edgemodders.ai/wiki/rednode/troubleshooting.html (reviewed 2026-10-24) -->
+<!-- Copied from EDGEweb's docs/wiki/rednode/troubleshooting.md at 67ee9dd 2026-10-26 by tools/sync-docs.mjs. Do not edit here: change it in EDGEweb. -->
+<!-- Live page: https://edgemodders.ai/wiki/rednode/troubleshooting.html (reviewed 2026-10-26) -->
 
 # Troubleshooting REDnode
 
@@ -21,7 +21,7 @@ When you ask for help, include the first lines of the plugin and host logs, and 
 
 ### No REDNODE tab at the main menu
 
-1. Check your game version. REDnode 0.37.0 is for game version **2.31 only**; on 2.5, RED4ext won't load it. The next REDnode release moves to 2.5 once RED4ext, redscript and Codeware support it.
+1. Check your game version against REDnode's: REDnode 0.38.1 and later are for game **2.5**, and 0.37.0 is for **2.31**. RED4ext won't load a REDnode built for the other version. Update RED4ext too (1.31 or later for 2.5).
 2. Check `red4ext-*.log` for REDnode. If RED4ext has no log at all, RED4ext itself isn't working: install or update it for your game version.
 3. If RED4ext loaded but REDnode isn't mentioned, REDnode went somewhere else. Check that `red4ext\plugins\REDnode\REDnode.dll` is inside your game folder; install the zip again if not.
 4. If REDnode loaded, check `rednode-overlay.log`. If it's missing or old, the host didn't start. Make sure `red4ext\plugins\REDnode\host\REDnode-overlay.exe` exists; if not, install the zip again.
@@ -120,7 +120,8 @@ The game alone needs 12 to 16 GB of RAM. Each open REDnode window adds roughly 6
 |---|---|
 | Is the game running? | The server only runs with the game. `claude mcp list` showing `rednode` failing while the game is closed is normal |
 | Is **MCP server** on? | Switch it on in the launcher's Settings drawer (the gear) |
-| Did you run the setup command? | Press **Copy setup** and run the command in a terminal once |
+| Did you connect it? | Run `claude mcp add --transport http --scope user rednode http://127.0.0.1:41820/mcp` once, then `/mcp` › `rednode` › **Authenticate** and **Allow** in the game (REDnode 0.40.1 or later). Or press **Copy setup** and run the command in a terminal once |
+| Did you press **Revoke**? | A revoked assistant asks again: **Authenticate** in `/mcp` and **Allow** in the game |
 | Is it a new session? | Claude Code loads MCP servers when a session starts. Start a new one |
 
 ### Hot reload doesn't pick up my changes

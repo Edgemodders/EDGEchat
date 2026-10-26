@@ -1,5 +1,5 @@
-<!-- Copied from EDGEweb's docs/wiki/rednode/index.md at 8b425af 2026-10-25 by tools/sync-docs.mjs. Do not edit here: change it in EDGEweb. -->
-<!-- Live page: https://edgemodders.ai/wiki/rednode/ (reviewed 2026-10-24) -->
+<!-- Copied from EDGEweb's docs/wiki/rednode/index.md at 67ee9dd 2026-10-26 by tools/sync-docs.mjs. Do not edit here: change it in EDGEweb. -->
+<!-- Live page: https://edgemodders.ai/wiki/rednode/ (reviewed 2026-10-26) -->
 
 # REDnode
 
@@ -45,7 +45,7 @@ REDnode is the **Run** stage of the EDGE platform: the part that is in the game 
 
 ## Status
 
-**Released.** REDnode 0.37.0 came out on 2026-10-24, for **game version 2.31 only**. It is the last release for 2.31: game version 2.5 came out on 2026-10-22, and the next REDnode release moves to it once RED4ext, redscript and Codeware support 2.5. Until then, keep your game on 2.31 (RED4ext won't load REDnode on 2.5).
+**Released.** REDnode 0.40.1 came out on 2026-10-26, for **game version 2.5**. REDnode supports 2.5 from 0.38.1 (2026-10-25); 0.37.0 is the last release for game 2.31, still on the releases page for a game kept on 2.31.
 
 Download `REDnode-<version>.zip` from [REDnode's releases](https://github.com/Edgemodders/REDnode/releases) and see [Install and set up](https://edgemodders.ai/wiki/rednode/install.html). It is also on [Nexus Mods](https://www.nexusmods.com/cyberpunk2077/mods/35419), with the optional [Admin Tools](https://www.nexusmods.com/cyberpunk2077/mods/35793) pack and [REDagent](https://www.nexusmods.com/cyberpunk2077/mods/35670). It is still young: every part below as passed was tested in the developer's modded game, and the overlay was also tested side by side with Cyber Engine Tweaks and ten other RED4ext plugins.
 
@@ -59,12 +59,12 @@ Download `REDnode-<version>.zip` from [REDnode's releases](https://github.com/Ed
 | Tool layer and solo mode | Passed in game |
 | Spaces (sets of windows, like virtual desktops) | Passed in game |
 | Pointer lock (holding the cursor for a 3D camera) | Passed in game |
-| MCP server for AI agents | Passed in game |
+| MCP server for AI agents, with sign-in by allowing an assistant in the game | Passed in game |
 | Asking REDagent from other mods | Passed in game |
-| World API (placing objects; needs Codeware) | Passed in game |
+| World API (placing objects, people who stand still, EDGEbuilder scenes, what is near V; needs Codeware) | Passed in game |
 | TweakDB: reading, and changing through TweakXL | Passed in game |
 | Sound: the game's UI sounds, and packages' own audio files | Passed in game |
-| Swapping changed archives into the running game (needs RED Hot Tools), sound archives included | Passed in game |
+| Swapping changed archives into the running game (needs RED Hot Tools), sound archives included | Passed in game on 2.31. On 2.5 it waits for a RED Hot Tools release for 2.5 |
 | The game's own UI from Node (ink; needs Codeware), in the player's language | Passed in game. Experimental |
 | Quest API (quest facts, the journal, moving V) | Passed in game |
 | Mod services (mods calling each other, and offering tools to AI assistants) | Passed in game |

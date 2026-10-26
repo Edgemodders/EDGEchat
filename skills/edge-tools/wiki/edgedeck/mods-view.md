@@ -1,4 +1,4 @@
-<!-- Copied from EDGEweb's docs/wiki/edgedeck/mods-view.md at 8b425af 2026-10-25 by tools/sync-docs.mjs. Do not edit here: change it in EDGEweb. -->
+<!-- Copied from EDGEweb's docs/wiki/edgedeck/mods-view.md at 67ee9dd 2026-10-26 by tools/sync-docs.mjs. Do not edit here: change it in EDGEweb. -->
 <!-- Live page: https://edgemodders.ai/wiki/edgedeck/mods-view.html (reviewed 2026-10-24) -->
 
 # The Mods view and the EDGEdeck page

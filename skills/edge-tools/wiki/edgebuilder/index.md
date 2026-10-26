@@ -1,5 +1,5 @@
-<!-- Copied from EDGEweb's docs/wiki/edgebuilder/index.md at 8b425af 2026-10-25 by tools/sync-docs.mjs. Do not edit here: change it in EDGEweb. -->
-<!-- Live page: https://edgemodders.ai/wiki/edgebuilder/ (reviewed 2026-10-24) -->
+<!-- Copied from EDGEweb's docs/wiki/edgebuilder/index.md at 67ee9dd 2026-10-26 by tools/sync-docs.mjs. Do not edit here: change it in EDGEweb. -->
+<!-- Live page: https://edgemodders.ai/wiki/edgebuilder/ (reviewed 2026-10-26) -->
 
 # EDGEbuilder
 
@@ -59,7 +59,7 @@ EDGEbuilder is a **REDnode package**: an add-on for [REDnode](https://edgemodder
 | B6 Comfort (favourites, prefabs, snapping) | Not started |
 | B7 Scenes in REDcode with the game closed | Not started |
 
-The latest release is **EDGEbuilder 0.3.3** (2026-10-16), on the [releases page](https://github.com/Edgemodders/EDGEbuilder/releases). 0.3.4, which finds the REDbridge that EDGEdeck fetched under EDGEdeck's new name, is built and waits for its in-game check. EDGEbuilder is a test build: a first public preview is planned after B4 (Bake). It needs [REDnode](https://edgemodders.ai/wiki/rednode/), which installs from its release zip, and game version 2.31. See [Install and set up](https://edgemodders.ai/wiki/edgebuilder/install.html).
+The latest release is **EDGEbuilder 0.3.3** (2026-10-16), on the [releases page](https://github.com/Edgemodders/EDGEbuilder/releases). 0.3.4, which finds the REDbridge that EDGEdeck fetched under EDGEdeck's new name, is built and waits for its in-game check. EDGEbuilder is a test build: a first public preview is planned after B4 (Bake). It needs [REDnode](https://edgemodders.ai/wiki/rednode/), which installs from its release zip. It was tested on game 2.31 with REDnode 0.37.0 or earlier; on 2.5 with REDnode 0.38.1 or later it is untested. See [Install and set up](https://edgemodders.ai/wiki/edgebuilder/install.html).
 
 EDGEbuilder is inspired by World Builder by keanuWheeze, a Cyber Engine Tweaks mod that showed a world editor can live inside the running game. EDGEbuilder is its own design and uses none of World Builder's code, files or data.
 

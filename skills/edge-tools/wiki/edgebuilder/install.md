@@ -1,5 +1,5 @@
-<!-- Copied from EDGEweb's docs/wiki/edgebuilder/install.md at 8b425af 2026-10-25 by tools/sync-docs.mjs. Do not edit here: change it in EDGEweb. -->
-<!-- Live page: https://edgemodders.ai/wiki/edgebuilder/install.html (reviewed 2026-10-24) -->
+<!-- Copied from EDGEweb's docs/wiki/edgebuilder/install.md at 67ee9dd 2026-10-26 by tools/sync-docs.mjs. Do not edit here: change it in EDGEweb. -->
+<!-- Live page: https://edgemodders.ai/wiki/edgebuilder/install.html (reviewed 2026-10-26) -->
 
 # Install and set up EDGEbuilder
 
@@ -7,7 +7,7 @@
 
 | You need | Notes |
 |---|---|
-| Cyberpunk 2077 2.31 on Windows | And a save to load: EDGEbuilder works in the world, not in the menus. Game 2.5 isn't supported yet: REDnode stays on 2.31 until its frameworks support 2.5 |
+| Cyberpunk 2077 on Windows, 2.31 tested | And a save to load: EDGEbuilder works in the world, not in the menus. REDnode supports game 2.5 from 0.38.1, but EDGEbuilder has not been tested on 2.5 yet |
 | [REDnode](https://edgemodders.ai/wiki/rednode/) 0.17 or later | Runs EDGEbuilder in the game. Version 0.22.0 or later also holds the cursor still while you look around. Use the newest release: see [Install REDnode](https://edgemodders.ai/wiki/rednode/install.html) |
 | [Codeware](https://www.nexusmods.com/cyberpunk2077/mods/7780) 1.14 or later | REDnode's world calls, which spawn and move objects, need it. EDGEbuilder says so in its manifest, and REDnode's Mod Manager checks it |
 | [REDbridge](https://edgemodders.ai/wiki/redbridge/) 0.6.0 or later | Reads the game's files to build the asset list. The easiest way to get it is EDGEdeck's **Get REDbridge**. A copy REDcode fetched works too |

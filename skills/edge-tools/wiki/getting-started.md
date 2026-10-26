@@ -1,5 +1,5 @@
-<!-- Copied from EDGEweb's docs/wiki/getting-started.md at 8b425af 2026-10-25 by tools/sync-docs.mjs. Do not edit here: change it in EDGEweb. -->
-<!-- Live page: https://edgemodders.ai/wiki/getting-started.html (reviewed 2026-10-24) -->
+<!-- Copied from EDGEweb's docs/wiki/getting-started.md at 67ee9dd 2026-10-26 by tools/sync-docs.mjs. Do not edit here: change it in EDGEweb. -->
+<!-- Live page: https://edgemodders.ai/wiki/getting-started.html (reviewed 2026-10-26) -->
 
 # Getting started
 
@@ -24,7 +24,7 @@ EDGE is a family of tools. You don't need all of them. Start from what you want 
 
 | You need | For |
 |---|---|
-| Cyberpunk 2077 on Windows PC | Everything. EDGE is single-player PC modding only. REDnode and the tools that run in the game need **game version 2.31** for now; 2.5 follows once RED4ext, redscript and Codeware support it |
+| Cyberpunk 2077 on Windows PC | Everything. EDGE is single-player PC modding only. REDnode and REDagent support **game version 2.5** (REDnode 0.38.1 and REDagent 0.3.2 or later); on 2.31, use REDnode 0.37.0 and REDagent 0.3.1 |
 | [VS Code](https://code.visualstudio.com/), or the [EDGEkit app](https://edgemodders.ai/wiki/edgekit/#get-the-app) | REDcode, EDGEdeck, EDGEmat, EDGEwave and the EDGEkit extension pack, which run inside it |
 | [REDnode](https://edgemodders.ai/wiki/rednode/install.html) installed in the game | REDagent, EDGEbuilder and any REDnode mod or overlay app |
 | Your own [Anthropic API key](https://console.anthropic.com/) | REDagent. You pay Anthropic per use; see the [FAQ](https://edgemodders.ai/wiki/faq.html#does-redagent-cost-money) |

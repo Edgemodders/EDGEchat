@@ -1,5 +1,5 @@
-<!-- Copied from EDGEweb's docs/wiki/rednode/making-mods.md at 8b425af 2026-10-25 by tools/sync-docs.mjs. Do not edit here: change it in EDGEweb. -->
-<!-- Live page: https://edgemodders.ai/wiki/rednode/making-mods.html (reviewed 2026-10-24) -->
+<!-- Copied from EDGEweb's docs/wiki/rednode/making-mods.md at 67ee9dd 2026-10-26 by tools/sync-docs.mjs. Do not edit here: change it in EDGEweb. -->
+<!-- Live page: https://edgemodders.ai/wiki/rednode/making-mods.html (reviewed 2026-10-26) -->
 
 # Making mods and apps
 
@@ -193,4 +193,4 @@ Their source is in REDnode's repo under [`packages/overlay/apps`](https://github
 
 Share a package as a zip laid out like the game folder, with your package's folder at `red4ext\plugins\REDnode\apps\<your id>\`. Players install it with Vortex, EDGEdeck or by extracting it into the game folder, after REDnode, the same way REDagent and the optional packs install.
 
-On a mod site, list REDnode as a requirement, the way CET mods list CET, and say which game version you tested on (REDnode is for 2.31 today). In your manifest, add `"rednode": ">=<the version you tested>"` to `requires` so players with an older REDnode see it in the Mod Manager, and explain in `description` why you need any permission.
+On a mod site, list REDnode as a requirement, the way CET mods list CET, and say which game version you tested on (REDnode 0.38.1 and later are for 2.5; 0.37.0 for 2.31). In your manifest, add `"rednode": ">=<the version you tested>"` to `requires` so players with an older REDnode see it in the Mod Manager, and explain in `description` why you need any permission.

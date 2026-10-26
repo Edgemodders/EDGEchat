@@ -1,5 +1,5 @@
-<!-- Copied from EDGEweb's docs/wiki/index.md at 8b425af 2026-10-25 by tools/sync-docs.mjs. Do not edit here: change it in EDGEweb. -->
-<!-- Live page: https://edgemodders.ai/wiki/ (reviewed 2026-10-24) -->
+<!-- Copied from EDGEweb's docs/wiki/index.md at 67ee9dd 2026-10-26 by tools/sync-docs.mjs. Do not edit here: change it in EDGEweb. -->
+<!-- Live page: https://edgemodders.ai/wiki/ (reviewed 2026-10-26) -->
 
 # The EDGE platform
 
@@ -46,7 +46,7 @@ Together, the toolkits' benefits add up to these. Each toolkit's page lists its 
 | **One install** | The EDGEkit app comes with the EDGE tools built in and keeps them updated; in VS Code, one extension pack installs REDcode, EDGEdeck and the HUD theme | [EDGEkit](https://edgemodders.ai/wiki/edgekit/) |
 | **Built on the community, open source** | Works alongside RED4ext, CET, redscript, ArchiveXL and TweakXL. MIT, with GPL-3.0 where WolvenKit requires it | All toolkits |
 
-> **Status:** EDGE is early and moving fast. REDnode (0.37.0) and REDagent (0.3.1) are released for **game version 2.31**; they move to 2.5 once RED4ext, redscript and Codeware support it. EDGEbuilder places objects in the running game (a test build). REDcode, EDGEdeck, EDGEmat and EDGEwave are on the VS Code Marketplace and Open VSX as previews, and the EDGEkit app is a preview for Windows. REDnode, REDagent, REDbridge and EDGEbuilder install from release files on GitHub. The [platform page](https://edgemodders.ai/platform.html) shows where each feature stands.
+> **Status:** EDGE is early and moving fast. REDnode (0.40.1) and REDagent (0.3.2) are released for **game version 2.5**; REDnode 0.37.0 and REDagent 0.3.1 stay available for 2.31. EDGEbuilder places objects in the running game (a test build). REDcode, EDGEdeck, EDGEmat and EDGEwave are on the VS Code Marketplace and Open VSX as previews, and the EDGEkit app is a preview for Windows. REDnode, REDagent, REDbridge and EDGEbuilder install from release files on GitHub. The [platform page](https://edgemodders.ai/platform.html) shows where each feature stands.
 
 ## About this wiki
 

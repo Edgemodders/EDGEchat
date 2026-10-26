@@ -1,4 +1,4 @@
-<!-- Copied from REDnode's packages/overlay/README.md, "Apps, mods and manifests" at 92629cf 2026-10-25 by tools/sync-docs.mjs. Do not edit here: change it in REDnode. -->
+<!-- Copied from REDnode's packages/overlay/README.md, "Apps, mods and manifests" at v0.40.1 5e1c5a8 2026-10-26 by tools/sync-docs.mjs. Do not edit here: change it in REDnode. -->
 
 # Apps, mods and manifests
 

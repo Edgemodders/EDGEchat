@@ -1,5 +1,5 @@
-<!-- Copied from EDGEweb's docs/wiki/rednode/agents.md at 8b425af 2026-10-25 by tools/sync-docs.mjs. Do not edit here: change it in EDGEweb. -->
-<!-- Live page: https://edgemodders.ai/wiki/rednode/agents.html (reviewed 2026-10-24) -->
+<!-- Copied from EDGEweb's docs/wiki/rednode/agents.md at 67ee9dd 2026-10-26 by tools/sync-docs.mjs. Do not edit here: change it in EDGEweb. -->
+<!-- Live page: https://edgemodders.ai/wiki/rednode/agents.html (reviewed 2026-10-26) -->
 
 # Agents and MCP
 
@@ -17,16 +17,27 @@ MCP, the Model Context Protocol, is the standard way to give an AI agent tools. 
 
 ### Connect Claude Code
 
+From REDnode 0.40.1 there is no token to copy: Claude Code asks to connect, and you allow it in the game.
+
 1. In the game, press **F10**, open the launcher, press the gear at the right of the **Theme** row to open the Settings drawer, and switch **MCP server** on.
-2. Press **Copy setup** under it.
-3. In a terminal on the same PC, paste and run the copied command once. It adds REDnode to Claude Code as `rednode`, for every project (`--scope user`).
-4. Start a **new** Claude Code session while the game runs, and ask, for example: "Using the rednode tools, what are V's health, level and money?"
+2. In a terminal on the same PC, run once:
+   ```
+   claude mcp add --transport http --scope user rednode http://127.0.0.1:41820/mcp
+   ```
+   It adds REDnode to Claude Code as `rednode`, for every project.
+3. In Claude Code, run `/mcp`, pick `rednode` and choose **Authenticate**. Your browser shows **Approve in Cyberpunk 2077** with a code.
+4. In the game, a **Connect** window shows the same code. Check that the codes match, press **F10**, then **Allow**. Claude Code is connected.
+5. Ask, for example: "Using the rednode tools, what are V's health, level and money?"
+
+The connection stays across game restarts. The Settings drawer lists **Connected assistants**, each with **Revoke**; a revoked assistant has to ask again. A request you don't answer lapses after two minutes.
+
+**Copy setup** in the Settings drawer still works, for other MCP clients and REDnode before 0.40.1: it copies a `claude mcp add` command with a fixed token. Run it in a terminal once.
 
 `claude mcp list` shows `rednode` as connected while the game runs, and as failing while it's closed, which is normal: the server lives in the overlay host, which runs with the game.
 
 [Connect Claude Code](https://edgemodders.ai/wiki/connect-claude-code.html) covers REDnode beside the REDcode and EDGEdeck servers.
 
-(Screenshot on the wiki, "MCP server switch": The REDnode launcher's Settings drawer with the MCP server switch on and the Copy setup button.)
+(Screenshot on the wiki, "MCP server switch": The REDnode launcher's Settings drawer with the MCP server switch on, Copy setup, and Connected assistants with Revoke.)
 
 ### What the tools do
 
@@ -48,6 +59,8 @@ MCP, the Model Context Protocol, is the standard way to give an AI agent tools. 
 | `api_call` | Any live call into the game. It can change your game, such as money or health | **Always** |
 | `archives_reload` | Swaps changed archives into the running game. It replaces files in your mod folder, and a broken archive can crash the game | **Always** |
 | `game_facts_set`, `game_journal_set`, `game_teleport` | Change quest facts or journal entries in your save, or move V | **Always** |
+| `world_near`, `world_spawned` | What is around V, with the files each thing uses, and what the assistant spawned | No |
+| `world_spawn`, `world_remove`, `world_load` | Spawn a prop, an entity or a person, remove it, or load an EDGEbuilder scene | **Always** |
 | `mod_services`, `mod_read` | Lists the tools your mods offer, and calls the ones that only read | No |
 | `mod_call` and each mod's own tools | Calls a mod's tool. See [Mods' tools for AI assistants](https://edgemodders.ai/wiki/rednode/agents.html#mods-tools-for-ai-assistants) | Unless the mod marks it read-only |
 
@@ -61,7 +74,8 @@ To see every tool an assistant can reach, and switch any tool or any mod's tools
 
 ### Safety
 
-- The server listens only on your own PC (`127.0.0.1`, port 41820), and every request needs the token in the setup command. The token is kept, so the setup keeps working.
+- The server listens only on your own PC (`127.0.0.1`, port 41820), and every request needs a token: the one Claude Code gets when you press **Allow** in the game, or the fixed one in **Copy setup**. Only someone at the game can allow a new assistant, and REDnode keeps only a hash of each token.
+- It refuses requests that name another host, and requests sent by a web page, so a website can't reach it through your browser.
 - It only answers while the game is running.
 - Switching **MCP server** off closes it to Claude Code and other outside programs.
 
@@ -105,4 +119,4 @@ The **Ask mod** sample asks whatever you type and streams the answer. A package 
 
 ## REDagent
 
-REDagent is the agent that lives in the game: a chat window, powered by Claude, that writes, runs and fixes REDnode packages with you. It's a REDnode package with the `mcp` permission, released separately (0.3.1, for game 2.31). See the [REDagent section](https://edgemodders.ai/wiki/redagent/).
+REDagent is the agent that lives in the game: a chat window, powered by Claude, that writes, runs and fixes REDnode packages with you. It's a REDnode package with the `mcp` permission, released separately (0.3.2, for game 2.5). See the [REDagent section](https://edgemodders.ai/wiki/redagent/).

@@ -1,5 +1,5 @@
-<!-- Copied from EDGEweb's docs/wiki/rednode/game-api.md at 8b425af 2026-10-25 by tools/sync-docs.mjs. Do not edit here: change it in EDGEweb. -->
-<!-- Live page: https://edgemodders.ai/wiki/rednode/game-api.html (reviewed 2026-10-24) -->
+<!-- Copied from EDGEweb's docs/wiki/rednode/game-api.md at 67ee9dd 2026-10-26 by tools/sync-docs.mjs. Do not edit here: change it in EDGEweb. -->
+<!-- Live page: https://edgemodders.ai/wiki/rednode/game-api.html (reviewed 2026-10-26) -->
 
 # The game API, TweakDB and the world
 
@@ -82,7 +82,7 @@ This is cut down from the **Vitals** and **Game API mod** samples, which read V'
 
 ### The game API reference
 
-Every class, struct, enum and global function in the base game (2.31) is in REDnode's [game API reference](https://edgemodders.github.io/REDnode/game/), with REDnode's notes on how things behave. It's built from the game's own type data, like NativeDB. The same lookup is an [MCP tool](https://edgemodders.ai/wiki/rednode/agents.html), so Claude can look things up too.
+Every class, struct, enum and global function in the base game (2.5) is in REDnode's [game API reference](https://edgemodders.github.io/REDnode/game/), with REDnode's notes on how things behave. It's built from the game's own type data, like NativeDB. The same lookup is an [MCP tool](https://edgemodders.ai/wiki/rednode/agents.html), so Claude can look things up too.
 
 ## TweakDB
 

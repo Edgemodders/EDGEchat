@@ -1,5 +1,5 @@
-<!-- Copied from EDGEweb's docs/wiki/redagent/first-mod.md at 8b425af 2026-10-25 by tools/sync-docs.mjs. Do not edit here: change it in EDGEweb. -->
-<!-- Live page: https://edgemodders.ai/wiki/redagent/first-mod.html (reviewed 2026-10-24) -->
+<!-- Copied from EDGEweb's docs/wiki/redagent/first-mod.md at 67ee9dd 2026-10-26 by tools/sync-docs.mjs. Do not edit here: change it in EDGEweb. -->
+<!-- Live page: https://edgemodders.ai/wiki/redagent/first-mod.html (reviewed 2026-10-26) -->
 
 # Your first mod with REDagent
 
@@ -7,7 +7,7 @@ This walkthrough follows REDagent's own in-game test. By the end you'll have a m
 
 ## Before you start
 
-- REDnode 0.32.1 or later and REDagent are installed, on game version 2.31. See [Install REDnode](https://edgemodders.ai/wiki/rednode/install.html) and the [REDagent guide's install steps](https://edgemodders.github.io/REDagent/guide.html#install).
+- REDnode and REDagent are installed: REDnode 0.38.1 or later with REDagent 0.3.2 on game 2.5, or REDnode 0.37.0 with REDagent 0.3.1 on 2.31. See [Install REDnode](https://edgemodders.ai/wiki/rednode/install.html) and the [REDagent guide's install steps](https://edgemodders.github.io/REDagent/guide.html#install).
 - You have an Anthropic API key from [console.anthropic.com](https://console.anthropic.com/), with some credit on it. Keys start with `sk-ant-`.
 
 ## 1. Set up once

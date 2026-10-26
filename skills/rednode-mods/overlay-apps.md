@@ -1,4 +1,4 @@
-<!-- Copied from REDnode's docs/overlay-apps.md at 92629cf 2026-10-25 by tools/sync-docs.mjs. Do not edit here: change it in REDnode. -->
+<!-- Copied from REDnode's docs/overlay-apps.md at v0.40.1 5e1c5a8 2026-10-26 by tools/sync-docs.mjs. Do not edit here: change it in REDnode. -->
 
 # Overlay apps
 
@@ -376,7 +376,7 @@ game.on('PlayerPuppet.OnGameAttached', () => console.log('A save was loaded'));
 | `ui.slider(label, onChange, { min, max, step, value, unit })` | A slider |
 | `ui.input({ label, placeholder, value, onChange, onSubmit })` | A text field |
 | `ui.progress(value, { label, max })` | A progress bar |
-| `ui.list({ lines, keep, height, follow })` | A list of lines that scrolls on its own, for a log or a live feed. `push(...lines)` adds at the bottom (only the new lines travel to the window) and `clear()` empties it. It keeps the newest `keep` lines (500 by default, up to 5,000) and follows the newest one unless the player has scrolled up. Without `height` it fills the space the other nodes leave, so the window keeps its size and never scrolls |
+| `ui.list({ lines, keep, height, follow })` | A list of lines that scrolls on its own, for a log or a live feed. `push(...lines)` adds at the bottom (only the new lines travel to the window) and `clear()` empties it. It keeps the newest `keep` lines (500 by default, up to 5,000) and follows the newest one unless the player has scrolled up. Without `height` it fills the space the other nodes leave, at least 160 px; when they leave less, the window scrolls |
 | `ui.row(...nodes)`, `ui.column(...nodes)` | Layout |
 | `ui.window({ title, width, height, anchor, x, y, children, onClose })` | Opens the window. The player can drag it in interactive mode, and its position is saved. A saved position applies only while the window keeps the size it was saved with; after a size change it opens at its anchor again |
 
@@ -797,27 +797,33 @@ Changes made at once, with `Promise.all`, run in the same game frame. Objects al
 `world` in the `rednode` package spawns entities with components attached, moves them, removes them, and passes on their lifecycle events. It uses [Codeware](https://github.com/psiberx/cp2077-codeware) 1.14 or later in the game; without it, these calls reject and say so. See [World API](https://edgemodders.github.io/REDnode/world.html) for how it works.
 
 ```js
-import { api, world } from 'rednode';
+import { world } from 'rednode';
 
-const mesh = await api.$new('entMeshComponent', {
-  name: 'my_box',
-  mesh: 'base\\environment\\ld_kit\\marker.mesh',
-  meshAppearance: 'default',
-});
+// A prop: a mesh on its own.
 const { id } = await world.spawn({
-  // A bare entity in the base game: no components, no appearances.
-  template: 'base\\gameplay\\loot\\containers\\common_suitcases\\appearances\\suitcase_small_placeholder.ent',
+  mesh: 'base\\environment\\decoration\\containers\\packaging\\cardboard_box\\cardboard_box_a_closed.mesh',
   position: { x: -1234, y: 987, z: 12 },
   yaw: 90,
-  components: [mesh],
 });
+// A person: stands where placed and stays friendly to V.
+await world.spawn({ record: 'Character.CitizenRichFemale', position: { x: -1233, y: 987, z: 12 } });
+
 await world.move(id, { x: -1234, y: 988, z: 12 });
 await world.remove(id);
+
+// An EDGEbuilder scene, from a file in your package's folder.
+const scene = await world.load('scenes/my_alley.scene.json');
+await world.unload(scene.name);
 ```
 
 | Call | What it does |
 |---|---|
-| `world.spawn(options)` | Spawns an entity from a template (`template`) or a TweakDB record (`record`), and resolves once it is in the world, with its ID and the entity. `components` are attached while it assembles |
+| `world.spawn(options)` | Spawns an entity from a template (`template`), a TweakDB record (`record`) or a mesh alone (`mesh`, with `meshAppearance` and `scale`), and resolves once it is in the world, with its ID and the entity. A `Character.*` record stands where placed and stays friendly to V (`npc: false` leaves the game's behaviour). `keep: true` keeps it in the save. `components` are attached while it assembles |
+| `world.load(scene)`, `world.unload(name)` | Loads an [EDGEbuilder scene](https://edgemodders.github.io/EDGEbuilder/scene.html) (a `.scene.json` path or the scene itself): its meshes, entities and NPCs; lights are not spawned yet. Unload removes them |
+| `world.near({ radius, files, uses })` | The entities near V, nearest first, with their class, distance and appearance; `files` adds the files each one uses, `uses` keeps only those that use one of the given files |
+| `world.files(entity)` | The files an entity uses: its template and every resource its components name, as path hashes |
+| `world.spawned()` | This package's spawns, with what each was spawned with |
+| `world.onRespawn(handler)` | Called with the old and new ID when REDnode spawned one of yours again after an archive swap, so it shows the new version |
 | `world.move(id, position, orientation?, yaw?)` | Places it |
 | `world.remove(id)` | Removes it |
 | `world.watch(id)` | Lifecycle events for an entity spawned some other way |
@@ -825,7 +831,9 @@ await world.remove(id);
 | `world.entity(id)` | The entity, or `null` once it is gone |
 | `world.available()` | True when Codeware is installed and a game is loaded |
 
-The [World test](https://github.com/Edgemodders/REDnode/tree/main/packages/overlay/apps/world-test) sample spawns a box in front of V, spins it and removes it.
+What a package spawns is removed when it stops (switched off, restarted, hot reloaded or crashed). After an archive swap (`archives.reload`), your spawns that use a swapped file are spawned again with a new ID, and the game's own entities within 30 m of V that use one switch appearance and back, so they show the new version.
+
+The [World test](https://github.com/Edgemodders/REDnode/tree/main/packages/overlay/apps/world-test) sample spawns a box in front of V, spins it and removes it. The [World objects test](https://github.com/Edgemodders/REDnode/tree/main/packages/overlay/apps/world-objects-test) tries every other call.
 
 ## Debugging
 

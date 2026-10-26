@@ -1,5 +1,5 @@
-<!-- Copied from EDGEweb's docs/wiki/redagent/index.md at 8b425af 2026-10-25 by tools/sync-docs.mjs. Do not edit here: change it in EDGEweb. -->
-<!-- Live page: https://edgemodders.ai/wiki/redagent/ (reviewed 2026-10-24) -->
+<!-- Copied from EDGEweb's docs/wiki/redagent/index.md at 67ee9dd 2026-10-26 by tools/sync-docs.mjs. Do not edit here: change it in EDGEweb. -->
+<!-- Live page: https://edgemodders.ai/wiki/redagent/ (reviewed 2026-10-26) -->
 
 # REDagent
 
@@ -27,14 +27,14 @@ It sees REDnode's overlay windows, and sees the game's screen only when it takes
 
 | You need | Why |
 |---|---|
-| Cyberpunk 2077 on PC, **game version 2.31**, with [REDnode](https://edgemodders.ai/wiki/rednode/install.html) 0.32.1 or later | REDagent is a REDnode package. Game version 2.5 is not supported yet: REDnode and REDagent move to it once RED4ext, redscript and Codeware support it |
+| Cyberpunk 2077 on PC, **game version 2.5**, with [REDnode](https://edgemodders.ai/wiki/rednode/install.html) 0.38.1 or later | REDagent is a REDnode package. On game 2.31: REDagent 0.3.1 with REDnode 0.32.1 to 0.37.0 |
 | Your own Anthropic API key | REDagent calls Claude with your key; Anthropic bills you per use. A Claude.ai subscription can't be used |
 | About 300 MB of disk, and a 140 MB download at first start | Mostly Anthropic's Claude Agent SDK. It is not in REDagent's zip: REDagent downloads it once, when you press **Get the Agent SDK** |
 | About 120 MB of memory while the game runs | REDagent runs in its own process, outside the game |
 
 ## Status
 
-**Released.** REDagent 0.3.1 came out on 2026-10-24 (the first release, 0.3.0, on 2026-10-23), for game version 2.31. It is the last release for 2.31: the next one moves to game 2.5 with REDnode. Every phase passed its in-game test:
+**Released.** REDagent 0.3.2 came out on 2026-10-25, the first release for game 2.5, with REDnode 0.38.1. 0.3.1 (2026-10-24) is the last for game 2.31; the first release, 0.3.0, came out on 2026-10-23. Every phase passed its in-game test:
 
 | Phase | Passed in game |
 |---|---|

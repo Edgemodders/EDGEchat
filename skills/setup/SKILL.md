@@ -23,14 +23,14 @@ Tools named `mcp__<server>__*`, with no `plugin_edge_` in the name, come from a 
 
 | Server added by hand | Where it came from | What it does beside the plugin |
 |---|---|---|
-| `rednode` | REDnode's **Copy setup** | Hides the plugin's copy (same name and URL, seen 2026-10-16), and keeps any old token it was given |
+| `rednode` | REDnode's **Copy setup**, or `claude mcp add ... rednode http://127.0.0.1:41820/mcp` | Hides the plugin's copy (same URL, seen 2026-10-16 and 2026-10-26) |
 | `redcode` | REDcode's `claude mcp add redcode ...` line | Runs beside the plugin's copy: every tool twice |
 | `edgedeck` | EDGEdeck's **Connect an assistant (MCP)** command, or its README's `claude mcp add edgedeck ...` | Runs beside the plugin's copy: every tool twice (seen 2026-10-21) |
 | `edgemat` | EDGEmat's **Connect an Assistant (MCP)** command, or `claude mcp add edgemat ...` | Runs beside the plugin's copy: every tool twice. If it was given `-e GEMINI_API_KEY=...` or `OPENAI_API_KEY`, put that key in the plugin's option first |
 | `reddeck` | REDdeck, before it was renamed EDGEdeck (2026-10-17) | An old server with the old library; EDGEdeck does not read it |
 
 - Suggest removing each one so there is one copy. `claude mcp get <server>` shows its scope; then `claude mcp remove <server> -s <scope>`.
-- Ask before running any of these commands. Removing the hand-added `rednode` means the plugin's needs its token (step 2). If the hand-added `edgedeck` had `--library <folder>`, put that folder in the plugin's `edgedeck_library` option first.
+- Ask before running any of these commands. After the hand-added `rednode` is gone, the plugin's signs in by itself (step 2). The exception: a player on game 2.31 has REDnode 0.37.0 at most, which has no sign-in, so the hand-added copy with **Copy setup**'s token is their only way to connect REDnode; leave it. If the hand-added `edgedeck` had `--library <folder>`, put that folder in the plugin's `edgedeck_library` option first.
 - Never print, quote or log a token, even if a command or a config file shows one.
 
 ## 2. rednode
@@ -40,11 +40,13 @@ Call `game_state` on the rednode server (it only reads).
 | What happens | Why | Next step |
 |---|---|---|
 | It answers | Connected | Report the game state in one line |
-| It answers, but rednode has no `api_read` tool | REDnode is older than 0.26.16, so its `api_call` and `archives_reload` do not make Claude Code ask before every call (step 6) | Update REDnode |
 | No rednode tools, and `claude mcp list` says "Failed to connect" or ECONNREFUSED | The game is not running, or REDnode's MCP server is off | Start the game with REDnode and load a save. Open the REDnode launcher's Settings panel (below) and switch **MCP server** on. Then reconnect from `/mcp`, or start a new session |
-| `claude mcp list` says HTTP 401, "A valid token is required" | The plugin has no token, or an old one | In the game, open the REDnode launcher's Settings panel (below) and press **Copy setup**. The copied command ends with `Bearer <token>"`. Do not run it: it would add a second `rednode` by hand (step 1). Put only the token in the plugin's `rednode_token` option: in VS Code, `/plugins`, then the gear on the `edge` row; in the terminal, `/plugin configure edge@edgemodders`. Then restart Claude Code |
+| No rednode tools, and `/mcp` or `claude mcp list` says "Needs authentication" | Not signed in to REDnode yet. Claude Code cannot start the sign-in itself | The user, in `/mcp`: pick `plugin:edge:rednode`, then **Authenticate**. The browser shows **Approve in Cyberpunk 2077** with a code; in the game a **Connect** window shows the same code. Check that they match, press **F10**, then **Allow**. The sign-in lasts across game restarts |
+| The browser says the request was denied or lapsed | **Deny** was pressed, or nobody answered within two minutes | **Authenticate** again, and press **Allow** in the game |
+| Authenticate gives no sign-in page, or an error about the server's sign-in or client registration | REDnode older than 0.40.1, which only takes the token from **Copy setup** (the exact message is not checked) | Update REDnode to 0.40.1 or newer, which needs game 2.5. On game 2.31, REDnode 0.37.0 is the last: there, the only way is REDnode added by hand with **Copy setup** (step 1) |
+| rednode tools are there, but every call fails as unauthorized | The player pressed **Revoke** in REDnode's **Connected assistants**. Claude Code shows the server connected until its next request fails | **Authenticate** again from `/mcp`, and **Allow** in the game |
 
-The launcher's Settings panel: **F10** for REDnode's overlay, the **REDNODE** tab at the bottom left, then the gear at the right of the Theme row. **MCP server**, **Copy setup** and **Hot reload** are there since REDnode 0.32.2; before that they were on the launcher itself.
+The launcher's Settings panel: **F10** for REDnode's overlay, the **REDNODE** tab at the bottom left, then the gear at the right of the Theme row. It has **MCP server**, **Hot reload**, **Copy setup** (a fixed token, for clients other than this plugin) and, from REDnode 0.40.1, **Connected assistants**, each with **Revoke**.
 
 You only see a server's tools when it connected at session start. To see why it failed, run `claude mcp list` if `claude` is on the PATH; otherwise ask the user to open `/mcp` and read the status of `plugin:edge:rednode`.
 
@@ -111,7 +113,7 @@ End with this table, one row per server, then the next step the user should take
 
 | Server | State | Next step |
 |---|---|---|
-| rednode | Connected / older than 0.26.16 / not running / no token / added by hand | ... |
+| rednode | Connected / not running / not signed in / revoked / older than 0.40.1 / added by hand | ... |
 | redcode | Connected / no game folder / no REDbridge / not started / added by hand | ... |
 | edgedeck | Connected / other library / not started / added by hand | ... |
 | edgemat | Connected / library not built / no game or REDbridge / not started / added by hand | ... |

@@ -1,4 +1,4 @@
-<!-- Copied from EDGEweb's docs/wiki/edgedeck/nexus.md at 8b425af 2026-10-25 by tools/sync-docs.mjs. Do not edit here: change it in EDGEweb. -->
+<!-- Copied from EDGEweb's docs/wiki/edgedeck/nexus.md at 67ee9dd 2026-10-26 by tools/sync-docs.mjs. Do not edit here: change it in EDGEweb. -->
 <!-- Live page: https://edgemodders.ai/wiki/edgedeck/nexus.html (reviewed 2026-10-24) -->
 
 # Nexus Mods

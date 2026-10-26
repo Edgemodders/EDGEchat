@@ -1,5 +1,5 @@
-<!-- Copied from EDGEweb's docs/wiki/faq.md at 8b425af 2026-10-25 by tools/sync-docs.mjs. Do not edit here: change it in EDGEweb. -->
-<!-- Live page: https://edgemodders.ai/wiki/faq.html (reviewed 2026-10-24) -->
+<!-- Copied from EDGEweb's docs/wiki/faq.md at 67ee9dd 2026-10-26 by tools/sync-docs.mjs. Do not edit here: change it in EDGEweb. -->
+<!-- Live page: https://edgemodders.ai/wiki/faq.html (reviewed 2026-10-26) -->
 
 # FAQ
 
@@ -20,7 +20,7 @@ REDagent itself is free and open source. It calls Claude with your own Anthropic
 
 ## Does it work with game version 2.5?
 
-Not yet. Game 2.5 came out on 22 October 2026. REDnode, REDagent and the tools that run in the game work with **game version 2.31**, and move to 2.5 once RED4ext, redscript and Codeware support it. Until then, keep your game on 2.31 if you want to use them. The tools that only read the game's files (REDcode, EDGEdeck, EDGEmat, EDGEwave) are not tied to the game's runtime in the same way, but they are tested on 2.31 (2.5 untested).
+Yes, REDnode and REDagent do. Game 2.5 came out on 22 October 2026; REDnode supports it from 0.38.1 and REDagent from 0.3.2, both released on 25 October. On a game kept on 2.31, use REDnode 0.37.0 and REDagent 0.3.1, the last releases for 2.31. Swapping archives into the running game waits for RED Hot Tools to support 2.5, and EDGEbuilder is still tested on 2.31 only. The tools that only read the game's files (REDcode, EDGEdeck, EDGEmat, EDGEwave) are not tied to the game's runtime in the same way; they were tested on 2.31.
 
 ## Does it work with WolvenKit, CET, RED4ext and my other mods?
 

@@ -3,12 +3,13 @@
 // truth with REDagent"). Relative links become links to the live pages.
 //
 //   node tools/sync-docs.mjs [rednode] [wiki] [--root <folder holding the EDGE repos, default ..>]
+//                            [--rednode-ref <tag or commit, default the checkout as it is>]
 //
 //   rednode   REDnode's guide and manifest section, into skills/rednode-mods
 //   wiki      the EDGEmodders wiki from EDGEweb's docs/wiki, into skills/edge-tools/wiki
 //
-// With neither named, both. Copy from the commit users have: REDnode's release, EDGEweb's
-// published site. Check the diff, and raise the plugin's version.
+// With neither named, both. Copy from the commit users have: REDnode's release tag
+// (--rednode-ref v0.40.1), EDGEweb's published site. Check the diff, and raise the plugin's version.
 import { execFileSync } from 'node:child_process';
 import { existsSync, mkdirSync, readdirSync, readFileSync, rmSync, writeFileSync } from 'node:fs';
 import { dirname, join, relative, resolve } from 'node:path';
@@ -16,13 +17,20 @@ import { fileURLToPath } from 'node:url';
 
 const repo = resolve(dirname(fileURLToPath(import.meta.url)), '..');
 const args = process.argv.slice(2);
-const rootAt = args.indexOf('--root');
-const root = resolve(rootAt >= 0 ? args[rootAt + 1] : join(repo, '..'));
-const wanted = args.filter((a, i) => !a.startsWith('--') && !(rootAt >= 0 && i === rootAt + 1));
+const option = (name) => {
+  const at = args.indexOf(name);
+  return at >= 0 ? args[at + 1] : undefined;
+};
+const root = resolve(option('--root') ?? join(repo, '..'));
+const optionValues = new Set(['--root', '--rednode-ref'].map(option).filter(Boolean));
+const wanted = args.filter((a) => !a.startsWith('--') && !optionValues.has(a));
 const all = wanted.length === 0;
 
-const commitOf = (dir) => execFileSync('git', ['-C', dir, 'log', '-1', '--format=%h %cs'], { encoding: 'utf8' }).trim();
-const readIn = (dir, name) => (path) => {
+const git = (dir, ...rest) => execFileSync('git', ['-C', dir, ...rest], { encoding: 'utf8', maxBuffer: 64 << 20 });
+const commitOf = (dir, ref = 'HEAD') => git(dir, 'log', '-1', '--format=%h %cs', ref).trim();
+// From the working tree, or with a ref, from that commit (a release tag), whatever is checked out.
+const readIn = (dir, name, ref) => (path) => {
+  if (ref) return git(dir, 'show', `${ref}:${path}`).replace(/\r\n/g, '\n');
   const file = join(dir, path);
   if (!existsSync(file)) throw new Error(`${name}'s ${path} is not at ${file}`);
   return readFileSync(file, 'utf8').replace(/\r\n/g, '\n');
@@ -30,8 +38,9 @@ const readIn = (dir, name) => (path) => {
 
 if (all || wanted.includes('rednode')) {
   const rednode = join(root, 'REDnode');
-  const read = readIn(rednode, 'REDnode');
-  const commit = commitOf(rednode);
+  const ref = option('--rednode-ref');
+  const read = readIn(rednode, 'REDnode', ref);
+  const commit = (ref ? `${ref} ` : '') + commitOf(rednode, ref);
   const site = 'https://edgemodders.github.io/REDnode/';
   const tree = 'https://github.com/Edgemodders/REDnode/tree/main/';
   const header = (path) =>
