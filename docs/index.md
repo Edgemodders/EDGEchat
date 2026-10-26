@@ -6,7 +6,7 @@ title: Docs
 
 The EDGE plugin for Claude Code: Cyberpunk 2077 modding knowledge as skills, the EDGE MCP servers, and modding commands, in one install. Source: [github.com/Edgemodders/EDGEchat](https://github.com/Edgemodders/EDGEchat).
 
-A preview (plugin 0.0.x), not released yet. REDnode supports game version 2.5 from 0.38.1 (0.37.0 is the last for 2.31). The skills' game facts were checked on 2.5 (2026-10-26).
+Version 0.1.0, the first release (2026-10-26). REDnode supports game version 2.5 from 0.38.1 (0.37.0 is the last for 2.31). The skills' game facts were checked on 2.5 (2026-10-26).
 
 ## Install
 
@@ -48,6 +48,6 @@ The knowledge skills (`rednode-mods`, `wolvenkit-projects`, `archives-and-cr2w`,
 | P0 Decide | **Decided** 2026-10-23: the name EDGEchat (was EDGEplugin), names `edge@edgemodders`, one repo as marketplace and plugin, a separate repo (not in REDagent), REDagent C6 dropped, every EDGE server on npm, EDGEkit's one-click setup, knowledge shared through each tool's own docs, community sources in our own words, P2 EDGE first. EDGEkit built its side ([EDGEkit#5](https://github.com/Edgemodders/EDGEkit/issues/5)), tested and passed 2026-10-26 in EDGEkit 1.140.2; REDagent's side still to tell |
 | P1 Skeleton | **Done** 2026-10-21. Manifest, marketplace, `rednode`, `redcode`, `edgedeck` and (0.0.5) `edgemat`, `/edge:setup` and `/edge:init-project`. Installed from GitHub in VS Code on a second PC, `/edge:setup` reported all three connected with the game running |
 | P2 Knowledge | **Done** 2026-10-23: `rednode-mods` (a working HUD widget built in the game), `wolvenkit-projects`, `archives-and-cr2w`, each checked against the game, with evals. No separate EDGEdeck or EDGEmat skill: their servers explain their tools |
-| P3 Commands | Under way (2026-10-23): `/edge:new-mod` and `/edge:check-mod` in 0.0.8, with evals. Next: the in-game test, a non-coder makes a mod from `/edge:new-mod` alone |
-| P4 Ship | Not started. Version 0.1.0, provided by EDGEkit, in its docs and welcome page |
+| P3 Commands | **Done** 2026-10-26: `/edge:new-mod` and `/edge:check-mod` (0.0.8), with evals; `/edge:new-mod` passed in the game and `/edge:init-project` on a real project |
+| P4 Ship | **Done** 2026-10-26: version 0.1.0 on GitHub and Nexus Mods; EDGEkit 1.140.2 offers it in one click |
 | P5 Grow | Not started. EDGEmat and EDGEwave as they ship |

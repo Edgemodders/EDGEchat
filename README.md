@@ -4,7 +4,7 @@
 
 <p align="center">
   <a href="https://edgemodders.github.io/EDGEchat/"><img src="docs/assets/brand/badges/docs.svg" alt="docs: read the docs"></a>
-  <img src="docs/assets/brand/badges/status.svg" alt="status: P3 commands">
+  <img src="docs/assets/brand/badges/status.svg" alt="status: 0.1.0">
   <img src="docs/assets/brand/badges/game.svg" alt="game: Cyberpunk 2077">
   <img src="docs/assets/brand/badges/for.svg" alt="for: Claude Code">
   <a href="LICENSE"><img src="docs/assets/brand/badges/license.svg" alt="license: MIT"></a>
@@ -17,7 +17,7 @@ EDGEchat is not an agent: it connects Claude Code to EDGE while you build mods. 
 **[Docs](https://edgemodders.github.io/EDGEchat/)** · [Design](https://edgemodders.github.io/EDGEchat/design.html) · [EDGEkit](https://github.com/Edgemodders/EDGEkit) · [REDagent](https://github.com/Edgemodders/REDagent)
 
 > [!NOTE]
-> **Status: P3, commands. A preview (0.0.x), not released yet.** It installs and connects the REDnode, REDcode, EDGEdeck and EDGEmat servers. Skills: `rednode-mods`, `wolvenkit-projects`, `archives-and-cr2w`, `edge-tools`. Commands: `/edge:setup`, `/edge:new-mod`, `/edge:check-mod`, `/edge:init-project`. Windows only for the servers. REDnode supports game version 2.5 from 0.38.1 (0.37.0 is the last for 2.31). The skills' game facts were checked on 2.5 (2026-10-26).
+> **Status: 0.1.0, the first release (2026-10-26).** It installs and connects the REDnode, REDcode, EDGEdeck and EDGEmat servers. Skills: `rednode-mods`, `wolvenkit-projects`, `archives-and-cr2w`, `edge-tools`. Commands: `/edge:setup`, `/edge:new-mod`, `/edge:check-mod`, `/edge:init-project`. Windows only for the servers. REDnode supports game version 2.5 from 0.38.1 (0.37.0 is the last for 2.31). The skills' game facts were checked on 2.5 (2026-10-26).
 
 ## Install
 
