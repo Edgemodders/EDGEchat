@@ -1,11 +1,11 @@
 ---
 name: archives-and-cr2w
-description: Cyberpunk 2077's game files, checked against game 2.31. Archives, path hashes, file types (.ent, .app, .mesh, .mlsetup, ...), and how an item leads to its files. Use when finding, replacing or editing game files.
+description: Cyberpunk 2077's game files, checked against game 2.5. Archives, path hashes, file types (.ent, .app, .mesh, .mlsetup, ...), and how an item leads to its files. Use when finding, replacing or editing game files.
 ---
 
 # The game's files
 
-Checked against Cyberpunk 2077 2.31 (with Phantom Liberty) through the `redcode` server on 2026-10-23. The server's tool descriptions say how to call its tools and the CR2W editing rules; this skill is what the files are and how they link. File types in detail: [file-types.md](file-types.md).
+Checked against Cyberpunk 2077 2.5 (with Phantom Liberty) through the `redcode` server on 2026-10-26, and before that against 2.31 on 2026-10-23. The server's tool descriptions say how to call its tools and the CR2W editing rules; this skill is what the files are and how they link. File types in detail: [file-types.md](file-types.md).
 
 ## Where they are
 
@@ -18,7 +18,7 @@ Paths are under the game's install folder.
 | `archive/pc/mod/` | Mods' archives, and ArchiveXL's `.xl` files |
 | `r6/cache/` | TweakDB (`tweakdb.bin`, `tweakdb_ep1.bin`) and compiled scripts. TweakDB is not in the archives: see the `tweakxl` skill |
 
-The game has 57 archives holding 583,798 files. Inside them, game paths start with `base\` (505,491 files), `ep1\` (77,560), `engine\` (387) or `dlc\` (177). Phantom Liberty's archives also carry `base\` paths. `base\localization` (154,942 files) holds, per language, the on-screen texts (`onscreens`), subtitles, voice lines (`vo`, `vo_holocall`, ...) and lip sync. For texts, use the `loc_*` tools rather than the files.
+The game has 57 archives holding 592,071 files (2.31: the same archives, 583,798 files). Inside them, game paths start with `base\` (513,823 files), `ep1\` (77,662), `engine\` (387) or `dlc\` (177); 22 more are known only by hash. Phantom Liberty's archives also carry `base\` paths. `base\localization` (158,445 files) holds, per language, the on-screen texts (`onscreens`), subtitles, voice lines (`vo`, `vo_holocall`, ...) and lip sync. For texts, use the `loc_*` tools rather than the files.
 
 ## Game paths and hashes
 
@@ -29,7 +29,7 @@ The game has 57 archives holding 583,798 files. Inside them, game paths start wi
 
 ## From an item in the game to its files
 
-Each step names the field to follow. The example is the jacket `Items.Cop_01_Set_Jacket` ("Heavy-duty aramid-reinforced badge coat"), traced on 2026-10-23.
+Each step names the field to follow. The example is the jacket `Items.Cop_01_Set_Jacket` ("Heavy-duty aramid-reinforced badge coat"), traced on 2026-10-23 (2.31) and again on 2026-10-26 (2.5): every step the same.
 
 | Step | File | Follow | In the example |
 |---|---|---|---|
@@ -54,7 +54,7 @@ Multilayered materials (`multilayered.mt`): the `.mlmask` says where each layer 
 
 ## Reading and editing
 
-- Look before editing: read the few values you need (`cr2w_read`) rather than converting a whole file. `.ent` files can be large: the torso item has 2,318 appearances.
+- Look before editing: read the few values you need (`cr2w_read`) rather than converting a whole file. `.ent` files can be large: the torso item has 2,386 appearances.
 - `.ent` and `.app` files hold their components twice: in `components` and in `compiledData`, which is rebuilt from `components` when the file is saved. Edit `components`. In an `.app`, both sit inside each appearance.
 - Factory `.csv` files have the same twin: `data` and `compiledData`.
 - Edit a copy in the mod's project, never the game's file: give a game path with an `outFile` under the project's `source/archive`, at the same game path.

@@ -54,4 +54,4 @@ End with one table, most serious first, then the one thing to do first, and offe
 
 Say what you checked and found fine in one line, so the user knows what was covered. Mark a guess as a guess.
 
-Log paths checked in the dev PC's game folder (game 2.31) on 2026-10-23.
+Log paths checked in the dev PC's game folder on 2026-10-23 (game 2.31) and again on 2026-10-26 (game 2.5): all there, with the same names.

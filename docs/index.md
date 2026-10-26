@@ -6,7 +6,7 @@ title: Docs
 
 The EDGE plugin for Claude Code: Cyberpunk 2077 modding knowledge as skills, the EDGE MCP servers, and modding commands, in one install. Source: [github.com/Edgemodders/EDGEchat](https://github.com/Edgemodders/EDGEchat).
 
-A preview (plugin 0.0.x), not released yet. REDnode supports game version 2.5 from 0.38.1 (0.37.0 is the last for 2.31). The skills' game facts were checked on 2.31; their recheck on 2.5 comes before the first release.
+A preview (plugin 0.0.x), not released yet. REDnode supports game version 2.5 from 0.38.1 (0.37.0 is the last for 2.31). The skills' game facts were checked on 2.5 (2026-10-26).
 
 ## Install
 
