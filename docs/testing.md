@@ -32,7 +32,7 @@ Last updated 2026-10-23.
 | [rednode-mods in the game](#rednode-mods-in-the-game) | By hand, in a session | P2 | 2026-10-23 | Pass |
 | [Evals: wolvenkit-projects](#evals-wolvenkit-projects) | `claude plugin eval` | P2 | 2026-10-23 | Δ +0.33 |
 | [Evals: edge-tools](#evals-edge-tools) | `claude plugin eval` | P3 | 2026-10-26 | Skill fires 9 of 9; Δ +1.00 |
-| [Evals: the whole suite](#evals-the-whole-suite) | `claude plugin eval` | P2, P3 | 2026-10-23 | 12 cases, mean Δ +0.68 |
+| [Evals: the whole suite](#evals-the-whole-suite) | `claude plugin eval` | P2, P3 | 2026-10-26 | 15 cases, all pass with the plugin; mean Δ +0.70 |
 
 A scratch config has no Claude login, so the CLI tests check how the plugin installs and starts its servers, not what Claude does with it. The P1 test on 2026-10-21 was the first run of a skill in a session.
 
@@ -381,6 +381,23 @@ Every case, three runs per arm, judged by Sonnet. The first runs used the defaul
 ```bash
 claude plugin eval . --runs 3 -j 6 --judge-model sonnet --no-publish --trust-plugin
 ```
+
+Run 2026-10-26 at 0.0.15, Claude Code 2.1.310, after the skills' recheck on game 2.5: 15 cases (with `edge-tools`'s three), **mean Δ +0.70**, $9.92, 5 min 40 s. Two misses, both from graders out of date, not the plugin: `money-on-screen` failed one run because its rubric wanted the apps folder and the answer chose a REDnode development folder, which the skills teach from 0.0.10; `cheaper-jackets`'s `checks-tweakdb` regex wanted `tweakdb_` where the answers said "check it with the TweakDB tools" (seen 2026-10-23 too). The rubric now takes either folder, and `checks-tweakdb` is an llm grader. Rerun of `--tag new-mod` with them: both 1.00 with the plugin (`cheaper-jackets` Δ +0.67, `money-on-screen` Δ +1.00), $1.62.
+
+| Case | Skill | With | Without (3 runs) | Δ |
+|---|---|---|---|---|
+| `hud-widget`, `mod-output`, `data-folder` | `rednode-mods` | 1.00 each | 0 each | +1.00 each |
+| `changed-after-swap` | `wolvenkit-projects` | 1.00 | 0.67 | +0.33 |
+| `into-the-game` | `wolvenkit-projects` | 1.00 | 0 | +1.00 |
+| `pack-resources` | `wolvenkit-projects` | 1.00 | 1.00 | 0.00 |
+| `money-on-screen` | `new-mod` | 1.00 (after the rubric fix) | 0 | +1.00 |
+| `cheaper-jackets` | `new-mod` | 1.00 (after the grader fix) | 0.33 | +0.67 |
+| `broken-package` | `check-mod` | 1.00 | 0 | +1.00 |
+| `edit-app-mesh` | `archives-and-cr2w` | 1.00 | 0 | +1.00 |
+| `item-to-files`, `path-capitals` | `archives-and-cr2w` | 1.00 each | 1.00 each | 0.00 each |
+| `connect-claude`, `edgemat-library`, `vortex-switch` | `edge-tools` | 1.00 each | 0 each | +1.00 each |
+
+As before, `new-mod` and `check-mod` did not fire on plain-language prompts (`rednode-mods` and the others carried the answers); the commands are run as `/edge:new-mod` and `/edge:check-mod`, and passed that way in the game.
 
 Run 2026-10-23 at 0.0.8, Claude Code 2.1.302: 12 cases, 10 pass, **mean Δ +0.68**, $7.91, 5 min 22 s.
 
