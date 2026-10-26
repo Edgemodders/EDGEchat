@@ -14,12 +14,13 @@ A preview (plugin 0.0.x), not released yet. REDnode supports game version 2.5 fr
 
 **In VS Code:** type `/plugins` in the Claude Code panel. In the **Marketplaces** tab, enter `Edgemodders/EDGEchat`; in the **Plugins** tab, click **Install** on `edge` and choose **Install for you**.
 
-**In a terminal**, in the `claude` CLI:
+**From a terminal prompt:**
 
 ```
-/plugin marketplace add Edgemodders/EDGEchat
-/plugin install edge@edgemodders
+claude plugin install edge --marketplace Edgemodders/EDGEchat
 ```
+
+Inside a running `claude` session, the same is `/plugin marketplace add Edgemodders/EDGEchat`, then `/plugin install edge@edgemodders`.
 
 Then restart Claude Code and run `/edge:setup`: it checks each server and gives the one next step for what is missing. The settings, all optional, signing in to REDnode from the game, what the servers need and how to update are in the [README](https://github.com/Edgemodders/EDGEchat#install).
 

@@ -36,18 +36,26 @@ In VS Code, you can also open this link from the Run dialog (Win+R) or a browser
 vscode://anthropic.claude-code/install-plugin?plugin=edge&marketplace=Edgemodders/EDGEchat
 ```
 
-**In a terminal** (the `claude` CLI):
+**From a terminal prompt** (PowerShell, cmd or any shell, with Claude Code installed):
+
+```
+claude plugin install edge --marketplace Edgemodders/EDGEchat
+```
+
+It adds EDGEchat's marketplace and installs the plugin for you (user scope). Settings can go on the same line, one `--config` each, such as `--config game_path="E:\SteamLibrary\steamapps\common\Cyberpunk 2077"`. `claude plugin configure edge@edgemodders` lists the settings and which are unset.
+
+**Inside a running `claude` session** in a terminal, the same as two slash commands:
 
 ```
 /plugin marketplace add Edgemodders/EDGEchat
 /plugin install edge@edgemodders
 ```
 
-Both ways install the same plugin: the extension and the CLI share their plugins.
+Every way installs the same plugin: the VS Code extension and the CLI share their plugins.
 
 Then restart Claude Code (in VS Code, **Developer: Reload Window**) and run `/edge:setup`. It checks the servers and says what is missing.
 
-The plugin asks for five settings, all optional: the game folder and `REDbridge.exe` (not needed if REDcode is set up in VS Code), EDGEdeck's library folder (only if you moved it from the default), and a Google Gemini or OpenAI key for EDGEmat's materials from words (your own key, billed to you). The keys are kept in your system's credential store. Change the settings later with the gear on the `edge` row in `/plugins` (then **Save configuration**, at the bottom of the form), or `/plugin configure edge@edgemodders` in a terminal. The servers read their settings only when they start, so restart Claude Code after a change.
+The plugin asks for five settings, all optional: the game folder and `REDbridge.exe` (not needed if REDcode is set up in VS Code), EDGEdeck's library folder (only if you moved it from the default), and a Google Gemini or OpenAI key for EDGEmat's materials from words (your own key, billed to you). The keys are kept in your system's credential store. Change the settings later with the gear on the `edge` row in `/plugins` (then **Save configuration**, at the bottom of the form), or `/plugin configure edge@edgemodders` inside a `claude` session. The servers read their settings only when they start, so restart Claude Code after a change.
 
 REDnode needs no setting: you allow Claude Code in the game. Start the game with REDnode, and in its Settings panel (**F10**, the **REDNODE** tab at the bottom left, then the gear at the right of the Theme row) switch **MCP server** on. In Claude Code, open `/mcp`, pick `plugin:edge:rednode` and choose **Authenticate**. Your browser shows a code; the game shows the same code in a **Connect** window. Press **F10**, then **Allow**. It stays signed in across game restarts, and REDnode's **Connected assistants** list can revoke it.
 
@@ -57,14 +65,14 @@ The plugin is called `edge`, so commands stay short.
 
 ## Update
 
-Auto-update is off by default for marketplaces like this one. To update by hand, in any terminal:
+Auto-update is off by default for marketplaces like this one. To update by hand, from a terminal prompt:
 
 ```
 claude plugin marketplace update edgemodders
 claude plugin update edge@edgemodders
 ```
 
-Inside the `claude` CLI, the same commands start with `/plugin` instead of `claude plugin`. In VS Code, the refresh icon in `/plugins`' **Marketplaces** tab updates EDGEchat's listing.
+Inside a running `claude` session, the same commands start with `/plugin` instead of `claude plugin`. In VS Code, the refresh icon in `/plugins`' **Marketplaces** tab updates EDGEchat's listing.
 
 Then restart Claude Code. A new version may add settings without saying so: `/edge:setup` names them.
 

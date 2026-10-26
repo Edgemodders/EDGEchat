@@ -51,12 +51,13 @@ if (nexus) {
 } else {
   write(`${section.join("\n").trim()}
 
-**Install:** EDGEkit comes with EDGEchat set up. In VS Code, type \`/plugins\` in the Claude Code panel, add \`Edgemodders/EDGEchat\` in the **Marketplaces** tab, then **Install** \`edge\` in the **Plugins** tab. In the \`claude\` CLI:
+**Install:** EDGEkit comes with EDGEchat set up. In VS Code, type \`/plugins\` in the Claude Code panel, add \`Edgemodders/EDGEchat\` in the **Marketplaces** tab, then **Install** \`edge\` in the **Plugins** tab. From a terminal prompt:
 
 \`\`\`
-/plugin marketplace add Edgemodders/EDGEchat
-/plugin install edge@edgemodders
+claude plugin install edge --marketplace Edgemodders/EDGEchat
 \`\`\`
+
+Inside a running \`claude\` session, the same is \`/plugin marketplace add Edgemodders/EDGEchat\`, then \`/plugin install edge@edgemodders\`.
 
 It updates from the marketplace from then on. \`EDGEchat-${version}.zip\` below is the same plugin for installing without GitHub: unzip it, then \`/plugin marketplace add "<that folder>\\EDGEchat-${version}"\` (README.txt in the zip has the steps). Then run \`/edge:setup\`. The servers are Windows only.
 

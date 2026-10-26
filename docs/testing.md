@@ -10,7 +10,7 @@ Last updated 2026-10-23.
 |---|---|---|---|---|
 | [Validate](#validate) | CLI | P0, P1 | 2026-10-23 | Pass, one expected warning |
 | [Install from the checkout](#install-from-the-checkout) | CLI, scratch config | P0, P1 | 2026-10-23 | Pass |
-| [Install from GitHub](#install-from-github) | CLI, scratch config | P1 | 2026-10-17 | Pass |
+| [Install from GitHub](#install-from-github) | CLI, scratch config | P1 | 2026-10-26 | Pass, also in one command |
 | [Update from GitHub](#update-from-github) | CLI, scratch config | P1 | 2026-10-21 | See the section |
 | [Plugin servers beside servers added by hand](#plugin-servers-beside-servers-added-by-hand) | CLI, scratch config | P0, P1 | 2026-10-21 | Seen, recorded in the design |
 | [Unset options](#unset-options) | CLI, scratch config | P1 | 2026-10-16 | Seen: empty string |
@@ -93,7 +93,9 @@ claude plugin install edge@edgemodders
 claude mcp list
 ```
 
-Last run 2026-10-17 at `8fd75a2`, just after the repo was renamed to EDGEchat: **pass.** `redcode` connects; `rednode` is `ECONNREFUSED` with the game closed.
+One command does both, as the README gives it: `claude plugin install edge --marketplace Edgemodders/EDGEchat`, with `--config <key>=<value>` for settings. Run 2026-10-26 in a scratch config, with Claude Code 2.1.310 and `--config game_path=...`: **pass.** It added the marketplace in user settings, installed 0.0.14 at user scope, saved `game_path`, and said "4 userConfig options not yet set".
+
+Run 2026-10-17 at `8fd75a2`, just after the repo was renamed to EDGEchat: **pass.** `redcode` connects; `rednode` is `ECONNREFUSED` with the game closed.
 
 First run 2026-10-16 at `4f07db8`, as `Edgemodders/EDGEplugin`: the same results as from the checkout; the plugin runs from `<config>/plugins/cache/edgemodders/edge/0.0.1/`, and `redcode` connects from there.
 

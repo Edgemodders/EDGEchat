@@ -14,7 +14,7 @@ With each change a user would notice, add a line under **Unreleased** in the sam
 
 - REDnode connects by allowing Claude Code in the game: in `/mcp`, **Authenticate** `plugin:edge:rednode`, then **Allow** in the game's **Connect** window. No token to copy: the REDnode token setting is gone. Needs REDnode 0.40.1 or newer (game 2.5). `/edge:setup` explains each step and what to do on older REDnode.
 - The README and `/edge:setup` say which REDbridge to use: 0.10.0 or newer; on game 2.5, 0.11.0 also reads every quest world sector; on 2.31, keep 0.10.0.
-- The install steps say what to click in VS Code (`/plugins`, the **Marketplaces** and **Plugins** tabs), with a `vscode://` link that opens the install; EDGEkit comes with EDGEchat set up. The same in the docs, the release notes, the zip's README.txt and the Nexus page.
+- The install steps say what to click in VS Code (`/plugins`, the **Marketplaces** and **Plugins** tabs), with a `vscode://` link that opens the install, and one command for a terminal prompt (`claude plugin install edge --marketplace Edgemodders/EDGEchat`); EDGEkit comes with EDGEchat set up. The same in the docs, the release notes, the zip's README.txt and the Nexus page.
 - `/edge:setup` and the README say where the settings form's **Save configuration** button is: below the options, scroll down.
 - REDnode's guide in `rednode-mods` copied again from REDnode 0.40.1, and the wiki in `edge-tools` from EDGEweb's update for REDnode 0.40.1 and game 2.5.
 
