@@ -18,6 +18,7 @@ Last updated 2026-10-23.
 | [edgedeck server through the wrapper](#edgedeck-server-through-the-wrapper) | By hand, over stdio | P1 | 2026-10-23 | Pass |
 | [edgemat server](#edgemat-server) | By hand, over stdio | P1 | 2026-10-23 | Pass |
 | [rednode with no token](#rednode-with-no-token) | CLI, game running | P1 | 2026-10-16 | Seen: HTTP 401 |
+| [OAuth sign-in for a plugin server](#oauth-sign-in-for-a-plugin-server) | CLI, scratch config | P4 | 2026-10-26 | Seen: discovery, registration, authorize URL |
 | [P1 test in VS Code with the game](#p1-test-in-vs-code-with-the-game) | By hand, in a session | P1 | 2026-10-21 | Pass; the ask before deploy failed, fixed in 0.0.5 ([asks before changes](#asks-before-changes)) |
 | [Asks before changes](#asks-before-changes) | By hand, in a session | P1 | 2026-10-23 | Pass |
 | [Changing the game folder](#changing-the-game-folder) | By hand, in a session | P3 | 2026-10-23 | Pass after a restart |
@@ -212,6 +213,17 @@ plugin:edge:rednode: http://127.0.0.1:41820/mcp (HTTP) - âœ˜ Failed to connect â
 ```
 
 With the game closed it is `ECONNREFUSED` instead. `/edge:setup` tells the two apart this way.
+
+### OAuth sign-in for a plugin server
+
+Whether a plugin's HTTP server gets Claude Code's OAuth sign-in, for connecting to REDnode by approving in the game instead of pasting a token ([REDnode#19](https://github.com/Edgemodders/REDnode/issues/19)). Run 2026-10-26 with Claude Code 2.1.310 in a scratch config: a stand-in server on `127.0.0.1:41899` that answers `/mcp` with 401 and `WWW-Authenticate: Bearer resource_metadata="..."`, serves the two `.well-known` documents and `/register`, and logs every request; a scratch plugin whose only server is `{"type": "http", "url": "http://127.0.0.1:41899/mcp"}`.
+
+| Step | Seen |
+|---|---|
+| `claude mcp list`, the same URL also added by hand | Only the hand-added server listed, "Needs authentication": it hides the plugin's |
+| `claude mcp list`, plugin only | `plugin:otest:srv ... ! Needs authentication`. Requests: `POST /mcp`, then both `.well-known` documents |
+| `claude mcp login plugin:otest:srv`, stdin not a terminal | `POST /register` with `client_name` "Claude Code (plugin:otest:srv)" and a `http://localhost:<port>/callback` redirect; prints the authorize URL (PKCE S256, `state`, `resource`); then stops: "stdin isn't a terminal" |
+| Token exchange | Not run: needs an interactive sign-in. Test it against REDnode's build |
 
 ### P1 test in VS Code with the game
 
