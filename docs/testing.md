@@ -18,7 +18,7 @@ Last updated 2026-10-23.
 | [edgedeck server through the wrapper](#edgedeck-server-through-the-wrapper) | By hand, over stdio | P1 | 2026-10-23 | Pass |
 | [edgemat server](#edgemat-server) | By hand, over stdio | P1 | 2026-10-23 | Pass |
 | [rednode with no token](#rednode-with-no-token) | CLI, game running | P1 | 2026-10-16 | Seen: HTTP 401 |
-| [OAuth sign-in for a plugin server](#oauth-sign-in-for-a-plugin-server) | CLI, scratch config | P4 | 2026-10-26 | Seen: discovery, registration, authorize URL |
+| [OAuth sign-in for a plugin server](#oauth-sign-in-for-a-plugin-server) | CLI, scratch config; then in the game | P4 | 2026-10-26 | Seen with a stand-in; against REDnode 0.40.1 in game: pass |
 | [P1 test in VS Code with the game](#p1-test-in-vs-code-with-the-game) | By hand, in a session | P1 | 2026-10-21 | Pass; the ask before deploy failed, fixed in 0.0.5 ([asks before changes](#asks-before-changes)) |
 | [Asks before changes](#asks-before-changes) | By hand, in a session | P1 | 2026-10-23 | Pass |
 | [Changing the game folder](#changing-the-game-folder) | By hand, in a session | P3 | 2026-10-23 | Pass after a restart |
@@ -224,6 +224,14 @@ Whether a plugin's HTTP server gets Claude Code's OAuth sign-in, for connecting 
 | `claude mcp list`, plugin only | `plugin:otest:srv ... ! Needs authentication`. Requests: `POST /mcp`, then both `.well-known` documents |
 | `claude mcp login plugin:otest:srv`, stdin not a terminal | `POST /register` with `client_name` "Claude Code (plugin:otest:srv)" and a `http://localhost:<port>/callback` redirect; prints the authorize URL (PKCE S256, `state`, `resource`); then stops: "stdin isn't a terminal" |
 | Token exchange | Not run: needs an interactive sign-in. Test it against REDnode's build |
+
+Then against REDnode itself, 2026-10-26, by the user on the dev PC: game 2.5, REDnode 0.40.0, then 0.40.1. REDnode's test "MCP sign-in: test" in its `docs/mcp.md`, with a header-less `rednode-signin` added by hand beside the plugin's (which still sends the token). **Pass** on 0.40.1, every step: authenticate, the same code in the browser and the game's **Connect** window, Allow, `game_state` answered, **Connected assistants** listed it, still connected after a game restart, Revoke, Deny, a request lapsing after 2 minutes. On 0.40.0, signing in again after Revoke failed with "Unknown client"; 0.40.1 fixed it ([REDnode#19](https://github.com/Edgemodders/REDnode/issues/19), closed).
+
+| Seen | What it means for EDGEchat |
+|---|---|
+| After a Revoke, Claude Code shows the server connected until its next request, which gets a 401 | `/edge:setup` should take "connected" with a failing call as "signed out": authenticate again |
+| A plain `{"type": "http", "url": "http://127.0.0.1:41820/mcp"}` signs in by itself | The plugin can drop `rednode_token` and the `Authorization` header once REDnode 0.40.1 is released |
+| Whether the VS Code extension's `/mcp` offers Authenticate | Not noted |
 
 ### P1 test in VS Code with the game
 
