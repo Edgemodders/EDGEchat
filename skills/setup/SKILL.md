@@ -60,8 +60,10 @@ Call `bridge_info` on the redcode server. It returns `version`, `wolvenKit`, `ga
 |---|---|---|
 | `gameLoaded` is true | Connected | Report REDbridge's version and the archive and file counts |
 | `gameLoaded` is false | redcode-mcp does not know the game folder | Set the plugin's `game_path` option to the game's install folder, or REDcode's `redcode.gamePath` setting in VS Code |
-| The call fails starting the bridge | REDbridge is missing or older than 0.8.0, or the .NET 10 runtime is missing | REDbridge is its own download, no extension needed: `REDbridge-<version>-win-x64.zip` from [its releases](https://github.com/Edgemodders/REDbridge/releases), unzipped anywhere, then the plugin's `redbridge_exe` option set to the `REDbridge.exe` in it. It needs the .NET 10 runtime ([dotnet.microsoft.com](https://dotnet.microsoft.com/download/dotnet/10.0)). With REDcode in VS Code, its **Install REDbridge** command does the download instead |
+| The call fails starting the bridge | REDbridge is missing or too old, or the .NET 10 runtime is missing | REDbridge is its own download, no extension needed: `REDbridge-<version>-win-x64.zip` from [its releases](https://github.com/Edgemodders/REDbridge/releases), unzipped anywhere, then the plugin's `redbridge_exe` option set to the `REDbridge.exe` in it. It needs the .NET 10 runtime ([dotnet.microsoft.com](https://dotnet.microsoft.com/download/dotnet/10.0)). With REDcode in VS Code, its **Install REDbridge** command does the download instead |
 | No redcode tools | The server did not start | It runs through `npx`, so Node.js must be installed: check `node --version`. The first start downloads the package and can be slow; reconnect from `/mcp` |
+
+Which REDbridge: 0.10.0 or newer (0.8.0 starts, but redcode's `loc_*` tools need 0.10.0). On game 2.5, 0.10.0 reads everything but 262 of 3,041 quest world sectors, and 0.11.0 (WolvenKit 10 beta) reads them all. On game 2.31, keep 0.10.0: 0.11.0 misreads 2.31's world sectors. Report the version `bridge_info` gives, and point this out only when the user works with world sectors or is on 2.31 with 0.11.0 or newer.
 
 redcode-mcp falls back to REDcode's settings only from VS Code's own settings folder (`%APPDATA%\Code\User`). In EDGEkit or another VS Code build, set the plugin's options instead.
 
