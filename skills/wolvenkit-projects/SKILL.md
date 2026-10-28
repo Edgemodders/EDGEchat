@@ -76,7 +76,7 @@ Or ask the user to run REDcode's **Pack** command, which does all of it (and RED
 
 ## 5. Change it while the game runs
 
-With the game at a loaded save and RED Hot Tools installed: pack again, then `archives_reload` with the packed archive's full path. It swaps the archive in without a restart (Claude Code asks first). Things already in the world keep the old version until they load it again; the clothing V wears is applied again by itself.
+With the game at a loaded save: pack again, then `archives_reload` with the packed archive's full path. It swaps the archive in without a restart (Claude Code asks first). REDswap, installed with REDnode 0.41.0 or later, does the swap on game 2.5; an older REDnode needs RED Hot Tools, which has no 2.5 build. The answer's `via` says which did it. Things already in the world keep the old version until they load it again; the clothing V wears is applied again by itself.
 
 The swap replaces the file in `archive/pc/mod` that EDGEdeck deployed, so EDGEdeck's next deploy reports it as **changed in game folder** and skips it until told what to do. When the project made that change: run `edgedeck_install_project` again (the library gets the new build), then deploy with `restore` for that path, which links the game's copy to the library again. Do not choose `keep` or `restore` for the user without saying what each does: `keep` takes the game folder's file into the library, `restore` overwrites it with the library's.
 
@@ -86,7 +86,7 @@ The swap replaces the file in `archive/pc/mod` that EDGEdeck deployed, so EDGEde
 |---|---|
 | Project folders and XML | REDcode `extensions/redcode/src/project.ts` |
 | What Pack copies from `source/resources` | REDcode `extensions/redcode/src/pack.ts` |
-| `project_pack` packs one folder | redcode-mcp 0.3.0's tool description |
+| `project_pack` packs one folder | redcode-mcp 0.3.0's tool description (unchanged in 0.4.0) |
 | Install, pending, deploy, keep and restore; deploy refuses while the game runs | EDGEdeck `src/mcp.ts`, `src/verbs.ts` |
-| The swap copies into RED Hot Tools' folder, which replaces the archive | REDnode `packages/overlay/main.js` (`archives.reload`) |
+| The swap replaces the mounted archive of the same name and stays installed; REDswap from REDnode 0.41.0, RED Hot Tools before | REDnode's guide, "Swapping archives in the running game" (v0.41.0, copied in `rednode-mods`). REDswap on 2.5 **not yet tried from this skill** |
 | A swapped archive shows as changed in game folder | Seen in P1 on 2026-10-21 (`EDGEmat_M3.archive`). The `install_project` then `restore` fix is **not tested yet** |

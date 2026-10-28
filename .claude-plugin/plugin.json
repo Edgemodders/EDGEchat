@@ -1,6 +1,6 @@
 {
   "name": "edge",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "EDGEchat: Cyberpunk 2077 modding with the EDGE tools: modding knowledge as skills, the REDnode, REDcode, EDGEdeck and EDGEmat MCP servers, and modding commands.",
   "author": { "name": "EDGEmodders", "url": "https://github.com/Edgemodders" },
   "homepage": "https://edgemodders.github.io/EDGEchat/",
@@ -48,7 +48,7 @@
     },
     "redcode": {
       "command": "cmd",
-      "args": ["/c", "${CLAUDE_PLUGIN_ROOT}/scripts/redcode-mcp.cmd"],
+      "args": ["/c", "npx", "-y", "@edgemodders/redcode-mcp@0.4.0"],
       "env": {
         "REDCODE_GAME_PATH": "${user_config.game_path}",
         "REDBRIDGE_EXE": "${user_config.redbridge_exe}"

@@ -14,8 +14,8 @@ Last updated 2026-10-23.
 | [Update from GitHub](#update-from-github) | CLI, scratch config | P1 | 2026-10-21 | See the section |
 | [Plugin servers beside servers added by hand](#plugin-servers-beside-servers-added-by-hand) | CLI, scratch config | P0, P1 | 2026-10-21 | Seen, recorded in the design |
 | [Unset options](#unset-options) | CLI, scratch config | P1 | 2026-10-16 | Seen: empty string |
-| [redcode server through the wrapper](#redcode-server-through-the-wrapper) | By hand, over stdio | P1 | 2026-10-23 | Pass |
-| [edgedeck server through the wrapper](#edgedeck-server-through-the-wrapper) | By hand, over stdio | P1 | 2026-10-23 | Pass |
+| [redcode server](#redcode-server) | By hand, over stdio | P1 | 2026-10-27 | Pass (0.4.0, no wrapper); `mesh_items` misses outfit sets |
+| [edgedeck server through the wrapper](#edgedeck-server-through-the-wrapper) | By hand, over stdio | P1 | 2026-10-27 | Pass (0.29.1) |
 | [edgemat server](#edgemat-server) | By hand, over stdio | P1 | 2026-10-23 | Pass |
 | [rednode with no token](#rednode-with-no-token) | CLI, game running | P1 | 2026-10-16 | Seen: HTTP 401 |
 | [OAuth sign-in for a plugin server](#oauth-sign-in-for-a-plugin-server) | CLI, scratch config; then in the game | P4 | 2026-10-26 | Seen with a stand-in; against REDnode 0.40.1 in game: pass |
@@ -149,24 +149,27 @@ Also seen: a server that uses an option `userConfig` does not declare is dropped
 
 ## By hand
 
-### redcode server through the wrapper
+### redcode server
 
-Speaks MCP to the server directly, with the plugin's options empty as when they are unset. Needs Node.js, the game and REDbridge, found from REDcode's VS Code settings.
+Speaks MCP to the server directly, with the plugin's options empty as when they are unset. Needs Node.js, the game and REDbridge, found from REDcode's VS Code settings. From plugin 0.1.1 the plugin starts redcode-mcp 0.4.0 with `npx` alone; until then it went through `scriptsedcode-mcp.cmd`, which cleared empty options.
 
 ```bash
-node tools/test/mcp-probe.cjs --empty REDCODE_GAME_PATH --empty REDBRIDGE_EXE "scripts\redcode-mcp.cmd" bridge_info
-node tools/test/mcp-probe.cjs --empty REDCODE_GAME_PATH --empty REDBRIDGE_EXE "npx -y @edgemodders/redcode-mcp@0.2.0" bridge_info
+node tools/test/mcp-probe.cjs --empty REDCODE_GAME_PATH --empty REDBRIDGE_EXE "npx -y @edgemodders/redcode-mcp@0.4.0" bridge_info
 ```
 
-Last run 2026-10-23 through the wrapper with redcode-mcp 0.3.0: **pass**, REDbridge 0.10.0, game loaded, 57 archives, 583,798 files. First run 2026-10-16 with 0.2.0: **pass.**
+Last run 2026-10-27 with redcode-mcp 0.4.0, no wrapper: **pass**, REDbridge 0.11.0 (WolvenKit 10.0.0, from REDcode's `redcode.bridgePath`), game 2.5 loaded, 57 archives, 592,071 files; exit 0. Earlier: 2026-10-23 through the wrapper with 0.3.0, **pass**; 2026-10-16 with 0.2.0, **pass**.
 
 | Run | Expected |
 |---|---|
-| Through `scripts\redcode-mcp.cmd` | `gameLoaded: true`, REDbridge 0.8.0, WolvenKit 9.1.0, 57 archives, 583,798 files with the game on the dev PC; exit 0. The log names the bridge and game it took from REDcode's settings |
-| The same, from a copy of the plugin in a folder with a space in its name | The same |
-| `npx` directly, without the wrapper | Fails: "The argument 'file' cannot be empty. Received ''"; exit 1. This is why the wrapper exists ([design](design.html#mcp-servers)) |
+| `npx` directly, both options empty (0.4.0) | `gameLoaded: true`, the bridge and game taken from REDcode's settings; exit 0. The log names both |
+| The same with 0.3.0 or older | Fails: "The argument 'file' cannot be empty. Received ''"; exit 1. Why the wrapper existed until 0.1.1 ([design](design.html#mcp-servers)) |
 
-On the dev PC, REDcode's setting points at a Release build in the REDbridge checkout, not an installed REDbridge.
+`mesh_items` (new in 0.4.0), checked 2026-10-27 through a small MCP client in the same way, game 2.5, REDbridge 0.11.0:
+
+| Mesh | Seen |
+|---|---|
+| `basecharactersgarmentplayer_equipmenteets1_055_shoe__converses1_055_pma_shoe__converse.mesh` (the tool's example) | `Items.CasualShoes_01_basic_01` ("Sunny Ammo synthetic high-tops") and more, each with its `.app` look and entity appearances |
+| The cop jacket's `t2_064_pwa_jacket__t2_player_heavy_02.mesh` (the `archives-and-cr2w` chain) | `items: []`, `looks: []`, though `outfitset_01.app` shows it in `appearances.55` and `.57`. Reported: [REDcode#17](https://github.com/Edgemodders/REDcode/issues/17) |
 
 ### edgedeck server through the wrapper
 
@@ -177,7 +180,7 @@ node tools/test/mcp-probe.cjs --empty EDGEDECK_LIBRARY --empty EDGEDECK_GAME "sc
 EDGEDECK_LIBRARY='<scratch>\deck lib (x86)' EDGEDECK_GAME='<game folder>' node tools/test/mcp-probe.cjs "scripts\edgedeck-mcp.cmd" edgedeck_list
 ```
 
-Last run 2026-10-23 with both options empty and edgedeck-mcp 0.28.0: **pass**, the dev PC's library. First run 2026-10-21 with 0.27.3: **pass.**
+Last run 2026-10-27 with edgedeck-mcp 0.29.1: **pass**. Both options empty: the default library `%USERPROFILE%EDGEdeck` (empty on the dev PC now: `no mods`), game 2.5. A scratch library `deck lib (x86)` with the game folder: `no mods`, and the folder gets `library`. `edgedeck_deploy`, `edgedeck_undo` and `edgedeck_remove` still carry `anthropic/requiresUserInteraction`. Earlier: 2026-10-23 with 0.28.0, **pass**; 2026-10-21 with 0.27.3, **pass.**
 
 | Run | Expected |
 |---|---|

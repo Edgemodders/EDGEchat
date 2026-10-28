@@ -10,6 +10,15 @@ With each change a user would notice, add a line under **Unreleased** in the sam
 
 ## Unreleased
 
+**New**
+
+- `mesh_items` on the `redcode` server: from a mesh to the items that show it (record, in-game name, look). Needs REDbridge 0.11.0. It does not find outfit sets yet (https://github.com/Edgemodders/REDcode/issues/17); `archives-and-cr2w` says what to do then.
+
+**Changed**
+
+- The `redcode` server is redcode-mcp 0.4.0, and `edgedeck` is edgedeck-mcp 0.29.1 (adding REDnode's own zip names it right; no "EPERM" error after adding a large mod).
+- Swapping a changed archive into the running game works on game 2.5 with REDnode 0.41.0 or newer, through REDswap, which comes with REDnode: no RED Hot Tools needed. `wolvenkit-projects` and REDnode's guide in `rednode-mods` (copied from REDnode 0.41.0) say so.
+
 ## 0.1.0 (2026-10-26)
 
 The first release.
