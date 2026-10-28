@@ -32,7 +32,7 @@ Last updated 2026-10-23.
 | [rednode-mods in the game](#rednode-mods-in-the-game) | By hand, in a session | P2 | 2026-10-23 | Pass |
 | [Evals: wolvenkit-projects](#evals-wolvenkit-projects) | `claude plugin eval` | P2 | 2026-10-23 | Δ +0.33 |
 | [Evals: edge-tools](#evals-edge-tools) | `claude plugin eval` | P3 | 2026-10-26 | Skill fires 9 of 9; Δ +1.00 |
-| [Evals: the whole suite](#evals-the-whole-suite) | `claude plugin eval` | P2, P3 | 2026-10-26 | 15 cases, all pass with the plugin; mean Δ +0.70 |
+| [Evals: the whole suite](#evals-the-whole-suite) | `claude plugin eval` | P2, P3 | 2026-10-27 | 0.1.1: mean Δ +0.66; all pass but `connect-claude` (2 of 3, servers withheld) |
 
 A scratch config has no Claude login, so the CLI tests check how the plugin installs and starts its servers, not what Claude does with it. The P1 test on 2026-10-21 was the first run of a skill in a session.
 
@@ -393,6 +393,16 @@ Every case, three runs per arm, judged by Sonnet. The first runs used the defaul
 ```bash
 claude plugin eval . --runs 3 -j 6 --judge-model sonnet --no-publish --trust-plugin
 ```
+
+Run 2026-10-27 at 0.1.1 (local, before the push): 15 cases, **mean Δ +0.66**, $10.31, 5 min 15 s. Two cases short, both checked:
+
+| Case | With | What it was |
+|---|---|---|
+| `into-the-game` (`wolvenkit-projects`) | 0.33, then **1.00** in a rerun | The judge. Both failing answers had every PASS step; Sonnet, asked for its reason on one, passed it twice and called `archives_reload` a rednode tool, not an invented one |
+| `connect-claude` (`edge-tools`) | 0.67, and 0.67 in two reruns | The eval withholds the servers, so `setup`'s description ("when the tools are missing") fires and Claude runs its checks instead of naming `/edge:setup`. In a real session with the servers missing that is right. A stricter `edge-tools` rule did not change it and was dropped. 0.0.15's three runs passed |
+| `edgemat-library` (`edge-tools`) | 0.67, then **1.00** in a rerun | One answer added the wiki's caveat that the library folder also holds EDGEmat's MCP server; the judges read it as losing something |
+
+Every other case as at 0.0.15 (`cheaper-jackets` without the plugin: 0.42).
 
 Run 2026-10-26 at 0.0.15, Claude Code 2.1.310, after the skills' recheck on game 2.5: 15 cases (with `edge-tools`'s three), **mean Δ +0.70**, $9.92, 5 min 40 s. Two misses, both from graders out of date, not the plugin: `money-on-screen` failed one run because its rubric wanted the apps folder and the answer chose a REDnode development folder, which the skills teach from 0.0.10; `cheaper-jackets`'s `checks-tweakdb` regex wanted `tweakdb_` where the answers said "check it with the TweakDB tools" (seen 2026-10-23 too). The rubric now takes either folder, and `checks-tweakdb` is an llm grader. Rerun of `--tag new-mod` with them: both 1.00 with the plugin (`cheaper-jackets` Δ +0.67, `money-on-screen` Δ +1.00), $1.62.
 
