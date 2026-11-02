@@ -1,5 +1,5 @@
-<!-- Copied from EDGEweb's docs/wiki/rednode/index.md at 67ee9dd 2026-10-26 by tools/sync-docs.mjs. Do not edit here: change it in EDGEweb. -->
-<!-- Live page: https://edgemodders.ai/wiki/rednode/ (reviewed 2026-10-26) -->
+<!-- Copied from EDGEweb's docs/wiki/rednode/index.md at 842dae8 2026-11-01 by tools/sync-docs.mjs. Do not edit here: change it in EDGEweb. -->
+<!-- Live page: https://edgemodders.ai/wiki/rednode/ (reviewed 2026-10-27) -->
 
 # REDnode
 
@@ -45,7 +45,7 @@ REDnode is the **Run** stage of the EDGE platform: the part that is in the game 
 
 ## Status
 
-**Released.** REDnode 0.40.1 came out on 2026-10-26, for **game version 2.5**. REDnode supports 2.5 from 0.38.1 (2026-10-25); 0.37.0 is the last release for game 2.31, still on the releases page for a game kept on 2.31.
+**Released.** REDnode 0.41.0 came out on 2026-10-27, for **game version 2.5**, with [REDswap](https://edgemodders.ai/wiki/rednode/redswap.html) for swapping archives into the running game. REDnode supports 2.5 from 0.38.1 (2026-10-25); 0.37.0 is the last release for game 2.31, still on the releases page for a game kept on 2.31.
 
 Download `REDnode-<version>.zip` from [REDnode's releases](https://github.com/Edgemodders/REDnode/releases) and see [Install and set up](https://edgemodders.ai/wiki/rednode/install.html). It is also on [Nexus Mods](https://www.nexusmods.com/cyberpunk2077/mods/35419), with the optional [Admin Tools](https://www.nexusmods.com/cyberpunk2077/mods/35793) pack and [REDagent](https://www.nexusmods.com/cyberpunk2077/mods/35670). It is still young: every part below as passed was tested in the developer's modded game, and the overlay was also tested side by side with Cyber Engine Tweaks and ten other RED4ext plugins.
 
@@ -64,7 +64,7 @@ Download `REDnode-<version>.zip` from [REDnode's releases](https://github.com/Ed
 | World API (placing objects, people who stand still, EDGEbuilder scenes, what is near V; needs Codeware) | Passed in game |
 | TweakDB: reading, and changing through TweakXL | Passed in game |
 | Sound: the game's UI sounds, and packages' own audio files | Passed in game |
-| Swapping changed archives into the running game (needs RED Hot Tools), sound archives included | Passed in game on 2.31. On 2.5 it waits for a RED Hot Tools release for 2.5 |
+| Swapping changed archives into the running game, sound archives included | Passed in game on 2.31 through RED Hot Tools. On 2.5, through [REDswap](https://edgemodders.ai/wiki/rednode/redswap.html): released in REDnode 0.41.0; sound archives untested on 2.5 |
 | The game's own UI from Node (ink; needs Codeware), in the player's language | Passed in game. Experimental |
 | Quest API (quest facts, the journal, moving V) | Passed in game |
 | Mod services (mods calling each other, and offering tools to AI assistants) | Passed in game |
@@ -102,6 +102,7 @@ Two app packs come as their own zips, attached to each REDnode release. Install 
 | [Making mods and apps](https://edgemodders.ai/wiki/rednode/making-mods.html) | Package kinds, the manifest, the apps folder, permissions, requirements, mod services and sharing |
 | [Node mods](https://edgemodders.ai/wiki/rednode/node-mods.html) | Mods in Node, windows without HTML, logs, isolation, hot reload |
 | [Overlay apps](https://edgemodders.ai/wiki/rednode/overlay-apps.html) | Web pages over the game, the UI kit, HUD widgets, sounds, pointer lock |
+| [REDswap](https://edgemodders.ai/wiki/rednode/redswap.html) | Swapping changed archives into the running game on 2.5, from REDnode, AI assistants and your own tools |
 | [Game API and TweakDB](https://edgemodders.ai/wiki/rednode/game-api.html) | Calling the game, TweakDB, placing objects, the game's files, sound |
 | [Debugging](https://edgemodders.ai/wiki/rednode/debugging.html) | The Mod log, Developer mode, DevTools in the game, attaching VS Code |
 | [Agents and MCP](https://edgemodders.ai/wiki/rednode/agents.html) | Claude Code and the MCP server, and asking REDagent from a mod |

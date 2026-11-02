@@ -52,6 +52,7 @@ fs.writeFileSync(
     "REDnode's server needs REDnode in the game; REDcode's and EDGEmat's need REDbridge, easiest",
     "through REDcode (https://github.com/Edgemodders/REDcode).",
     "",
+    "Guide, step by step: https://edgemodders.github.io/EDGEchat/guide.html",
     "Docs: https://edgemodders.github.io/EDGEchat/",
     "Source and issues: https://github.com/Edgemodders/EDGEchat",
     "",

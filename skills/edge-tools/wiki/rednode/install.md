@@ -1,9 +1,9 @@
-<!-- Copied from EDGEweb's docs/wiki/rednode/install.md at 67ee9dd 2026-10-26 by tools/sync-docs.mjs. Do not edit here: change it in EDGEweb. -->
-<!-- Live page: https://edgemodders.ai/wiki/rednode/install.html (reviewed 2026-10-26) -->
+<!-- Copied from EDGEweb's docs/wiki/rednode/install.md at 842dae8 2026-11-01 by tools/sync-docs.mjs. Do not edit here: change it in EDGEweb. -->
+<!-- Live page: https://edgemodders.ai/wiki/rednode/install.html (reviewed 2026-10-27) -->
 
 # Install and set up REDnode
 
-REDnode comes as one zip, laid out like the game folder, so you can install it with Vortex, [EDGEdeck](https://edgemodders.ai/wiki/edgedeck/) or by hand. The current release is **0.40.1**, for **game version 2.5**. On a game kept on 2.31, use **0.37.0**, the last release for 2.31: RED4ext won't load a 2.5 build on 2.31, nor 0.37.0 on 2.5.
+REDnode comes as one zip, laid out like the game folder, so you can install it with Vortex, [EDGEdeck](https://edgemodders.ai/wiki/edgedeck/) or by hand. The current release is **0.41.0**, for **game version 2.5**. On a game kept on 2.31, use **0.37.0**, the last release for 2.31: RED4ext won't load a 2.5 build on 2.31, nor 0.37.0 on 2.5.
 
 If the steps below look like too much, ask on [Discord](https://discord.gg/63qP3Erw43): someone can walk you through it.
 
@@ -18,7 +18,7 @@ If the steps below look like too much, ask on [Discord](https://discord.gg/63qP3
 | [redscript](https://github.com/jac3km4/redscript/releases) | Required. REDnode adds a few small scripts to the game |
 | [Codeware](https://github.com/psiberx/cp2077-codeware) | Optional. Only packages that place objects in the world (1.14 or later) or draw the game's own UI (the Ink samples ask for 1.16 or later) need it |
 | [TweakXL](https://github.com/psiberx/cp2077-tweak-xl) 1.10 or later | Optional. Only packages that change TweakDB need it |
-| [RED Hot Tools](https://github.com/psiberx/cp2077-red-hot-tools/releases) 1.3 or later | Optional. Only packages that swap archives into the running game need it. The [Edgemodders build](https://github.com/CyberbuildsAI/cp2077-red-hot-tools/releases) fixes swaps of archives with mixed-case names, which REDnode otherwise refuses |
+| [RED Hot Tools](https://github.com/psiberx/cp2077-red-hot-tools/releases) 1.3 or later | Optional, and not needed from REDnode 0.41.0, which swaps through its own [REDswap](https://edgemodders.ai/wiki/rednode/redswap.html). With 0.40.1 and earlier, only packages that swap archives into the running game need it. The [Edgemodders build](https://github.com/CyberbuildsAI/cp2077-red-hot-tools/releases) fixes swaps of archives with mixed-case names, which REDnode otherwise refuses |
 | [REDbridge](https://edgemodders.ai/wiki/redbridge/) | Optional. Only packages that read the game's archives need it. The Mod Manager's **Get REDbridge** button installs it for you; a copy [EDGEdeck](https://edgemodders.ai/wiki/edgedeck/install.html#getting-redbridge) or REDcode downloaded works too |
 
 You can install RED4ext, redscript, Codeware, TweakXL and RED Hot Tools with [EDGEdeck](https://edgemodders.ai/wiki/edgedeck/) or another mod manager. Match their versions to your game version. A package that needs one of them tells you in the Mod Manager.

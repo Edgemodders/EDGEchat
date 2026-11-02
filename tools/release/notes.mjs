@@ -59,7 +59,7 @@ claude plugin install edge --marketplace Edgemodders/EDGEchat
 
 Inside a running \`claude\` session, the same is \`/plugin marketplace add Edgemodders/EDGEchat\`, then \`/plugin install edge@edgemodders\`.
 
-It updates from the marketplace from then on. \`EDGEchat-${version}.zip\` below is the same plugin for installing without GitHub: unzip it, then \`/plugin marketplace add "<that folder>\\EDGEchat-${version}"\` (README.txt in the zip has the steps). Then run \`/edge:setup\`. The servers are Windows only.
+It updates from the marketplace from then on. \`EDGEchat-${version}.zip\` below is the same plugin for installing without GitHub: unzip it, then \`/plugin marketplace add "<that folder>\\EDGEchat-${version}"\` (README.txt in the zip has the steps). Then run \`/edge:setup\`. The servers are Windows only. New here? The guide walks you through every step: https://edgemodders.github.io/EDGEchat/guide.html
 
 Docs: ${Docs} (changelog: ${Docs}changelog.html)`);
 }

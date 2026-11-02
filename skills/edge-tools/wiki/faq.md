@@ -1,5 +1,5 @@
-<!-- Copied from EDGEweb's docs/wiki/faq.md at 67ee9dd 2026-10-26 by tools/sync-docs.mjs. Do not edit here: change it in EDGEweb. -->
-<!-- Live page: https://edgemodders.ai/wiki/faq.html (reviewed 2026-10-26) -->
+<!-- Copied from EDGEweb's docs/wiki/faq.md at 842dae8 2026-11-01 by tools/sync-docs.mjs. Do not edit here: change it in EDGEweb. -->
+<!-- Live page: https://edgemodders.ai/wiki/faq.html (reviewed 2026-10-27) -->
 
 # FAQ
 
@@ -33,7 +33,7 @@ EDGE is built to work alongside them, not replace them.
 | Cyber Engine Tweaks | REDnode's overlay was tested in game side by side with CET |
 | redscript, ArchiveXL, TweakXL, REDmod | EDGEdeck recognises and deploys them. REDcode has TweakXL language support. REDnode writes TweakDB changes through TweakXL |
 | Codeware | REDnode packages that place objects in the world or draw the game's own UI need it |
-| RED Hot Tools | REDnode swaps changed archives into the running game through it. The [Edgemodders build](https://github.com/CyberbuildsAI/cp2077-red-hot-tools/releases) (`v1.3.0+edgemodders.1`) fixes swaps of archives with capital letters in their names |
+| RED Hot Tools | REDnode 0.40.1 and earlier swap changed archives into the running game through it; from 0.41.0, REDnode's own [REDswap](https://edgemodders.ai/wiki/rednode/redswap.html) does, on game 2.5. The [Edgemodders build](https://github.com/CyberbuildsAI/cp2077-red-hot-tools/releases) (`v1.3.0+edgemodders.1`) fixes swaps of archives with capital letters in their names |
 | Vortex | EDGEdeck can import your Vortex mods. Use one manager at a time: see [Switch from Vortex](https://edgemodders.ai/wiki/edgedeck/switch-from-vortex.html) |
 
 ## Can I use it online or for cheats?

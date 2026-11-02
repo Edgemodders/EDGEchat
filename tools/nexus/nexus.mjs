@@ -134,9 +134,9 @@ async function plan(version) {
   const mod = await modByPage(config.page);
   const { file, versions } = await mainFile(mod.id, config.file);
   const already = versions.find((v) => v.version === version);
-  // The version this release replaces: the primary one, or else the newest. is_primary is the primary
-  // mod manager download, which a page with "primary": false never has.
-  const newest = [...versions].sort((a, b) => String(b.uploaded_at).localeCompare(String(a.uploaded_at)))[0];
+  // The version this release replaces: the primary one, or else the newest not archived (as EDGEwave's).
+  // is_primary is the primary mod manager download, which a page with "primary": false never has.
+  const newest = versions.filter((v) => v.category !== 'archived').sort((a, b) => String(b.uploaded_at).localeCompare(String(a.uploaded_at)))[0];
   const previous = versions.find((v) => v.is_primary) ?? newest ?? null;
   const description = descriptionPlan(mod, config, version);
   console.log(`${mod.name} on Nexus (page ${config.page}): version ${mod.version}, ${file ? `main file ${file.id}` : 'no files yet'}`);

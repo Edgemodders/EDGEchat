@@ -10,8 +10,11 @@ With each change a user would notice, add a line under **Unreleased** in the sam
 
 ## Unreleased
 
+## 0.1.1 (2026-11-02)
+
 **New**
 
+- A step-by-step guide on the docs site (https://edgemodders.github.io/EDGEchat/guide.html): six lessons from installing to your own mods in the game (install and connect, a first mod without code, recolor a jacket, change it while you play, find what is wrong, keep a project ready), and pages on safety, troubleshooting, settings and updates. Each lesson follows a test run in the game.
 - `mesh_items` on the `redcode` server: from a mesh to the items that show it (record, in-game name, look). Needs REDbridge 0.11.0. It does not find outfit sets yet (https://github.com/Edgemodders/REDcode/issues/17); `archives-and-cr2w` says what to do then.
 
 **Changed**

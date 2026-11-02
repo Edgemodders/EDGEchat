@@ -1,5 +1,5 @@
-<!-- Copied from EDGEweb's docs/wiki/rednode/game-api.md at 67ee9dd 2026-10-26 by tools/sync-docs.mjs. Do not edit here: change it in EDGEweb. -->
-<!-- Live page: https://edgemodders.ai/wiki/rednode/game-api.html (reviewed 2026-10-26) -->
+<!-- Copied from EDGEweb's docs/wiki/rednode/game-api.md at 842dae8 2026-11-01 by tools/sync-docs.mjs. Do not edit here: change it in EDGEweb. -->
+<!-- Live page: https://edgemodders.ai/wiki/rednode/game-api.html (reviewed 2026-10-27) -->
 
 # The game API, TweakDB and the world
 
@@ -205,7 +205,7 @@ console.log(`${r.reloaded.length} swapped in ${r.ms} ms`, r.failed);
 
 | Good to know | |
 |---|---|
-| Needs | [RED Hot Tools](https://github.com/psiberx/cp2077-red-hot-tools/releases) 1.3 or later, which does the swap (`"requires": { "redhottools": ">=1.3" }`), and the `archives` permission |
+| Needs | The `archives` permission. From REDnode 0.41.0, [REDswap](https://edgemodders.ai/wiki/rednode/redswap.html), installed with REDnode, does the swap on game 2.5. REDnode 0.40.1 and earlier need [RED Hot Tools](https://github.com/psiberx/cp2077-red-hot-tools/releases) 1.3 or later (`"requires": { "redhottools": ">=1.3" }`), which has no build for 2.5 yet |
 | Mixed-case names | The official RED Hot Tools can end the game when it replaces an archive whose folder has both upper- and lowercase names, so REDnode refuses such a swap with a message. The [Edgemodders build of RED Hot Tools](https://github.com/CyberbuildsAI/cp2077-red-hot-tools/releases) (`v1.3.0+edgemodders.1`) fixes it, and with it REDnode swaps them |
 | When | In a loaded save, one swap at a time. At the main menu it's refused |
 | Where it goes | It replaces the mounted archive of the same name and stays installed. A new one is added to `archive\pc\mod` |

@@ -6,7 +6,7 @@ title: Docs
 
 The EDGE plugin for Claude Code: Cyberpunk 2077 modding knowledge as skills, the EDGE MCP servers, and modding commands, in one install. Source: [github.com/Edgemodders/EDGEchat](https://github.com/Edgemodders/EDGEchat).
 
-Version 0.1.0, the first release (2026-10-26). REDnode supports game version 2.5 from 0.38.1 (0.37.0 is the last for 2.31). The skills' game facts were checked on 2.5 (2026-10-26).
+Version 0.1.1 (2026-11-02). REDnode supports game version 2.5 from 0.38.1 (0.37.0 is the last for 2.31). The skills' game facts were checked on 2.5 (2026-10-26).
 
 ## Install
 
@@ -21,6 +21,8 @@ claude plugin install edge --marketplace Edgemodders/EDGEchat
 ```
 
 Inside a running `claude` session, the same is `/plugin marketplace add Edgemodders/EDGEchat`, then `/plugin install edge@edgemodders`.
+
+New here? The [Guide](guide.html) walks you through every step, from installing to your own mods in the game.
 
 Then restart Claude Code and run `/edge:setup`: it checks each server and gives the one next step for what is missing. The settings, all optional, signing in to REDnode from the game, what the servers need and how to update are in the [README](https://github.com/Edgemodders/EDGEchat#install).
 
@@ -37,6 +39,7 @@ The knowledge skills (`rednode-mods`, `wolvenkit-projects`, `archives-and-cr2w`,
 
 | Document | What it covers |
 |---|---|
+| [Guide](guide.html) | **Start here.** Six lessons from installing to your own mods in the game: install and connect, a first mod without code, recolor a jacket, change it while you play, find what is wrong, keep a project ready. Plus safety, troubleshooting, settings and updates |
 | [Design](design.html) | Why a plugin, the facts from the Claude Code docs that shape it, its shape (MCP servers, skills, commands), where the knowledge comes from, sharing with REDagent, phases P0 to P5, the P0 decisions. Draft 0.8 |
 | [Dev setup](dev-setup.html) | What a PC needs to build and test the plugin |
 | [Tests](testing.html) | Every test run so far, by CLI and by hand: how to run it again, what to expect, and what it showed |

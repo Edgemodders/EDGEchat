@@ -1,4 +1,4 @@
-<!-- Made from EDGEweb's docs/wiki at 67ee9dd 2026-10-26 by tools/sync-docs.mjs. -->
+<!-- Made from EDGEweb's docs/wiki at 842dae8 2026-11-01 by tools/sync-docs.mjs. -->
 
 # The EDGEmodders wiki: every page
 
@@ -82,6 +82,7 @@ Live at https://edgemodders.ai/wiki/. A page's file here is its live URL's path 
 | REDnode | [Node mods](rednode/node-mods.md) | Write REDnode mods in JavaScript that run in Node beside the game: a first mod, windows without HTML, game events, logs, isolation, hot reload, data and secrets. |
 | REDnode | [Overlay apps](rednode/overlay-apps.md) | Build in-game windows and HUD widgets from web pages with REDnode: a first app, the UI kit and its themes, HUD widgets, game sounds, the title bar and pointer lock. |
 | REDnode | [Using the overlay](rednode/overlay.md) | REDnode's overlay in the game: F10 and the three modes, the launcher, moving and closing windows, HUD widgets, themes and keys. |
+| REDnode | [REDswap: swapping archives into the running game](rednode/redswap.md) | REDswap, the plugin that loads a changed archive into the running game on version 2.5: what it does, how to use it from REDnode, AI assistants and your own tools, and what to do when a swap does not show. |
 | REDnode | [REDnode settings and controls](rednode/settings.md) | Every REDnode setting, key, permission and manifest field, and where REDnode keeps its files. |
 | REDnode | [Spaces and layers](rednode/spaces.md) | Sort REDnode's windows into spaces you switch between like virtual desktops, and how the tool layer and solo mode keep the right windows on top. |
 | REDnode | [Troubleshooting REDnode](rednode/troubleshooting.md) | Fixes for common REDnode problems: no launcher tab, the wrong game version, missing windows, crashed mods, packages that need something, archive swaps, and Claude Code not connecting. |
