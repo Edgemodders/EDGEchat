@@ -15,7 +15,7 @@ Last updated 2026-10-23.
 | [Plugin servers beside servers added by hand](#plugin-servers-beside-servers-added-by-hand) | CLI, scratch config | P0, P1 | 2026-10-21 | Seen, recorded in the design |
 | [Unset options](#unset-options) | CLI, scratch config | P1 | 2026-10-16 | Seen: empty string |
 | [redcode server](#redcode-server) | By hand, over stdio | P1 | 2026-10-27 | Pass (0.4.0, no wrapper); `mesh_items` misses outfit sets |
-| [edgedeck server through the wrapper](#edgedeck-server-through-the-wrapper) | By hand, over stdio | P1 | 2026-10-27 | Pass (0.29.1) |
+| [edgedeck server through the wrapper](#edgedeck-server-through-the-wrapper) | By hand, over stdio | P1 | 2026-11-02 | Pass (0.30.0) |
 | [edgemat server](#edgemat-server) | By hand, over stdio | P1 | 2026-10-23 | Pass |
 | [rednode with no token](#rednode-with-no-token) | CLI, game running | P1 | 2026-10-16 | Seen: HTTP 401 |
 | [OAuth sign-in for a plugin server](#oauth-sign-in-for-a-plugin-server) | CLI, scratch config; then in the game | P4 | 2026-10-26 | Seen with a stand-in; against REDnode 0.40.1 in game: pass |
@@ -180,7 +180,7 @@ node tools/test/mcp-probe.cjs --empty EDGEDECK_LIBRARY --empty EDGEDECK_GAME "sc
 EDGEDECK_LIBRARY='<scratch>\deck lib (x86)' EDGEDECK_GAME='<game folder>' node tools/test/mcp-probe.cjs "scripts\edgedeck-mcp.cmd" edgedeck_list
 ```
 
-Last run 2026-10-27 with edgedeck-mcp 0.29.1: **pass**. Both options empty: the default library `%USERPROFILE%EDGEdeck` (empty on the dev PC now: `no mods`), game 2.5. A scratch library `deck lib (x86)` with the game folder: `no mods`, and the folder gets `library`. `edgedeck_deploy`, `edgedeck_undo` and `edgedeck_remove` still carry `anthropic/requiresUserInteraction`. Earlier: 2026-10-23 with 0.28.0, **pass**; 2026-10-21 with 0.27.3, **pass.**
+Last run 2026-11-02 with edgedeck-mcp 0.30.0, both options empty: **pass**, the default library (one mod now), deploy, undo and remove still flagged. Before that 2026-10-27 with 0.29.1: **pass**. Both options empty: the default library `%USERPROFILE%EDGEdeck` (empty on the dev PC now: `no mods`), game 2.5. A scratch library `deck lib (x86)` with the game folder: `no mods`, and the folder gets `library`. `edgedeck_deploy`, `edgedeck_undo` and `edgedeck_remove` still carry `anthropic/requiresUserInteraction`. Earlier: 2026-10-23 with 0.28.0, **pass**; 2026-10-21 with 0.27.3, **pass.**
 
 | Run | Expected |
 |---|---|
@@ -393,6 +393,8 @@ Every case, three runs per arm, judged by Sonnet. The first runs used the defaul
 ```bash
 claude plugin eval . --runs 3 -j 6 --judge-model sonnet --no-publish --trust-plugin
 ```
+
+Run 2026-11-02, `--tag rednode-mods` only, after REDnode's guide was copied again from 0.50.2: **Δ +1.00** each (`data-folder`, `hud-widget`, `mod-output`), $2.39.
 
 Run 2026-10-27 at 0.1.1 (local, before the push): 15 cases, **mean Δ +0.66**, $10.31, 5 min 15 s. Two cases short, both checked:
 

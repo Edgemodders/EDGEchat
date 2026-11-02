@@ -1,4 +1,4 @@
-<!-- Copied from REDnode's docs/overlay-apps.md at v0.41.0 a3a30b7 2026-10-27 by tools/sync-docs.mjs. Do not edit here: change it in REDnode. -->
+<!-- Copied from REDnode's docs/overlay-apps.md at v0.50.2 21d156b 2026-11-01 by tools/sync-docs.mjs. Do not edit here: change it in REDnode. -->
 
 # Overlay apps
 
@@ -278,6 +278,8 @@ Settings, in the manifest or in the call (the call's win):
 | `stream` | Read the file as it plays instead of loading it first; on by default for music |
 | `pauseInMenu` | Pause while a game menu is open; on by default |
 
+A sound your package makes while it runs, such as a spoken line from a speech service, goes in your data folder: write the file into `pkg.dataDir` and play it by its full path (REDnode 0.44.0 and later), `audio.play(path.join(pkg.dataDir, 'line-1.wav'), { category: 'dialogue' })`. Not into your package's folder: hot reload watches it. The engine reads the file at each play, so a file written again plays its new sound.
+
 `audio.playing()` lists your sounds with their position, and `audio.stopAll()` stops them. The file loads in the background, so `audio.play` returns at once and the sound starts when it is ready. The same works from an overlay app's page. The [Sound API page](https://edgemodders.github.io/REDnode/sound.html) has the plan: sound on entities and positions comes next.
 
 ## Talking to the game
@@ -303,10 +305,35 @@ Import the `rednode` package, the same one Node mods use. An import map lets the
 | Call | What it does |
 |---|---|
 | `game.player.position()` | V's world position. Rejects at the main menu, where there is no player |
+| `game.player.addItem(id, count?)`, `game.player.removeItem(id, count?)` | Puts items in V's inventory, or takes them out, by TweakDB id: `addItem("Items.Pants_01_basic_01")`. `addItem` rejects an id with no record (REDnode 0.42.0) |
 | `game.audio.play(name)` | Plays a game sound event |
 | `game.on(name, handler)` | A game event: `"PlayerPuppet.OnGameAttached"` (at the main menu and on every save load), `"language"` (the player changed the game's language), and the `quests.fact:<name>` events that [`quests.watch`](https://edgemodders.github.io/REDnode/quests.html) uses |
-| `game.state()`, `game.onState(handler)` | Whether a menu, photo mode, a scene or the main menu is showing, the overlay mode, and whether the game is linked |
+| `game.state()`, `game.onState(handler)` | Whether a menu, photo mode, a scene or the main menu is showing, whether V is in the world (`world`), the overlay mode, and whether the game is linked |
+| `loc.text(key)` | The game's own text for a LocKey, in the player's language: `loc.text("LocKey#10963")` gives "Little China" in English. An array of keys reads them all in one round trip; `null` for a key the game does not know (REDnode 0.47.0) |
 | `game.call(method, params)` | Any bridge method by name, for example `"game.info"` |
+
+### When the world exists
+
+The game's world systems (time, weather, districts, quests, the journal) exist only while V is in the world. A mod linked while the game starts, at the main menu or during a load must not call them: some crash the game. `game.state().world` says when they exist (REDnode 0.47.0):
+
+| The game | `mainMenu` | `world` |
+|---|---|---|
+| Starting, before the main menu | true | false |
+| Main menu | true | false |
+| Loading a save, from the main menu or the pause menu | true once the old world is gone (unverified) | false from the start of the load |
+| V in the world | false | true |
+
+```js
+import { api, game } from 'rednode';
+
+let timer;
+game.onState((s) => {
+  if (s.world && !timer) timer = setInterval(readWeather, 1000); // V arrived
+  if (!s.world && timer) { clearInterval(timer); timer = undefined; } // a load started, or the main menu
+});
+```
+
+While `world` is false, `api` refuses the game's global and static functions that take a `GameInstance`, such as `api.GameInstance.GetWeatherSystem`, with "V is not in the world yet". Two answer safely without a world and stay allowed: `GetPlayer` (it gives `null`) and `GetSettingsSystem`. Methods of game objects you already hold are not checked: get fresh ones after each load.
 
 The full list, with examples, is in the [API reference](https://edgemodders.github.io/REDnode/api/). For anything else in the game, use the [game API](#the-game-api).
 
@@ -374,7 +401,7 @@ game.on('PlayerPuppet.OnGameAttached', () => console.log('A save was loaded'));
 | `ui.button(label, onClick, { variant, sound })` | A button. `variant` is `ghost` or `danger` |
 | `ui.toggle(label, onChange, { checked })` | An on and off switch |
 | `ui.slider(label, onChange, { min, max, step, value, unit })` | A slider |
-| `ui.input({ label, placeholder, value, onChange, onSubmit })` | A text field |
+| `ui.input({ label, placeholder, value, password, onChange, onSubmit })` | A text field; `password: true` shows dots (0.44.0), for a key you keep with `secrets` |
 | `ui.progress(value, { label, max })` | A progress bar |
 | `ui.list({ lines, keep, height, follow })` | A list of lines that scrolls on its own, for a log or a live feed. `push(...lines)` adds at the bottom (only the new lines travel to the window) and `clear()` empties it. It keeps the newest `keep` lines (500 by default, up to 5,000) and follows the newest one unless the player has scrolled up. Without `height` it fills the space the other nodes leave, at least 160 px; when they leave less, the window scrolls |
 | `ui.row(...nodes)`, `ui.column(...nodes)` | Layout |
@@ -413,6 +440,7 @@ A package can live in your own project, for example `E:\Modding\MyMod\`, and sti
 |---|---|---|
 | `pkg.id`, `pkg.dir`, `pkg.dataDir` | This package's id, its folder in the apps folder, and a data folder of its own outside it, which survives updates. Write files to `dataDir`, never to `dir`: hot reload watches `dir` | Node mods |
 | `secrets.get(name)`, `secrets.set(name, value)`, `secrets.delete(name)` | Secrets such as an API key, encrypted with the player's Windows account and kept by the host. A package reads only its own. A secret that cannot be decrypted, for example one saved under another Windows account, reads as `null` | Node mods and apps |
+| `secrets.shared(service)`, `secrets.askShared(service, { reason, offer })` | One of the player's [shared keys](https://edgemodders.github.io/REDnode/keys.html) (Anthropic, Google Gemini, OpenAI, ElevenLabs or any other), typed once and read by every EDGE tool on the PC. List `"keys:<service>"` in the manifest's `permissions`, such as `"keys:gemini"`. `shared` gives the key, or `null` until the player allows it or while none is set; `askShared` opens REDnode's own **Key request** window when needed, where the player allows the package and pastes a missing key, and gives the key or `null`. The package never writes the store. REDnode 0.48.0 | Node mods and apps |
 | `kernel.mcp()` | The address and a token for the [kernel MCP server](https://edgemodders.github.io/REDnode/mcp.html), for an AI agent in the package. The package must list `"permissions": ["mcp"]` in its manifest, and the player must allow it in the Mod Manager | Node mods and apps |
 | `channel.post(data)`, `channel.on(handler)` | Messages between a package's pages and its own Node mod: a web UI with a Node backend | Node mods and apps |
 | `kernel.requirements()` | The package's `requires`, checked against the game folder (see [Requirements](#requirements)) | Node mods and apps |
@@ -425,6 +453,17 @@ import { pkg, secrets, kernel } from 'rednode';
 
 await secrets.set('api-key', key);
 const { url, headers } = await kernel.mcp(); // rejects until the player allows it
+
+// rednode-app.json: "permissions": ["keys:gemini"]
+const gemini = (await secrets.shared('gemini')) ?? (await secrets.askShared('gemini', { reason: 'To make your textures' }));
+```
+
+A package that kept a key in its own `secrets` before can offer it to the shared keys: `askShared` with `offer` shows the player only its last 4 characters, and moves it when the player allows. Then delete the package's own copy:
+
+```js
+const mine = await secrets.get('api-key');
+const key = (await secrets.shared('anthropic')) ?? (await secrets.askShared('anthropic', { offer: mine ?? undefined }));
+if (key && mine) await secrets.delete('api-key');
 ```
 
 ## Requirements
@@ -492,7 +531,7 @@ console.log(`${r.reloaded.length} swapped in ${r.ms} ms`, r.failed);
 | One at a time | Calls made during a swap wait their turn |
 | Sound | An archive that changes the game's sound paks (`.opuspak`, `.opusinfo`, such as EDGEwave's sound overrides) is swapped with the game paused and its audio held for the swap, then REDnode loads the game's sound index again, so the new sounds play. A sound that played just before the swap may keep its old version until the game loads it again (for a weapon, equip it again). On a game version whose sound tables REDnode does not know, such an archive is refused: install it and restart the game |
 | What V wears | After the swap, the clothing V wears applies its appearance again, so it shows the new version while staying worn (base-game slots and Equipment-EX's; items Equipment-EX hides stay hidden). `archives.reload(files, { refresh: false })` skips it. Other things already in the world keep the old version until they load it again (REDnode 0.26.20 or later) |
-| The answer | `{ reloaded, failed, via: "redswap", ms, refreshed, preview, world }` (`refreshed`: what V wears, applied again; `preview`: the same slots on the inventory's preview of V; `world`: spawns and entities near V), plus `sound: { index, note }` when sound paks were swapped (`index` is `"reloaded"` when the new sounds play). A file that could not be swapped is in `failed` with the reason. A missing file, a missing permission, the main menu, sound paks on an unknown game version, RED Hot Tools not loaded, or a replace the official RED Hot Tools would get wrong throw |
+| The answer | `{ reloaded, failed, via: "redswap", ms, refreshed, preview, world }` (`refreshed`: what V wears, applied again; `preview`: the clothing on the inventory's preview of V, read on the preview itself; `world`: spawns and entities near V), plus `sound: { index, note }` when sound paks were swapped (`index` is `"reloaded"` when the new sounds play). A file that could not be swapped is in `failed` with the reason. A missing file, a missing permission, the main menu, sound paks on an unknown game version, RED Hot Tools not loaded, or a replace the official RED Hot Tools would get wrong throw |
 
 `archives.soundState(soundIds?)` reads the game's sound pak index and the paks it has open, without changing them, and where the index puts the sound ids given. It also says how many sounds the game holds loaded. It is a diagnostic from the research into swapping sound ([H1c](https://edgemodders.github.io/REDnode/world.html#h1c-how-the-game-loads-its-sound-paks-research)); its shape may change.
 
@@ -504,11 +543,47 @@ AI agents have the same as the [MCP tool](https://edgemodders.github.io/REDnode/
 
 Players can sort windows into **spaces**, like virtual desktops: the launcher's **Space** row makes them, the tab switches them, and so does Ctrl+1 to 9 while the overlay is open. Only the current space's windows show; REDnode's own tools show in all. A package needs nothing to take part: its windows join the space the player is in, and the player moves them from the title bar or the Mod Manager.
 
-An `rn-window` title bar shows close and up to three action icons, right to left: move to space (once there is a second space), roll up, pin to HUD, reset position (after the window was moved), and debug in Developer mode. More than three: ⋯ on the far left holds the rest. The overlay-window actions (space, pin, reset) show only on a page's only `rn-window`, since they act on the whole page. To leave one out for a window, add `no-space`, `no-rollup` or `no-debug`. A panel that belongs to the main window, such as a settings drawer beside it, takes `drawer`: it does not count as a second window, has no actions but close, and closing it only hides it.
+An `rn-window` title bar shows close and up to three action icons, right to left: move to space (once there is a second space), roll up, pin to HUD, reset position (after the window was moved or resized), and debug in Developer mode. More than three: ⋯ on the far left holds the rest. The overlay-window actions (space, pin, reset) show only on a page's only `rn-window`, since they act on the whole page. To leave one out for a window, add `no-space`, `no-rollup` or `no-debug`. A panel that belongs to the main window, such as a settings drawer beside it, takes `drawer`: it does not count as a second window, has no actions but close, and closing it only hides it.
 
 ```html
 <rn-window title="Speedometer" draggable no-rollup>...</rn-window>
 ```
+
+### Resizable windows
+
+With `"resizable": true` in the manifest, the player can resize the window by the grip in its bottom-right corner, as the Mod Manager does. `minWidth` and `minHeight` set the smallest size (default: the manifest's size, at most 320 by 200); the largest is 4096 by 4096. REDnode keeps the size with the window's position, and **Reset position and size** in the title bar goes back to the manifest's. The page must follow its viewport: size it with `100vw` and `100vh` (or stretch the `rn-window` with `inset: 0`) instead of fixed pixels. The `rn-window` emits `resize-end` with the new `{ width, height }` when the player lets go.
+
+```json
+{
+  "id": "big-table",
+  "entry": "index.html",
+  "width": 900,
+  "height": 560,
+  "resizable": true,
+  "minWidth": 600,
+  "minHeight": 360
+}
+```
+
+### A page that covers the whole game view
+
+With `"fill": "screen"` the page covers the whole game view at any aspect ratio, for an editor's see-through canvas over the world or a full-screen app. Pages are scaled with the screen's height, so the page is always 1080 pixels high and as wide as the view: 1920 at 16:9, 1728 at 16:10, 2580 at 21:9, 3840 at 32:9 (pages are at most 4096 wide, so a wider view, such as three screens side by side, is covered up to 4096). It sits at the top-left, cannot be dragged or resized, and keeps no saved place. Lay the page out from `innerWidth`, and follow its `resize` event: REDnode resizes it when the game's resolution changes. Its pixels stay 1:1 with the game's view, so a point from `CameraSystem.ProjectPoint` maps onto the page's width. `width` and `height` in the manifest are the size until the game has told REDnode its view (about the first frame).
+
+```json
+{
+  "id": "world-editor",
+  "entry": "index.html",
+  "width": 1920,
+  "height": 1080,
+  "fill": "screen"
+}
+```
+
+A `<rn-window draggable>` on such a page moves inside the page: its title bar carries the window over the page, and whatever else the page draws (a tint, a viewport) stays where it is. The place is kept for the page across starts, and the title bar offers **Reset position** once it has moved. Since REDnode 0.50.1; before it, the drag moved the whole page.
+
+### Frames from another address
+
+A page can show another page in an `<iframe>`: one served from `http://127.0.0.1:<port>`, another site, or a sandboxed frame (`sandbox` without `allow-same-origin`). Chromium runs such a frame in a process of its own, and since REDnode 0.50.0 the overlay passes the mouse, the wheel and keys into it: a press goes to the frame under the cursor (through CSS transforms such as `scale(.8)`, and into frames inside frames), a drag stays with the frame it started in, and keys go to the frame clicked last. The input is real input, so hover, focus, text selection and pointer capture work in the frame as in the window's own page. Nothing changes for a page with no such frame. The **Frame test** sample shows it.
 
 ## Pointer lock
 
@@ -543,6 +618,42 @@ await ui.solo(false);
 ```
 
 Solo ends when the package turns it off, stops or crashes, another package takes it, or the player presses **End** beside the launcher tab, which shows "SOLO" and the package's name. `ui.onSolo` hears every end, so a package can keep its own button in step. The [Layers test](https://github.com/Edgemodders/REDnode/tree/main/packages/overlay/apps/layers-test) sample shows both.
+
+## Editor tools: the editor channel
+
+A tool on the player's PC, such as a VS Code extension, can ask the running game to play a sound event, so a modder picking a music cue or a sound hears it with the game's own mix. No MCP server and no token to copy: while REDnode runs, it writes `%LOCALAPPDATA%\REDnode\editor.json` with its port and a token made new each run, and only the player's own programs can read it. REDnode 0.43.0 ([#17](https://github.com/Edgemodders/REDnode/issues/17)).
+
+```js
+// In a VS Code extension (Node): play a game sound event in the running game.
+const fs = require('node:fs');
+const path = require('node:path');
+
+async function rednode(call, body) {
+  const file = path.join(process.env.LOCALAPPDATA, 'REDnode', 'editor.json');
+  try {
+    const { port, token } = JSON.parse(fs.readFileSync(file, 'utf8'));
+    const res = await fetch(`http://127.0.0.1:${port}/editor/${call}`, {
+      method: 'POST',
+      headers: { authorization: `Bearer ${token}`, 'content-type': 'application/json' },
+      body: JSON.stringify(body),
+    });
+    return await res.json();
+  } catch {
+    return { ok: false, reason: 'Start the game with REDnode to hear this' };
+  }
+}
+
+const played = await rednode('sound.play', { name: 'ui_menu_onpress' }); // { ok, playingId, on }
+await rednode('sound.stop', { playingId: played.playingId });             // { ok, stopped }
+```
+
+| Call | Body | Answer |
+|---|---|---|
+| `GET /editor/info` | | `{ ok, version, connected }` |
+| `POST /editor/sound.play` | `{ name, on? }`: `on` is `"player"` (the default: on V, so positional sounds are heard; no entity at the main menu) or `"none"` | `{ ok, playingId, on }`. The game plays nothing for a name it does not know, and does not say so |
+| `POST /editor/sound.stop` | `{ playingId }`, or `{}` for every sound the channel started | `{ ok, stopped }` |
+
+An error answers `{ ok: false, reason }`: 401 without the right token, 409 while the game is not linked, 400 for a bad body. The channel listens on 127.0.0.1 only and refuses requests from web pages (any `Origin` header) and under another host name, so call it from the extension's Node side, not from a webview. When the game ends, Windows ends REDnode at once and `editor.json` stays behind: a refused connection, or a `pid` that no longer runs, means no game. Players can turn the channel off with `"editorChannel": "off"` in `%APPDATA%\@rednode\overlay\settings.json`. More calls, such as hot-loading an archive after an in-game Allow, come later.
 
 ## Calling other packages
 
@@ -598,6 +709,32 @@ await counter.$with({ timeoutMs: 60000 }).add(1);            // a longer timeout
 | Cost | The Task Manager shows each package's service calls a second, in and out |
 
 The [Counter service](https://github.com/Edgemodders/REDnode/tree/main/packages/overlay/apps/counter-service) and [Counter panel](https://github.com/Edgemodders/REDnode/tree/main/packages/overlay/apps/counter-panel) samples show both sides, with a timeout, Stop and errors.
+
+### Roles: a service found by what it does
+
+Sometimes a mod wants a kind of service, not one package: a voice that speaks its lines, whichever voice package the player has. The provider names a **role** in its manifest, and callers ask for the role with `use` (REDnode 0.44.0 and later):
+
+```json
+{ "id": "edgewave-voice", "name": "EDGEwave voice", "version": "0.1.0", "service": "service.mjs", "provides": ["voice"] }
+```
+
+```js
+import { use } from 'rednode';
+
+const voice = await use('voice');           // the same handle as service.connect
+await voice.speak('Choom, you look like hell.', 'judy');
+console.log(`${voice.$info.name} answers "${voice.$info.role}"`);
+```
+
+| Rule | Detail |
+|---|---|
+| Role names | Lowercase letters, digits and `-`, such as `voice` or `quest-log`. A package may provide several. The provider answers with its service file, so `"provides"` needs `"service"`. `agent` is REDagent's and is reached with `agent.ask` |
+| Which package answers | The only one installed. When more than one provides a role, the one the player chose in the Mod Manager's **Provides** section, else the only one switched on. With several and no choice, `use` fails with their names, so the player decides which service, and whose bill, a mod uses |
+| Changing it | A handle keeps the provider it found. After the player chooses another, call `use` again to reach it |
+| What it offers | Whatever the provider's service exports; agree the functions in the provider's docs. `use<Voice>('voice')` types the handle in TypeScript |
+| Errors | "No installed package provides ..." when none does; otherwise as `service.connect` (switched off, crashed, not answering) |
+
+The [Roles test](https://github.com/Edgemodders/REDnode/tree/main/packages/overlay/apps/roles-test) sample finds Counter service by its role, `counter`.
 
 ### Describing a service
 
@@ -707,6 +844,8 @@ await shop.GiveItem(player, await api.MarketSystem.Money(), 100);   // a change:
 | `api.GameInstance.GetStatsSystem(...)` | A static function, under its class's script name |
 | `player.GetEntityID()` | A method of a game object |
 | `api.$call('Cast;EntityID;StatsObjectID', ...)` | A global function by its full name: operators, and overloads that share a name |
+| `api.$static('UIItemsHelper', 'GetItemName;TweakDBIDgameItemData', ...)` | A static function by its full name, with or without the class in front |
+| `api.$null` | No object, on purpose, for an object parameter the game does not mark optional (see Game objects below) |
 | `obj.$get('propertyName')` | A property of a game object |
 | `obj.$set('propertyName', value)` | Writes a property, with the same type checks as arguments |
 | `api.$new('entMeshComponent', { ... })` | Builds a game object by class name, with properties set first. Nothing in the game holds it yet, so its reference keeps it alive until released (or a save loads). A struct comes back as its value |
@@ -721,7 +860,7 @@ await shop.GiveItem(player, await api.MarketSystem.Money(), 100);   // a change:
 | Variant | `{ "$type": "Float", "value": 1.5 }`: a value with its type's name, such as `Int32`, `CName` or `array:CName` |
 | Enums | The member's name, such as `"Health"` |
 | Structs, such as Vector4 or ItemID | Plain objects. As arguments, missing properties keep their default, and `null` is the default value |
-| Game objects | References: call their methods with `await`. `null` when there is none |
+| Game objects | References: call their methods with `await`. `null` when there is none. As an argument, `null` works only where the game marks the parameter optional: many functions use an object without checking it, and an empty one can crash the game, so REDnode refuses it. Pass real data, as the game's scripts do, or `api.$null` to pass none on purpose (from REDnode 0.41.1) |
 | Arrays | Arrays |
 | Resource references (`rRef`, `raRef`, `ResRef`) | A depot path such as `"base\\environment\\ld_kit\\marker.mesh"`, or its hash as a string. Read back as the hash: turning a hash into a path needs an asset index, such as REDbridge's |
 
@@ -731,7 +870,8 @@ await shop.GiveItem(player, await api.MarketSystem.Money(), 100);   // a change:
 | References | A game object comes back as a reference that points at it weakly. When the game deletes the object, or a save loads, calls on it fail with "that game object no longer exists". Get a fresh one after each `PlayerPuppet.OnGameAttached` |
 | Wrong arguments | The arguments are checked against the function's types before the call. A wrong one fails with the argument's name and type, and the game is not touched |
 | Out parameters | A function with out parameters returns `{ result, out }` |
-| Not supported yet | `script_ref` parameters. Such calls fail with a clear message |
+| `script_ref` parameters | Pass the value itself: `api.GetLocalizedText("LocKey#10963")`. The plugin keeps it beside the call and points the game at it; `api.$out` in its place reads back what the game left there (REDnode 0.47.0) |
+| Before V is in the world | Global and static functions that take a `GameInstance` are refused while `game.state().world` is false (see [When the world exists](#when-the-world-exists)) |
 | Risk | The checks catch wrong types, not wrong values. Calling a function the game does not expect to be called at that moment can still crash it, as with any script mod |
 
 ## TweakDB
@@ -824,16 +964,30 @@ await world.unload(scene.name);
 | `world.files(entity)` | The files an entity uses: its template and every resource its components name, as path hashes |
 | `world.spawned()` | This package's spawns, with what each was spawned with |
 | `world.onRespawn(handler)` | Called with the old and new ID when REDnode spawned one of yours again after an archive swap, so it shows the new version |
-| `world.move(id, position, orientation?, yaw?)` | Places it |
+| `world.move(id, position, orientation?, yaw?)` | Places it. For your own spawns it also keeps the new place, so a respawn after a swap puts it there |
 | `world.remove(id)` | Removes it |
 | `world.watch(id)` | Lifecycle events for an entity spawned some other way |
 | `world.on(name, handler)` | `Entity/Initialize`, `Entity/AfterAttach` (or Codeware's old name `Entity/Attached`) and `Entity/Detach`, with the entity's `entityId` and `entityType` |
 | `world.entity(id)` | The entity, or `null` once it is gone |
 | `world.available()` | True when Codeware is installed and a game is loaded |
 
-What a package spawns is removed when it stops (switched off, restarted, hot reloaded or crashed). After an archive swap (`archives.reload`), your spawns that use a swapped file are spawned again with a new ID, and the game's own entities within 30 m of V that use one switch appearance and back, so they show the new version.
+What a package spawns is removed when it stops (switched off, restarted, hot reloaded or crashed). After an archive swap (`archives.reload`), your spawns that use a swapped file are spawned again with a new ID, where they are now (moved with `world.move`, by physics or by a script), and the game's own entities within 30 m of V that use one switch appearance and back, so they show the new version.
 
 The [World test](https://github.com/Edgemodders/REDnode/tree/main/packages/overlay/apps/world-test) sample spawns a box in front of V, spins it and removes it. The [World objects test](https://github.com/Edgemodders/REDnode/tree/main/packages/overlay/apps/world-objects-test) tries every other call.
+
+## The Console
+
+REDnode's **Console** (built in, switched on from the launcher) is a command line for the game, like a browser's developer console: type JavaScript at the bottom, press Enter, and the answer shows above. The whole `rednode` package is ready without imports, so it is the quickest way to try a call before putting it in an app:
+
+```js
+addItem("Items.Pants_01_basic_01")              // a shortcut for game.player.addItem
+const stats = await api.GameInstance.GetStatsSystem(game.instance)
+await tweakdb.get("Items.money.price")
+await api.GetPlayer(game.instance)           // PlayerPuppet #12, kept as $3 and $_
+await $_.GetDisplayName()                    // call it from the next entry
+```
+
+Top-level `await` works, a returned promise is waited for, and variables stay between entries. Shift+Enter adds a line, Up and Down go through history, Tab completes, `help()` lists the shortcuts (`addItem`, `removeItem`, `pos`, `tp`, `clear`). The code runs in the Console's own Node mod, so Node's modules (`fs`, `path`) work too, and **Stop** ends a loop that never returns by starting the Console again. REDnode 0.42.0.
 
 ## Debugging
 

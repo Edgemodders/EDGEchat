@@ -35,6 +35,7 @@ Tools named `mcp__<server>__*`, with no `plugin_edge_` in the name, come from a 
 
 - Suggest removing each one so there is one copy. `claude mcp get <server>` shows its scope; then `claude mcp remove <server> -s <scope>`.
 - Ask before running any of these commands. After the hand-added `rednode` is gone, the plugin's signs in by itself (step 2). The exception: a player on game 2.31 has REDnode 0.37.0 at most, which has no sign-in, so the hand-added copy with **Copy setup**'s token is their only way to connect REDnode; leave it. If the hand-added `edgedeck` had `--library <folder>`, put that folder in the plugin's `edgedeck_library` option first.
+- rednode tools named `edgemat__mat_*` beside the plugin's `edgemat` ones: REDnode 0.45.0 or later shares EDGEmat with desktop assistants only when its settings say `"edgematTools": "all"`, which gives every EDGEmat tool twice. Suggest setting it back to its default; this plugin brings EDGEmat itself.
 - Never print, quote or log a token, even if a command or a config file shows one.
 
 ## 2. rednode
