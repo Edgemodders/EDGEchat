@@ -343,7 +343,7 @@ The project: `E:ModdingCyberpunk 2077RedmodsEDGEchatSwapTest`, made with EDGEmat
 |---|---|
 | Pack, `edgedeck_install_project`, `edgedeck_pending` | Library mod `edgechatswaptest`, version `dev`. Pending listed it and three UV Texture Framework mods waiting from before; Claude offered to deploy the test mod only |
 | Deploy | Asked first. EDGEdeck ran REDmod's deploy: `r6/cache/modded/mods.json` lists the mod |
-| Start the game | Not red at first: the game was started without `-modded`. Red after a start with it |
+| Start the game | Not red at first: the game was started without `-modded`. Red after a start through EDGEdeck's **Run** (16:08), which adds it |
 | Recolour green, pack, `archives_reload` | Asked first. Swapped in 88 ms, no errors, V's outfit applied again; green at once |
 | `edgedeck_pending` after the swap | One file, `mods/EDGEchatSwapTest/archives/EDGEchatSwapTest.archive`, "changed in the game folder", with `keep` and `restore` explained |
 | `edgedeck_install_project`, deploy with `restore` | Asked first. After a restart the jacket stayed green |
@@ -356,7 +356,7 @@ Found on the way:
 | A REDmod needs `-modded` | In `wolvenkit-projects` |
 | The first recolour changed the citizen vest (`citizen_casual...	2_073_ma/wa...`), not V's: the user's slip in EDGEmat's Find view, not a fault | None |
 | `cr2w_search` does not look inside a mesh's `localMaterialBuffer`; `cr2w_get_node` reads it | For REDcode |
-| Three UV Texture Framework mods (left over from an EDGEdeck fix) were deployed at 16:08 | Not a fault: EDGEdeck's records (`deploys/`) show the deploys for one mod (15:47, 16:16) touched only it, and 16:08 was a full deploy. The user turned the UV mods off |
+| Three UV Texture Framework mods (left over from an EDGEdeck fix) were deployed at 16:08 | Not a fault: EDGEdeck's records (`deploys/`) show the deploys for one mod (15:47, 16:16) touched only it, and 16:08 was a full deploy: EDGEdeck's **Run**, which deploys every switched-on mod and starts the game with `-modded` (the user's account). The user turned the UV mods off |
 
 ### EDGEkit one-click setup
 
