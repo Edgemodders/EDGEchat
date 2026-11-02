@@ -356,7 +356,7 @@ Found on the way:
 | A REDmod needs `-modded` | In `wolvenkit-projects` |
 | The first recolour changed the citizen vest (`citizen_casual...	2_073_ma/wa...`), not V's: the user's slip in EDGEmat's Find view, not a fault | None |
 | `cr2w_search` does not look inside a mesh's `localMaterialBuffer`; `cr2w_get_node` reads it | For REDcode |
-| The three UV mods were deployed at 16:08, with the test mod | **Open:** if the user did not deploy them from EDGEdeck, a deploy for one mod deployed all waiting mods (for EDGEdeck) |
+| Three UV Texture Framework mods (left over from an EDGEdeck fix) were deployed at 16:08 | Not a fault: EDGEdeck's records (`deploys/`) show the deploys for one mod (15:47, 16:16) touched only it, and 16:08 was a full deploy. The user turned the UV mods off |
 
 ### EDGEkit one-click setup
 
