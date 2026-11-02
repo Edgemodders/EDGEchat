@@ -33,7 +33,7 @@ Last updated 2026-10-23.
 | [rednode-mods in the game](#rednode-mods-in-the-game) | By hand, in a session | P2 | 2026-10-23 | Pass |
 | [Evals: wolvenkit-projects](#evals-wolvenkit-projects) | `claude plugin eval` | P2 | 2026-10-23 | Δ +0.33 |
 | [Evals: edge-tools](#evals-edge-tools) | `claude plugin eval` | P3 | 2026-10-26 | Skill fires 9 of 9; Δ +1.00 |
-| [Evals: the whole suite](#evals-the-whole-suite) | `claude plugin eval` | P2, P3 | 2026-10-27 | 0.1.1: mean Δ +0.66; all pass but `connect-claude` (2 of 3, servers withheld) |
+| [Evals: the whole suite](#evals-the-whole-suite) | `claude plugin eval` | P2, P3 | 2026-11-02 | 0.1.1: 15 cases, all pass; mean Δ +0.73 |
 
 A scratch config has no Claude login, so the CLI tests check how the plugin installs and starts its servers, not what Claude does with it. The P1 test on 2026-10-21 was the first run of a skill in a session.
 
@@ -419,6 +419,8 @@ Every case, three runs per arm, judged by Sonnet. The first runs used the defaul
 ```bash
 claude plugin eval . --runs 3 -j 6 --judge-model sonnet --no-publish --trust-plugin
 ```
+
+Run 2026-11-02 at 0.1.1, before the release, after the wiki was copied again (EDGEweb 842dae8) and the `connect-claude` and `into-the-game` rubrics said which correct answers are not failures: 15 cases, **all pass with the plugin**, mean Δ +0.73, $10.63, 6 min 38 s. `connect-claude` and `into-the-game` 1.00 each (Δ +1.00). As before, `check-mod` and `new-mod` did not fire on plain prompts (`broken-package`, `money-on-screen` pass through the other skills).
 
 Run 2026-11-02, `--tag wolvenkit-projects` only, after the skill learned REDmods and swaps of undeployed archives: `changed-after-swap` 1.00 (Δ +0.33), `pack-resources` 1.00 (Δ 0.00), `into-the-game` 0.67: the failing answer had every PASS step again, as on 2026-10-27; the judge, a second time.
 
