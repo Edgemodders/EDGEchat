@@ -26,6 +26,7 @@ Last updated 2026-10-23.
 | [new-mod in the game](#new-mod-in-the-game) | By hand, in a session | P3 | 2026-10-26 | Pass |
 | [init-project on a real project](#init-project-on-a-real-project) | By hand, in a session | P3 | 2026-10-26 | Pass |
 | [Clean install](#clean-install) | By hand, fresh PC or account | P4 | 2026-10-26 | Pass |
+| [Swap and restore in the game](#swap-and-restore-in-the-game) | By hand, in a session | P4 | 2026-11-02 | Pass |
 | [EDGEkit one-click setup](#edgekit-one-click-setup) | By hand, in EDGEkit | P4 | 2026-10-26 | Pass, after EDGEkit changed to the install dialog |
 | [Evals: archives-and-cr2w](#evals-archives-and-cr2w) | `claude plugin eval` | P2 | 2026-10-23 | Skill fires; Δ 0.00 |
 | [Evals: rednode-mods](#evals-rednode-mods) | `claude plugin eval` | P2 | 2026-10-25 | Δ +1.00; with `new-mod`, mean Δ +0.95 |
@@ -332,6 +333,31 @@ The P3 test: `/edge:new-mod` run by the user as a modder who does not code, with
 
 The P4 test: the README's steps alone on a fresh PC or Windows account, with REDbridge from its releases zip and the .NET 10 runtime, then `/edge:setup` and the REDnode sign-in. Run 2026-10-26 by the user on the dev PC: plugin 0.0.14, game 2.5, REDnode 0.40.1, REDbridge 0.11.0. **Pass**, by the user's report; the details were not recorded.
 
+### Swap and restore in the game
+
+The `wolvenkit-projects` loop for 0.1.1: a WolvenKit project deployed by EDGEdeck, changed and swapped into the running game through REDswap, then EDGEdeck brought back in step. Run 2026-11-02 by the user on the dev PC, in `claude --plugin-dir <checkout>` (plugin 0.1.1 from the checkout, with `game_path` and `edgedeck_library` copied to `edge@inline`), game 2.5, REDnode 0.50.2 (REDswap 1.0.3), REDbridge 0.11.0, redcode-mcp 0.4.0, edgedeck-mcp 0.30.0. **Pass.**
+
+The project: `E:ModdingCyberpunk 2077RedmodsEDGEchatSwapTest`, made with EDGEmat: the jacket of `Items.Cop_01_Set_Jacket` (`cop_blue_black`, four player meshes and a new `.mlsetup`), recoloured red. It packed as a REDmod (`packed/mods/EDGEchatSwapTest/`).
+
+| Step | Seen |
+|---|---|
+| Pack, `edgedeck_install_project`, `edgedeck_pending` | Library mod `edgechatswaptest`, version `dev`. Pending listed it and three UV Texture Framework mods waiting from before; Claude offered to deploy the test mod only |
+| Deploy | Asked first. EDGEdeck ran REDmod's deploy: `r6/cache/modded/mods.json` lists the mod |
+| Start the game | Not red at first: the game was started without `-modded`. Red after a start with it |
+| Recolour green, pack, `archives_reload` | Asked first. Swapped in 88 ms, no errors, V's outfit applied again; green at once |
+| `edgedeck_pending` after the swap | One file, `mods/EDGEchatSwapTest/archives/EDGEchatSwapTest.archive`, "changed in the game folder", with `keep` and `restore` explained |
+| `edgedeck_install_project`, deploy with `restore` | Asked first. After a restart the jacket stayed green |
+
+Found on the way:
+
+| Finding | What came of it |
+|---|---|
+| An earlier swap of `EDGEmatA.archive` (a file from the laptop, never deployed by EDGEdeck) added it to `archive/pc/mod` unmanaged; Claude offered to delete it by hand | `wolvenkit-projects` now says what a swap does with an archive the game has not mounted, and never to delete it by hand |
+| A REDmod needs `-modded` | In `wolvenkit-projects` |
+| The first recolour changed the citizen vest (`citizen_casual...	2_073_ma/wa...`), not V's: the user's slip in EDGEmat's Find view, not a fault | None |
+| `cr2w_search` does not look inside a mesh's `localMaterialBuffer`; `cr2w_get_node` reads it | For REDcode |
+| The three UV mods were deployed at 16:08, with the test mod | **Open:** if the user did not deploy them from EDGEdeck, a deploy for one mod deployed all waiting mods (for EDGEdeck) |
+
 ### EDGEkit one-click setup
 
 The P0 decision ([design](design.html#p0-decisions)): EDGEkit sets up the plugin in one click ([EDGEkit#5](https://github.com/Edgemodders/EDGEkit/issues/5)). In an EDGEkit with Claude Code signed in, and the plugin not installed:
@@ -393,6 +419,8 @@ Every case, three runs per arm, judged by Sonnet. The first runs used the defaul
 ```bash
 claude plugin eval . --runs 3 -j 6 --judge-model sonnet --no-publish --trust-plugin
 ```
+
+Run 2026-11-02, `--tag wolvenkit-projects` only, after the skill learned REDmods and swaps of undeployed archives: `changed-after-swap` 1.00 (Δ +0.33), `pack-resources` 1.00 (Δ 0.00), `into-the-game` 0.67: the failing answer had every PASS step again, as on 2026-10-27; the judge, a second time.
 
 Run 2026-11-02, `--tag rednode-mods` only, after REDnode's guide was copied again from 0.50.2: **Δ +1.00** each (`data-folder`, `hud-widget`, `mod-output`), $2.39.
 

@@ -18,6 +18,7 @@ With each change a user would notice, add a line under **Unreleased** in the sam
 
 - The `redcode` server is redcode-mcp 0.4.0, and `edgedeck` is edgedeck-mcp 0.30.0 (the files of one Nexus page are separate mods under one row; adding REDnode's own zip names it right; no "EPERM" error after adding a large mod).
 - Swapping a changed archive into the running game works on game 2.5 with REDnode 0.41.0 or newer, through REDswap, which comes with REDnode: no RED Hot Tools needed. `wolvenkit-projects` and REDnode's guide in `rednode-mods` say so. The guide is copied from REDnode 0.50.2 (the Console, roles, shared keys, resizable and full-screen pages, frames from another address).
+- `wolvenkit-projects`: a project packed as a REDmod deploys to `mods/`, and the game loads it only when started with `-modded`; what a swap does with an archive EDGEdeck never deployed. The fix after a swap (install the project again, then deploy with `restore`) is tested.
 - `/edge:setup` notices EDGEmat's tools twice when REDnode is set to share them with desktop assistants.
 
 ## 0.1.0 (2026-10-26)

@@ -74,11 +74,15 @@ Or ask the user to run REDcode's **Pack** command, which does all of it (and RED
 2. `edgedeck_pending` says what the deploy will change. The game must be closed: deploy and undo refuse while it runs.
 3. `edgedeck_deploy`. Claude Code asks the user first. `edgedeck_undo` takes it back.
 
+A project packed as a REDmod (`packed/mods/<name>/`) deploys to the game's `mods/<name>/`, and EDGEdeck runs REDmod's own deploy after it (`r6/cache/modded/mods.json` lists the mod). The game loads it only when started with `-modded`: EDGEdeck's launch adds it; from Steam, add it to the launch options.
+
 ## 5. Change it while the game runs
 
 With the game at a loaded save: pack again, then `archives_reload` with the packed archive's full path. It swaps the archive in without a restart (Claude Code asks first). REDswap, installed with REDnode 0.41.0 or later, does the swap on game 2.5; an older REDnode needs RED Hot Tools, which has no 2.5 build. The answer's `via` says which did it. Things already in the world keep the old version until they load it again; the clothing V wears is applied again by itself.
 
-The swap replaces the file in `archive/pc/mod` that EDGEdeck deployed, so EDGEdeck's next deploy reports it as **changed in game folder** and skips it until told what to do. When the project made that change: run `edgedeck_install_project` again (the library gets the new build), then deploy with `restore` for that path, which links the game's copy to the library again. Do not choose `keep` or `restore` for the user without saying what each does: `keep` takes the game folder's file into the library, `restore` overwrites it with the library's.
+The swap replaces the mounted archive of the same name, wherever it is (`archive/pc/mod`, or a REDmod's `mods/<name>/archives`). An archive the game has not mounted is added to `archive/pc/mod`, where EDGEdeck does not manage it: install the project and deploy instead of leaving it there, and never delete it by hand.
+
+When the swap replaced a file EDGEdeck deployed, EDGEdeck's next deploy reports it as **changed in game folder** and skips it until told what to do. When the project made that change: run `edgedeck_install_project` again (the library gets the new build), then deploy with `restore` for that path, which links the game's copy to the library again. Do not choose `keep` or `restore` for the user without saying what each does: `keep` takes the game folder's file into the library, `restore` overwrites it with the library's.
 
 ## Sources
 
@@ -88,5 +92,6 @@ The swap replaces the file in `archive/pc/mod` that EDGEdeck deployed, so EDGEde
 | What Pack copies from `source/resources` | REDcode `extensions/redcode/src/pack.ts` |
 | `project_pack` packs one folder | redcode-mcp 0.3.0's tool description (unchanged in 0.4.0) |
 | Install, pending, deploy, keep and restore; deploy refuses while the game runs | EDGEdeck `src/mcp.ts`, `src/verbs.ts` |
-| The swap replaces the mounted archive of the same name and stays installed; REDswap from REDnode 0.41.0, RED Hot Tools before | REDnode's guide, "Swapping archives in the running game" (v0.41.0, copied in `rednode-mods`). REDswap on 2.5 **not yet tried from this skill** |
-| A swapped archive shows as changed in game folder | Seen in P1 on 2026-10-21 (`EDGEmat_M3.archive`). The `install_project` then `restore` fix is **not tested yet** |
+| The swap replaces the mounted archive of the same name and stays installed; one not mounted is added to `archive/pc/mod`; REDswap from REDnode 0.41.0, RED Hot Tools before | REDnode's guide, "Swapping archives in the running game" (copied in `rednode-mods`). Tried 2026-11-02 on game 2.5, REDnode 0.50.2: a REDmod's archive swapped in 88 ms, the jacket V wore changed at once; and an archive not deployed was added unmanaged |
+| A REDmod deploys to `mods/`, EDGEdeck runs REDmod's deploy, the game needs `-modded` | EDGEdeck `src/redmod.ts`, `src/verbs.ts`, `src/game.ts`. Seen 2026-11-02: the jacket showed only after a start with `-modded` |
+| A swapped archive shows as changed in game folder; `install_project` then `restore` fixes it | Seen in P1 on 2026-10-21 (`EDGEmat_M3.archive`). The fix tested 2026-11-02 (EDGEchatSwapTest, a REDmod): pending showed the one file, the deploy asked first, and the new build stayed after a restart |
