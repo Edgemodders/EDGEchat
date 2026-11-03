@@ -8,8 +8,10 @@
 #   Run workflow, "Make a release" ticked       also tags the commit v<version> and makes the GitHub
 #                                               release with the zip. Stops first if that tag exists
 #                                               (raise "version" in .claude-plugin/plugin.json), if
-#                                               it is not run on main, or if docs/changelog.md has no
-#                                               section for the version (tools/release/notes.mjs)
+#                                               it is not run on main, if docs/changelog.md has no
+#                                               section for the version (tools/release/notes.mjs), or
+#                                               if README.md's status line and badge do not say the
+#                                               version (tools/release/readme-check.mjs)
 #   ... and "Update Nexus Mods" ticked          also, after the GitHub release, uploads the zip to
 #                                               the page as the main file's new version (the old one
 #                                               archived, Mod Manager Download off: a Claude Code
@@ -82,6 +84,10 @@ jobs:
             echo "::error::v${VERSION} is already released. Raise \"version\" in .claude-plugin/plugin.json."
             exit 1
           fi
+
+      - name: The README says this release
+        if: inputs.release
+        run: node tools/release/readme-check.mjs --version "${VERSION}"
 
       - name: Release notes from docs/changelog.md
         if: inputs.release
