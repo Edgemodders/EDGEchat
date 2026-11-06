@@ -3,7 +3,7 @@
   "upload": {
     "name": "EDGEchat",
     "category": "main",
-    "primary": false,
+    "primary": true,
     "modManager": false,
     "archivePrevious": true,
     "description": "EDGEchat {version}, the EDGE plugin for Claude Code. Unzip, then in Claude Code: /plugin marketplace add \"<folder>\", /plugin install edge@edgemodders. Not a game mod: no Vortex."
