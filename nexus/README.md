@@ -2,7 +2,9 @@
 
 The source of EDGEchat's Nexus Mods page lives here, so updates are edits in the repo, not in Nexus's text box. The same way as REDnode's, REDagent's and EDGEmat's.
 
-**Page:** https://www.nexusmods.com/cyberpunk2077/mods/35680 (made by the owner on 2026-10-26, with no files yet). It is kept through Nexus's v3 API: `tools/nexus/` (copied from REDnode; keep the copies the same) and `nexus.json` (the page, and how a release uploads: Mod Manager Download off, the old version archived). The release workflow's **Update Nexus Mods** box uploads the zip, adds the changelog and pushes `description.bbcode`. The first release creates the page's main file; later ones add versions to it.
+**Page:** https://www.nexusmods.com/cyberpunk2077/mods/35680 (made by the owner on 2026-10-26, with no files yet). It is kept through Nexus's v3 API: the Nexus tool and `nexus.json` (the page, and how a release uploads: Mod Manager Download off, the old version archived). The release workflow's **Update Nexus Mods** box uploads the zip, adds the changelog and pushes `description.bbcode`. The first release creates the page's main file; later ones add versions to it.
+
+The Nexus tool is shared, in [EDGErepo](https://github.com/Edgemodders/EDGErepo). The commands below need it checked out beside this repo (`../EDGErepo`). The release workflow clones it at the tag `v1`. Change it there.
 
 | File | What it is |
 |---|---|
@@ -41,7 +43,7 @@ One main file: `EDGEchat-<version>.zip`, the same file as on the GitHub release:
 
 1. Edit `description.bbcode` here, check it with `node tools/check-bbcode.mjs nexus/description.bbcode`, commit, push.
 2. With a release: tick **Update Nexus Mods** beside **Make a release** in the Release workflow. After the GitHub release it uploads the zip, adds the version's changelog (`node tools/release/notes.mjs --nexus`) and pushes `description.bbcode` when it differs from the live one.
-3. The push never overwrites an edit made on Nexus: if the live description is neither the one last pulled nor the one the previous release pushed, the run stops before it builds. Then `node tools/nexus/nexus.mjs pull`, merge with `git diff`, commit, and run again. `node tools/nexus/nexus.mjs status` shows the page's version, files and whether its description matches.
+3. The push never overwrites an edit made on Nexus: if the live description is neither the one last pulled nor the one the previous release pushed, the run stops before it builds. Then `node ../EDGErepo/tools/nexus/nexus.mjs pull`, merge with `git diff`, commit, and run again. `node ../EDGErepo/tools/nexus/nexus.mjs status` shows the page's version, files and whether its description matches.
 4. Screenshots uploaded on Nexus show in the description as `staticdelivery.nexusmods.com` links; keep them when editing.
 
-The key: in CI the organisation secret `NEXUS_KEY`; on the dev PC the DPAPI file `%APPDATA%\Edgemodders\nexus-key.txt` (`tools/nexus/api.mjs`). Never print it or pass it on a command line.
+The key: in CI the organisation secret `NEXUS_KEY`; on the dev PC the DPAPI file `%APPDATA%\Edgemodders\nexus-key.txt` (EDGErepo's `tools/nexus/api.mjs`). Never print it or pass it on a command line.

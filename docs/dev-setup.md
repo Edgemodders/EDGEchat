@@ -58,4 +58,4 @@ The **Release** workflow (`.github/workflows/release.yml`, Actions tab, Run work
 
 Users of the marketplace get the new version from `main` either way; the release is the zip and the Nexus page. Only after every test of the builds since the last release has passed (docs/testing.md).
 
-On the dev PC, `node tools/nexus/nexus.mjs status` shows the page, and `node tools/nexus/nexus.mjs check --version <v>` what a release would do; both read the Nexus key from `%APPDATA%\Edgemodders\nexus-key.txt` (`tools/nexus/api.mjs`).
+On the dev PC, `node ../EDGErepo/tools/nexus/nexus.mjs status` shows the page, and `node ../EDGErepo/tools/nexus/nexus.mjs check --version <v>` what a release would do; both read the Nexus key from `%APPDATA%\Edgemodders\nexus-key.txt` (EDGErepo's `tools/nexus/api.mjs`). To run them, check out [EDGErepo](https://github.com/Edgemodders/EDGErepo) beside this repo; the release workflow clones it by itself.
