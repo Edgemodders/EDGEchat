@@ -10,7 +10,7 @@ You describe a small mod in your own words; Claude picks how to build it, writes
 
 ## Before you start
 
-- Lesson 1 done: `/edge:setup` shows all four connected.
+- Lesson 1 done: `/edge:setup` shows the connections connected.
 - The game running at a loaded save, with **Hot reload** on in REDnode's Settings panel (**F10**, **REDNODE** tab, the gear at the right of the **Theme** row).
 - Claude Code open in any folder. In VS Code, a folder for your mods, such as `Documents\Cyberpunk Mods`, is a good place.
 

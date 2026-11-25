@@ -1,12 +1,12 @@
 {
   "name": "edge",
-  "version": "0.1.1",
-  "description": "EDGEchat: Cyberpunk 2077 modding with the EDGE tools: modding knowledge as skills, the REDnode, REDcode, EDGEdeck and EDGEmat MCP servers, and modding commands.",
+  "version": "0.2.0",
+  "description": "EDGEchat: Cyberpunk 2077 modding with the EDGE tools: modding knowledge as skills, the REDnode, REDcode, EDGEdeck, EDGEmat, EDGEfab, EDGEhack and EDGEquest MCP servers, and modding commands.",
   "author": { "name": "EDGEmodders", "url": "https://github.com/Edgemodders" },
   "homepage": "https://edgemodders.github.io/EDGEchat/",
   "repository": "https://github.com/Edgemodders/EDGEchat",
   "license": "MIT",
-  "keywords": ["cyberpunk-2077", "modding", "rednode", "redcode", "edgedeck", "edgemat", "wolvenkit"],
+  "keywords": ["cyberpunk-2077", "modding", "rednode", "redcode", "edgedeck", "edgemat", "edgefab", "edgehack", "edgequest", "wolvenkit", "quests", "quickhacks", "props"],
   "userConfig": {
     "game_path": {
       "type": "directory",
@@ -29,14 +29,21 @@
     "gemini_api_key": {
       "type": "string",
       "title": "Google Gemini API key",
-      "description": "For EDGEmat's materials from words (mat_generate), billed to your Google account. From aistudio.google.com > Get API key. Leave empty if you do not make materials from words, or use OpenAI.",
+      "description": "For EDGEmat's materials from words (mat_generate) and patterns, billed to your Google account. From aistudio.google.com > Get API key. Leave empty if it is set in REDcode's Keys (shared by the EDGE tools), or you do not use it.",
       "sensitive": true,
       "required": false
     },
     "openai_api_key": {
       "type": "string",
       "title": "OpenAI API key",
-      "description": "The other service for EDGEmat's materials from words, billed to your OpenAI account. From platform.openai.com > API keys. If both keys are set, Gemini is used unless you ask for OpenAI.",
+      "description": "For EDGEmat's materials from words and reshapes, and EDGEfab's pictures, billed to your OpenAI account. From platform.openai.com > API keys. Leave empty if it is set in REDcode's Keys, or you do not use it. If both Gemini and OpenAI are set, EDGEmat uses Gemini unless you ask for OpenAI.",
+      "sensitive": true,
+      "required": false
+    },
+    "tripo_api_key": {
+      "type": "string",
+      "title": "Tripo API key",
+      "description": "For EDGEfab's 3D models from words or pictures and EDGEmat's reshapes, billed in Tripo credits. From platform.tripo3d.ai. Leave empty if it is set in REDcode's Keys, or you only bring models of your own.",
       "sensitive": true,
       "required": false
     }
@@ -48,7 +55,7 @@
     },
     "redcode": {
       "command": "cmd",
-      "args": ["/c", "npx", "-y", "@edgemodders/redcode-mcp@0.4.0"],
+      "args": ["/c", "npx", "-y", "@edgemodders/redcode-mcp@0.7.0"],
       "env": {
         "REDCODE_GAME_PATH": "${user_config.game_path}",
         "REDBRIDGE_EXE": "${user_config.redbridge_exe}"
@@ -64,12 +71,38 @@
     },
     "edgemat": {
       "command": "cmd",
-      "args": ["/c", "npx", "-y", "@edgemodders/edgemat-mcp@0.3.1"],
+      "args": ["/c", "npx", "-y", "@edgemodders/edgemat-mcp@0.3.4"],
       "env": {
         "EDGEMAT_GAME_PATH": "${user_config.game_path}",
         "REDBRIDGE_EXE": "${user_config.redbridge_exe}",
         "GEMINI_API_KEY": "${user_config.gemini_api_key}",
-        "OPENAI_API_KEY": "${user_config.openai_api_key}"
+        "OPENAI_API_KEY": "${user_config.openai_api_key}",
+        "TRIPO_API_KEY": "${user_config.tripo_api_key}"
+      }
+    },
+    "edgefab": {
+      "command": "cmd",
+      "args": ["/c", "npx", "-y", "@edgemodders/edgefab-mcp@0.2.0"],
+      "env": {
+        "EDGEFAB_REDBRIDGE": "${user_config.redbridge_exe}",
+        "OPENAI_API_KEY": "${user_config.openai_api_key}",
+        "TRIPO_API_KEY": "${user_config.tripo_api_key}"
+      }
+    },
+    "edgehack": {
+      "command": "cmd",
+      "args": ["/c", "npx", "-y", "@edgemodders/edgehack-mcp@0.1.3"],
+      "env": {
+        "EDGEHACK_GAME_PATH": "${user_config.game_path}",
+        "REDBRIDGE_EXE": "${user_config.redbridge_exe}"
+      }
+    },
+    "edgequest": {
+      "command": "cmd",
+      "args": ["/c", "npx", "-y", "@edgemodders/edgequest-mcp@0.1.1"],
+      "env": {
+        "EDGEQUEST_GAME_PATH": "${user_config.game_path}",
+        "REDBRIDGE_EXE": "${user_config.redbridge_exe}"
       }
     }
   }

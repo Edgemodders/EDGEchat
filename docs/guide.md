@@ -27,7 +27,7 @@ Then keep these at hand:
 |---|---|
 | [Safety: what Claude asks before doing](guide-safety.html) | Which actions ask you first, and why you can say no |
 | [Troubleshooting](guide-troubleshooting.html) | Something is missing, red, or not changing |
-| [Settings and updates](guide-settings.html) | The plugin's five settings, and getting new versions |
+| [Settings and updates](guide-settings.html) | The plugin's six settings, and getting new versions |
 
 ## What EDGEchat is
 
@@ -35,9 +35,9 @@ EDGEchat is a plugin for [Claude Code](https://code.claude.com/docs/en/overview)
 
 | Part | What it does | You use it by |
 |---|---|---|
-| **Four connections to the EDGE tools** (MCP servers) | `rednode` reaches the running game through REDnode. `redcode` reads the game's own files through REDbridge. `edgedeck` manages your mods and puts them in the game. `edgemat` finds and recolors garments' materials | Asking in plain words. Claude picks the tools |
+| **Seven connections to the EDGE tools** (MCP servers) | `rednode` reaches the running game through REDnode. `redcode` reads the game's own files through REDbridge. `edgedeck` manages your mods and puts them in the game. `edgemat` finds and recolors garments' materials. `edgefab` makes props, `edgehack` quickhacks and `edgequest` quests | Asking in plain words. Claude picks the tools |
 | **Modding knowledge** (skills) | How REDnode packages, WolvenKit projects, the game's archives and the EDGE tools work. Claude loads it by itself when a task needs it | Nothing: it's automatic |
-| **Four commands** | `/edge:setup`, `/edge:new-mod`, `/edge:check-mod`, `/edge:init-project` | Typing them in Claude Code |
+| **Five commands** | `/edge:setup`, `/edge:new-mod`, `/edge:check-mod`, `/edge:init-project`, `/edge:continue` (a chat from REDagent in the game) | Typing them in Claude Code |
 
 EDGEchat isn't an agent of its own and doesn't run in the game. [REDagent](https://github.com/Edgemodders/REDagent) is the assistant inside the game; EDGEchat is for building mods at your desk.
 

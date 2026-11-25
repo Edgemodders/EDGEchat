@@ -28,10 +28,11 @@ Then restart Claude Code and run `/edge:setup`: it checks each server and gives 
 
 | Command | Does |
 |---|---|
-| `/edge:setup` | Checks the `rednode`, `redcode`, `edgedeck` and `edgemat` servers, finds copies added by hand, and says what to do next |
+| `/edge:setup` | Checks the `rednode`, `redcode`, `edgedeck`, `edgemat`, `edgefab`, `edgehack` and `edgequest` servers, finds copies added by hand, and says what to do next |
 | `/edge:new-mod` | Starts a mod with you, even if you do not code: asks what it should do, picks the simplest kind, builds a first version and tests it in the game |
 | `/edge:check-mod` | Lists what is wrong with a mod (its files, the logs, EDGEdeck's view), with a fix for each, changing nothing |
 | `/edge:init-project` | Writes a `CLAUDE.md` into a mod project, so later sessions know its layout and how to test it |
+| `/edge:continue` | Picks up a chat from REDagent, the assistant in the game: its **VS Code** button writes the chat for Claude Code (REDagent 0.4.5 or newer) |
 
 The knowledge skills (`rednode-mods`, `wolvenkit-projects`, `archives-and-cr2w`, `edge-tools`) load by themselves when a task needs them.
 
@@ -53,4 +54,4 @@ The knowledge skills (`rednode-mods`, `wolvenkit-projects`, `archives-and-cr2w`,
 | P2 Knowledge | **Done** 2026-10-23: `rednode-mods` (a working HUD widget built in the game), `wolvenkit-projects`, `archives-and-cr2w`, each checked against the game, with evals. No separate EDGEdeck or EDGEmat skill: their servers explain their tools |
 | P3 Commands | **Done** 2026-10-26: `/edge:new-mod` and `/edge:check-mod` (0.0.8), with evals; `/edge:new-mod` passed in the game and `/edge:init-project` on a real project |
 | P4 Ship | **Done** 2026-10-26: version 0.1.0 on GitHub and Nexus Mods; EDGEkit 1.140.2 offers it in one click |
-| P5 Grow | Not started. EDGEmat and EDGEwave as they ship |
+| P5 Grow | **Under way** (2026-11-25): `edgefab`, `edgehack` and `edgequest` added for 0.2.0, tests pending; EDGEwave, EDGEdir and EDGEguide as they ship |

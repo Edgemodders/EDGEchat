@@ -21,14 +21,17 @@ These prompts come from the EDGE tools themselves: each marks its changing tools
 | **REDnode** `api_call`: calls into the game that can change it, such as V's money or health | `api_read`: game calls that only read (`Get...`, `Is...`, `Has...`), such as V's money |
 | `archives_reload`: swaps an archive into the running game ([lesson 4](guide-live.html)) | `game_state`, `logs`, `apps`, screenshots, TweakDB reads, the entities near V |
 | `game_facts_set`, `game_journal_set`, `game_teleport`: change quest facts or the journal in your save, or move V | `game_facts`, `game_journal`: read them |
-| `world_spawn`, `world_remove`, `world_load`: place or remove things in the world | `world_near`, `world_spawned` |
+| `world_spawn`, `world_animate`, `world_remove`, `world_load`: place, animate or remove people and things in the world | `world_near`, `world_spawned` |
+| `world_weather_set`: sets the weather and holds it | `world_weather`: reads it. `world_pin`, `world_unpin`, `world_pins`: markers in the world, which only draw |
 | An installed mod's own tools, unless its author marked them read-only | Read-only mod tools |
 | **EDGEdeck** deploy, undo, remove: write to the game folder, or delete a mod from the library | List, conflicts, pending, changes |
+| **EDGEhack** new, edit, script, pack, and **Try Live** (`hack_try`), which changes the running game | Finding and describing quickhacks |
 | **Claude Code** writing or changing files in your project (in its default permission mode) | Reading files |
 
 Two more:
 
-- **EDGEmat** making a material from words (`mat_generate`) sends your words to Google Gemini or OpenAI and is billed to your key. It doesn't ask, so Claude says which service it will use before the first time.
+- **What costs money doesn't ask, so Claude says the cost first:** EDGEmat's materials from words, patterns and reshapes (Gemini, OpenAI or Tripo, on your keys); EDGEfab's pictures (OpenAI, a few cents) and 3D models (Tripo, about 50 to 80 credits each, and Claude waits for your yes); REDcode's animations from words (Uthana, by the second, and Claude waits for your yes).
+- **REDcode's sector scripts** run as you on your PC. Claude runs only one you know or asked for, and tries it before it changes anything.
 - REDnode's optional **Tools Manager** (in its Admin Tools pack) switches any of REDnode's or a mod's tools off for every assistant. A tool switched off isn't offered to Claude at all.
 
 ## What never happens

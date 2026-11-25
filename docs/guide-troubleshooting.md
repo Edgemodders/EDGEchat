@@ -20,11 +20,14 @@ First, run `/edge:setup`: it checks every connection and gives the one next step
 | `rednode` connected, but every call fails as unauthorized | Claude Code was revoked in REDnode's **Connected assistants** | **Authenticate** again |
 | `redcode`: game not loaded | No game folder | Fill in the **Cyberpunk 2077 folder** setting ([settings](guide-settings.html)), restart Claude Code |
 | `redcode` fails starting the bridge | REDbridge missing or too old, or no .NET 10 runtime | REDbridge 0.10.0 or newer from [its releases](https://github.com/Edgemodders/REDbridge/releases), its path in the **REDbridge.exe** setting; the [.NET 10 runtime](https://dotnet.microsoft.com/download/dotnet/10.0) |
-| `redcode`, `edgedeck` or `edgemat` missing | The connection didn't start | Install Node.js 20 or newer (`node --version`). The first start downloads it and can be slow: `/mcp`, **Reconnect** |
+| `redcode`, `edgedeck`, `edgemat`, `edgefab`, `edgehack` or `edgequest` missing | The connection didn't start | Install Node.js 20 or newer (`node --version`). The first start downloads it and can be slow: `/mcp`, **Reconnect** |
 | `edgedeck` shows no mods, but you have some | It opened another library | Fill in the **EDGEdeck library** setting with EDGEdeck's **Library Path** |
 | `edgemat`: library not built | It's built once from your game | Ask "Build the EDGEmat library" |
 | Every EDGE tool shows twice | You added an EDGE server by hand before EDGEchat | `/edge:setup` names it and explains how to remove the copy |
 | EDGEmat's tools show twice, one set named `edgemat__mat_...` | REDnode's settings share EDGEmat with desktop assistants (`"edgematTools": "all"`) | Set it back to its default: EDGEchat brings EDGEmat itself |
+| EDGEhack's tools show twice, one set named `edgehack__hack_...` | The same, with `"edgehackTools": "all"` | Set it back to its default |
+| `edgefab`: no key, or REDcode's Keys can't be reached | Props from words need your Tripo and OpenAI keys. EDGEfab reads REDcode's **Keys** through REDbridge 0.18.0 or newer | Set the keys in REDcode's **Keys** view or in the plugin's settings, and **REDbridge.exe** if REDcode isn't set up |
+| `edgequest`: index not built | It's built once from your game, about 90 seconds | Ask about any quest, or "Build the EDGEquest index" |
 | A changed setting has no effect | The connections read settings only when they start | Restart Claude Code (in VS Code: **Developer: Reload Window**) |
 | The settings form didn't save | **Save configuration** is below the settings, out of sight | Scroll down in the form |
 

@@ -6,17 +6,20 @@ title: Settings and updates
 
 [&larr; Guide](guide.html)
 
-## The five settings
+## The six settings
 
 | Setting | Id | What | Default when empty |
 |---|---|---|---|
 | Cyberpunk 2077 folder | `game_path` | The game's install folder (it holds `archive`, `bin` and `r6`) | REDcode's game folder setting in VS Code; EDGEdeck then remembers or finds Steam, GOG or Epic |
 | REDbridge.exe | `redbridge_exe` | The path of `REDbridge.exe` | REDcode's REDbridge setting in VS Code |
 | EDGEdeck library | `edgedeck_library` | EDGEdeck's library folder | The `EDGEdeck` folder in your user folder. EDGEdeck's VS Code settings aren't read: if you moved the library, fill this in |
-| Google Gemini key | `gemini_api_key` | Your key, for EDGEmat's materials from words | Off. Kept in Windows' credential store |
-| OpenAI key | `openai_api_key` | The same, with OpenAI | Off. Kept in Windows' credential store |
+| Google Gemini key | `gemini_api_key` | Your key, for EDGEmat's materials from words and patterns | The key in REDcode's **Keys**, if set there. Kept in Windows' credential store |
+| OpenAI key | `openai_api_key` | The same with OpenAI, for EDGEmat's materials and reshapes, and EDGEfab's pictures | The same |
+| Tripo key | `tripo_api_key` | Your key, for EDGEfab's 3D models from words or pictures and EDGEmat's reshapes, billed in Tripo credits | The same |
 
 The REDcode fallbacks read VS Code's own settings. In EDGEkit or another editor build, fill in the settings instead.
+
+**Keys:** REDcode's **Keys** view in VS Code keeps one key per service for every EDGE tool, so you set a key once. A key in the plugin's settings wins over it. EDGEhack and EDGEquest need no key.
 
 REDnode needs no setting: you allow Claude Code in the game ([lesson 1, step 5](guide-install.html#step-5-let-claude-into-the-game)).
 
@@ -54,6 +57,7 @@ After an update, restart Claude Code. A new version may add settings: `/edge:set
 | The plugin's settings | Claude Code's user settings, `%USERPROFILE%\.claude\settings.json`, under `pluginConfigs`. Keys aren't there: they're in the credential store |
 | The plugin itself | Claude Code's plugin cache, managed by Claude Code. Don't edit it |
 | EDGEmat's library | `%LOCALAPPDATA%\EDGEmat`, shared with the EDGEmat extension |
+| EDGEfab's and EDGEhack's Desks | `%LOCALAPPDATA%\EDGEfab\desk` and `%LOCALAPPDATA%\EDGEhack\desk`, shared with the extensions: work waiting to go into a project |
 | EDGEdeck's library | The `edgedeck_library` setting, or `%USERPROFILE%\EDGEdeck` |
 
 [&larr; Guide](guide.html)
