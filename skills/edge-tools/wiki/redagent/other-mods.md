@@ -1,5 +1,5 @@
-<!-- Copied from EDGEweb's docs/wiki/redagent/other-mods.md at 842dae8 2026-11-01 by tools/sync-docs.mjs. Do not edit here: change it in EDGEweb. -->
-<!-- Live page: https://edgemodders.ai/wiki/redagent/other-mods.html (reviewed 2026-10-24) -->
+<!-- Copied from EDGEweb's docs/wiki/redagent/other-mods.md at f5d1ce3 2026-11-25 by tools/sync-docs.mjs. Do not edit here: change it in EDGEweb. -->
+<!-- Live page: https://edgemodders.ai/wiki/redagent/other-mods.html (reviewed 2026-11-13) -->
 
 # Mods that ask REDagent
 
@@ -7,14 +7,22 @@ Other REDnode mods can ask REDagent questions and show you the answers in their 
 
 ## Letting a mod ask
 
-A mod that wants to ask declares the **agent** permission. It can't ask anything until you allow it:
+A mod that wants to ask must request a permission called **agent**. It can't ask anything until you allow it:
 
 1. Press **F10** and open the **Mod Manager** at the top of the REDnode launcher.
 2. Select the mod and allow its permission: "questions to the AI assistant (REDagent); each answer costs you a little".
 
 REDagent itself must be installed and switched on. Withdraw the permission the same way, and the mod's questions are refused again.
 
-REDnode comes with a sample to try it: the [Ask mod](https://github.com/Edgemodders/REDnode/tree/main/packages/overlay/apps/ask-mod). Switch it on in the Mod Manager, allow its permission, and type a question in its window. The answer streams in with its cost.
+### Try it: the Ask mod
+
+REDnode comes with a sample mod that does nothing but ask REDagent your question.
+
+1. Press **F10**, open the launcher and switch on **Mod Manager**.
+2. Find **Ask mod** in the table and switch it on. REDnode's samples start switched off.
+3. In its details, switch **Allowed** on for "questions to the AI assistant (REDagent); each answer costs you a little".
+4. Type a question in the Ask mod's window, such as "How many eddies does V have?", and press **Ask**. The answer appears as it is written, with its cost.
+5. In REDagent, press **Chats**, then the **Mods** tab. The Ask mod is listed there with your question and what it cost.
 
 (Screenshot on the wiki, "The Ask mod": REDnode's Ask mod window with a question typed in and REDagent's answer streaming in below it, with its cost.)
 
@@ -23,15 +31,19 @@ REDnode comes with a sample to try it: the [Ask mod](https://github.com/Edgemodd
 | | |
 |---|---|
 | **Read only** | A mod's question can read logs, the game's state, the game's functions, the text of overlay windows and your mods' files, and use other mods' tools that only read. It never changes your files or your game |
-| **Pictures** | Off for every mod. Pictures of windows and of your screen are allowed only for mods you switch **Pictures** on for |
+| **Pictures** | Off to start with, for every mod. A mod's questions can use pictures of windows or of your screen only after you switch **Pictures** on for that mod in the [Mods view](https://edgemodders.ai/wiki/redagent/other-mods.html#the-mods-view) |
 | **Model** | Always **Sonnet 5.5**, whatever your own chat uses, to keep answers cheap |
 | **One at a time** | REDagent answers mods' questions one after another |
 
 In REDagent's in-game test, each of the Ask mod's answers cost between $0.008 and $0.02.
 
+To answer, REDagent may read your logs and your mods' files and send them to Anthropic, as it does for your own questions. See [Your data](https://edgemodders.ai/wiki/redagent/costs.html#your-data).
+
 ## Daily limits
 
-Every mod has its own **daily limit**, **$0.25** unless you change it. Once a mod has spent its limit for the day, its questions are refused, with the reason, until the next day. The day is your PC's local day.
+Every mod has its own **daily limit**, **$0.25** unless you change it. Once a mod has spent its limit for the day, its questions are refused until the next day, and the mod is told why. The count starts again at midnight on your PC's clock.
+
+The limit is per mod, and there is no limit across all mods together: five mods you allow could spend $1.25 a day between them. Lower a mod's limit, or pause it, in the Mods view.
 
 ## The Mods view
 
@@ -52,4 +64,4 @@ If no mod has asked yet, the tab says so and reminds you about the permission.
 
 ## For mod makers
 
-Mods ask with `agent.ask` from REDnode's `rednode` package. See [Asking the AI assistant](https://edgemodders.github.io/REDnode/overlay-apps.html#asking-the-ai-assistant) in REDnode's overlay apps guide for the API, and the [REDagent design](https://edgemodders.github.io/REDagent/design.html) for how questions are handled. The Ask mod is a short working example.
+Mods ask with `agent.ask` from REDnode's `rednode` package, and receive only REDagent's answer, as plain text (from REDagent 0.4.1). See [Asking the AI assistant](https://edgemodders.github.io/REDnode/overlay-apps.html#asking-the-ai-assistant) in REDnode's overlay apps guide for the API, and the [REDagent design](https://edgemodders.github.io/REDagent/design.html) for how questions are handled. The Ask mod is a short working example.

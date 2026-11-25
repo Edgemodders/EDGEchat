@@ -1,29 +1,40 @@
-<!-- Copied from EDGEweb's docs/wiki/edgemat/tutorial-worn-leather.md at 842dae8 2026-11-01 by tools/sync-docs.mjs. Do not edit here: change it in EDGEweb. -->
-<!-- Live page: https://edgemodders.ai/wiki/edgemat/tutorial-worn-leather.html (reviewed 2026-10-20) -->
+<!-- Copied from EDGEweb's docs/wiki/edgemat/tutorial-worn-leather.md at f5d1ce3 2026-11-25 by tools/sync-docs.mjs. Do not edit here: change it in EDGEweb. -->
+<!-- Live page: https://edgemodders.ai/wiki/edgemat/tutorial-worn-leather.html (reviewed 2026-11-22) -->
 
 # Tutorial: worn leather
 
-In this tutorial you turn the **Comfy rocker aramid-weave slim-fits** into worn brown leather pants, from one line of words, and wear them in the game. It is the test EDGEmat passed on 2026-10-20, written up so you can follow it. It takes about 15 minutes, most of it in the game.
+In this tutorial you turn the **Comfy rocker aramid-weave slim-fits** into worn brown leather pants, from one line of words, and wear them in the game. These are the exact steps EDGEmat's New Material feature was tested with. It takes about 15 minutes, most of it in the game, and costs a few cents: an AI image service draws the leather, on your own key.
+
+New to EDGEmat? Do [Tutorial: recolor a jacket](https://edgemodders.ai/wiki/edgemat/tutorial-recolor.html) first. It needs no key, and it explains projects and Find more slowly.
 
 (Screenshot on the wiki, "The result: worn leather slim-fits, front": V in the worn leather slim-fits, from the front, in an indoor garage: warm brown leather with fine creases, the pants' own folds at the knees.)
+
+| On this page | |
+|---|---|
+| [What you need](https://edgemodders.ai/wiki/edgemat/tutorial-worn-leather.html#what-you-need) | A project, a key, REDnode |
+| [1. Find the pants' material](https://edgemodders.ai/wiki/edgemat/tutorial-worn-leather.html#1-find-the-pants-material) | |
+| [2. Generate the leather](https://edgemodders.ai/wiki/edgemat/tutorial-worn-leather.html#2-generate-the-leather) | From one line of words |
+| [3. Add it to the project](https://edgemodders.ai/wiki/edgemat/tutorial-worn-leather.html#3-add-it-to-the-project) | Name, repeat, bumps, shine |
+| [4. Into the game](https://edgemodders.ai/wiki/edgemat/tutorial-worn-leather.html#4-into-the-game) | Pack, install, wear |
+| [What to look for](https://edgemodders.ai/wiki/edgemat/tutorial-worn-leather.html#what-to-look-for), [Try next](https://edgemodders.ai/wiki/edgemat/tutorial-worn-leather.html#try-next) | |
 
 ## What you need
 
 | | |
 |---|---|
-| EDGEmat 0.3 or later and [REDcode](https://edgemodders.ai/wiki/redcode/) | [Install and set up](https://edgemodders.ai/wiki/edgemat/install.html) |
-| A REDcode project | **REDcode: New Project** (`Ctrl+Shift+P`), for example `MyMaterials`. Leave it open |
-| An image service key | Google Gemini or OpenAI, your own ([New Material](https://edgemodders.ai/wiki/edgemat/new-material.html#from-words-ai)). One take costs a few cents |
-| [Cyber Engine Tweaks](https://www.nexusmods.com/cyberpunk2077/mods/107) | To put the pants on V |
+| EDGEmat and [REDcode](https://edgemodders.ai/wiki/redcode/) | [Install and set up](https://edgemodders.ai/wiki/edgemat/install.html) |
+| A project, the folder your mod lives in | Run **REDcode: New Project** from the command palette (`Ctrl+Shift+P`) and name it, for example `my_materials`. Leave it open |
+| An image service key | Google Gemini or OpenAI, your own. [New Material](https://edgemodders.ai/wiki/edgemat/new-material.html#from-words-ai) says what a key is and where to get one. One picture costs a few cents |
+| [REDnode](https://edgemodders.ai/wiki/rednode/install.html) 0.49.5 or later, installed in the game | Its [Console](https://edgemodders.ai/wiki/rednode/overlay.html#the-console) puts the pants on V |
 
 ## 1. Find the pants' material
 
-1. Click EDGEmat's icon in the activity bar, then the **FIND** header (below the Library) and its magnifier.
-2. Type `comfy rocker` and open **Comfy rocker aramid-weave slim-fits**. Its record id, `Items.Pants_01_basic_01`, shows beside it: you'll need it in the game.
-3. Open your V's body (Feminine or Masculine), then the mesh `l1_012_pw?_pants__jeans_tight.mesh`.
+1. Click EDGEmat's icon in the activity bar, then the **FIND** header (below the Desk and Game Materials) and its magnifier.
+2. Type `comfy rocker` and unfold **Comfy rocker aramid-weave slim-fits**. Its record id, `Items.Pants_01_basic_01`, shows in grey beside it. That is the game's internal name for the item: you'll need it in the game.
+3. Under your V's body (**Feminine body** or **Masculine body**) is the mesh, the pants' 3D shape: `l1_012_pwa_pants__jeans_tight.mesh` for the feminine body, `l1_012_pma_...` for the masculine. Its materials are listed under it.
 4. Hover the material **leather** and press the sparkle icon at its right (**New Material Here...**).
 
-The **New Material** page opens. **Where it goes** names leather on two meshes, `l1_012_pwa_...` and `l1_012_pma_...`: one per body, so the pants change whichever body you play.
+**You should see** the **New Material** page open. **Where it goes** names leather on two meshes, `l1_012_pwa_...` and `l1_012_pma_...`: one per body type, so the pants change whichever body you play.
 
 (Screenshot on the wiki, "Find, with New Material Here on the leather material": The Find view open on the Comfy rocker slim-fits: the item with Items.Pants_01_basic_01 beside it, a body, the l1_012 mesh, and the leather material with the sparkle icon highlighted.)
 
@@ -34,8 +45,14 @@ The **New Material** page opens. **Where it goes** names leather on two meshes, 
    > worn brown leather with fine creases
 
 2. Leave **Detail** on medium. Pick your service.
-3. Press **Generate**. The first time, paste your API key in the box that opens. A notification shows while the service works, usually under a minute.
-4. **Take 1** appears under **2. Takes**, and **3. The material** shows it tiled 3 × 3. Look for seams or a pattern that repeats too obviously. Not happy? Press **Generate again**, or change the words, and pick the take you like best.
+3. Press **Generate**. The first time, paste your API key in the box that opens.
+
+| What you should see | |
+|---|---|
+| While the service works | A notification, usually for under a minute |
+| When it is done | **Take 1** under **2. Takes**, and the leather tiled 3 × 3 under **3. The material** |
+
+Look for seams, or a pattern that repeats too obviously. Not happy? Press **Generate again**, or change the words, and pick the take you like best. Each take costs a few cents.
 
 (Screenshot on the wiki, "Takes and the tiled preview": The New Material page with two takes of worn brown leather, the second selected, and its 3 x 3 tiled preview with no visible seams.)
 
@@ -51,18 +68,23 @@ Under **3. The material**:
 | Shine | Satin | A soft sheen, not plastic |
 | Metal | off | |
 
-Press **Add to Project**. The message says it saved `worn_leather` and put it on 2 mesh materials, and the page lists both meshes with "repeat in the texture, garment folds kept": the pants keep their own folds and wrinkles at their real size.
+Press **Add to Project**.
 
-(Screenshot on the wiki, "Saved into the project": The message 'Saved worn_leather into ... and put on 2 mesh materials.' with Pack and Try and Show Files, and the page listing both l1_012 meshes with 'repeat in the texture, garment folds kept'.)
+| What you should see | |
+|---|---|
+| A message | It saved `worn_leather` and put it on 2 mesh materials, with the buttons **Pack and Play** and **Reveal in File Explorer** (Show Files before 0.3.4) |
+| On the page | Both meshes listed, with "repeat in the texture, garment folds kept": the pants keep their own folds and wrinkles at their real size |
+
+(Screenshot on the wiki, "Saved into the project": The message 'Saved worn_leather into ... and put on 2 mesh materials.' with Pack and Play and Show Files, and the page listing both l1_012 meshes with 'repeat in the texture, garment folds kept'.)
 
 ## 4. Into the game
 
-1. Close the game if it's running. In REDcode, **Pack and Install**. (Pack and Try is for a running game with Red Hot Tools: see [Your mod in the game](https://edgemodders.ai/wiki/edgemat/in-the-game.html).)
-2. Start the game and load a save.
-3. Open Cyber Engine Tweaks' console and run:
+1. Close the game if it's running. In REDcode's Project view, press **Pack and Install**, the rocket. (The **Pack and Play** button in the message does the same while the game is closed. With the game running under REDnode it swaps the mod in: see [Keep the game running](https://edgemodders.ai/wiki/edgemat/in-the-game.html#keep-the-game-running).)
+2. Press **Run Game**, or start the game your usual way, and load a save.
+3. Press **F10**, click the **REDNODE** tab, switch on **Console**, and type:
 
-   ```lua
-   Game.AddToInventory("Items.Pants_01_basic_01", 1)
+   ```js
+   addItem("Items.Pants_01_basic_01")
    ```
 
 4. Equip the pants, and look in photo mode: front, side and back.
@@ -79,6 +101,8 @@ Press **Add to Project**. The message says it saved `worn_leather` and put it on
 | The leather | Fine creases and cracks, even over both legs, with no obvious repeat |
 | Panel lines | The pattern breaks where the garment's pieces meet. On leather this reads as stitching |
 | Color | Close to the take. A warm image gives a warm, tan brown |
+
+If the pants look as they did before, see [If you don't see your change](https://edgemodders.ai/wiki/edgemat/in-the-game.html#3-if-you-dont-see-your-change). To get the game's own pants back, use REDcode's **Uninstall**: [Take the mod out again](https://edgemodders.ai/wiki/edgemat/in-the-game.html#take-the-mod-out-again).
 
 ## Try next
 

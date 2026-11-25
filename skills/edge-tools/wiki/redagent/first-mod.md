@@ -1,56 +1,105 @@
-<!-- Copied from EDGEweb's docs/wiki/redagent/first-mod.md at 842dae8 2026-11-01 by tools/sync-docs.mjs. Do not edit here: change it in EDGEweb. -->
-<!-- Live page: https://edgemodders.ai/wiki/redagent/first-mod.html (reviewed 2026-10-26) -->
+<!-- Copied from EDGEweb's docs/wiki/redagent/first-mod.md at f5d1ce3 2026-11-25 by tools/sync-docs.mjs. Do not edit here: change it in EDGEweb. -->
+<!-- Live page: https://edgemodders.ai/wiki/redagent/first-mod.html (reviewed 2026-11-13) -->
 
 # Your first mod with REDagent
 
-This walkthrough follows REDagent's own in-game test. By the end you'll have a mod that warns you when V's health is low, and you'll know how to approve, check and undo changes.
+In this walkthrough you ask REDagent for a mod that warns you when V's health is low. You won't write any code. By the end you'll know how to approve what REDagent writes, test it, change it, undo it and switch it off.
 
-## Before you start
+| | |
+|---|---|
+| **Time** | About ten minutes |
+| **Cost** | Well under a dollar of your Anthropic credit. In REDagent's own test, a chat of eight questions that built this mod and fixed another cost $0.50 |
+| **Before you start** | REDagent is [installed and set up](https://edgemodders.ai/wiki/redagent/install.html), and answered a first question |
 
-- REDnode and REDagent are installed: REDnode 0.38.1 or later with REDagent 0.3.2 on game 2.5, or REDnode 0.37.0 with REDagent 0.3.1 on 2.31. See [Install REDnode](https://edgemodders.ai/wiki/rednode/install.html) and the [REDagent guide's install steps](https://edgemodders.github.io/REDagent/guide.html#install).
-- You have an Anthropic API key from [console.anthropic.com](https://console.anthropic.com/), with some credit on it. Keys start with `sk-ant-`.
+## Talking to REDagent while you play
 
-## 1. Set up once
+Press **F10**. A mouse cursor appears, and REDagent's window shows on the right of the game. Click in the box at the bottom of the window and type, and press **Enter** to send. Press **Esc** to go back to playing. The window hides while you play and comes back with F10; REDagent keeps working meanwhile.
 
-1. Start the game and load a save. The REDagent window opens on the right. The first time, press **Get the Agent SDK** in it and wait for the download (about 140 MB) to finish.
-2. Press **F10**, open the **Mod Manager** at the top of the REDnode launcher and select **REDagent**. Under its permissions, switch **Allowed** on for "REDnode's tools for AI agents". A new package is listed only in the Mod Manager until you press **Pin to launcher** there. Without this permission, REDagent can chat but can't see your mod log, the game or overlay windows.
-3. Click the key field in REDagent, press **Ctrl+V** to paste your key, then **Save key**. The chat appears.
+Careful with **F9**, the key beside F10: it is the game's Quick Load.
 
-## 2. Warm up
+## 1. Ask for the mod
 
-Ask something small, to check that everything works:
+Load a save, press **F10**, and type:
 
-> What's in my mod log?
+> Make a mod that shows a warning on the HUD when V's health is below 30%.
 
-REDagent reads the log and summarizes it. Under the answer you'll see what it cost.
+"On the HUD" matters: it asks for a warning that stays on screen while you play. A mod's ordinary windows show only after you press F10.
 
-## 3. Ask for the mod
+The last line of the chat says **WORKING...** while REDagent looks up how the game reports V's health and plans the mod. This can take a minute.
 
-> Make a mod that shows a warning when V's health is below 30%.
+## 2. Approve its files
 
-REDagent looks up the game's health functions, then plans the files. Before it writes each file, a **change card** shows it as a diff: added lines in green.
+A mod is a folder with a few small files. Before REDagent creates each one, the chat shows a **change card** and the last line turns to **WAITING FOR YOU...**. The card shows the file's name and the lines REDagent wants to write, in green.
+
+(Screenshot on the wiki, "A change card": The REDagent chat with a change card for a new file: the file's name and folder at the top, its lines in green, and the three buttons Allow, Allow all in this chat and Deny.)
 
 | Button | What happens |
 |---|---|
 | **Allow** | This one change is made |
-| **Allow all in this chat** | This and every later change in this chat are made without asking. A new chat (**New**) asks again |
-| **Deny** | Nothing changes; REDagent asks what you want instead |
+| **Allow all in this chat** | This change and every later one in this chat are made without asking. A new chat asks again |
+| **Deny** | Nothing changes, and REDagent asks what you want instead |
 
-Press **Allow** on the first card. Once you trust where it's going, **Allow all in this chat** saves clicks.
+You don't need to read the code. Check that the file is going into a new folder named after your mod, then press **Allow**. Expect two or three cards for a mod this small. Nothing is lost if you allow something you didn't want: every change can be undone in step 5.
 
-## 4. Watch it run
+## 3. Watch it check its work
 
-REDnode starts the new mod a moment after its files exist. REDagent checks the mod's log and fixes anything that fails. Get hurt below 30% health, or ask REDagent to lower V's health (it asks before any call that changes the game), and the warning shows.
+REDnode starts the new mod about two seconds after its files exist. There is no restart. REDagent then reads the mod's log to see that it started without errors, and fixes what failed, with a new change card for each fix.
+
+When it's done, its answer says what it built, with the cost under it.
+
+## 4. Test it in the game
+
+Press **Esc** to play, and let an enemy hurt V until health is under 30%. Or ask REDagent to do it:
+
+> Lower V's health to 20% so I can test the warning.
+
+REDagent asks your permission first, with a card, because this changes your game.
+
+The warning shows on screen. What it looks like and where it sits is REDagent's choice, so yours may differ from someone else's.
+
+(Screenshot on the wiki, "The warning in the game": Gameplay with V's health low and the new mod's warning on screen, with the REDagent window on the right showing the files it created.)
+
+| If | Do this |
+|---|---|
+| The warning shows only after you press F10 | REDagent built it as a window. Ask: "Make the warning a HUD widget, so it shows while I play." |
+| Nothing shows at all | Tell REDagent what you see, in plain words: "The warning doesn't show when my health is low." It reads the mod's log, finds the fault and fixes it |
 
 ## 5. Change it or undo it
 
-- Ask for changes in plain words: "make the warning red and put it at the top of the screen".
-- Every change is listed with **Undo**. The strip above the input counts this chat's changes; **Show** lists them all.
-- Undo puts a file back as it was, or removes a file REDagent created. REDagent is told what you undid.
+Ask for changes the same way:
 
-## Tips
+> Make the warning red and put it at the top of the screen.
 
-- **Your chat is saved.** Quit the game and it comes back next time, Undo included. **Chats** lists your earlier chats. See [Using REDagent](https://edgemodders.ai/wiki/redagent/using.html#saved-chats).
-- **Start a new chat (New) when you change topic.** The whole chat is sent with each question, so long chats cost more per answer.
-- **Sonnet for quick questions,** Opus (the default) for writing and fixing mods.
-- **Something wrong?** Open the REDnode Mod log app. REDagent's lines start with `[redagent]`. [Using REDagent](https://edgemodders.ai/wiki/redagent/using.html#when-something-goes-wrong) covers common messages.
+Every change REDagent made is listed in the chat with an **Undo** button. The strip above the input box counts this chat's changes, and **Show** lists them all in one place.
+
+| Undo on | Does this |
+|---|---|
+| A file REDagent changed | Puts the file back as it was |
+| A file REDagent created | Removes the file, and its folder if that leaves it empty |
+
+To remove the whole mod, undo each file it created. REDagent is told what you undid when you next ask it something.
+
+## 6. Keep it, switch it off, or remove it
+
+Your mod is now a mod like any other that REDnode runs. It starts with the game, with or without REDagent.
+
+| To | Do this |
+|---|---|
+| Find it | Press **F10**, open the launcher and switch on **Mod Manager**. Your mod is in the table, with a **NEW** badge |
+| Switch it off or on | Select it in the Mod Manager and use its switch. See [The Mod Manager](https://edgemodders.ai/wiki/rednode/mod-manager.html) |
+| Remove it for good | Undo its files in REDagent, or delete its folder in `red4ext\plugins\REDnode\apps` in the game folder |
+| See its files | Open that folder. To learn what the files are, see [Making mods and apps](https://edgemodders.ai/wiki/rednode/making-mods.html) |
+
+## What to try next
+
+Each of these is one request. Start a new chat (**New**, in the window's footer) when you change topic: long chats cost more per answer.
+
+| Try | You'll see |
+|---|---|
+| "How many eddies does V have?" | REDagent reading the running game |
+| "Make a window that shows V's money and level." | A mod with a window of its own |
+| "Show a clock in the corner of the HUD." | A HUD widget: a piece of screen that stays up while you play |
+| "What's on my screen?" | REDagent taking a picture of the game and describing it |
+| "Why did my mod stop working?" | REDagent reading a log and explaining an error |
+
+More ideas, and everything in the window: [Using REDagent](https://edgemodders.ai/wiki/redagent/using.html).

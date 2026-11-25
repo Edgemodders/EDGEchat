@@ -1,82 +1,96 @@
-<!-- Copied from EDGEweb's docs/wiki/edgedeck/troubleshooting.md at 842dae8 2026-11-01 by tools/sync-docs.mjs. Do not edit here: change it in EDGEweb. -->
-<!-- Live page: https://edgemodders.ai/wiki/edgedeck/troubleshooting.html (reviewed 2026-10-24) -->
+<!-- Copied from EDGEweb's docs/wiki/edgedeck/troubleshooting.md at f5d1ce3 2026-11-25 by tools/sync-docs.mjs. Do not edit here: change it in EDGEweb. -->
+<!-- Live page: https://edgemodders.ai/wiki/edgedeck/troubleshooting.html (reviewed 2026-11-13) -->
 
 # Troubleshooting EDGEdeck
 
-## Start with the log
+Find what you see in the left column. If it isn't here, the [last section](https://edgemodders.ai/wiki/edgedeck/troubleshooting.html#anything-else) says where to look and where to ask.
 
-**Show log** in the Mods view's `...` menu, or **View**, **Output**, then **EDGEdeck** in the dropdown. The first lines say where the library and the game are and how the game was found. When you ask for help, include them.
+| Where are you stuck? | |
+|---|---|
+| [Setting up](https://edgemodders.ai/wiki/edgedeck/troubleshooting.html#setting-up) | The icon, the game folder, REDbridge |
+| [Adding mods](https://edgemodders.ai/wiki/edgedeck/troubleshooting.html#adding-mods) | A file that won't add, mods missing from the list |
+| [Deploying](https://edgemodders.ai/wiki/edgedeck/troubleshooting.html#deploying) | The game is running, Vortex, a file in use, changed files |
+| [Nexus Mods](https://edgemodders.ai/wiki/edgedeck/troubleshooting.html#nexus-mods) | Signing in, download links, updates |
+| [In the game](https://edgemodders.ai/wiki/edgedeck/troubleshooting.html#in-the-game) | A mod doesn't show, the game won't start |
+| [Assistants](https://edgemodders.ai/wiki/edgedeck/troubleshooting.html#assistants) | Claude can't see EDGEdeck, or sees it twice |
 
-## Problems and fixes
+EDGEdeck updates itself, and many problems are fixed in a newer version. If something looks broken, check the Extensions view for an update first.
 
-### "Game not found" in the status bar
+## Setting up
 
-EDGEdeck couldn't find Cyberpunk 2077 in your Steam libraries, GOG or Epic.
+| You see | Do this |
+|---|---|
+| No EDGEdeck icon in the activity bar after installing | Press `Ctrl+Shift+P`, type `Developer: Reload Window` and press Enter. Still missing: right-click the activity bar and check that **EDGEdeck** is ticked. EDGEdeck runs on Windows only |
+| **No mods yet**, and no Set up group | Normal for an empty list. The set-up steps are the buttons under the text, and **Get the frameworks...** is in the **`...`** menu. See [The Set up steps](https://edgemodders.ai/wiki/edgedeck/install.html#the-set-up-steps) |
+| `EDGEdeck: game not found` in the status bar | EDGEdeck couldn't find Cyberpunk 2077 through Steam, GOG or Epic. Click the status bar, or **Find the game folder**, and pick the folder that contains `bin`, `archive` and `r6`. If the game *is* in a Steam library the [log](https://edgemodders.ai/wiki/edgedeck/troubleshooting.html#anything-else) lists, please [report it](https://github.com/Edgemodders/EDGEdeck/issues) with those lines |
+| <a id="no-conflicts-inside-archives"></a>No conflicts inside archives | Those need REDbridge. Look at the EDGEdeck page's footer. A **green dot** and a REDbridge version: it's running, and you may simply have no such conflicts. A **Get REDbridge** button: press it. It also installs the .NET 10 runtime REDbridge needs, for your Windows user |
+| Deploy copies files instead of using hardlinks | Your library is on a different drive from the game. Use **Move library...**, or the **Move the library to the game's drive** step, then deploy once. See [Moving the library](https://edgemodders.ai/wiki/edgedeck/library.html#moving-the-library) |
 
-1. Click the status bar, or the **Find the game folder** row in the Set up group.
-2. Pick the folder that contains `bin`, `archive` and `r6`.
+## Adding mods
 
-If the game *is* in one of the Steam libraries the log lists, please [report it](https://github.com/Edgemodders/EDGEdeck/issues) with those log lines.
+| You see | Do this |
+|---|---|
+| A `.rar` file won't add | EDGEdeck opens zip and 7z on its own, but a rar needs [7-Zip](https://7-zip.org) or WinRAR installed. Install one, or pack the files again as a zip |
+| "Nothing in ... looks like a Cyberpunk mod file" | The download holds no file EDGEdeck knows a place for. Check that it is a Cyberpunk 2077 mod, and that you picked the download itself, not a readme |
+| "... files EDGEdeck did not know where to put were left out" | The mod was added without those files. The [log](https://edgemodders.ai/wiki/edgedeck/troubleshooting.html#anything-else) names them. Often they are readmes or pictures and don't matter |
+| Mods I installed by hand aren't in the list | The list shows only mods in EDGEdeck's library. Add their original downloads with **Add mod**. See [Mods you installed by hand](https://edgemodders.ai/wiki/edgedeck/deploying.html#mods-you-installed-by-hand) |
+| The list is empty, but I had mods | EDGEdeck may be looking at another library folder. Check the setting `edgedeck.libraryPath`: see [Moving the library](https://edgemodders.ai/wiki/edgedeck/library.html#moving-the-library) |
 
-### "Cyberpunk 2077 is running"
+## Deploying
 
-Deploy and Undo deploy wait while the game runs, because the game keeps mod files open and Windows won't let EDGEdeck change them. Quit the game, then press **The game is closed now**. See [Deploying and undo](https://edgemodders.ai/wiki/edgedeck/deploying.html#close-the-game-first).
+| You see | Do this |
+|---|---|
+| "Cyberpunk 2077 is running" | The game keeps mod files open, and Windows won't let EDGEdeck change them. Quit the game, then press **The game is closed now**. See [Close the game first](https://edgemodders.ai/wiki/edgedeck/deploying.html#close-the-game-first) |
+| A deploy stopped: a file "is in use" | Another program has a file in the game folder open, and the message names it. Close that program (or the game, if it's still shutting down) and deploy again. What the deploy finished is kept; the rest is still waiting |
+| "Vortex manages the game", or "Vortex manages this game folder" | Vortex has mods deployed, and two managers can't deploy into one folder. Purge in Vortex (**Mods**, **Purge**), then deploy in EDGEdeck. See [Switch from Vortex](https://edgemodders.ai/wiki/edgedeck/switch-from-vortex.html) |
+| A mod says `changed in game folder` or `changed, deploy again` | Something outside EDGEdeck changed or replaced its files, usually a Steam **Verify integrity of game files** or a game update. Deploy. EDGEdeck asks about each changed file whether to keep the change or put the mod's file back. See [Changes made outside EDGEdeck](https://edgemodders.ai/wiki/edgedeck/deploying.html#changes-made-outside-edgedeck) |
+| "A deploy is already under way", or a similar short notice | You pressed a button twice. The first press is still working: wait for it |
+| I don't know what my last deploy changed | Press **View** on the deploy message. Earlier reports, the newest 30, are in the `deploys` folder of your library. For what the *next* deploy will do, use **Show pending changes**. See [Deploy reports](https://edgemodders.ai/wiki/edgedeck/deploying.html#deploy-reports) |
 
-### A deploy stopped: a file "is in use"
+## Nexus Mods
 
-Another program has a file in the game folder open, and the message names it. Close that program (or the game, if it's still shutting down) and deploy again. What the deploy finished before it stopped is kept; the rest is still waiting, and the Deploy button counts it.
+| You see | Do this |
+|---|---|
+| Nexus rejects the key | Copy the whole **Personal API Key** from the bottom of your Nexus [API Access page](https://www.nexusmods.com/users/myaccount?tab=api+access), with no spaces around it, and run **Nexus: set API key (paste, instead of signing in)**. See [Signing in](https://edgemodders.ai/wiki/edgedeck/nexus.html#signing-in) |
+| **Sign in** opens a Nexus page about API keys, not a sign-in screen | That is how signing in works for now: copy the key from that page and paste it into the box in the editor |
+| **Mod manager download** opens Vortex, not EDGEdeck | Vortex takes the download links back every time it starts. Run **Nexus: handle download links (nxm)**, or use the step that reappears in the Set up group |
+| **Mod manager download** does nothing | The first time a link arrives, the editor asks whether EDGEdeck may open it, and that question can sit behind your browser: switch to the editor. Otherwise another program has the links: run **Nexus: handle download links (nxm)** again. The [log](https://edgemodders.ai/wiki/edgedeck/troubleshooting.html#anything-else) line "Nexus download links go to:" says who has them |
+| The link opens another editor | With EDGEdeck in two editors, such as VS Code and EDGEkit, the links go to the one where you last ran **Nexus: handle download links (nxm)**. Run it in the editor you want |
+| "Premium only" when updating | Nexus gives direct downloads to Premium members only. EDGEdeck opens the file's download page instead: press the download button there and the file arrives through the link. See [Premium and free accounts](https://edgemodders.ai/wiki/edgedeck/nexus.html#premium-and-free-accounts) |
+| A download says "waiting: 2 downloads ahead" | Normal on a free account: downloads run one at a time. See [Downloads](https://edgemodders.ai/wiki/edgedeck/nexus.html#downloads) |
+| The update check finds nothing for a mod | The mod doesn't know its Nexus page, usually because you added it from a file. Remove it and add it again with **Mod manager download**. Mods imported from Vortex with an older EDGEdeck may need removing and importing again |
+| A second file from a Nexus page seems to have replaced the first | Each file is a mod of its own, under one row named after the page: click the row's arrow to see both. See [Several files from one page](https://edgemodders.ai/wiki/edgedeck/nexus.html#several-files-from-one-page) |
 
-### "Vortex manages the game"
+## In the game
 
-Vortex has mods deployed in the game folder, and two managers can't deploy into one folder. Purge in Vortex (**Mods**, **Purge**), then deploy in EDGEdeck. See [Switch from Vortex](https://edgemodders.ai/wiki/edgedeck/switch-from-vortex.html).
+| You see | Do this |
+|---|---|
+| A mod says `deployed`, but nothing changes in the game | Most often something it needs is missing. Open the mod's Nexus page (right-click, **Open on Nexus Mods**) and check its **Requirements** against your list, frameworks included. Then check [Show conflicts](https://edgemodders.ai/wiki/edgedeck/conflicts.html#the-conflicts-page): another mod may be winning its files |
+| An archive mod is on but doesn't show | Check that it says `deployed`. If its status says `loses ... archive files`, another mod is replacing its contents: see [Changing who wins](https://edgemodders.ai/wiki/edgedeck/conflicts.html#changing-who-wins) |
+| REDmod mods are deployed but don't load | REDmod mods load only when the game starts with `-modded`. Start the game with **Run game** in EDGEdeck, which adds it, or add `-modded` to the game's launch options in Steam, GOG or Epic |
+| REDnode's window doesn't open after **Run game** | Update EDGEdeck and REDnode. See [REDnode's troubleshooting](https://edgemodders.ai/wiki/rednode/troubleshooting.html) |
+| The game won't start after a game update | A framework probably needs updating for the new game version. Press **Update the frameworks** on the EDGEdeck page, then deploy. See [After a game update](https://edgemodders.ai/wiki/edgedeck/frameworks.html#after-a-game-update) |
+| The game won't start, or crashes, after adding mods | Follow [Finding the mod that breaks the game](https://edgemodders.ai/wiki/edgedeck/troubleshooting.html#finding-the-mod-that-breaks-the-game) below |
 
-### No conflicts inside archives
+### Finding the mod that breaks the game
 
-Those need REDbridge. Look at the EDGEdeck page's footer:
-
-- A **green dot** and a REDbridge version: it's running. If you still see no archive conflicts, you may simply have none.
-- A **Get REDbridge** button: click it. REDbridge also needs the .NET 10 runtime, which Get REDbridge installs for your user account.
-
-### A mod says "changed in game folder" or "changed, deploy again"
-
-Something outside EDGEdeck changed or replaced its files, usually a Steam **Verify integrity of game files** or a game update. Deploy. EDGEdeck asks about each changed file whether to keep the change or put the mod's file back. See [Deploying and undo](https://edgemodders.ai/wiki/edgedeck/deploying.html#changes-made-outside-edgedeck).
-
-### "Premium only" when updating
-
-Nexus gives direct downloads to Premium members only. EDGEdeck opens the file's Nexus page instead; press **Mod manager download** there and the file arrives through the download link. See [Nexus Mods](https://edgemodders.ai/wiki/edgedeck/nexus.html#premium-and-free-accounts).
-
-### Mod manager download on Nexus opens Vortex, not EDGEdeck
-
-Vortex takes the download links back every time it starts. Use **Nexus: handle download links (nxm)**, or the row that reappears in the Set up group.
-
-### What did my last deploy change?
-
-Every deploy writes a report: each mod's files added, replaced or removed, with their paths in the game folder. **View** on the deploy message opens it. Earlier reports, the newest 30, are in the `deploys` folder of your library (**Open library folder** in the Mods view's `...` menu). For what the *next* deploy will do, use **Show pending changes**. See [Deploying and undo](https://edgemodders.ai/wiki/edgedeck/deploying.html#deploy-reports).
-
-### An archive mod is on but doesn't load
-
-Check that it says `deployed`. Archives load in the order of `modlist.txt`, which EDGEdeck rewrites whenever the archives that are on change. If your library is from before EDGEdeck 0.26.1, the file may be out of date: it shows as one change waiting, and the next deploy fixes it. If it's deployed and still loses, look for a [conflict](https://edgemodders.ai/wiki/edgedeck/conflicts.html) inside archives.
-
-### Deploy copies files instead of using hardlinks
-
-Your library is on a different drive from the game. Hardlinks only work on the same drive. Put the library on the game's drive: set `edgedeck.libraryPath` to a folder there (the next version's **Move library...** does it for you). See [Library, disk space and loadouts](https://edgemodders.ai/wiki/edgedeck/library.html#moving-the-library).
-
-### REDmod mods are deployed but don't load
-
-REDmod mods load only when the game starts with `-modded`. Start it with **Run game** in EDGEdeck, which adds it, or add `-modded` to the game's launch options in Steam, GOG or Epic.
-
-### The game won't start after a game update
-
-A framework probably needs updating for the new game version. Check the Frameworks group's header and update what it names. See [Frameworks and game patches](https://edgemodders.ai/wiki/edgedeck/frameworks.html#after-a-game-update).
-
-### The game won't start, or crashes, after adding mods
-
-1. Press **Undo deploy** and start the game. If it works, a mod is the cause.
-2. Keep your full setup safe: **Save as new loadout...** under a name like "testing", then **Switch loadout...** to it. Your changes from now on go into "testing", and your usual loadout stays as it was.
-3. Turn half your mods off and deploy. Start the game. Keep halving until you find the mod. Leave the frameworks on: other mods need them.
+1. Press **Undo deploy** and start the game. If it works now, a mod is the cause. If it still fails, the cause is elsewhere: verify the game's files in Steam, GOG or Epic.
+2. Keep your full setup safe: choose **Save as new loadout...** and name it "testing", then **Switch loadout...** to it. Your changes from now on go into "testing", and your usual [loadout](https://edgemodders.ai/wiki/edgedeck/loadouts.html) stays as it was.
+3. Turn half your mods off and deploy. Start the game. If it works, the culprit is in the half you turned off; if not, in the half still on. Keep halving until you find the mod. Leave the frameworks on: other mods need them.
 4. Check that mod's Nexus page for its requirements: a framework it needs may be missing or out of date.
-5. When you're done, **Switch loadout...** back to your usual loadout and deploy. See [Loadouts](https://edgemodders.ai/wiki/edgedeck/library.html#loadouts).
+5. When you're done, **Switch loadout...** back to your usual loadout and deploy.
 
-### Something else
+## Assistants
 
-Ask on [Discord](https://discord.gg/63qP3Erw43) with your log's first lines, or [open an issue](https://github.com/Edgemodders/EDGEdeck/issues) on EDGEdeck's repo.
+| You see | Do this |
+|---|---|
+| Claude Code can't see EDGEdeck's tools | With EDGEchat: run `/edge:setup`, which checks each connection and says what to do. See [EDGEchat's troubleshooting](https://edgemodders.ai/wiki/edgechat/troubleshooting.html). Without it: see [Connect an assistant](https://edgemodders.ai/wiki/edgedeck/assistants.html#connect-an-assistant) |
+| Every EDGEdeck tool shows twice | EDGEdeck is connected twice, by EDGEchat and by hand. Run `/edge:setup`: it names the copy added by hand and explains how to remove it |
+| The assistant sees no mods, but you have some | It opened another library. In EDGEchat's settings, fill in **EDGEdeck library** with your library folder, then restart Claude Code. See [EDGEchat's settings](https://edgemodders.ai/wiki/edgechat/install.html#step-3-fill-in-the-settings) |
+| "node" or "npx" isn't found | Install [Node.js](https://nodejs.org/) 20 or newer |
+
+## Anything else
+
+Open the log: choose **Show log** in the Mods view's **`...`** menu, or the editor's **View**, **Output**, then pick **EDGEdeck** in the dropdown. The first lines say where the library and the game are and how the game was found. Errors are marked `Error:`.
+
+Still stuck? Ask on [Discord](https://discord.gg/63qP3Erw43) or [open an issue](https://github.com/Edgemodders/EDGEdeck/issues). Say which EDGEdeck version you have, and paste the log's first lines.

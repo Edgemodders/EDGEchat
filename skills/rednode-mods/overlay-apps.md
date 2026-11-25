@@ -1,4 +1,4 @@
-<!-- Copied from REDnode's docs/overlay-apps.md at v0.50.2 21d156b 2026-11-01 by tools/sync-docs.mjs. Do not edit here: change it in REDnode. -->
+<!-- Copied from REDnode's docs/overlay-apps.md at v0.70.0 ad118f7 2026-11-25 by tools/sync-docs.mjs. Do not edit here: change it in REDnode. -->
 
 # Overlay apps
 
@@ -14,7 +14,7 @@ Status: **developer preview.** See the [overlay design](https://edgemodders.gith
 | REDnode plugin (inside the game) | Draws your window, moves it when dragged, and sends you mouse and keyboard input |
 | Bridge | Runs your game calls on the game thread and returns the answer as a promise |
 
-In the game, **F10** cycles three modes: passive (your window is drawn, the game gets input), interactive (your window gets input) and hidden. **Esc**, or a click on empty screen, returns input to the game.
+In the game, **F10** cycles three modes: passive (your window is drawn, the game gets input), interactive (your window gets input) and hidden. **Esc**, or a click on empty screen, returns input to the game. A key the player gives an app shows only that app with the cursor, and hides it again ([An app's key](#an-apps-key)).
 
 > **Careful with F9.** It sits right beside F10 and is the game's Quick Load: pressed by mistake, it loads the last save, and what the player did since is lost. The Welcome window warns players too.
 
@@ -98,6 +98,11 @@ The [UI kit](https://github.com/Edgemodders/REDnode/tree/main/packages/ui) turns
         <rn-toggle label="Freeze time" checked></rn-toggle>
         <rn-slider id="rain" label="Rain" min="0" max="100" value="35" unit="%"></rn-slider>
         <rn-input id="name" label="Call sign" placeholder="Type here"></rn-input>
+        <rn-select id="district" label="District" value="kabuki">
+          <rn-option value="little-china">Little China</rn-option>
+          <rn-option value="kabuki">Kabuki</rn-option>
+          <rn-option value="north-oak" disabled>North Oak</rn-option>
+        </rn-select>
         <rn-progress id="progress" label="Upload" value="35"></rn-progress>
       </rn-panel>
     </rn-tab>
@@ -305,6 +310,7 @@ Import the `rednode` package, the same one Node mods use. An import map lets the
 | Call | What it does |
 |---|---|
 | `game.player.position()` | V's world position. Rejects at the main menu, where there is no player |
+| `game.player.body()` | V's body from character creation, `"wa"` or `"ma"`, the letters the game's file names use (REDnode 0.70.0, #47) |
 | `game.player.addItem(id, count?)`, `game.player.removeItem(id, count?)` | Puts items in V's inventory, or takes them out, by TweakDB id: `addItem("Items.Pants_01_basic_01")`. `addItem` rejects an id with no record (REDnode 0.42.0) |
 | `game.audio.play(name)` | Plays a game sound event |
 | `game.on(name, handler)` | A game event: `"PlayerPuppet.OnGameAttached"` (at the main menu and on every save load), `"language"` (the player changed the game's language), and the `quests.fact:<name>` events that [`quests.watch`](https://edgemodders.github.io/REDnode/quests.html) uses |
@@ -398,14 +404,19 @@ game.on('PlayerPuppet.OnGameAttached', () => console.log('A save was loaded'));
 | Node | Makes |
 |---|---|
 | `ui.text(text, { tone })`, `ui.heading(text)` | Text. `tone` is `dim`, `accent` or `danger` |
-| `ui.button(label, onClick, { variant, sound })` | A button. `variant` is `ghost` or `danger` |
-| `ui.toggle(label, onChange, { checked })` | An on and off switch |
-| `ui.slider(label, onChange, { min, max, step, value, unit })` | A slider |
+| `ui.button(label, onClick, { variant, sound, tip })` | A button. `variant` is `ghost` or `danger` |
+| `ui.toggle(label, onChange, { checked, tip })` | An on and off switch |
+| `ui.slider(label, onChange, { min, max, step, value, unit, live })` | A slider. `onChange` gets the value when the player lets go; with `live: true` also while they drag, about 20 times a second (REDnode 0.55.2) |
 | `ui.input({ label, placeholder, value, password, onChange, onSubmit })` | A text field; `password: true` shows dots (0.44.0), for a key you keep with `secrets` |
+| `ui.select(label, options, { value, placeholder, disabled, onChange })` | A dropdown (REDnode 0.68.0): the box shows the chosen option and the list opens below it, or above it near the bottom of the window. `options` are strings or `{ value, label, disabled }`. Without `value` the first option is chosen, unless there is a `placeholder`. `onChange` gets the value the player picks. `set({ options, value })` changes them from the mod |
 | `ui.progress(value, { label, max })` | A progress bar |
 | `ui.list({ lines, keep, height, follow })` | A list of lines that scrolls on its own, for a log or a live feed. `push(...lines)` adds at the bottom (only the new lines travel to the window) and `clear()` empties it. It keeps the newest `keep` lines (500 by default, up to 5,000) and follows the newest one unless the player has scrolled up. Without `height` it fills the space the other nodes leave, at least 160 px; when they leave less, the window scrolls |
+| `tip` on a control | A tooltip (REDnode 0.70.0, [#55](https://github.com/Edgemodders/REDnode/issues/55)) on `ui.button`, `ui.toggle`, `ui.slider`, `ui.input` and `ui.select`, shown when the cursor rests on it, a disabled one too: `ui.button('Generate', run, { tip: 'Make a clip' })`, then `make.set({ disabled: true, tip: 'Generating...' })` while it works. `set({ tip: '' })` clears it. The launcher's **Tooltips** switch turns every tooltip off |
+| `ui.image(src, { width, alt, onClick })` | A picture (0.55.0): a PNG, JPEG, WebP or GIF file, a relative path in the package's folder or a full path in `pkg.dataDir`, a `data:image/` URL, or the picture's bytes (`Buffer`, `Uint8Array`). The height follows the picture; one wider than the window is scaled down, and pictures in a `ui.row` shrink side by side. `set({ src })` shows another picture, or the same file again after the mod wrote over it. A picture that cannot be shown says why in the window and in the Mod log. See the **Image mod** sample |
 | `ui.row(...nodes)`, `ui.column(...nodes)` | Layout |
-| `ui.window({ title, width, height, anchor, x, y, children, onClose })` | Opens the window. The player can drag it in interactive mode, and its position is saved. A saved position applies only while the window keeps the size it was saved with; after a size change it opens at its anchor again |
+| `ui.window({ title, width, height, anchor, x, y, titleButtons, children, onClose })` | Opens the window. The player can drag it in interactive mode, and its position is saved. A saved position applies only while the window keeps the size it was saved with; after a size change it opens at its anchor again |
+| `titleButtons: [{ id, label, icon, on, onClick }]` | Buttons of the mod's own in the title bar (0.57.0), the first next to close. `icon` is one of the UI kit's: `key`, `settings`, `back`, `refresh`, `help`, `info`, `add`, `edit`, `search`, `list`, `home`, `pin`, `reset`, `space`; `label` is its tooltip, or its text without an icon; `on: true` lights it, for a switch. They count toward the three icons beside close, so the window's own actions (roll up, reset position, debug) move into its ⋯ menu |
+| `win.set({ title, titleButtons, children })` | Changes the open window in place (0.57.0): the same place and size, no flicker, so one window can hold several views. Nodes taken out keep their state and can come back. A closed window takes the changes and shows them when it opens again. See the **Views mod** sample |
 
 Every node has `set(props)`, which updates the open window at once.
 
@@ -581,6 +592,12 @@ With `"fill": "screen"` the page covers the whole game view at any aspect ratio,
 
 A `<rn-window draggable>` on such a page moves inside the page: its title bar carries the window over the page, and whatever else the page draws (a tint, a viewport) stays where it is. The place is kept for the page across starts, and the title bar offers **Reset position** once it has moved. Since REDnode 0.50.1; before it, the drag moved the whole page.
 
+Add `resizable` to such a window and it resizes inside the page by the grip in its bottom-right corner, as a resizable overlay window does (REDnode 0.55.1). `min-width` and `min-height` set its smallest size in pixels (320 by 200 when not set), the page's edges its largest. The size is kept for the page with its place, the title bar then offers **Reset position and size**, and the window emits `resize-end` with `{ width, height }`. Give the window a height and let its content fill it (flex), so the content follows the size.
+
+```html
+<rn-window title="Workbench" draggable resizable min-width="760" min-height="420" style="position: absolute; left: 40px; top: 80px; width: 980px; height: 720px">...</rn-window>
+```
+
 ### Frames from another address
 
 A page can show another page in an `<iframe>`: one served from `http://127.0.0.1:<port>`, another site, or a sandboxed frame (`sandbox` without `allow-same-origin`). Chromium runs such a frame in a process of its own, and since REDnode 0.50.0 the overlay passes the mouse, the wheel and keys into it: a press goes to the frame under the cursor (through CSS transforms such as `scale(.8)`, and into frames inside frames), a drag stays with the frame it started in, and keys go to the frame clicked last. The input is real input, so hover, focus, text selection and pointer capture work in the frame as in the window's own page. Nothing changes for a page with no such frame. The **Frame test** sample shows it.
@@ -603,6 +620,30 @@ addEventListener('pointerup', (e) => {
 
 While locked, the cursor stays where the lock began and is hidden, and every mouse movement arrives as `pointermove` (and `mousemove`) on the locked element, with `movementX` and `movementY`. Buttons and the wheel work as usual, the middle button included. The lock ends with `document.exitPointerLock()`, Esc, leaving interactive mode (F10), or the window closing; `pointerlockchange` tells the page each time. Only the window the player is using may take the lock. The [Pointer lock test](https://github.com/Edgemodders/REDnode/tree/main/packages/overlay/apps/pointer-test) sample turns a camera with it.
 
+## Keys and modifiers
+
+Keys reach the focused page as in a browser. Since REDnode 0.52.0:
+
+- **Ctrl, Shift and Alt on the mouse.** Clicks, moves and the wheel carry `ctrlKey`, `shiftKey` and `altKey`, read from Windows at each event, so Ctrl+click, Shift+drag and Alt+click work.
+- **Edit keys reach the page.** Ctrl+Z, Ctrl+Y, Ctrl+Shift+Z, Ctrl+A, Ctrl+C, Ctrl+V and Ctrl+X arrive as `keydown` events. A text field edits as usual; a page with its own undo or its own copy takes the key with `preventDefault()`, and nothing else happens. Before 0.52.0 the overlay ran the editing command itself and the page never heard the key.
+- **Esc for the page.** Esc normally leaves interactive mode, so a page never hears it. A page in the middle of something (a drag, a move, a box select) can ask for Esc with the web's Keyboard Lock API; while it has focus, Esc then comes to it as a key. F10 always leaves interactive mode, so the player is never stuck. A page load gives Esc back.
+
+```js
+async function startMove() {
+  await navigator.keyboard.lock(['Escape']); // Esc now comes to this page
+  moving = true;
+}
+document.addEventListener('keydown', (e) => {
+  if (e.key === 'Escape' && moving) cancelMove();
+});
+function endMove() {
+  moving = false;
+  navigator.keyboard.unlock(); // Esc leaves the overlay again
+}
+```
+
+`lock()` with no list asks for Esc too; other keys reach the page anyway. The [Input test](https://github.com/Edgemodders/REDnode/tree/main/packages/overlay/apps/input-test) sample shows all three.
+
 ## Staying on top and solo mode
 
 REDnode's own windows (the launcher tab, Mod log, Mod Manager, debuggers) live in a **tool layer**, above every package's windows: a full-screen package cannot cover them. A package can ask to join them with `"permissions": ["front"]`; the player allows it in the Mod Manager. The Test timer does this.
@@ -618,6 +659,30 @@ await ui.solo(false);
 ```
 
 Solo ends when the package turns it off, stops or crashes, another package takes it, or the player presses **End** beside the launcher tab, which shows "SOLO" and the package's name. `ui.onSolo` hears every end, so a package can keep its own button in step. The [Layers test](https://github.com/Edgemodders/REDnode/tree/main/packages/overlay/apps/layers-test) sample shows both.
+
+### An app's key
+
+The player can give any app a key: **Key binding…** in its title bar (the key icon, or ⋯), or **Key** in the Mod Manager's details. The key shows only that app, with the cursor and the keyboard; pressed again, it hides the app and gives the game its input back. F10, Esc or a click on empty screen ends that and the overlay is as it was. REDnode refuses keys the game uses (it reads the game's own bindings), so on game 2.5 the choices are F2, F6, F7, F8, F11, F12, the numpad and a few others, alone or with Ctrl or Alt.
+
+The key never changes your app's state, so an editor stays in its edit mode while it is hidden. Your app needs no code for it. To react, for example to end a drag when the player hides the window:
+
+```js
+import { ui } from 'rednode';
+
+ui.onAppKey((shown) => {
+  if (!shown) endDrag();
+});
+```
+
+**A page that fills the screen** (`"fill": "screen"`), such as an editor with its own viewport, is not hidden by its key. Its page stays, with the cursor, so the viewport keeps the mouse: a gizmo still drags, a camera still turns with the right button, and nothing reaches the game. The key hides only the page's `rn-window`s, its panels, and the next press shows them again. The UI kit does it. A page that draws panels of its own, outside `rn-window`s, hides them when `panels` is true (REDnode 0.67.1):
+
+```js
+ui.onAppKey((shown, panels) => {
+  if (panels) toolbar.hidden = !shown;
+});
+```
+
+Every `rn-window` of an app offers Key binding, a full-screen page's inner windows too. `<rn-window no-key>` leaves it out of that window's menu.
 
 ## Editor tools: the editor channel
 
@@ -654,6 +719,48 @@ await rednode('sound.stop', { playingId: played.playingId });             // { o
 | `POST /editor/sound.stop` | `{ playingId }`, or `{}` for every sound the channel started | `{ ok, stopped }` |
 
 An error answers `{ ok: false, reason }`: 401 without the right token, 409 while the game is not linked, 400 for a bad body. The channel listens on 127.0.0.1 only and refuses requests from web pages (any `Origin` header) and under another host name, so call it from the extension's Node side, not from a webview. When the game ends, Windows ends REDnode at once and `editor.json` stays behind: a refused connection, or a `pid` that no longer runs, means no game. Players can turn the channel off with `"editorChannel": "off"` in `%APPDATA%\@rednode\overlay\settings.json`. More calls, such as hot-loading an archive after an in-game Allow, come later.
+
+### Try Live: changing the game from a tool
+
+A tool can also change the game while the player plays, and undo it: EDGEhack's **Try Live** sends a quickhack's records and the player tries it at once, with no packing. REDnode 0.62.0 ([#44](https://github.com/Edgemodders/REDnode/issues/44)). These calls name the tool in `editor`. The first change from a tool opens REDnode's **Editor request** window in the game, with **Allow** and **Deny**, and the call waits for the answer (up to 5 minutes). The answer lasts until REDnode restarts.
+
+```js
+// TweakDB changes, in order: then refresh V's quickhacks and give V the item.
+await rednode('tweakdb.apply', {
+  editor: 'EDGEhack', label: 'Static Skull',
+  ops: [
+    { clone: 'QuickHack.MyMod_StaticSkullHack', base: 'QuickHack.OverheatLvl2Hack' },
+    { set: 'QuickHack.MyMod_StaticSkullHack.priority', value: 3 },
+    { append: 'Items.MyMod_StaticSkullProgram.objectActions', values: ['QuickHack.MyMod_StaticSkullHack'] },
+  ],
+}); // { ok, applied } or { ok: false, applied, failed: { index, reason } }
+await rednode('quickhacks.refresh', { editor: 'EDGEhack' });
+await rednode('player.give', { editor: 'EDGEhack', item: 'Items.MyMod_StaticSkullProgram' });
+// Later: every flat it changed back as it was.
+await rednode('tweakdb.reset', { editor: 'EDGEhack' }); // { ok, restored }
+```
+
+| Call | Body | Answer |
+|---|---|---|
+| `POST /editor/tweakdb.apply` | `{ editor, label?, ops }`. Each op: `{ clone, base }`, `{ create, type }`, `{ set, value, type? }` (values as [`tweakdb.set`](https://edgemodders.github.io/REDnode/tweakdb.html) takes them, text keys too), or `{ append, values }` (adds to a list the values it lacks). Up to 2 MB | `{ ok, applied }`; a failing op stops the batch: `{ ok: false, applied, failed: { index, reason } }`, status 422 |
+| `POST /editor/tweakdb.reset` | `{ editor }` | `{ ok, restored }`: every flat the tool changed, back as it was. Records it made stay until the game closes (TweakDB cannot remove them) |
+| `POST /editor/quickhacks.refresh` | `{ editor }` | `{ ok }`: V's cached quickhack list cleared (the game's own `ChacheQuickHackListCleanup`), so a changed effect applies. A changed RAM cost shows on the next scan without it |
+| `POST /editor/player.give` | `{ editor, item, count? }` | `{ ok }`: the item in V's backpack (1 to 100) |
+
+A tool the player denied gets 403 at once until REDnode restarts. Every tool's changes are undone when REDnode stops. What shows live was settled by EDGEhack's H4.1 spike: a changed number on the next scan, an added effect after a refresh, a renamed item at once, a quickhack made live working.
+
+A tool can also call a package's [service](#calling-other-packages), as another package would: EDGEdir's **Play in game** hands its player package a cue sheet. REDnode 0.70.0 ([#48](https://github.com/Edgemodders/REDnode/issues/48)). Any function the service file exports can be called. The first call from a tool to a package opens the **Editor request** window, which names the tool and the package; the Allow covers that tool and that package only, apart from its Try Live changes, and lasts until REDnode restarts. Inside the function, `service.caller()` is `{ editor: "EDGEdir", name: "editor:EDGEdir" }`.
+
+```js
+const r = await rednode('service.call', { editor: 'EDGEdir', package: 'edgedir-player', call: 'play', args: [cueSheet] });
+// { ok: true, result } or { ok: false, reason }
+```
+
+| Call | Body | Answer |
+|---|---|---|
+| `POST /editor/service.call` | `{ editor, package, call, args? }`: the package's id, the function's name, its arguments as a list. Up to 2 MB | `{ ok: true, result }`. Refused in words: no such package (404), it offers no service (404), the player denied it (403), no such function, the function threw or did not answer in 30 s (422) |
+
+A call waits at most 30 seconds, so a long job answers when it has started, and the tool asks for its state with another call.
 
 ## Calling other packages
 
@@ -700,7 +807,7 @@ await counter.$with({ timeoutMs: 60000 }).add(1);            // a longer timeout
 | What crosses | Plain JSON-like values: numbers, strings, booleans, arrays, plain objects, entity ids. Not game references: each package's references are its own |
 | Errors | What your function throws reaches the caller as an error with your message. A call fails at once when the package is not installed, offers no service, is switched off or crashed, or has no such function, with that reason |
 | Waiting | `connect` and calls wait up to 10 seconds for a package that is starting or hot-reloading. A call times out after 30 seconds; `$with({ timeoutMs })` changes it |
-| Who calls | Inside your function, `service.caller()` is `{ id, name }` of the calling package. Refuse callers you do not want by throwing |
+| Who calls | Inside your function, `service.caller()` is `{ id, name }` of the calling package, `{ assistant }` for an AI assistant, or `{ editor, name: "editor:<tool>" }` for a tool on the player's PC calling through the [editor channel](#editor-tools-the-editor-channel) (0.70.0). Refuse callers you do not want by throwing |
 | Stopping | `$with({ signal })` gives a call an `AbortSignal`. Inside your function, `service.signal()` aborts when the caller gives up or the call times out: pass it on to long work |
 | Events | `service.emit(name, data)` reaches every package that connected to yours, its Node mod and its pages; `$on(name, handler)` hears them |
 | Names | Methods starting with `$` belong to the handle. Call a function with such a name, or one known only at run time, with `$call(name, ...args)` |
@@ -954,12 +1061,17 @@ await world.remove(id);
 // An EDGEbuilder scene, from a file in your package's folder.
 const scene = await world.load('scenes/my_alley.scene.json');
 await world.unload(scene.name);
+
+// A baked scene: its props are in the game's own world already, so load only its people.
+await world.load('scenes/my_alley.scene.json', { kinds: ['npc'], name: 'alley_people' });
+// Or all of it but the people your package spawns itself.
+await world.load('scenes/my_alley.scene.json', { skip: ['joe', 'ann'] });
 ```
 
 | Call | What it does |
 |---|---|
 | `world.spawn(options)` | Spawns an entity from a template (`template`), a TweakDB record (`record`) or a mesh alone (`mesh`, with `meshAppearance` and `scale`), and resolves once it is in the world, with its ID and the entity. A `Character.*` record stands where placed and stays friendly to V (`npc: false` leaves the game's behaviour). `keep: true` keeps it in the save. `components` are attached while it assembles |
-| `world.load(scene)`, `world.unload(name)` | Loads an [EDGEbuilder scene](https://edgemodders.github.io/EDGEbuilder/scene.html) (a `.scene.json` path or the scene itself): its meshes, entities and NPCs; lights are not spawned yet. Unload removes them |
+| `world.load(scene)`, `world.unload(name)` | Loads an [EDGEbuilder scene](https://edgemodders.github.io/EDGEbuilder/scene.html) (a `.scene.json` path or the scene itself): its meshes, entities and NPCs; lights are not spawned yet. Unload removes them. Since REDnode 0.70.0, `kinds` loads only objects of those kinds (`"mesh"`, `"entity"`, `"npc"`, `"light"`) and `skip` leaves out objects by their id in the scene; both land in the answer's `skipped`, as `not in kinds` or `skipped by id`, and an unknown kind is refused |
 | `world.near({ radius, files, uses })` | The entities near V, nearest first, with their class, distance and appearance; `files` adds the files each one uses, `uses` keeps only those that use one of the given files |
 | `world.files(entity)` | The files an entity uses: its template and every resource its components name, as path hashes |
 | `world.spawned()` | This package's spawns, with what each was spawned with |

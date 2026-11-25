@@ -1,5 +1,5 @@
-<!-- Copied from EDGEweb's docs/wiki/rednode/spaces.md at 842dae8 2026-11-01 by tools/sync-docs.mjs. Do not edit here: change it in EDGEweb. -->
-<!-- Live page: https://edgemodders.ai/wiki/rednode/spaces.html (reviewed 2026-10-24) -->
+<!-- Copied from EDGEweb's docs/wiki/rednode/spaces.md at f5d1ce3 2026-11-25 by tools/sync-docs.mjs. Do not edit here: change it in EDGEweb. -->
+<!-- Live page: https://edgemodders.ai/wiki/rednode/spaces.html (reviewed 2026-11-13) -->
 
 # Spaces and layers
 
@@ -7,11 +7,9 @@ With a few HUD widgets and tool windows, the screen fills up fast. Switching pac
 
 | Feature | What it does | Who controls it |
 |---|---|---|
-| **Spaces** | Named sets of windows. Only the current space's windows show | You |
-| **The tool layer** | REDnode's own windows always stay above packages' windows | REDnode, and you for packages you allow |
-| **Solo mode** | One package hides every other package's windows while it works | The package, with your permission |
-
-All three passed in-game tests in October 2026.
+| [**Spaces**](https://edgemodders.ai/wiki/rednode/spaces.html#spaces) | Named sets of windows. Only the current space's windows show | You |
+| [**The tool layer**](https://edgemodders.ai/wiki/rednode/spaces.html#the-tool-layer) | REDnode's own windows always stay above packages' windows | REDnode, and you for packages you allow |
+| [**Solo mode**](https://edgemodders.ai/wiki/rednode/spaces.html#solo-mode) | One package hides every other package's windows while it works | The package, with your permission |
 
 ## Spaces
 
@@ -20,6 +18,25 @@ A space is like a virtual desktop: a named set of windows. You might keep a "Com
 Until you make a second space, nothing changes: everything is in **Main**, and there's no switcher and no extra title-bar button.
 
 (Screenshot on the wiki, "Switching spaces": The launcher tab showing ▾ Combat, with its list of spaces open: Main and Combat with their Ctrl+number.)
+
+### Try it: make a second space
+
+With a save loaded, press **F10** and open the launcher. Switch on **Hello mod** first, so there is a window to watch.
+
+1. In the **Space** row at the bottom of the launcher, press **New**, type `Build` and press **Enter**.
+2. Press **Ctrl+1**.
+3. Press **Ctrl+2**.
+4. Press **Ctrl+1** again. On the Hello mod's title bar, press the space button (next to **✕**, or under **⋯**) and choose **All spaces**.
+5. Press **Ctrl+2**.
+
+| After | You should see |
+|---|---|
+| Step 1 | The Hello mod window is gone: you are in the new, empty space. The launcher tab now shows **▾** and **Build** |
+| Step 2 | You are back in **Main**, and the Hello mod window is back |
+| Step 3 | **Build** again, without the window |
+| Step 5 | The Hello mod window shows in **Build** too |
+
+To undo it all, press **Delete** in the Space row while you are in **Build**.
 
 ### Make, rename and delete spaces
 
@@ -38,7 +55,7 @@ In the launcher, the **Space** row at the bottom shows the current space with th
 | Way | How |
 |---|---|
 | The launcher tab | Once there are two spaces, the tab shows **▾** and the current space. Click it for the list |
-| Keys | **Ctrl+1** to **Ctrl+9** while the overlay is open: the first space is Ctrl+1, and so on |
+| Keys | **Ctrl+1** to **Ctrl+9** in interactive mode (after F10): the first space is Ctrl+1, and so on |
 
 ### Put windows in a space
 
@@ -50,7 +67,7 @@ A window that opens for the first time joins the space you're in. To move it:
 | A whole package | In the [Mod Manager](https://edgemodders.ai/wiki/rednode/mod-manager.html), select it and press one of the space buttons in its details, or **All** |
 | See where things are | The Mod Manager's **Space** column |
 
-A window's own choice beats its package's. REDnode's own windows (the launcher, Mod log, Mod Manager, debuggers) show in every space.
+If you moved one window with its own title-bar button, it stays where you put it, even when you later move its whole package. REDnode's own windows (the launcher, Mod log, Mod Manager, debuggers) show in every space.
 
 ### Spaces and Pin to HUD
 
@@ -62,16 +79,18 @@ REDnode keeps its windows in two layers:
 
 | Layer | Holds |
 |---|---|
-| **Tool layer** (on top) | The launcher, the Mod log, the Mod Manager, debuggers, and packages you allow to stay above others, such as the Test timer and the Admin Tools pack's apps |
+| **Tool layer** (on top) | The launcher, the Mod log, the Mod Manager, debuggers, and packages you allow to stay above others, such as the Test timer and the [Admin Tools](https://edgemodders.ai/wiki/rednode/admin-tools.html) pack's apps |
 | **Package layer** | Every other package's windows and widgets |
 
 Clicking a window brings it to the front of its own layer only. So a package that covers the whole screen, such as an editor's viewport, can never hide the launcher: you can always reach REDnode's controls.
 
-A package can ask to join the tool layer with the permission "staying above other packages' windows". Allow it in the Mod Manager. The Test timer sample asks for it, so its buttons stay reachable during tests.
+A package can ask to join the tool layer. The launcher and the Mod Manager show the request as "Asks for staying above other packages' windows": switch **Allowed** on to grant it. See [Permissions](https://edgemodders.ai/wiki/rednode/mod-manager.html#permissions). The Test timer sample asks for it, so its buttons stay reachable during tests.
 
 ## Solo mode
 
-Some packages need the screen to themselves for a while, for example a world editor while you place objects. With your permission, such a package can switch on **solo mode**: every other package's windows and HUD widgets hide until it ends. Tool-layer windows stay.
+Some packages need the screen to themselves for a while, for example a world editor while you place objects. Such a package can switch on **solo mode**: every other package's windows and HUD widgets hide until it ends. Tool-layer windows stay.
+
+A package needs your permission for this. It shows as "Asks for hiding every other package's windows while it asks (solo mode)"; allow it in the Mod Manager, under [Permissions](https://edgemodders.ai/wiki/rednode/mod-manager.html#permissions). A package that doesn't get it still runs, just without solo mode.
 
 While solo mode is on, the launcher tab shows **SOLO**, the package's name and **End**.
 
@@ -85,6 +104,4 @@ Solo mode ends when:
 - you withdraw the permission in the Mod Manager;
 - you press **End** beside the launcher tab.
 
-Everything that was hidden comes back. Solo mode beats spaces while it lasts.
-
-The permission is called "hiding every other package's windows while it asks (solo mode)". A package that doesn't get it still runs, just without solo mode.
+Everything that was hidden comes back. While solo mode is on, the other packages' windows stay hidden in every space.

@@ -1,9 +1,9 @@
-<!-- Copied from EDGEweb's docs/wiki/contribute.md at 842dae8 2026-11-01 by tools/sync-docs.mjs. Do not edit here: change it in EDGEweb. -->
-<!-- Live page: https://edgemodders.ai/wiki/contribute.html (reviewed 2026-10-24) -->
+<!-- Copied from EDGEweb's docs/wiki/contribute.md at f5d1ce3 2026-11-25 by tools/sync-docs.mjs. Do not edit here: change it in EDGEweb. -->
+<!-- Live page: https://edgemodders.ai/wiki/contribute.html (reviewed 2026-11-13) -->
 
 # Contribute to the wiki
 
-The wiki is curated so it stays accurate: pages are checked against each tool's docs before they go up. You don't have to write a page to help.
+The wiki is curated so it stays accurate. Claude sessions write the pages and check them against each tool's own docs, and the site's owner reviews them before they go up. You don't have to write a page to help.
 
 | You have | Do this |
 |---|---|
@@ -28,8 +28,10 @@ nav_title: Switch from Vortex
 section: EDGEdeck
 order: 2
 description: "One sentence for search results."
-reviewed: 2026-10-13
+reviewed: 2026-11-13
 ---
 ```
 
-`section` is the sidebar group, one of: Start here, REDagent, REDnode, REDcode, EDGEdeck, REDbridge, EDGEbuilder, EDGEwave, EDGEmat, EDGEkit. `order` sorts pages within it.
+Put `description` in quotes, and any other value that contains a colon followed by a space. Without the quotes the page breaks and drops out of the sidebar.
+
+`section` is the sidebar group, one of: Start here, REDagent, EDGEchat, REDnode, REDcode, EDGEdeck, REDbridge, EDGEbuilder, EDGEwave, EDGEmat, EDGEfab, EDGEquest, EDGEhack, EDGEdir, EDGEkit. `order` sorts pages within it. `reviewed` is the date the page was last checked against the tool's docs.

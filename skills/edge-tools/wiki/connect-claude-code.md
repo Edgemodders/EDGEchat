@@ -1,36 +1,57 @@
-<!-- Copied from EDGEweb's docs/wiki/connect-claude-code.md at 842dae8 2026-11-01 by tools/sync-docs.mjs. Do not edit here: change it in EDGEweb. -->
-<!-- Live page: https://edgemodders.ai/wiki/connect-claude-code.html (reviewed 2026-10-26) -->
+<!-- Copied from EDGEweb's docs/wiki/connect-claude-code.md at f5d1ce3 2026-11-25 by tools/sync-docs.mjs. Do not edit here: change it in EDGEweb. -->
+<!-- Live page: https://edgemodders.ai/wiki/connect-claude-code.html (reviewed 2026-11-25) -->
 
 # Connect Claude Code
 
-REDagent is the agent inside the game. On your desktop, [Claude Code](https://claude.com/claude-code) can use the same kind of tools through MCP, the Model Context Protocol. Four EDGE tools offer an MCP server. Each one adds different powers.
+[Claude Code](https://claude.com/claude-code) is Anthropic's AI assistant for your desktop: a chat panel in VS Code or EDGEkit, or in a terminal, that can read files and do work for you. It needs a Claude plan that includes it. Connected to the EDGE tools, it can read the game's files, manage your mods and reach the running game. (The assistant inside the game is a different one: [REDagent](https://edgemodders.ai/wiki/redagent/).)
 
-| MCP server | From | Gives the agent | Setup |
+Each connection is what Claude Code calls an [MCP server](https://edgemodders.ai/wiki/glossary.html#mcp-server): a small program that offers one tool's abilities to an assistant.
+
+## The easy way: EDGEchat
+
+**Most people should install [EDGEchat](https://edgemodders.ai/wiki/edgechat/)**, the EDGE plugin for Claude Code. One install connects four tools, adds modding knowledge and gives you commands such as `/edge:new-mod`. Its command `/edge:setup` checks every connection and gives the next step for anything missing.
+
+Go to [Install and connect](https://edgemodders.ai/wiki/edgechat/install.html). It has every step, with what you need and which versions. [EDGEkit](https://edgemodders.ai/wiki/edgekit/first-session.html#claude-code-and-edgechat) offers the install in one click.
+
+## What connects, and how
+
+Eight EDGE tools offer a connection. EDGEchat sets up four of them. The other four you add by hand today, and they work beside EDGEchat.
+
+| Tool | Gives Claude | With EDGEchat | By hand |
 |---|---|---|---|
-| REDnode kernel | REDnode | Mod logs, overlay windows (text, image and console), pictures of the game's screen, game types, TweakDB reads, live calls into the running game, archive swaps into the running game, quest facts and journal entries, things in the world (what is near V, spawns, EDGEbuilder scenes), and the tools your installed REDnode mods offer | [REDnode wiki: AI agents](https://edgemodders.ai/wiki/rednode/agents.html) |
-| `redcode-mcp` | REDcode | The game's archives, game files as JSON, textures, hashes, node-by-node file editing, TweakDB, game sounds, pack, export and import (through REDbridge) | [REDcode wiki: assistants](https://edgemodders.ai/wiki/redcode/assistants.html) |
-| EDGEdeck | EDGEdeck | The mod library: list, add, turn on or off, reorder, remove, deploy, undo, conflicts, loadouts, Vortex import | [EDGEdeck guide, section 13](https://edgemodders.github.io/EDGEdeck/guide.html) |
-| `edgemat` | EDGEmat (preview) | A garment's materials from its in-game name, its layers in plain words, recolors saved into your project, new materials from words or an image | [EDGEmat wiki: assistants](https://edgemodders.ai/wiki/edgemat/assistants.html) |
+| [REDnode](https://edgemodders.ai/wiki/rednode/) | The running game: mod logs, REDnode's windows, pictures of the game's screen, reading and calling the game, swapping a changed mod in, quest facts, things in the world, and the tools your installed REDnode mods offer | Included | [Agents and MCP](https://edgemodders.ai/wiki/rednode/agents.html#connect-claude-code) |
+| [REDcode](https://edgemodders.ai/wiki/redcode/) | The game's files: browse and search the archives, read and change game files, textures, TweakDB, game sounds, pack, export and import; make and edit animations, read lip sync, and find and change a sector's nodes with your sector scripts. It works through REDbridge | Included | [Assistants and MCP](https://edgemodders.ai/wiki/redcode/assistants.html#connect-it-by-hand) |
+| [EDGEdeck](https://edgemodders.ai/wiki/edgedeck/) | Your mods: list, add, turn on or off, reorder, remove, deploy, undo, conflicts, loadouts, Vortex import | Included | [Assistants and the command line](https://edgemodders.ai/wiki/edgedeck/assistants.html#connect-an-assistant) |
+| [EDGEmat](https://edgemodders.ai/wiki/edgemat/) | Materials: a garment's materials from its in-game name, its layers in plain words, recolors saved into your project, new materials from words or an image | Included | [Assistants](https://edgemodders.ai/wiki/edgemat/assistants.html#connect-claude-code) |
+| [EDGEfab](https://edgemodders.ai/wiki/edgefab/) | Props: draw an object from your words, make it 3D, size it, make it glow, and put it into your project or the EDGE Library | Not yet | [Assistants](https://edgemodders.ai/wiki/edgefab/assistants.html#connect-claude-code) |
+| [EDGEquest](https://edgemodders.ai/wiki/edgequest/) | Quests: read the game's quests, write and check a quest | Not yet | [For assistants](https://edgemodders.ai/wiki/edgequest/assistants.html#connect-it) |
+| [EDGEhack](https://edgemodders.ai/wiki/edgehack/) | Quickhacks: find, make, change and pack them | Not yet | [Assistants](https://edgemodders.ai/wiki/edgehack/assistants.html#connect-claude-code) |
+| [EDGEwave](https://edgemodders.ai/wiki/edgewave/) | Sound: search sound events, make a sound into a new event, voice lines | Not yet | [Assistants](https://edgemodders.ai/wiki/edgewave/assistants.html#connect-claude-code) |
 
-## The easy way: the EDGE plugin for Claude Code
+> **Connect each tool one way only.** If you have EDGEchat, don't also add REDnode, REDcode, EDGEdeck or EDGEmat by hand: Claude would see every one of that tool's abilities twice. If that has happened, run `/edge:setup`. It finds the copies you added by hand and explains how to remove them.
 
-**EDGEchat**, the EDGE plugin for Claude Code, sets up all four servers in one install, plus modding skills and commands such as `/edge:new-mod`. It is a **preview (0.0.x), not released yet**, and its servers need Windows. In Claude Code:
+## Connecting by hand
 
-```
-/plugin marketplace add Edgemodders/EDGEchat
-/plugin install edge@edgemodders
-```
+Use this for EDGEfab, EDGEquest, EDGEhack and EDGEwave, or for any tool if you don't want the plugin. Each tool's own page, linked in the table above, has the full steps, what the connection needs and what you should see. In short:
 
-Then run `/edge:setup`: it checks each server and says what is missing. The plugin asks for a few optional settings, such as REDnode's token: in REDnode's Settings drawer press **Copy setup**, and paste only the token, the text after `Bearer `, not the whole command. (REDnode 0.40.1 can also connect with no token, by allowing it in the game, step 1 below; the plugin still uses the token for now.) If you added a server by hand before, remove that copy; `/edge:setup` explains how. Details are in [EDGEchat's docs](https://edgemodders.github.io/EDGEchat/).
+| Tool | What you do |
+|---|---|
+| REDnode | In the game, press **F10**, open the Settings drawer (the gear at the right of the **Theme** row) and switch **MCP server** on. In a terminal, run `claude mcp add --transport http --scope user rednode http://127.0.0.1:41820/mcp` once. Then sign in, as below |
+| REDcode | In a terminal, run `claude mcp add redcode -- npx -y @edgemodders/redcode-mcp` once. If that fails on Windows, the REDcode page has a longer command to use instead |
+| EDGEdeck | In the editor, press **Ctrl+Shift+P** and run **EDGEdeck: Connect an assistant (MCP)...**. Choose **Copy the Claude Code command** and paste it into a terminal once |
+| EDGEmat | In EDGEmat's **Game Materials** view, press **`...`** and choose **Connect an Assistant (MCP)...**, then **Connect Claude Code** |
+| EDGEfab | Press **Ctrl+Shift+P** and run **EDGEfab: Connect an Assistant (MCP)...**, then choose **Connect Claude Code**. For pictures and models from words, its server reads your keys from REDcode's Keys, so none goes in its settings: [Keys for the server](https://edgemodders.ai/wiki/edgefab/assistants.html#keys-for-the-server) |
+| EDGEquest | In a terminal, run `claude mcp add edgequest -- npx -y @edgemodders/edgequest-mcp` once |
+| EDGEhack | In EDGEhack's **Desk** view, press **`...`** and choose **Connect an Assistant (MCP)...**, then **Connect Claude Code** |
+| EDGEwave | Press **Ctrl+Shift+P** and run **EDGEwave: Connect an Assistant (MCP)...**, then choose **Connect Claude Code** |
 
-## In short, one server at a time
+After adding a connection, start a **new** Claude Code session. A session that was already open doesn't see the new tools.
 
-1. **REDnode:** in the game, press **F10** to open the REDnode launcher. On the **REDNODE** tab, press the gear at the right of the **Theme** row to open the Settings drawer, and switch **MCP server** on. Then run `claude mcp add --transport http --scope user rednode http://127.0.0.1:41820/mcp` in a terminal once. In Claude Code, `/mcp` › `rednode` › **Authenticate**: the game shows a **Connect** window with the code your browser shows; press **F10**, then **Allow**. No token to copy (REDnode 0.40.1 or later; before that, press **Copy setup** and run the copied command). See [REDnode wiki: AI agents](https://edgemodders.ai/wiki/rednode/agents.html#connect-claude-code).
-2. **REDcode:** run `claude mcp add redcode -- npx -y @edgemodders/redcode-mcp` in a terminal once. It needs Node 20 or later, the .NET 10 runtime and REDbridge (0.10.0 or later for every tool; REDcode's **Install REDbridge** fetches it). The [REDcode assistants page](https://edgemodders.ai/wiki/redcode/assistants.html) has the details, including the form Windows sometimes needs.
-3. **EDGEdeck:** in VS Code, run **EDGEdeck: Connect an assistant (MCP)...** from the command palette, pick "Copy the Claude Code command" and run it in a terminal once. Agents inside VS Code 1.101 and later see EDGEdeck's tools with no setup.
-4. **EDGEmat:** in VS Code, EDGEmat's Library view › **`...`** › **Connect an Assistant (MCP)...** › **Connect Claude Code**. The server comes with the extension. Details on the [EDGEmat assistants page](https://edgemodders.ai/wiki/edgemat/assistants.html).
+**Signing in to the game.** REDnode has no password to copy. Instead you approve Claude once, from inside the game. In Claude Code, type `/mcp`, pick `rednode` and choose **Authenticate**. Your browser shows a code, and the game shows a **Connect** window with a code. Press **F10** so you can click, check that the two codes match, so you know it is your Claude asking, and press **Allow**. It lasts across game restarts. **Revoke** under **Connected assistants** in REDnode's Settings drawer takes it back.
 
-Then start Claude Code and ask, for example:
+## Try it
+
+Start Claude Code and ask, for example:
 
 > What errors are in my mod log?
 
@@ -38,9 +59,11 @@ Then start Claude Code and ask, for example:
 
 > Turn off every mod that conflicts with my weapon pack, then deploy.
 
+Claude reads without asking. Before the deploy in the last one, it stops and asks you. For walkthroughs, see [Your first mod, no code](https://edgemodders.ai/wiki/edgechat/first-mod.html) and [Recolor a jacket](https://edgemodders.ai/wiki/edgechat/recolor.html).
+
 ## Good to know
 
-- Calls that could change the running game or the game folder ask you first, every time: REDnode's `api_call` and `archives_reload`, and EDGEdeck's deploy, undo and remove, among others. Reads of the game don't ask.
-- REDnode's tools work while the game runs with REDnode in it: game version 2.5 with REDnode 0.38.1 or later, or 2.31 with REDnode 0.37.0.
-- Each server's docs page is the reference for its tools and settings. This page only shows you where to start.
-- The tools never ship an API key. Claude Code uses your own account.
+- **What asks first.** The EDGE tools ask you before every action that changes the running game, your save or the game folder, such as a change to V, an archive swap, or EDGEdeck's deploy, undo and remove. Reading doesn't ask. [EDGEchat: Safety](https://edgemodders.ai/wiki/edgechat/safety.html) has the whole list.
+- **The game must be running** for REDnode's tools, with REDnode in it. The other tools work with the game closed.
+- **Versions.** EDGEchat's [What you need](https://edgemodders.ai/wiki/edgechat/install.html#what-you-need) lists the versions for the four tools it connects. Each by-hand page lists its own.
+- **No key comes with the tools.** Claude Code uses your own Claude account.
