@@ -19,7 +19,7 @@ Last updated 2026-11-25.
 | [edgemat server](#edgemat-server) | By hand, over stdio | P1 | 2026-10-23 | Pass |
 | [0.2.0 servers, every option empty](#020-servers-every-option-empty) | By hand, over stdio | P5 | 2026-11-25 | Pass: all six stdio servers start and answer a read; `mesh_items` finds outfit sets, `cr2w_search` reads material buffers |
 | [0.2.0 in a session](#020-in-a-session) | By hand, in a session | P5 | - | Not run |
-| [continue in the game](#continue-in-the-game) | By hand, in the game and a session | P5 | - | Not run: needs REDagent 0.4.5 |
+| [continue in the game](#continue-in-the-game) | By hand, in the game and a session | P5 | 2026-11-25 | Pass: all six steps (REDagent 0.4.6, REDnode 0.73.1, the plugin from the checkout) |
 | [rednode with no token](#rednode-with-no-token) | CLI, game running | P1 | 2026-10-16 | Seen: HTTP 401 |
 | [OAuth sign-in for a plugin server](#oauth-sign-in-for-a-plugin-server) | CLI, scratch config; then in the game | P4 | 2026-10-26 | Seen with a stand-in; against REDnode 0.40.1 in game: pass |
 | [Plugin sign-in in VS Code](#plugin-sign-in-in-vs-code) | By hand, in a session | P4 | 2026-10-26 | Pass |
@@ -213,16 +213,18 @@ Not run yet. The plugin from `main` (0.2.0) in VS Code, the game at a loaded sav
 
 ### continue in the game
 
-Not run yet: needs REDagent 0.4.5 (on REDagent's `main`, not released). REDagent's design, "C6a test":
+REDagent's design, "C6a test". Needs REDagent 0.4.5 or newer.
 
-| Step | Do | Expect |
-|---|---|---|
-| 1 | In REDagent, ask: "Make a small mod that shows V's money in a window." Allow its changes | The mod's window shows |
-| 2 | Press **VS Code** | A note in the chat: handed over, `/edge:continue` copied, and the file's path |
-| 3 | In Claude Code with EDGEchat 0.2.0, paste `/edge:continue` and send it | Claude names the chat, the mod and its files, reads the files, checks the mod with `apps` and `logs` |
-| 4 | "Make the money text red" | It changes the mod's files; the window in the game turns red after hot reload |
-| 5 | Open the handoff file | No key in it |
-| 6 | `/edge:continue` with no handoff folder (another PC, or the folder renamed) | It says to press **VS Code** in REDagent first |
+| Step | Do | Expect | 2026-11-25 |
+|---|---|---|---|
+| 1 | In REDagent, ask: "Make a small mod that shows V's money in a window." Allow its changes | The mod's window shows | Pass: `money-window` in `EDGEmat\apps`, the window showed V's eddies |
+| 2 | Press **VS Code** | A note in the chat: handed over, `/edge:continue` copied, and the file's path | Pass: `handoffs\1795649669876.md`, format 1 |
+| 3 | In Claude Code with EDGEchat 0.2.0, paste `/edge:continue` and send it | Claude names the chat, the mod and its files, reads the files, checks the mod with `apps` and `logs` | Pass |
+| 4 | "Make the money text red" | It changes the mod's files; the window in the game turns red after hot reload | Pass |
+| 5 | Open the handoff file | No key in it | Pass: 3.5 KB, no key or token (also searched from this session) |
+| 6 | `/edge:continue` with no handoff folder (another PC, or the folder renamed) | It says to press **VS Code** in REDagent first | Pass |
+
+Run 2026-11-25 by the owner on the dev PC: game 2.5, REDnode 0.73.1, REDagent 0.4.6, and Claude Code with EDGEchat 0.2.0 from the checkout (`claude --plugin-dir "E:\Modding\Cyberpunk 2077\EDGEchat"`, since the installed plugin was 0.0.15). Result reported by the REDnode session, which records REDagent's side as done (REDagent f422d5b). The mod's `mod.mjs` was last written at 18:38 and now shows the amount in the theme's plain text color, not red: changed again after step 4, not checked.
 
 ### edgedeck server through the wrapper
 
