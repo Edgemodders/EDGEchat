@@ -36,7 +36,7 @@ Last updated 2026-11-25.
 | [rednode-mods in the game](#rednode-mods-in-the-game) | By hand, in a session | P2 | 2026-10-23 | Pass |
 | [Evals: wolvenkit-projects](#evals-wolvenkit-projects) | `claude plugin eval` | P2 | 2026-10-23 | Δ +0.33 |
 | [Evals: edge-tools](#evals-edge-tools) | `claude plugin eval` | P3 | 2026-10-26 | Skill fires 9 of 9; Δ +1.00 |
-| [Evals: the whole suite](#evals-the-whole-suite) | `claude plugin eval` | P2, P3 | 2026-11-02 | 0.1.1: 15 cases, all pass; mean Δ +0.73 |
+| [Evals: the whole suite](#evals-the-whole-suite) | `claude plugin eval` | P2, P3, P5 | 2026-11-25 | 0.2.0: 15 cases, all pass after one rubric caught up with the wiki; mean Δ +0.66 |
 
 A scratch config has no Claude login, so the CLI tests check how the plugin installs and starts its servers, not what Claude does with it. The P1 test on 2026-10-21 was the first run of a skill in a session.
 
@@ -471,6 +471,8 @@ Every case, three runs per arm, judged by Sonnet. The first runs used the defaul
 ```bash
 claude plugin eval . --runs 3 -j 6 --judge-model sonnet --no-publish --trust-plugin
 ```
+
+Run 2026-11-25 at 0.2.0 (on `main`, before the hand tests), after REDnode's guide (0.70.0) and the wiki (EDGEweb f5d1ce3) were copied again and three servers added: 15 cases, 14 pass with the plugin, mean Δ +0.66, $10.59, 5 min 34 s. `edgemat-library` failed 3 of 3, from its rubric, not the plugin: the wiki's `edgemat/library.md` became `game-materials.md` (the view is **Game Materials**, the button **Rebuild Game Materials**, and the folder also holds the Desk, so deleting all of it loses unsaved Desk work), and every answer said so; the rubric still asked for **Rebuild Library** and "deleting the folder is safe". Rubric brought up to the new wiki, the case rerun: **1.00** with, 0.00 without, Δ +1.00. Every case now passes with the plugin. The run warns that the plugin's seven servers have no mocks and are not started: the cases test the skills, not the servers.
 
 Run 2026-11-02 at 0.1.1, before the release, after the wiki was copied again (EDGEweb 842dae8) and the `connect-claude` and `into-the-game` rubrics said which correct answers are not failures: 15 cases, **all pass with the plugin**, mean Δ +0.73, $10.63, 6 min 38 s. `connect-claude` and `into-the-game` 1.00 each (Δ +1.00). As before, `check-mod` and `new-mod` did not fire on plain prompts (`broken-package`, `money-on-screen` pass through the other skills).
 
