@@ -2,12 +2,12 @@
 
 [center][size=5][b][color=#fcee0a]Make Claude a Cyberpunk 2077 modding assistant.[/color][/b][/size][/center]
 
-[center][size=3]EDGEchat is a plugin for Claude Code. In one install it gives Claude skills that know the game's files and frameworks, and connects it to the EDGE tools: the running game through REDnode, the game's files through REDcode, your mod library through EDGEdeck, and materials through EDGEmat. Then ask: "start a new mod", "why doesn't my mod show?", "recolor this jacket".[/size][/center]
+[center][size=3]EDGEchat is a plugin for Claude Code. In one install it gives Claude skills that know the game's files and frameworks, and connects it to the EDGE tools: the running game through REDnode, the game's files through REDcode, your mod library through EDGEdeck, materials through EDGEmat, props through EDGEfab, quickhacks through EDGEhack and quests through EDGEquest. Then ask: "start a new mod", "why doesn't my mod show?", "recolor this jacket".[/size][/center]
 
 [line]
 
 [quote][size=4][b][color=#fcee0a]STATUS: FIRST RELEASE[/color][/b][/size]
-Version 0.1.1. It installs and connects the REDnode, REDcode, EDGEdeck and EDGEmat servers, with four commands and knowledge skills. The servers run on Windows.
+Version 0.2.0. It installs and connects the REDnode, REDcode, EDGEdeck, EDGEmat, EDGEfab, EDGEhack and EDGEquest servers, with five commands and knowledge skills. The servers run on Windows.
 [b]This is a Claude Code plugin, not a game mod.[/b] It never touches your game folder by itself: the tools that change your game or its folder ask you before every call. Do not install it with Vortex.[/quote][img]https://staticdelivery.nexusmods.com/mods/3333/images/35680/35680-1793126454-2071242277.png[/img]
 
 [line]
@@ -26,6 +26,7 @@ EDGEchat is built by [url=https://edgemodders.ai/]EDGEmodders[/url], a modding c
 [*][b]/edge:new-mod[/b] starts a mod with you, even if you do not code: what it should do, the simplest kind of mod for it, a first small version, and a test in the game.[/*]
 [*][b]/edge:check-mod[/b] finds what is wrong with a mod that crashes or does not show, from its files, the logs and your mod list, and says how to fix each thing. It changes nothing.[/*]
 [*][b]/edge:init-project[/b] writes a project's notes for Claude, so the next session knows it.[/*]
+[*][b]/edge:continue[/b] picks up a chat you had with REDagent in the game, from its VS Code button.[/*]
 [/list]
 [b][color=#00ffff][size=4]Build a Mod From a Description![/size][/color][/b]
 
@@ -50,7 +51,10 @@ Modding knowledge, loaded only when a task needs it: REDnode mods and overlay ap
 [*][b]REDnode[/b]: the running game. Mod logs, what is on screen, game types, live calls, swapping archives in without a restart.[/*]
 [*][b]REDcode[/b]: the game's files, without the game running. Search and extract archives, read and edit game files, TweakDB, sounds, localization.[/*]
 [*][b]EDGEdeck[/b]: your mod library. Turn mods on and off, find conflicts, deploy to the game.[/*]
-[*][b]EDGEmat[/b]: materials. Find a garment, recolor its layers, make a material from your words.[/*]
+[*][b]EDGEmat[/b]: materials. Find a garment, recolor or restyle it, make a material from your words.[/*]
+[*][b]EDGEfab[/b]: props. From a 3D model, or from your words through a picture and a 3D model service, ready for the game.[/*]
+[*][b]EDGEhack[/b]: quickhacks. The game's in plain words, new ones of your own, tried live in the game.[/*]
+[*][b]EDGEquest[/b]: quests. The game's in plain words, new ones from a short story you write.[/*]
 [/list]
 Every setting they need sits in the plugin's one form, so there is no server to add by hand.
 
@@ -73,7 +77,7 @@ Or from the download, without GitHub: unzip it somewhere stable, run [b]/plugin 
 [list]
 [*][url=https://code.claude.com/docs/en/overview]Claude Code[/url], with a Claude subscription or an Anthropic API key.[/*]
 [*]For the servers: Windows 10 or 11, 64-bit, and Node.js 20 or later.[/*]
-[*]Only for the tools you use: [url=https://www.nexusmods.com/cyberpunk2077/mods/35419]REDnode[/url] in the game; REDbridge for REDcode and EDGEmat, easiest through [url=https://github.com/Edgemodders/REDcode]REDcode[/url]; [url=https://github.com/Edgemodders/EDGEdeck]EDGEdeck[/url]; [url=https://www.nexusmods.com/cyberpunk2077/mods/35422]EDGEmat[/url]. /edge:setup tells you which are missing.[/*]
+[*]Only for the tools you use: [url=https://www.nexusmods.com/cyberpunk2077/mods/35419]REDnode[/url] in the game; REDbridge for the tools that read the game's files, easiest through [url=https://github.com/Edgemodders/REDcode]REDcode[/url]; [url=https://github.com/Edgemodders/EDGEdeck]EDGEdeck[/url]; [url=https://www.nexusmods.com/cyberpunk2077/mods/35422]EDGEmat[/url]; EDGEfab, EDGEhack and EDGEquest from their pages on [url=https://edgemodders.ai/wiki/]the EDGEmodders wiki[/url]. /edge:setup tells you which are missing.[/*]
 [/list]
 
 [size=5][b][color=#fcee0a]Links[/color][/b][/size]

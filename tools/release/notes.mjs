@@ -2,7 +2,8 @@
 // tools/release/notes.mjs). The release workflow uses it, and stops when the version has no section.
 //
 //   node tools/release/notes.mjs [version]              markdown for the GitHub release, with the install lines
-//   node tools/release/notes.mjs [version] --nexus      plain lines for Nexus's changelog field
+//   node tools/release/notes.mjs [version] --nexus      the section's short Nexus summary (below), for
+//                                                       Nexus's changelog field; stops when there is none
 //   --out <file>                                        writes the notes to a file (UTF-8)
 //
 // The version defaults to the plugin's, in .claude-plugin/plugin.json.
@@ -33,23 +34,54 @@ if (!section.some((line) => line.trim())) {
   process.exit(1);
 }
 
+// The section for GitHub: without its Nexus summary (below).
+const github = [];
+for (let i = 0, inBlock = false; i < section.length; i++) {
+  if (!inBlock && section[i].trim() === "<!-- nexus") inBlock = true;
+  else if (inBlock && section[i].trim() === "-->") inBlock = false;
+  else if (!inBlock) github.push(section[i]);
+}
+
 if (nexus) {
-  // Nexus's changelog takes one plain line per change: no markdown, links as "text (url)".
-  const plain = (text) => text
-    .replace(/\[([^\]]+)\]\(([^)]+)\)/g, "$1 ($2)")
-    .replace(/\*\*([^*]+)\*\*/g, "$1")
-    .replace(/`([^`]+)`/g, "$1");
-  const result = [];
-  let group = "";
-  for (const line of section) {
-    const groupHeading = line.match(/^\*\*(.+)\*\*$/);
-    if (groupHeading) group = groupHeading[1];
-    else if (line.startsWith("- ")) result.push((group ? `${group}: ` : "") + plain(line.slice(2)));
-    else if (line.trim()) result.push(plain(line.trim()));
+  // Nexus shows each line of a version's changelog as one entry, as plain text in a small field,
+  // and its API cannot change one once posted. So the lines are a short summary written by hand in
+  // the section, as REDnode's (EDGEchat#6; EDGErepo's README, "Nexus changelogs"):
+  //
+  //   <!-- nexus
+  //   New: The edgefab, edgehack and edgequest servers: props, quickhacks and quests by chat
+  //   -->
+  //
+  // An HTML comment, so GitHub and the docs site show none of it. Each line starts with New:,
+  // Changed:, Fixed:, Removed:, Other: or Needs:, has no markdown and at most NEXUS_LINE characters;
+  // at most NEXUS_LINES lines. A "Full changelog" line with the link is added at the end.
+  const NEXUS_LINE = 120;
+  const NEXUS_LINES = 12;
+  const open = section.findIndex((line) => line.trim() === "<!-- nexus");
+  const close = open < 0 ? -1 : section.findIndex((line, i) => i > open && line.trim() === "-->");
+  if (open < 0 || close < 0) {
+    console.error(`docs/changelog.md: the section for ${version} has no Nexus summary. Add one under its heading:
+
+<!-- nexus
+New: one short line per change, at most ${NEXUS_LINE} characters
+-->`);
+    process.exit(1);
   }
-  write(result.join("\n"));
+  const summary = section.slice(open + 1, close).map((line) => line.trim()).filter(Boolean);
+  const wrong = [];
+  if (!summary.length) wrong.push("it is empty");
+  if (summary.length > NEXUS_LINES) wrong.push(`${summary.length} lines, at most ${NEXUS_LINES}`);
+  for (const line of summary) {
+    if (!/^(New|Changed|Fixed|Removed|Other|Needs): \S/.test(line)) wrong.push(`"${line}" does not start with New:, Changed:, Fixed:, Removed:, Other: or Needs:`);
+    if (line.length > NEXUS_LINE) wrong.push(`"${line.slice(0, 50)}..." is ${line.length} characters, at most ${NEXUS_LINE}`);
+    if (/`|\*\*|\]\(|^#|^- /.test(line)) wrong.push(`"${line.slice(0, 50)}..." has markdown`);
+  }
+  if (wrong.length) {
+    console.error(`docs/changelog.md: the Nexus summary for ${version}:\n- ${wrong.join("\n- ")}`);
+    process.exit(1);
+  }
+  write([...summary, `Full changelog: ${Docs}changelog.html`].join("\n"));
 } else {
-  write(`${section.join("\n").trim()}
+  write(`${github.join("\n").trim()}
 
 **Install:** EDGEkit 1.140.2 or newer offers it in one click. In VS Code, type \`/plugins\` in the Claude Code panel, add \`Edgemodders/EDGEchat\` in the **Marketplaces** tab, then **Install** \`edge\` in the **Plugins** tab. From a terminal prompt:
 

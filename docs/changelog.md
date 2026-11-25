@@ -4,13 +4,39 @@ title: Changelog
 
 # Changelog
 
-What changed in each EDGEchat release, newest first. The release workflow takes a release's notes from its section here (`tools/release/notes.mjs`), for GitHub and for the Nexus page's changelog.
+What changed in each EDGEchat release, newest first. The release workflow takes a release's notes from its section here (`tools/release/notes.mjs`): the section for GitHub, and its short Nexus summary for the Nexus page's changelog.
 
 With each change a user would notice, add a line under **Unreleased** in the same commit, grouped **New**, **Changed**, **Fixed**, **Other**. Before a release, rename **Unreleased** to `## <version> (<date>)` (the version in `.claude-plugin/plugin.json`) and start a new empty one.
 
+With the rename, write the section's **Nexus summary** under its heading: an HTML comment that starts `<!-- nexus` and ends `-->`, which GitHub and this site hide. One short plain line per change a user would notice, each starting `New:`, `Changed:`, `Fixed:`, `Removed:`, `Other:` or `Needs:`, at most 120 characters, no markdown, at most 12 lines; the notes script adds the `Full changelog` link. `node tools/release/notes.mjs --nexus` prints it, or says what is wrong with it. Nexus cannot change a changelog once posted.
+
 ## Unreleased
 
+**New**
+
+- Three more EDGE servers, so one install covers them: `edgefab` (EDGEfab 0.2.0: props from a 3D model or from words, ready for the game), `edgehack` (EDGEhack 0.1.3: the game's quickhacks in plain words, new ones, tried live in the game) and `edgequest` (EDGEquest 0.1.1: the game's quests in plain words, new quests from a story file). They use the plugin's game folder and REDbridge settings.
+- `/edge:continue`: picks up a chat from REDagent, the assistant in the game. REDagent's **VS Code** button (REDagent 0.4.5 or newer) writes the chat to a file and copies the command; Claude Code reads it, says which chat, mods and files it took over, and carries on.
+- A Tripo key setting (`tripo_api_key`), for EDGEfab's 3D models from words and EDGEmat's reshapes. Every key setting can stay empty when the key is in REDcode's **Keys** view, which every EDGE tool shares.
+
+**Changed**
+
+- The servers are newer: redcode-mcp 0.7.0 (sector scripts and edits, animations, lip sync, the EDGE Library), edgedeck-mcp 0.34.1 and edgemat-mcp 0.3.4 (restyle, reshape, materials for props from EDGEfab).
+- `/edge:setup` checks the seven servers, and the guide and its Safety page list what each new tool asks first or costs.
+- `archives-and-cr2w`: `mesh_items` finds outfit sets, and `cr2w_search` looks inside a mesh's material buffer, with REDbridge 0.12.0 or newer (both checked on the cop jacket).
+- REDnode's guide in `rednode-mods` is copied from REDnode 0.70.0, and the EDGEmodders wiki in `edge-tools` from 2026-11-25, with the EDGEfab, EDGEhack, EDGEquest, EDGEdir and EDGEchat sections. `/edge:setup` and the Safety page know REDnode's world tools (spawn, weather, pins).
+
+**Other**
+
+- The Nexus page's changelog is a short summary written for each release (EDGEchat#6).
+
 ## 0.1.1 (2026-11-02)
+
+<!-- nexus
+New: A step-by-step guide on the docs site, six lessons from install to your own mods in the game
+New: mesh_items on the redcode server: from a mesh to the items that show it
+Changed: redcode-mcp 0.4.0 and edgedeck-mcp 0.30.0
+Changed: Swapping a changed archive into the running game works on game 2.5 through REDswap, with REDnode 0.41.0
+-->
 
 **New**
 
