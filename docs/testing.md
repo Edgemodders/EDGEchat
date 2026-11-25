@@ -2,7 +2,7 @@
 
 Every test run on EDGEchat so far: how to run it again, what to expect, and what it showed. Each phase ends with a test on the dev PC ([design, "Phases"](design.html#phases)); new tests are added here when they are first run.
 
-Last updated 2026-10-23.
+Last updated 2026-11-25.
 
 ## At a glance
 
@@ -17,6 +17,9 @@ Last updated 2026-10-23.
 | [redcode server](#redcode-server) | By hand, over stdio | P1 | 2026-10-27 | Pass (0.4.0, no wrapper); `mesh_items` misses outfit sets |
 | [edgedeck server through the wrapper](#edgedeck-server-through-the-wrapper) | By hand, over stdio | P1 | 2026-11-02 | Pass (0.30.0) |
 | [edgemat server](#edgemat-server) | By hand, over stdio | P1 | 2026-10-23 | Pass |
+| [0.2.0 servers, every option empty](#020-servers-every-option-empty) | By hand, over stdio | P5 | 2026-11-25 | Pass: all six stdio servers start and answer a read; `mesh_items` finds outfit sets, `cr2w_search` reads material buffers |
+| [0.2.0 in a session](#020-in-a-session) | By hand, in a session | P5 | - | Not run |
+| [continue in the game](#continue-in-the-game) | By hand, in the game and a session | P5 | - | Not run: needs REDagent 0.4.5 |
 | [rednode with no token](#rednode-with-no-token) | CLI, game running | P1 | 2026-10-16 | Seen: HTTP 401 |
 | [OAuth sign-in for a plugin server](#oauth-sign-in-for-a-plugin-server) | CLI, scratch config; then in the game | P4 | 2026-10-26 | Seen with a stand-in; against REDnode 0.40.1 in game: pass |
 | [Plugin sign-in in VS Code](#plugin-sign-in-in-vs-code) | By hand, in a session | P4 | 2026-10-26 | Pass |
@@ -152,7 +155,8 @@ Also seen: a server that uses an option `userConfig` does not declare is dropped
 
 ### redcode server
 
-Speaks MCP to the server directly, with the plugin's options empty as when they are unset. Needs Node.js, the game and REDbridge, found from REDcode's VS Code settings. From plugin 0.1.1 the plugin starts redcode-mcp 0.4.0 with `npx` alone; until then it went through `scriptsedcode-mcp.cmd`, which cleared empty options.
+Speaks MCP to the server directly, with the plugin's options empty as when they are unset. Needs Node.js, the game and REDbridge, found from REDcode's VS Code settings. From plugin 0.1.1 the plugin starts redcode-mcp 0.4.0 with `npx` alone; until then it went through `scripts
+edcode-mcp.cmd`, which cleared empty options.
 
 ```bash
 node tools/test/mcp-probe.cjs --empty REDCODE_GAME_PATH --empty REDBRIDGE_EXE "npx -y @edgemodders/redcode-mcp@0.4.0" bridge_info
@@ -171,6 +175,54 @@ Last run 2026-10-27 with redcode-mcp 0.4.0, no wrapper: **pass**, REDbridge 0.11
 |---|---|
 | `basecharactersgarmentplayer_equipmenteets1_055_shoe__converses1_055_pma_shoe__converse.mesh` (the tool's example) | `Items.CasualShoes_01_basic_01` ("Sunny Ammo synthetic high-tops") and more, each with its `.app` look and entity appearances |
 | The cop jacket's `t2_064_pwa_jacket__t2_player_heavy_02.mesh` (the `archives-and-cr2w` chain) | `items: []`, `looks: []`, though `outfitset_01.app` shows it in `appearances.55` and `.57`. Reported: [REDcode#17](https://github.com/Edgemodders/REDcode/issues/17) |
+
+### 0.2.0 servers, every option empty
+
+Speaks MCP to each server directly, as the plugin starts it, with every option an empty string (what Claude Code passes for an unset option), and makes one call that only reads. Run 2026-11-25 on the dev PC (game 2.5, REDbridge 0.19.0 with WolvenKit 10.0.0 from REDcode's settings) with a small MCP client in the scratchpad; `tools/test/mcp-probe.cjs` makes the same calls:
+
+```bash
+node tools/test/mcp-probe.cjs --empty REDCODE_GAME_PATH --empty REDBRIDGE_EXE "npx -y @edgemodders/redcode-mcp@0.7.0" mesh_items '{"path":"base\\characters\\garment\\player_equipment\\torso\\t2_064_jacket__t2_player_heavy\\t2_064_pwa_jacket__t2_player_heavy_02.mesh","appearance":"cop_blue_black"}'
+node tools/test/mcp-probe.cjs --empty EDGEFAB_REDBRIDGE --empty OPENAI_API_KEY --empty TRIPO_API_KEY "npx -y @edgemodders/edgefab-mcp@0.2.0" fab_tripo '{"action":"status"}'
+node tools/test/mcp-probe.cjs --empty EDGEHACK_GAME_PATH --empty REDBRIDGE_EXE "npx -y @edgemodders/edgehack-mcp@0.1.3" hack_find '{"query":"overheat"}'
+node tools/test/mcp-probe.cjs --empty EDGEQUEST_GAME_PATH --empty REDBRIDGE_EXE "npx -y @edgemodders/edgequest-mcp@0.1.1" quest_find '{"query":"The Rescue"}'
+```
+
+| Server | Call | Seen |
+|---|---|---|
+| redcode-mcp 0.7.0 | `bridge_info` | REDbridge 0.19.0, game loaded, 57 archives, 592,071 files. 61 tools, none flagged to ask (new: `anim_*`, `lipsync_*`, `library_add`, `sector_*`, `script_*`, `request_*`) |
+| redcode-mcp 0.7.0 | `mesh_items` on the cop jacket's mesh, appearance `cop_blue_black` | `Items.Cop_01_Set_Jacket` through `outfit\set_01.app`, looks `_cop_01_t2_w` and `_cop_01_t2_w_fpp`: fixed since REDbridge 0.12.0 ([REDcode#17](https://github.com/Edgemodders/REDcode/issues/17)) |
+| redcode-mcp 0.7.0 | `cr2w_open` on the same mesh, `cr2w_search` for `mlsetup` | 19 hits, the first `localMaterialBuffer.materials.0.values.0`: fixed since REDbridge 0.12.0 ([REDcode#20](https://github.com/Edgemodders/REDcode/issues/20)) |
+| edgedeck-mcp 0.34.1, through the wrapper | `edgedeck_list` | The default library, one mod; deploy, undo and remove still flagged |
+| edgemat-mcp 0.3.4 | `mat_library` | 17,867 setups, built 2026-11-22. 16 tools, none flagged |
+| edgefab-mcp 0.2.0 | `fab_tripo` status, `fab_desk` | Both keys set, "from REDcode's Keys", the key never shown; 720 credits; the Desk's props. 12 tools, none flagged |
+| edgehack-mcp 0.1.3 | `hack_find` "overheat" | Overheat (6 tiers) and the device hack, and the Desk's documents. `hack_new`, `hack_edit`, `hack_script`, `hack_pack`, `hack_try` flagged |
+| edgequest-mcp 0.1.1 | `quest_find` "The Rescue" | q001's quest and phases; the index was already built. 10 tools, none flagged |
+
+### 0.2.0 in a session
+
+Not run yet. The plugin from `main` (0.2.0) in VS Code, the game at a loaded save with REDnode 0.70.0, signed in.
+
+| Step | Do | Expect |
+|---|---|---|
+| 1 | Update the plugin (`/plugins`, Marketplaces, refresh; or `claude plugin update edge@edgemodders`), set nothing new, reload the window | `/plugins` shows `edge` 0.2.0; the form has the new **Tripo API key**, empty |
+| 2 | `/edge:setup` | Seven rows: all connected. edgefab says where its keys come from; edgequest says whether its index is built |
+| 3 | "Which quickhacks cost the most RAM?" | It reads them through `edgehack` without asking |
+| 4 | "Describe the quest The Rescue in plain words" | `edgequest`, no prompt |
+| 5 | "What is on my EDGEfab Desk?" | `edgefab`, no prompt |
+| 6 | "Make a new quickhack from Overheat called Test Burn, on the Desk" | Claude Code asks before `hack_new`. Deny: nothing written |
+
+### continue in the game
+
+Not run yet: needs REDagent 0.4.5 (on REDagent's `main`, not released). REDagent's design, "C6a test":
+
+| Step | Do | Expect |
+|---|---|---|
+| 1 | In REDagent, ask: "Make a small mod that shows V's money in a window." Allow its changes | The mod's window shows |
+| 2 | Press **VS Code** | A note in the chat: handed over, `/edge:continue` copied, and the file's path |
+| 3 | In Claude Code with EDGEchat 0.2.0, paste `/edge:continue` and send it | Claude names the chat, the mod and its files, reads the files, checks the mod with `apps` and `logs` |
+| 4 | "Make the money text red" | It changes the mod's files; the window in the game turns red after hot reload |
+| 5 | Open the handoff file | No key in it |
+| 6 | `/edge:continue` with no handoff folder (another PC, or the folder renamed) | It says to press **VS Code** in REDagent first |
 
 ### edgedeck server through the wrapper
 
