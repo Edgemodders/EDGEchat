@@ -1,5 +1,5 @@
-<!-- Copied from EDGEweb's docs/wiki/edgehack/troubleshooting.md at f5d1ce3 2026-11-25 by tools/sync-docs.mjs. Do not edit here: change it in EDGEweb. -->
-<!-- Live page: https://edgemodders.ai/wiki/edgehack/troubleshooting.html (reviewed 2026-11-22) -->
+<!-- Copied from EDGEweb's docs/wiki/edgehack/troubleshooting.md at b4b8f65 2026-11-25 by tools/sync-docs.mjs. Do not edit here: change it in EDGEweb. -->
+<!-- Live page: https://edgemodders.ai/wiki/edgehack/troubleshooting.html (reviewed 2026-11-25) -->
 
 # Troubleshooting EDGEhack
 
@@ -96,7 +96,7 @@ If a save in step 3 changes nothing because the page has no unsaved change, chan
 | Claude Code's `/mcp` doesn't list `edgehack` | Run **EDGEhack: Connect an Assistant (MCP)...**, choose **Connect Claude Code**, then start a **new** Claude Code session. A session that was already running doesn't see it |
 | "Claude Code's `claude` command isn't on the PATH" | Choose **Copy the Command**, and paste it into a terminal where the `claude` command works |
 | Claude Code makes the quickhack in the wrong place | The server works on the project in the folder where Claude Code started. Start it in your project's folder, or give the folder in your request. With no project, quickhacks go on the Desk |
-| I have EDGEchat, and it has no quickhack tools | EDGEchat does not include EDGEhack yet. Connect it as above |
+| I have EDGEchat, and it has no quickhack tools | EDGEchat includes EDGEhack from 0.2.1: [update EDGEchat](https://edgemodders.ai/wiki/edgechat/settings.html#updates), then restart Claude Code |
 | REDagent in the game has no quickhack tools | That is not released yet: see [REDagent in the game](https://edgemodders.ai/wiki/edgehack/assistants.html#redagent-in-the-game) |
 
 ## Anything else

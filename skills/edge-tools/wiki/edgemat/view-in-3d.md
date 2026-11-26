@@ -1,4 +1,4 @@
-<!-- Copied from EDGEweb's docs/wiki/edgemat/view-in-3d.md at f5d1ce3 2026-11-25 by tools/sync-docs.mjs. Do not edit here: change it in EDGEweb. -->
+<!-- Copied from EDGEweb's docs/wiki/edgemat/view-in-3d.md at b4b8f65 2026-11-25 by tools/sync-docs.mjs. Do not edit here: change it in EDGEweb. -->
 <!-- Live page: https://edgemodders.ai/wiki/edgemat/view-in-3d.html (reviewed 2026-11-22) -->
 
 # View in 3D

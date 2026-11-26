@@ -1,5 +1,5 @@
-<!-- Copied from EDGEweb's docs/wiki/edgechat/first-mod.md at f5d1ce3 2026-11-25 by tools/sync-docs.mjs. Do not edit here: change it in EDGEweb. -->
-<!-- Live page: https://edgemodders.ai/wiki/edgechat/first-mod.html (reviewed 2026-11-13) -->
+<!-- Copied from EDGEweb's docs/wiki/edgechat/first-mod.md at b4b8f65 2026-11-25 by tools/sync-docs.mjs. Do not edit here: change it in EDGEweb. -->
+<!-- Live page: https://edgemodders.ai/wiki/edgechat/first-mod.html (reviewed 2026-11-25) -->
 
 # Your first mod, no code
 
@@ -20,7 +20,7 @@ Claude words its answers a little differently each time, so what you read won't 
 
 ## Before you start
 
-- [Install and connect](https://edgemodders.ai/wiki/edgechat/install.html) done: `/edge:setup` shows all four connected.
+- [Install and connect](https://edgemodders.ai/wiki/edgechat/install.html) done: `/edge:setup` shows all seven connected.
 - The game running at a loaded save, with **Hot reload** on in REDnode's [Settings drawer](https://edgemodders.ai/wiki/rednode/settings.html) (**F10**, **REDNODE** tab, the gear by **Theme**). Hot reload makes REDnode load a mod again each time its files change.
 - Claude Code open in any folder. In VS Code, a folder for your mods, such as `Documents\Cyberpunk Mods`, is a good place.
 

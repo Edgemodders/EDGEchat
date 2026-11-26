@@ -1,4 +1,4 @@
-<!-- Copied from EDGEweb's docs/wiki/edgequest/writing.md at f5d1ce3 2026-11-25 by tools/sync-docs.mjs. Do not edit here: change it in EDGEweb. -->
+<!-- Copied from EDGEweb's docs/wiki/edgequest/writing.md at b4b8f65 2026-11-25 by tools/sync-docs.mjs. Do not edit here: change it in EDGEweb. -->
 <!-- Live page: https://edgemodders.ai/wiki/edgequest/writing.html (reviewed 2026-11-13) -->
 
 # Writing a quest

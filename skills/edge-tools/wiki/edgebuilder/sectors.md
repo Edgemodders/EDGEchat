@@ -1,4 +1,4 @@
-<!-- Copied from EDGEweb's docs/wiki/edgebuilder/sectors.md at f5d1ce3 2026-11-25 by tools/sync-docs.mjs. Do not edit here: change it in EDGEweb. -->
+<!-- Copied from EDGEweb's docs/wiki/edgebuilder/sectors.md at b4b8f65 2026-11-25 by tools/sync-docs.mjs. Do not edit here: change it in EDGEweb. -->
 <!-- Live page: https://edgemodders.ai/wiki/edgebuilder/sectors.html (reviewed 2026-11-23) -->
 
 # Sectors: what the game placed, piece by piece

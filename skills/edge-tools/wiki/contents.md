@@ -1,4 +1,4 @@
-<!-- Made from EDGEweb's docs/wiki at f5d1ce3 2026-11-25 by tools/sync-docs.mjs. -->
+<!-- Made from EDGEweb's docs/wiki at b4b8f65 2026-11-25 by tools/sync-docs.mjs. -->
 
 # The EDGEmodders wiki: every page
 
@@ -31,7 +31,7 @@ Live at https://edgemodders.ai/wiki/. A page's file here is its live URL's path 
 | EDGEchat | [Keep a project easy to work on, with EDGEchat](edgechat/projects.md) | /edge:init-project writes a CLAUDE.md into your mod's folder, so every later Claude Code session knows the mod's layout, where it deploys and how to test it. |
 | EDGEchat | [Recolor a jacket with EDGEchat](edgechat/recolor.md) | A clothing mod the way most are made: Claude makes a WolvenKit project with EDGEmat, packs it, and EDGEdeck puts it in the game. The NCPD badge coat, in red. |
 | EDGEchat | [EDGEchat safety: what Claude asks before doing](edgechat/safety.md) | What Claude asks you before doing with EDGEchat, what it reads without asking, the one exception in the game folder, and how to take access back. |
-| EDGEchat | [EDGEchat settings, commands and updates](edgechat/settings.md) | EDGEchat's five settings and how to change them, its four commands and its skills, getting new versions, uninstalling, and where things are kept. |
+| EDGEchat | [EDGEchat settings, commands and updates](edgechat/settings.md) | EDGEchat's six settings and how to change them, its five commands and its skills, getting new versions, uninstalling, and where things are kept. |
 | EDGEchat | [Troubleshooting EDGEchat](edgechat/troubleshooting.md) | Fixes for EDGEchat: missing commands, a connection that fails or won't sign in, settings that don't take, tools shown twice, mods that don't change, and game 2.31. |
 | EDGEdeck | [Adding and removing mods](edgedeck/adding-mods.md) | Add mods to EDGEdeck from zip, 7z and rar files, single mod files, folders, Nexus Mods and Vortex; pick a FOMOD installer's options; keep several versions; remove a mod; and how EDGEdeck decides where each file goes. |
 | EDGEdeck | [Assistants and the command line](edgedeck/assistants.md) | Let Claude or another AI assistant manage your mods through EDGEdeck: what you can ask, what it can and can't do, how to connect it with EDGEchat or by hand, and the edgedeck command line. |

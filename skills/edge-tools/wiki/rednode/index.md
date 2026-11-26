@@ -1,4 +1,4 @@
-<!-- Copied from EDGEweb's docs/wiki/rednode/index.md at f5d1ce3 2026-11-25 by tools/sync-docs.mjs. Do not edit here: change it in EDGEweb. -->
+<!-- Copied from EDGEweb's docs/wiki/rednode/index.md at b4b8f65 2026-11-25 by tools/sync-docs.mjs. Do not edit here: change it in EDGEweb. -->
 <!-- Live page: https://edgemodders.ai/wiki/rednode/ (reviewed 2026-11-25) -->
 
 # REDnode
@@ -79,7 +79,7 @@ REDnode is the **Run** stage of the EDGE platform.
 
 ## Status
 
-**Released.** The current version is **0.70.0** (2026-11-25), for **game version 2.5**. For a game kept on 2.31, use REDnode 0.37.0, the last release for it.
+**Released.** The current version is **0.73.1** (2026-11-25), for **game version 2.5**. For a game kept on 2.31, use REDnode 0.37.0, the last release for it.
 
 Get it from [Nexus Mods](https://www.nexusmods.com/cyberpunk2077/mods/35419) or [REDnode's releases](https://github.com/Edgemodders/REDnode/releases) on GitHub, then follow [Install and set up](https://edgemodders.ai/wiki/rednode/install.html).
 
@@ -87,8 +87,8 @@ REDnode is still young. "Passed in game" on these pages means the developer test
 
 | | |
 |---|---|
-| **New in the latest releases** | Scenes loaded only in part (only their people, or without some objects), tools on your PC that call a mod's functions once you allow them, pins that keep their id and the way V faced, tooltips on the buttons and switches Node mods build, and the overlay's cursor following the pointer in a windowed game (0.70.0). A switch that hides all of REDnode, HUD widgets too, when you click in the game (0.69.0). A dropdown for the windows Node mods build and for pages, each app's version beside its title, and a Mod log you can resize (0.68.2). A key of your own for any app, and REDnode stepping aside in the pause menu (0.67.3). You choose which mods may call another mod's tools (0.67.3). Mods can set the weather and animate the people they spawn (0.67.3). A **Pins** window, a filter box in the launcher, and the controller in mods (0.65.3). [EDGEhack](https://edgemodders.ai/wiki/edgehack/assistants.html)'s quickhack tools for REDagent (0.65.3) |
-| **Coming next** (built, in testing) | People you spawn put on the ground, so their animations don't float; picks that see the objects EDGEbuilder bakes; a list of every mod that provides a role; and mods choosing REDagent's model, or an answer with no tools |
+| **New in the latest releases** | Mods hear fights: V entering and leaving combat, and every person downed with their faction and whether V did it; people you spawn stand on the ground, so their animations don't float; rays and picks that see the objects EDGEbuilder bakes; a list of every mod that provides a role; mods choosing REDagent's model, or an answer with no tools (0.73.1). Scenes loaded only in part (only their people, or without some objects), tools on your PC that call a mod's functions once you allow them, pins that keep their id and the way V faced, tooltips on the buttons and switches Node mods build, and the overlay's cursor following the pointer in a windowed game (0.70.0). A switch that hides all of REDnode, HUD widgets too, when you click in the game (0.69.0). A dropdown for the windows Node mods build and for pages, each app's version beside its title, and a Mod log you can resize (0.68.2). A key of your own for any app, and REDnode stepping aside in the pause menu (0.67.3). You choose which mods may call another mod's tools (0.67.3). Mods can set the weather and animate the people they spawn (0.67.3). A **Pins** window, a filter box in the launcher, and the controller in mods (0.65.3). [EDGEhack](https://edgemodders.ai/wiki/edgehack/assistants.html)'s quickhack tools for REDagent (0.65.3) |
+| **Coming next** (agreed, not built yet) | A scene spike for EDGEdir: people walking between workspots, and a copy of V as an actor |
 | **Planned** | Clicks and typing on panels the game draws itself. HDR, frame generation and ultrawide screens. TweakDB without the game running |
 
 What each release added is in the [changelog](https://edgemodders.github.io/REDnode/changelog.html). Part by part, see [What works today](https://edgemodders.ai/wiki/rednode/#what-works-today).

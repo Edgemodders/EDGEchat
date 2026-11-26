@@ -12,6 +12,11 @@ With the rename, write the section's **Nexus summary** under its heading: an HTM
 
 ## Unreleased
 
+**Changed**
+
+- The EDGEmodders wiki in `edge-tools` is copied again after the 0.2.1 release: its EDGEchat section and the EDGEfab, EDGEhack and EDGEquest pages say they are part of EDGEchat now.
+- `/edge:continue` names REDagent 0.4.6, its first release with the **VS Code** button.
+
 ## 0.2.1 (2026-11-25)
 
 <!-- nexus

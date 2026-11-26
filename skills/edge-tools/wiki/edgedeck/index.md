@@ -1,5 +1,5 @@
-<!-- Copied from EDGEweb's docs/wiki/edgedeck/index.md at f5d1ce3 2026-11-25 by tools/sync-docs.mjs. Do not edit here: change it in EDGEweb. -->
-<!-- Live page: https://edgemodders.ai/wiki/edgedeck/ (reviewed 2026-11-24) -->
+<!-- Copied from EDGEweb's docs/wiki/edgedeck/index.md at b4b8f65 2026-11-25 by tools/sync-docs.mjs. Do not edit here: change it in EDGEweb. -->
+<!-- Live page: https://edgemodders.ai/wiki/edgedeck/ (reviewed 2026-11-25) -->
 
 # EDGEdeck
 
@@ -49,12 +49,13 @@ EDGEdeck is the part of EDGE that puts mods into the game. It works on its own, 
 
 ## Status
 
-**Released, as a preview.** The latest is EDGEdeck 0.34.1 (2026-11-24), for Windows only, on the [VS Code Marketplace](https://marketplace.visualstudio.com/items?itemName=edgemodders.edgedeck), [Open VSX](https://open-vsx.org/extension/edgemodders/edgedeck) and [Nexus Mods](https://www.nexusmods.com/cyberpunk2077/mods/35420). It updates itself. It is young: its developer uses it daily on two PCs, so expect rough edges and [report them](https://github.com/Edgemodders/EDGEdeck/issues).
+**Released, as a preview.** The latest is EDGEdeck 0.34.2 (2026-11-25), for Windows only, on the [VS Code Marketplace](https://marketplace.visualstudio.com/items?itemName=edgemodders.edgedeck), [Open VSX](https://open-vsx.org/extension/edgemodders/edgedeck) and [Nexus Mods](https://www.nexusmods.com/cyberpunk2077/mods/35420). It updates itself. It is young: its developer uses it daily on two PCs, so expect rough edges and [report them](https://github.com/Edgemodders/EDGEdeck/issues).
 
 | | |
 |---|---|
 | **In daily use** | The library, deploy, undo, conflicts, loadouts |
 | **Passed the developer's tests, little use beyond them** | Nexus downloads and updates, Get the frameworks, REDmod deploys |
+| **Fixed in 0.34.2** | After EDGEdeck updated in the background, adding or updating a mod failed with `7za.exe ENOENT`; now it offers **Reload window** ([Troubleshooting](https://edgemodders.ai/wiki/edgedeck/troubleshooting.html#adding-mods)) |
 | **Fixed in 0.34.1** | Packing a [REDcode project](https://edgemodders.ai/wiki/edgedeck/redcode.html) again no longer changes the game folder before you deploy |
 | **New in 0.34.0** | In the [Mods view](https://edgemodders.ai/wiki/edgedeck/mods-view.html), **Deploy**, **Check for updates** and **Update** buttons on each mod's row, and icon colors: cyan while changes wait for a deploy, green with an update on Nexus |
 | **New in 0.33.0** | A [security fix for Nexus download links](https://edgemodders.ai/wiki/edgedeck/nexus.html#download-links), and **Keep all** and **Put all back** when [several files changed in the game folder](https://edgemodders.ai/wiki/edgedeck/deploying.html#changes-made-outside-edgedeck) |

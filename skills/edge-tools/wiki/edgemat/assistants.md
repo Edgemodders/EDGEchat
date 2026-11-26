@@ -1,5 +1,5 @@
-<!-- Copied from EDGEweb's docs/wiki/edgemat/assistants.md at f5d1ce3 2026-11-25 by tools/sync-docs.mjs. Do not edit here: change it in EDGEweb. -->
-<!-- Live page: https://edgemodders.ai/wiki/edgemat/assistants.html (reviewed 2026-11-22) -->
+<!-- Copied from EDGEweb's docs/wiki/edgemat/assistants.md at b4b8f65 2026-11-25 by tools/sync-docs.mjs. Do not edit here: change it in EDGEweb. -->
+<!-- Live page: https://edgemodders.ai/wiki/edgemat/assistants.html (reviewed 2026-11-25) -->
 
 # EDGEmat and assistants
 
@@ -107,7 +107,7 @@ You never have to name a tool: ask in plain words and the assistant picks. The n
 
 ### Newer tools
 
-These tools came with the last few releases. They are in the server you connect from EDGEmat, and in the npm package. The copies of the server inside EDGEchat and REDnode are an earlier version and don't have them yet.
+These tools came with the last few releases. They are in the server you connect from EDGEmat, and in the npm package. EDGEchat has them from EDGEchat 0.2.1, which runs edgemat-mcp 0.3.4. The copy of the server inside REDnode is an earlier version and doesn't have them yet.
 
 | Tool | Does | Needs | Tested |
 |---|---|---|---|

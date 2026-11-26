@@ -1,5 +1,5 @@
-<!-- Copied from EDGEweb's docs/wiki/edgehack/index.md at f5d1ce3 2026-11-25 by tools/sync-docs.mjs. Do not edit here: change it in EDGEweb. -->
-<!-- Live page: https://edgemodders.ai/wiki/edgehack/ (reviewed 2026-11-22) -->
+<!-- Copied from EDGEweb's docs/wiki/edgehack/index.md at b4b8f65 2026-11-25 by tools/sync-docs.mjs. Do not edit here: change it in EDGEweb. -->
+<!-- Live page: https://edgemodders.ai/wiki/edgehack/ (reviewed 2026-11-25) -->
 
 # EDGEhack
 
@@ -92,7 +92,7 @@ Your numbers survive game patches. EDGEhack remembers the number you asked for, 
 | [REDbridge](https://edgemodders.ai/wiki/redbridge/) | Reads the game's files for REDcode. REDcode installs it for you |
 | [EDGEdeck](https://edgemodders.ai/wiki/edgedeck/) | Recommended. The mod manager: it installs the frameworks in one go, and your mod is installed through it |
 | [REDnode](https://edgemodders.ai/wiki/rednode/) | Optional, in the game. Needed for Try Live, for scripts, and for the Console line that gives V a quickhack while testing |
-| Claude and other assistants | EDGEhack's MCP server lets an AI assistant work with quickhacks. You connect it yourself: [EDGEchat](https://edgemodders.ai/wiki/edgechat/) does not include it yet |
+| Claude and other assistants | EDGEhack's MCP server lets an AI assistant work with quickhacks. [EDGEchat](https://edgemodders.ai/wiki/edgechat/) 0.2.1 connects it, or you connect it yourself |
 | [EDGEkit](https://edgemodders.ai/wiki/edgekit/) | The EDGEkit app has EDGEhack built in |
 
 EDGEhack ships no game data. It reads the quickhacks from your own game each time VS Code starts.

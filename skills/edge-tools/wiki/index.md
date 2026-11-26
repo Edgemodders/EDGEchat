@@ -1,4 +1,4 @@
-<!-- Copied from EDGEweb's docs/wiki/index.md at f5d1ce3 2026-11-25 by tools/sync-docs.mjs. Do not edit here: change it in EDGEweb. -->
+<!-- Copied from EDGEweb's docs/wiki/index.md at b4b8f65 2026-11-25 by tools/sync-docs.mjs. Do not edit here: change it in EDGEweb. -->
 <!-- Live page: https://edgemodders.ai/wiki/ (reviewed 2026-11-25) -->
 
 # The EDGE platform
@@ -18,17 +18,17 @@ EDGE is a family of toolkits. Five of them cover the whole life of a mod, and th
 | Ask | [REDagent](https://edgemodders.ai/wiki/redagent/) | An AI assistant inside the game, powered by Claude. It writes, runs, checks and fixes mods with you while you play | 0.4.1 |
 | Create | [REDcode](https://edgemodders.ai/wiki/redcode/) | An editor for the game's files, built on VS Code. Browse the game's files, change them and pack your mod | 0.10.17, a preview |
 | Build | [REDbridge](https://edgemodders.ai/wiki/redbridge/) | The helper that reads and writes the game's files for the other tools, with WolvenKit's own code. The tools download it for you | 0.12.1 |
-| Deploy | [EDGEdeck](https://edgemodders.ai/wiki/edgedeck/) | A mod manager. Add mods, turn them on or off, deploy them to the game, and undo | 0.34.1, a preview |
+| Deploy | [EDGEdeck](https://edgemodders.ai/wiki/edgedeck/) | A mod manager. Add mods, turn them on or off, deploy them to the game, and undo | 0.34.2, a preview |
 | Run | [REDnode](https://edgemodders.ai/wiki/rednode/) | The part that runs in the game. Mods load and reload while you play, and draw their windows over the game | 0.67.3 |
 
 More toolkits build on those five for particular jobs:
 
 | Job | Toolkit | What it does | Latest release |
 |---|---|---|---|
-| Ask at your desk | [EDGEchat](https://edgemodders.ai/wiki/edgechat/) | The EDGE plugin for Claude Code, Anthropic's AI assistant. One install connects Claude to the running game, the game's files, your mods and their materials | 0.1.1 |
+| Ask at your desk | [EDGEchat](https://edgemodders.ai/wiki/edgechat/) | The EDGE plugin for Claude Code, Anthropic's AI assistant. One install connects Claude to the running game, the game's files, your mods and their materials, props, quickhacks and quests | 0.2.1 |
 | One install | [EDGEkit](https://edgemodders.ai/wiki/edgekit/) | The EDGEmodders editor: an app for Windows with the EDGE editor tools built in. Or an extension pack that installs them in VS Code | App 1.140.6 and pack 0.6.0, both previews |
 | Materials | [EDGEmat](https://edgemodders.ai/wiki/edgemat/) | A material editor. Recolor clothes layer by layer, or make a new material by describing it | 0.3.4, a preview |
-| Props | [EDGEfab](https://edgemodders.ai/wiki/edgefab/) | An asset maker. Turn a 3D model, or your own words, into a prop the game can use, and place it with EDGEbuilder | 0.2.0, a preview |
+| Props | [EDGEfab](https://edgemodders.ai/wiki/edgefab/) | An asset maker. Turn a 3D model, or your own words, into a prop the game can use, and place it with EDGEbuilder | 0.2.1, a preview |
 | Scenes with people | [EDGEdir](https://edgemodders.ai/wiki/edgedir/) | A director's tool. Lay out what the game's people do on a timeline, watch it in 3D, and play and adjust it in the running game | 0.0.30, not released yet; first steps run in the game |
 | Quickhacks | [EDGEhack](https://edgemodders.ai/wiki/edgehack/) | A quickhack editor. Read any quickhack in plain words, change it, or make new ones and try them in the running game | 0.1.2, a preview |
 | Sound | [EDGEwave](https://edgemodders.ai/wiki/edgewave/) | A sound studio. Find a game sound, cut, fade and mix it, and put your version into the game | 0.2.0, a preview |
@@ -47,7 +47,7 @@ Together, the toolkits add up to these. Each toolkit's Overview says why you mig
 |---|---|---|
 | **Anyone can mod** | Describe a mod in plain words. An assistant writes it, runs it and fixes it: in the game, or at your desk | [REDagent](https://edgemodders.ai/wiki/redagent/), [EDGEchat](https://edgemodders.ai/wiki/edgechat/) |
 | **You stay in control** | REDagent shows every file change before it happens, and its changes and EDGEdeck's deploys can be undone. With Claude Code, the EDGE tools ask before anything changes the running game, your save or the game folder | [REDagent](https://edgemodders.ai/wiki/redagent/), [EDGEchat](https://edgemodders.ai/wiki/edgechat/safety.html), [EDGEdeck](https://edgemodders.ai/wiki/edgedeck/) |
-| **Assistants can use every tool** | Seven toolkits offer their tools to AI assistants through [MCP](https://edgemodders.ai/wiki/glossary.html#mcp-server): REDnode, REDcode, EDGEdeck, EDGEmat, EDGEquest, EDGEhack and EDGEwave. EDGEchat connects the first four in one install; the others [connect by hand](https://edgemodders.ai/wiki/connect-claude-code.html) | [EDGEchat](https://edgemodders.ai/wiki/edgechat/), [Connect Claude Code](https://edgemodders.ai/wiki/connect-claude-code.html) |
+| **Assistants can use every tool** | Eight toolkits offer their tools to AI assistants through [MCP](https://edgemodders.ai/wiki/glossary.html#mcp-server): REDnode, REDcode, EDGEdeck, EDGEmat, EDGEfab, EDGEquest, EDGEhack and EDGEwave. EDGEchat connects all but EDGEwave in one install; EDGEwave [connects by hand](https://edgemodders.ai/wiki/connect-claude-code.html) | [EDGEchat](https://edgemodders.ai/wiki/edgechat/), [Connect Claude Code](https://edgemodders.ai/wiki/connect-claude-code.html) |
 | **Live in the game** | Change a mod and see it in the running game, with no restart. Mods can draw their own windows over the game or add panels to the game's HUD | [REDnode](https://edgemodders.ai/wiki/rednode/) |
 | **A crash stays small** | Mods and their windows run outside the game, so a crash in one doesn't take the game down | [REDnode](https://edgemodders.ai/wiki/rednode/) |
 | **Everything is text** | Game files, game values and scripts open as plain text, so you and an assistant can read any of it | [REDcode](https://edgemodders.ai/wiki/redcode/), [REDnode](https://edgemodders.ai/wiki/rednode/) |

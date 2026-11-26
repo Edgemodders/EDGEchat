@@ -1,5 +1,5 @@
-<!-- Copied from EDGEweb's docs/wiki/getting-started.md at f5d1ce3 2026-11-25 by tools/sync-docs.mjs. Do not edit here: change it in EDGEweb. -->
-<!-- Live page: https://edgemodders.ai/wiki/getting-started.html (reviewed 2026-11-21) -->
+<!-- Copied from EDGEweb's docs/wiki/getting-started.md at b4b8f65 2026-11-25 by tools/sync-docs.mjs. Do not edit here: change it in EDGEweb. -->
+<!-- Live page: https://edgemodders.ai/wiki/getting-started.html (reviewed 2026-11-25) -->
 
 # Getting started
 
@@ -18,7 +18,7 @@ Most people start with one of these three. They are not rivals: many people end 
 | **What you do with it** | Install and manage mods, and make mods with buttons and lists: recolors, quickhacks, sounds, quests, changed game files | Ask for a mod in plain words. It writes mods that run beside the game and draw on the HUD | Ask for a mod in plain words. Claude makes mods that run beside the game, changed game values, recolored clothes and other mods made of game files |
 | **An AI does the work** | No. You can add EDGEchat to it | Yes | Yes |
 | **What it costs** | Free | Free, plus your own Anthropic API key, paid per use | Free, plus a Claude plan that includes Claude Code |
-| **What it needs** | Windows | [REDnode](https://edgemodders.ai/wiki/rednode/) in the game | Claude Code, and the tools it connects: REDnode, REDbridge and EDGEdeck. [The full list](https://edgemodders.ai/wiki/edgechat/install.html#what-you-need) |
+| **What it needs** | Windows | [REDnode](https://edgemodders.ai/wiki/rednode/) in the game | Claude Code, and the tools it connects: REDnode, REDbridge and EDGEdeck to start; EDGEmat, EDGEfab, EDGEhack and EDGEquest come with it. [The full list](https://edgemodders.ai/wiki/edgechat/install.html#what-you-need) |
 | **Start with** | [Install the app](https://edgemodders.ai/wiki/edgekit/install.html), then [your first session](https://edgemodders.ai/wiki/edgekit/first-session.html) | [Install and set up](https://edgemodders.ai/wiki/redagent/install.html), then [your first mod](https://edgemodders.ai/wiki/redagent/first-mod.html) | [Install and connect](https://edgemodders.ai/wiki/edgechat/install.html), then [your first mod](https://edgemodders.ai/wiki/edgechat/first-mod.html) |
 
 REDagent and EDGEchat are both AI assistants. The difference is where they are and how you pay: REDagent is in the game and uses an API key; EDGEchat is at your desk and uses a Claude plan. A Claude plan can't be used with REDagent, and an API key isn't what EDGEchat needs.

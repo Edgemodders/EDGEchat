@@ -1,4 +1,4 @@
-<!-- Copied from EDGEweb's docs/wiki/connect-claude-code.md at f5d1ce3 2026-11-25 by tools/sync-docs.mjs. Do not edit here: change it in EDGEweb. -->
+<!-- Copied from EDGEweb's docs/wiki/connect-claude-code.md at b4b8f65 2026-11-25 by tools/sync-docs.mjs. Do not edit here: change it in EDGEweb. -->
 <!-- Live page: https://edgemodders.ai/wiki/connect-claude-code.html (reviewed 2026-11-25) -->
 
 # Connect Claude Code
@@ -9,13 +9,13 @@ Each connection is what Claude Code calls an [MCP server](https://edgemodders.ai
 
 ## The easy way: EDGEchat
 
-**Most people should install [EDGEchat](https://edgemodders.ai/wiki/edgechat/)**, the EDGE plugin for Claude Code. One install connects four tools, adds modding knowledge and gives you commands such as `/edge:new-mod`. Its command `/edge:setup` checks every connection and gives the next step for anything missing.
+**Most people should install [EDGEchat](https://edgemodders.ai/wiki/edgechat/)**, the EDGE plugin for Claude Code. One install connects seven tools, adds modding knowledge and gives you commands such as `/edge:new-mod`. Its command `/edge:setup` checks every connection and gives the next step for anything missing.
 
 Go to [Install and connect](https://edgemodders.ai/wiki/edgechat/install.html). It has every step, with what you need and which versions. [EDGEkit](https://edgemodders.ai/wiki/edgekit/first-session.html#claude-code-and-edgechat) offers the install in one click.
 
 ## What connects, and how
 
-Eight EDGE tools offer a connection. EDGEchat sets up four of them. The other four you add by hand today, and they work beside EDGEchat.
+Eight EDGE tools offer a connection. EDGEchat 0.2.1 sets up seven of them. EDGEwave you add by hand today, and it works beside EDGEchat.
 
 | Tool | Gives Claude | With EDGEchat | By hand |
 |---|---|---|---|
@@ -23,16 +23,16 @@ Eight EDGE tools offer a connection. EDGEchat sets up four of them. The other fo
 | [REDcode](https://edgemodders.ai/wiki/redcode/) | The game's files: browse and search the archives, read and change game files, textures, TweakDB, game sounds, pack, export and import; make and edit animations, read lip sync, and find and change a sector's nodes with your sector scripts. It works through REDbridge | Included | [Assistants and MCP](https://edgemodders.ai/wiki/redcode/assistants.html#connect-it-by-hand) |
 | [EDGEdeck](https://edgemodders.ai/wiki/edgedeck/) | Your mods: list, add, turn on or off, reorder, remove, deploy, undo, conflicts, loadouts, Vortex import | Included | [Assistants and the command line](https://edgemodders.ai/wiki/edgedeck/assistants.html#connect-an-assistant) |
 | [EDGEmat](https://edgemodders.ai/wiki/edgemat/) | Materials: a garment's materials from its in-game name, its layers in plain words, recolors saved into your project, new materials from words or an image | Included | [Assistants](https://edgemodders.ai/wiki/edgemat/assistants.html#connect-claude-code) |
-| [EDGEfab](https://edgemodders.ai/wiki/edgefab/) | Props: draw an object from your words, make it 3D, size it, make it glow, and put it into your project or the EDGE Library | Not yet | [Assistants](https://edgemodders.ai/wiki/edgefab/assistants.html#connect-claude-code) |
-| [EDGEquest](https://edgemodders.ai/wiki/edgequest/) | Quests: read the game's quests, write and check a quest | Not yet | [For assistants](https://edgemodders.ai/wiki/edgequest/assistants.html#connect-it) |
-| [EDGEhack](https://edgemodders.ai/wiki/edgehack/) | Quickhacks: find, make, change and pack them | Not yet | [Assistants](https://edgemodders.ai/wiki/edgehack/assistants.html#connect-claude-code) |
+| [EDGEfab](https://edgemodders.ai/wiki/edgefab/) | Props: draw an object from your words, make it 3D, size it, make it glow, and put it into your project or the EDGE Library | Included | [Assistants](https://edgemodders.ai/wiki/edgefab/assistants.html#connect-claude-code) |
+| [EDGEquest](https://edgemodders.ai/wiki/edgequest/) | Quests: read the game's quests, write and check a quest | Included | [For assistants](https://edgemodders.ai/wiki/edgequest/assistants.html#connect-it) |
+| [EDGEhack](https://edgemodders.ai/wiki/edgehack/) | Quickhacks: find, make, change and pack them | Included | [Assistants](https://edgemodders.ai/wiki/edgehack/assistants.html#connect-claude-code) |
 | [EDGEwave](https://edgemodders.ai/wiki/edgewave/) | Sound: search sound events, make a sound into a new event, voice lines | Not yet | [Assistants](https://edgemodders.ai/wiki/edgewave/assistants.html#connect-claude-code) |
 
-> **Connect each tool one way only.** If you have EDGEchat, don't also add REDnode, REDcode, EDGEdeck or EDGEmat by hand: Claude would see every one of that tool's abilities twice. If that has happened, run `/edge:setup`. It finds the copies you added by hand and explains how to remove them.
+> **Connect each tool one way only.** If you have EDGEchat, don't also add REDnode, REDcode, EDGEdeck, EDGEmat, EDGEfab, EDGEquest or EDGEhack by hand: Claude would see every one of that tool's abilities twice. If that has happened, run `/edge:setup`. It finds the copies you added by hand and explains how to remove them.
 
 ## Connecting by hand
 
-Use this for EDGEfab, EDGEquest, EDGEhack and EDGEwave, or for any tool if you don't want the plugin. Each tool's own page, linked in the table above, has the full steps, what the connection needs and what you should see. In short:
+Use this for EDGEwave, or for any tool if you don't want the plugin. If you connected EDGEfab, EDGEquest or EDGEhack by hand before EDGEchat 0.2.1, remove that copy now: `/edge:setup` explains how. Each tool's own page, linked in the table above, has the full steps, what the connection needs and what you should see. In short:
 
 | Tool | What you do |
 |---|---|
@@ -65,5 +65,5 @@ Claude reads without asking. Before the deploy in the last one, it stops and ask
 
 - **What asks first.** The EDGE tools ask you before every action that changes the running game, your save or the game folder, such as a change to V, an archive swap, or EDGEdeck's deploy, undo and remove. Reading doesn't ask. [EDGEchat: Safety](https://edgemodders.ai/wiki/edgechat/safety.html) has the whole list.
 - **The game must be running** for REDnode's tools, with REDnode in it. The other tools work with the game closed.
-- **Versions.** EDGEchat's [What you need](https://edgemodders.ai/wiki/edgechat/install.html#what-you-need) lists the versions for the four tools it connects. Each by-hand page lists its own.
+- **Versions.** EDGEchat's [What you need](https://edgemodders.ai/wiki/edgechat/install.html#what-you-need) lists the versions for the tools it connects. Each by-hand page lists its own.
 - **No key comes with the tools.** Claude Code uses your own Claude account.

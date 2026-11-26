@@ -1,5 +1,5 @@
-<!-- Copied from EDGEweb's docs/wiki/edgequest/assistants.md at f5d1ce3 2026-11-25 by tools/sync-docs.mjs. Do not edit here: change it in EDGEweb. -->
-<!-- Live page: https://edgemodders.ai/wiki/edgequest/assistants.html (reviewed 2026-11-13) -->
+<!-- Copied from EDGEweb's docs/wiki/edgequest/assistants.md at b4b8f65 2026-11-25 by tools/sync-docs.mjs. Do not edit here: change it in EDGEweb. -->
+<!-- Live page: https://edgemodders.ai/wiki/edgequest/assistants.html (reviewed 2026-11-25) -->
 
 # EDGEquest for assistants
 
@@ -34,7 +34,7 @@ What it can't do: play the quest for you, or get it into the game. Packing and i
 | Assistant | How it gets EDGEquest |
 |---|---|
 | [Claude Code](https://edgemodders.ai/wiki/connect-claude-code.html), Anthropic's assistant for the terminal and VS Code. It needs a paid Claude plan | Add the server yourself, with the command [below](https://edgemodders.ai/wiki/edgequest/assistants.html#connect-it) |
-| [EDGEchat](https://edgemodders.ai/wiki/edgechat/), the EDGE plugin for Claude Code | EDGEchat doesn't include EDGEquest's server yet. Add it yourself, the same way; it works beside the plugin |
+| [EDGEchat](https://edgemodders.ai/wiki/edgechat/), the EDGE plugin for Claude Code | Included from EDGEchat 0.2.1 (EDGEquest 0.1.1). With EDGEchat, don't add the server yourself, or every tool shows twice |
 | Other assistants that speak MCP | The same command |
 
 The server has been run through a scripted test of an assistant's whole flow: start a quest, edit it, prepare its voice lines and make it. A session with a real assistant is not on record yet, so treat it as new, and please tell us how it goes on [Discord](https://discord.gg/63qP3Erw43).

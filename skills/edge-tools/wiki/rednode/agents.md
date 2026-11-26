@@ -1,4 +1,4 @@
-<!-- Copied from EDGEweb's docs/wiki/rednode/agents.md at f5d1ce3 2026-11-25 by tools/sync-docs.mjs. Do not edit here: change it in EDGEweb. -->
+<!-- Copied from EDGEweb's docs/wiki/rednode/agents.md at b4b8f65 2026-11-25 by tools/sync-docs.mjs. Do not edit here: change it in EDGEweb. -->
 <!-- Live page: https://edgemodders.ai/wiki/rednode/agents.html (reviewed 2026-11-25) -->
 
 # Agents and MCP
@@ -180,7 +180,10 @@ await agent.ask('Suggest a build for a netrunner at level 12.', {
 
 | Rule | Why |
 |---|---|
-| Every answer costs the player | It's their Anthropic account. Ask when the player wants it, never on a timer. REDagent gives each package a daily limit ($0.25 unless the player changes it); past it, `ask` fails and says so |
+| Every answer costs the player | It's their Anthropic account. Ask when the player wants it, never on a timer. REDagent gives each package a daily limit ($2.00 unless the player changes it, from REDagent 0.4.6); past it, `ask` fails and says so |
+| `tools: false` when your context is enough | REDagent then answers from the question and context alone, quicker and cheaper, as for "write one post as this person". Since REDnode 0.73.1 and REDagent 0.4.6 |
+| `model` for a harder or a quicker question | `"sonnet"` (the default), `"opus"` or `"haiku"`: REDagent takes its newest model of that family. Since REDnode 0.73.1 and REDagent 0.4.6 |
+| The context goes whole | Up to 64 KB of JSON and a question up to 20,000 characters; more is refused with an error, never cut. Since REDnode 0.73.1 |
 | The assistant only reads | When answering a package, REDagent can look at logs, the game state, the game API and other mods' read-only tools, but never changes files or the game |
 | Send what it needs in `context` | So it doesn't spend time and money finding it |
 | Let the player cancel | Pass an `AbortSignal` as `signal` |

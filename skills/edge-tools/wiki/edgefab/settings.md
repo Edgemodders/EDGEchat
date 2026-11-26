@@ -1,5 +1,5 @@
-<!-- Copied from EDGEweb's docs/wiki/edgefab/settings.md at f5d1ce3 2026-11-25 by tools/sync-docs.mjs. Do not edit here: change it in EDGEweb. -->
-<!-- Live page: https://edgemodders.ai/wiki/edgefab/settings.html (reviewed 2026-11-22) -->
+<!-- Copied from EDGEweb's docs/wiki/edgefab/settings.md at b4b8f65 2026-11-25 by tools/sync-docs.mjs. Do not edit here: change it in EDGEweb. -->
+<!-- Live page: https://edgemodders.ai/wiki/edgefab/settings.html (reviewed 2026-11-25) -->
 
 # Settings and commands
 
@@ -95,6 +95,7 @@ EDGEfab has no keyboard shortcuts of its own, except `Ctrl+Enter` in the Picture
 |---|---|---|
 | `TRIPO_API_KEY` | The extension and the MCP server | Your Tripo key. It wins over the key in REDcode's Keys |
 | `OPENAI_API_KEY` | The extension and the MCP server | Your OpenAI key, the same way |
+| `EDGEFAB_REDBRIDGE` | The MCP server | The REDbridge.exe to use, or the folder it is in, for everything the server does with game files and keys. EDGEchat sets it. Without it, the server uses REDcode's `redcode.bridgePath`, then PATH (since 0.2.1; 0.2.0 read it for keys only) |
 
 You don't need them: the extension and the MCP server both read REDcode's Keys. See [Keys for the server](https://edgemodders.ai/wiki/edgefab/assistants.html#keys-for-the-server).
 

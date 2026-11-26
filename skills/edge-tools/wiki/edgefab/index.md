@@ -1,11 +1,11 @@
-<!-- Copied from EDGEweb's docs/wiki/edgefab/index.md at f5d1ce3 2026-11-25 by tools/sync-docs.mjs. Do not edit here: change it in EDGEweb. -->
-<!-- Live page: https://edgemodders.ai/wiki/edgefab/ (reviewed 2026-11-22) -->
+<!-- Copied from EDGEweb's docs/wiki/edgefab/index.md at b4b8f65 2026-11-25 by tools/sync-docs.mjs. Do not edit here: change it in EDGEweb. -->
+<!-- Live page: https://edgemodders.ai/wiki/edgefab/ (reviewed 2026-11-25) -->
 
 # EDGEfab
 
 EDGEfab is the EDGE platform's asset maker for Cyberpunk 2077. It runs inside VS Code. Give it a textured 3D model, or describe an object in words, and it makes a **prop**: an object that stands in the world, such as a vending machine, a crate or a lamp. EDGEfab gets it ready for the game and puts it into your mod project. From there you place it in Night City with [EDGEbuilder](https://edgemodders.ai/wiki/edgebuilder/). An AI assistant such as Claude can do every step for you.
 
-> **EDGEfab 0.2.0 is a preview**, released on 2026-11-22. See [Status](https://edgemodders.ai/wiki/edgefab/#status).
+> **EDGEfab 0.2.1 is a preview**, released on 2026-11-25. See [Status](https://edgemodders.ai/wiki/edgefab/#status).
 
 **New here?** Read this page, then [Install and set up](https://edgemodders.ai/wiki/edgefab/install.html), then follow [Tutorial: your first prop](https://edgemodders.ai/wiki/edgefab/first-prop.html). It takes about 30 minutes.
 
@@ -78,13 +78,13 @@ More terms are in the wiki's [glossary](https://edgemodders.ai/wiki/glossary.htm
 | [EDGEmat](https://edgemodders.ai/wiki/edgemat/) | Materials. EDGEfab makes each part's material from the model's own textures with EDGEmat's code. EDGEmat's tools can then give a part one of the game's own materials: [Add to Project](https://edgemodders.ai/wiki/edgefab/add-to-project.html#game-materials-on-a-part) |
 | [EDGEbuilder](https://edgemodders.ai/wiki/edgebuilder/) | In the game: finds your prop in the mod and places it |
 | [REDnode](https://edgemodders.ai/wiki/rednode/) | In the game: lets REDcode swap your mod in while the game runs, so you see the prop without a restart |
-| [EDGEchat](https://edgemodders.ai/wiki/edgechat/) and Claude | EDGEfab's MCP server lets an assistant use every feature. EDGEchat connects the other tools around it: [Assistants](https://edgemodders.ai/wiki/edgefab/assistants.html) |
+| [EDGEchat](https://edgemodders.ai/wiki/edgechat/) and Claude | EDGEfab's MCP server lets an assistant use every feature. EDGEchat 0.2.1 connects it, with the other tools around it: [Assistants](https://edgemodders.ai/wiki/edgefab/assistants.html) |
 
 EDGEfab comes with no game files, and it never changes your game: it writes into your project and onto the Desk. It makes no network calls of its own, except to Tripo and OpenAI when you ask for something that needs them.
 
 ## Status
 
-**0.2.0, a preview, released on 2026-11-22** on the [VS Code Marketplace](https://marketplace.visualstudio.com/items?itemName=edgemodders.edgefab), [Open VSX](https://open-vsx.org/extension/edgemodders/edgefab) and [GitHub](https://github.com/Edgemodders/EDGEfab/releases). Its page on [Nexus Mods](https://www.nexusmods.com/cyberpunk2077/mods/38605) opens soon. Windows only, tested with game version 2.5. New in 0.2.0: your Tripo and OpenAI keys live in REDcode's Keys, shared by every EDGE tool ([Your keys](https://edgemodders.ai/wiki/edgefab/install.html#your-keys)).
+**0.2.1, a preview, released on 2026-11-25** on the [VS Code Marketplace](https://marketplace.visualstudio.com/items?itemName=edgemodders.edgefab), [Open VSX](https://open-vsx.org/extension/edgemodders/edgefab) and [GitHub](https://github.com/Edgemodders/EDGEfab/releases). Its page on [Nexus Mods](https://www.nexusmods.com/cyberpunk2077/mods/38605) opens soon. Windows only, tested with game version 2.5. New in 0.2.1: a fix for assistants connected through EDGEchat, whose REDbridge EDGEfab's server now uses for Add to Project and the Library too ([Settings](https://edgemodders.ai/wiki/edgefab/settings.html)). Since 0.2.0, your Tripo and OpenAI keys live in REDcode's Keys, shared by every EDGE tool ([Your keys](https://edgemodders.ai/wiki/edgefab/install.html#your-keys)).
 
 | | |
 |---|---|

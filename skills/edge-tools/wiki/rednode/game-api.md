@@ -1,4 +1,4 @@
-<!-- Copied from EDGEweb's docs/wiki/rednode/game-api.md at f5d1ce3 2026-11-25 by tools/sync-docs.mjs. Do not edit here: change it in EDGEweb. -->
+<!-- Copied from EDGEweb's docs/wiki/rednode/game-api.md at b4b8f65 2026-11-25 by tools/sync-docs.mjs. Do not edit here: change it in EDGEweb. -->
 <!-- Live page: https://edgemodders.ai/wiki/rednode/game-api.html (reviewed 2026-11-25) -->
 
 # The game API
@@ -83,7 +83,7 @@ const state = await game.state();                       // what the game is show
 | `game.player.teleport({ x, y, z, yaw? })` | Moves V | Passed in game |
 | `game.player.body()` | V's body from character creation, `"wa"` or `"ma"`, to pick the workspot or garment made for it. Since 0.70.0 | Passed in game |
 | `game.audio.play(name)` | Plays one of the game's UI sounds. See [Game sounds](https://edgemodders.ai/wiki/rednode/overlay-apps.html#game-sounds) | Passed in game |
-| `game.on(name, fn)` | Runs your function at a game event. See [Listening to the game](https://edgemodders.ai/wiki/rednode/node-mods.html#listening-to-the-game) | Passed in game |
+| `game.on(name, fn)` | Runs your function at a game event, such as a fight (`combat`, `npcDowned`, since 0.73.1). See [Listening to the game](https://edgemodders.ai/wiki/rednode/node-mods.html#listening-to-the-game) | Passed in game |
 | `game.state()`, `game.onState(fn)` | What the game is showing. See [below](https://edgemodders.ai/wiki/rednode/game-api.html#is-v-in-the-world) | Passed in game |
 | `game.language()` | The game's language, such as `fr-fr` | Passed in game |
 | `game.instance` | Not a call: a value that stands for the game itself. Many game functions want it as their first argument | |

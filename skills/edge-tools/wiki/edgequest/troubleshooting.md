@@ -1,5 +1,5 @@
-<!-- Copied from EDGEweb's docs/wiki/edgequest/troubleshooting.md at f5d1ce3 2026-11-25 by tools/sync-docs.mjs. Do not edit here: change it in EDGEweb. -->
-<!-- Live page: https://edgemodders.ai/wiki/edgequest/troubleshooting.html (reviewed 2026-11-13) -->
+<!-- Copied from EDGEweb's docs/wiki/edgequest/troubleshooting.md at b4b8f65 2026-11-25 by tools/sync-docs.mjs. Do not edit here: change it in EDGEweb. -->
+<!-- Live page: https://edgemodders.ai/wiki/edgequest/troubleshooting.html (reviewed 2026-11-25) -->
 
 # Troubleshooting EDGEquest
 
@@ -104,7 +104,7 @@ Other things you may see:
 
 | You see | Do this |
 |---|---|
-| Claude doesn't have the `quest_` tools | Connect the server, then start a new Claude Code session. [EDGEchat](https://edgemodders.ai/wiki/edgechat/) doesn't include it yet. See [Connect it](https://edgemodders.ai/wiki/edgequest/assistants.html#connect-it) |
+| Claude doesn't have the `quest_` tools | Install or update [EDGEchat](https://edgemodders.ai/wiki/edgechat/) to 0.2.1, which includes it, or connect the server yourself. Then start a new Claude Code session. See [Connect it](https://edgemodders.ai/wiki/edgequest/assistants.html#connect-it) |
 | The server can't find the game or REDbridge | Give them on the command line. See the table under [Connect it](https://edgemodders.ai/wiki/edgequest/assistants.html#connect-it) |
 | The assistant's first question takes a long time | It is building the quest index, about a minute and a half, once |
 

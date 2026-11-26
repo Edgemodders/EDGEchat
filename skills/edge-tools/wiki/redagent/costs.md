@@ -1,5 +1,5 @@
-<!-- Copied from EDGEweb's docs/wiki/redagent/costs.md at f5d1ce3 2026-11-25 by tools/sync-docs.mjs. Do not edit here: change it in EDGEweb. -->
-<!-- Live page: https://edgemodders.ai/wiki/redagent/costs.html (reviewed 2026-11-13) -->
+<!-- Copied from EDGEweb's docs/wiki/redagent/costs.md at b4b8f65 2026-11-25 by tools/sync-docs.mjs. Do not edit here: change it in EDGEweb. -->
+<!-- Live page: https://edgemodders.ai/wiki/redagent/costs.html (reviewed 2026-11-25) -->
 
 # Costs, your key and your data
 
@@ -42,7 +42,7 @@ Pick the model in the window's footer. You can change it at any time.
 | **Opus 5.5** (the default) | Writing and fixing mods, and harder questions |
 | **Sonnet 5.5** | Quick questions, at a lower price |
 
-Questions from [other mods](https://edgemodders.ai/wiki/redagent/other-mods.html) always use Sonnet 5.5, whichever you picked.
+Questions from [other mods](https://edgemodders.ai/wiki/redagent/other-mods.html) use Sonnet 5.5, whichever you picked, unless the mod asks for Opus 5.5 or Haiku 5.5 (from REDagent 0.4.6). Each mod has a daily limit, $2.00 unless you change it.
 
 ## Your key
 

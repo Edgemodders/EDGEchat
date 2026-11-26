@@ -1,5 +1,5 @@
-<!-- Copied from EDGEweb's docs/wiki/edgedeck/troubleshooting.md at f5d1ce3 2026-11-25 by tools/sync-docs.mjs. Do not edit here: change it in EDGEweb. -->
-<!-- Live page: https://edgemodders.ai/wiki/edgedeck/troubleshooting.html (reviewed 2026-11-13) -->
+<!-- Copied from EDGEweb's docs/wiki/edgedeck/troubleshooting.md at b4b8f65 2026-11-25 by tools/sync-docs.mjs. Do not edit here: change it in EDGEweb. -->
+<!-- Live page: https://edgemodders.ai/wiki/edgedeck/troubleshooting.html (reviewed 2026-11-25) -->
 
 # Troubleshooting EDGEdeck
 
@@ -30,6 +30,7 @@ EDGEdeck updates itself, and many problems are fixed in a newer version. If some
 
 | You see | Do this |
 |---|---|
+| Adding or updating a mod fails with `spawn ...7za.exe ENOENT`, or EDGEdeck says it was updated while the window was open | VS Code updated EDGEdeck in the background and removed the old version's files while this window still ran it. Press **Reload window**, or `Ctrl+Shift+P` and `Developer: Reload Window`, then try again. Nothing was added, and finished downloads are not downloaded again. EDGEdeck 0.34.2 and later use an installed 7-Zip instead, when you have one |
 | A `.rar` file won't add | EDGEdeck opens zip and 7z on its own, but a rar needs [7-Zip](https://7-zip.org) or WinRAR installed. Install one, or pack the files again as a zip |
 | "Nothing in ... looks like a Cyberpunk mod file" | The download holds no file EDGEdeck knows a place for. Check that it is a Cyberpunk 2077 mod, and that you picked the download itself, not a readme |
 | "... files EDGEdeck did not know where to put were left out" | The mod was added without those files. The [log](https://edgemodders.ai/wiki/edgedeck/troubleshooting.html#anything-else) names them. Often they are readmes or pictures and don't matter |

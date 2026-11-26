@@ -1,4 +1,4 @@
-<!-- Copied from EDGEweb's docs/wiki/rednode/node-mods.md at f5d1ce3 2026-11-25 by tools/sync-docs.mjs. Do not edit here: change it in EDGEweb. -->
+<!-- Copied from EDGEweb's docs/wiki/rednode/node-mods.md at b4b8f65 2026-11-25 by tools/sync-docs.mjs. Do not edit here: change it in EDGEweb. -->
 <!-- Live page: https://edgemodders.ai/wiki/rednode/node-mods.html (reviewed 2026-11-25) -->
 
 # Node mods
@@ -223,9 +223,13 @@ For anything richer than these blocks, give your package a web page: see [Overla
 |---|---|
 | `game.on('PlayerPuppet.OnGameAttached', fn)` | The main menu was reached, or a save finished loading |
 | `game.on('language', fn)` | The player changed the game's language |
+| `game.on('combat', fn)` | V entered or left combat: `e.inCombat`. Only on a change; stealth counts as out of combat. Since 0.73.1 |
+| `game.on('npcDowned', fn)` | A person was killed or defeated: `e.entity`, `e.record`, `e.affiliation` (such as `"Factions.Maelstrom"`, the same in every language), `e.killed`, `e.byPlayer` (V or V's companion, quickhacks too) and `e.by`. Since 0.73.1 |
 | `game.onState(fn)` | What the game is showing changed: a menu, photo mode, a scene, the main menu, whether V is in the world. It also runs once at the start, with the state now |
 | `await game.state()` | The same state, read once |
 | `quests.watch(names, fn)` | A quest fact changed. See [Quests and the journal](https://edgemodders.ai/wiki/rednode/more-apis.html#quests-and-the-journal) |
+
+`killed: false` is the game's defeated state, not "alive": the person is down, often still moving, and can be finished off, which sends a second event with `killed: true`. Which one comes depends on the damage (in the test, one Overheat left its targets defeated). Count people by `entity`. People the game places already down, such as a body at a crash site, send one event with `by: "none"` as they come into view, so keep to `byPlayer` to count V's fights. The **Fight test** sample shows both events.
 
 These are all the game events today. Hearing any game function as it is called is planned, not built.
 

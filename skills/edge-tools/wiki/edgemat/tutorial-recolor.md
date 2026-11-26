@@ -1,4 +1,4 @@
-<!-- Copied from EDGEweb's docs/wiki/edgemat/tutorial-recolor.md at f5d1ce3 2026-11-25 by tools/sync-docs.mjs. Do not edit here: change it in EDGEweb. -->
+<!-- Copied from EDGEweb's docs/wiki/edgemat/tutorial-recolor.md at b4b8f65 2026-11-25 by tools/sync-docs.mjs. Do not edit here: change it in EDGEweb. -->
 <!-- Live page: https://edgemodders.ai/wiki/edgemat/tutorial-recolor.html (reviewed 2026-11-18) -->
 
 # Tutorial: recolor a jacket

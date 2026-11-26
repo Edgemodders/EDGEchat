@@ -1,5 +1,5 @@
-<!-- Copied from EDGEweb's docs/wiki/edgechat/safety.md at f5d1ce3 2026-11-25 by tools/sync-docs.mjs. Do not edit here: change it in EDGEweb. -->
-<!-- Live page: https://edgemodders.ai/wiki/edgechat/safety.html (reviewed 2026-11-13) -->
+<!-- Copied from EDGEweb's docs/wiki/edgechat/safety.md at b4b8f65 2026-11-25 by tools/sync-docs.mjs. Do not edit here: change it in EDGEweb. -->
+<!-- Live page: https://edgemodders.ai/wiki/edgechat/safety.html (reviewed 2026-11-25) -->
 
 # Safety: what Claude asks first
 
@@ -7,7 +7,9 @@ With EDGEchat, Claude can read a lot without asking: your game's files, the runn
 
 | What | Asks you first? |
 |---|---|
-| An EDGE tool changing the running game, your save or your game folder: a change to V, a swap, a deploy | **Yes, every time.** No setting turns this off |
+| An EDGE tool changing the running game, your save or your game folder: a change to V, a swap, a deploy, the weather held, a quickhack tried live | **Yes, every time.** No setting turns this off |
+| EDGEhack writing a quickhack, even on its Desk | **Yes, every time** |
+| Something that costs money: a picture, a 3D model or a material made from your words | No prompt, so Claude says the cost first. See [What costs money](https://edgemodders.ai/wiki/edgechat/safety.html#what-costs-money) |
 | Claude Code writing files in your mod project | Yes, in Claude Code's default permission setting. See [Files in your project](https://edgemodders.ai/wiki/edgechat/safety.html#files-in-your-project) |
 | A REDnode package you are building in REDnode's apps folder, which is inside the game folder | The same as any project file. This is [the one exception](https://edgemodders.ai/wiki/edgechat/safety.html#the-one-exception-in-the-game-folder) to "every time" for the game folder |
 | Reading anything | No |
@@ -18,6 +20,7 @@ You can always say no.
 |---|---|
 | [How asking works](https://edgemodders.ai/wiki/edgechat/safety.html#how-asking-works) | The permission prompt |
 | [What asks every time, and what doesn't](https://edgemodders.ai/wiki/edgechat/safety.html#what-asks-every-time-and-what-doesnt) | Tool by tool |
+| [What costs money](https://edgemodders.ai/wiki/edgechat/safety.html#what-costs-money) | Services billed to your keys |
 | [Files in your project](https://edgemodders.ai/wiki/edgechat/safety.html#files-in-your-project) | Where Claude Code's own setting decides |
 | [The one exception in the game folder](https://edgemodders.ai/wiki/edgechat/safety.html#the-one-exception-in-the-game-folder) | And how to avoid it |
 | [The rules Claude works by](https://edgemodders.ai/wiki/edgechat/safety.html#the-rules-claude-works-by) | What EDGEchat tells Claude never to do |
@@ -40,18 +43,35 @@ The EDGE tools don't leave that to the mode. Each EDGE toolkit marks every one o
 | REDnode | Changing something in the running game, such as V's money or health | Reading something, such as V's money |
 | REDnode | Swapping an archive into the running game ([Change it while you play](https://edgemodders.ai/wiki/edgechat/live.html)) | The game's state, logs, running apps, screenshots, reading TweakDB (the game's database of items and stats) |
 | REDnode | Changing quest facts or the journal in your save, or moving V | Reading quest facts and the journal |
-| REDnode | Placing or removing things in the world | Listing what's near V, or what was placed |
+| REDnode | Placing, animating or removing people and things in the world, loading a scene | Listing what's near V, or what was placed |
+| REDnode | Setting the weather and holding it | Reading the weather. Pins: glowing markers in the world, which only draw |
 | REDnode | An installed mod's own tools, unless its author marked them read-only | Read-only mod tools |
 | EDGEdeck | Deploy and undo, which write to the game folder. Remove, which deletes a mod from the library | Listing mods and conflicts, and showing what a deploy would change |
+| EDGEhack | A new quickhack, editing one, writing its script, packing the mod, and **Try Live**, which changes the running game | Finding and describing quickhacks |
+
+EDGEchat's tests checked the EDGEhack prompt in auto mode: Claude Code asked before writing a quickhack, and after **Deny** nothing was written.
 
 Two more:
 
-- **EDGEmat** making a material from words sends your words to Google Gemini or OpenAI, billed to your key. It doesn't ask, so Claude says which service it will use before the first time. It only works if you gave EDGEchat a key.
+- **REDcode's sector scripts** run as you on your PC. Claude runs only one you know or asked for, and tries it before it changes anything.
 - REDnode's optional **Tools Manager**, in its Admin Tools pack, switches any of REDnode's or a mod's tools off for every assistant. A tool that is switched off isn't offered to Claude at all. See [REDnode: AI agents](https://edgemodders.ai/wiki/rednode/agents.html).
+
+## What costs money
+
+Some tools send your words or a picture to an outside service, billed to your own key. They don't show a prompt, so Claude says which service it will use and what it costs before the first call.
+
+| Tool | Service | Cost |
+|---|---|---|
+| EDGEmat: materials from words, patterns, reshapes | Google Gemini or OpenAI, and Tripo for a reshape's model | On your keys |
+| EDGEfab: a picture of the prop, drawn first | OpenAI | A few cents |
+| EDGEfab: the 3D model, from a picture or from words | Tripo | About 50 to 80 Tripo credits a model. Claude waits for your yes |
+| REDcode: an animation from words | Uthana | Billed by the second. Claude waits for your yes |
+
+Each needs your own key or account with that service. The Gemini, OpenAI and Tripo keys go in REDcode's **Keys** view or the plugin's settings ([Settings](https://edgemodders.ai/wiki/edgechat/settings.html#the-six-settings)).
 
 ## Files in your project
 
-Work on the files of your mod project is different. That covers Claude Code writing or changing a file, and the `redcode` and `edgemat` connections making, changing and packing project files.
+Work on the files of your mod project is different. That covers Claude Code writing or changing a file, and the connections making, changing and packing project files: `redcode`'s edits and packing, `edgemat` applying a material, `edgefab` adding a prop, `edgequest` writing a quest.
 
 | Claude Code's permission setting | What happens |
 |---|---|

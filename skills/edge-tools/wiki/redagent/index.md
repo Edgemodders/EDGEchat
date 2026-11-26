@@ -1,5 +1,5 @@
-<!-- Copied from EDGEweb's docs/wiki/redagent/index.md at f5d1ce3 2026-11-25 by tools/sync-docs.mjs. Do not edit here: change it in EDGEweb. -->
-<!-- Live page: https://edgemodders.ai/wiki/redagent/ (reviewed 2026-11-13) -->
+<!-- Copied from EDGEweb's docs/wiki/redagent/index.md at b4b8f65 2026-11-25 by tools/sync-docs.mjs. Do not edit here: change it in EDGEweb. -->
+<!-- Live page: https://edgemodders.ai/wiki/redagent/ (reviewed 2026-11-25) -->
 
 # REDagent
 
@@ -56,12 +56,12 @@ One exception to know about: tools that other EDGE software gives it can change 
 
 ## Status
 
-**Released.** The latest is REDagent 0.4.1 (2026-11-01), for game 2.5, on [Nexus Mods](https://www.nexusmods.com/cyberpunk2077/mods/35670) and [GitHub](https://github.com/Edgemodders/REDagent/releases). Everything on these pages passed its test in the game, except pictures on an HDR screen.
+**Released.** The latest is REDagent 0.4.6 (2026-11-25), for game 2.5, on [Nexus Mods](https://www.nexusmods.com/cyberpunk2077/mods/35670) and [GitHub](https://github.com/Edgemodders/REDagent/releases). Everything on these pages passed its test in the game, except pictures on an HDR screen.
 
 | | |
 |---|---|
-| **Coming next** | Making and changing quickhacks with [EDGEhack](https://edgemodders.ai/wiki/edgehack/)'s tools. Built, and passed in the game on 2026-11-11; not released yet |
-| **Planned, not started** | REDagent inside REDcode, with changes reviewed in VS Code |
+| **New in the latest releases** | **Continue in VS Code**: hand a chat to Claude Code with EDGEchat; mods can ask for answers with no tools and pick a model; a mod's daily limit of $2.00 (0.4.6). Making and changing quickhacks with [EDGEhack](https://edgemodders.ai/wiki/edgehack/)'s tools, and **Replace the key** (0.4.4) |
+| **Planned, not started** | REDagent's chats listed in REDcode, and one briefing shared with EDGEchat |
 
 ## In this section
 

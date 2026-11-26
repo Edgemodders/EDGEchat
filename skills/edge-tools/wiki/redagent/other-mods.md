@@ -1,5 +1,5 @@
-<!-- Copied from EDGEweb's docs/wiki/redagent/other-mods.md at f5d1ce3 2026-11-25 by tools/sync-docs.mjs. Do not edit here: change it in EDGEweb. -->
-<!-- Live page: https://edgemodders.ai/wiki/redagent/other-mods.html (reviewed 2026-11-13) -->
+<!-- Copied from EDGEweb's docs/wiki/redagent/other-mods.md at b4b8f65 2026-11-25 by tools/sync-docs.mjs. Do not edit here: change it in EDGEweb. -->
+<!-- Live page: https://edgemodders.ai/wiki/redagent/other-mods.html (reviewed 2026-11-25) -->
 
 # Mods that ask REDagent
 
@@ -32,7 +32,8 @@ REDnode comes with a sample mod that does nothing but ask REDagent your question
 |---|---|
 | **Read only** | A mod's question can read logs, the game's state, the game's functions, the text of overlay windows and your mods' files, and use other mods' tools that only read. It never changes your files or your game |
 | **Pictures** | Off to start with, for every mod. A mod's questions can use pictures of windows or of your screen only after you switch **Pictures** on for that mod in the [Mods view](https://edgemodders.ai/wiki/redagent/other-mods.html#the-mods-view) |
-| **Model** | Always **Sonnet 5.5**, whatever your own chat uses, to keep answers cheap |
+| **Model** | **Sonnet 5.5**, whatever your own chat uses, to keep answers cheap, unless the mod asks for **Opus 5.5** (harder questions) or **Haiku 5.5** (quick ones), from REDagent 0.4.6. The Mods view shows a question's model when it isn't Sonnet |
+| **No tools** | A mod can ask for an answer from what it sent alone, with no tools: quicker and cheaper. The Mods view shows "no tools" beside such a question (from REDagent 0.4.6) |
 | **One at a time** | REDagent answers mods' questions one after another |
 
 In REDagent's in-game test, each of the Ask mod's answers cost between $0.008 and $0.02.
@@ -41,9 +42,9 @@ To answer, REDagent may read your logs and your mods' files and send them to Ant
 
 ## Daily limits
 
-Every mod has its own **daily limit**, **$0.25** unless you change it. Once a mod has spent its limit for the day, its questions are refused until the next day, and the mod is told why. The count starts again at midnight on your PC's clock.
+Every mod has its own **daily limit**, **$2.00** unless you change it (it was $0.25 before REDagent 0.4.6; a mod still on $0.25 that you never set moves to $2.00 once, and a limit you set stays). Once a mod has spent its limit for the day, its questions are refused until the next day, and the mod is told why. The count starts again at midnight on your PC's clock.
 
-The limit is per mod, and there is no limit across all mods together: five mods you allow could spend $1.25 a day between them. Lower a mod's limit, or pause it, in the Mods view.
+The limit is per mod, and there is no limit across all mods together: five mods you allow could spend $10.00 a day between them. Lower a mod's limit, or pause it, in the Mods view.
 
 ## The Mods view
 

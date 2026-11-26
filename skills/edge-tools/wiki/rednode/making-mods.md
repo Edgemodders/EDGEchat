@@ -1,5 +1,5 @@
-<!-- Copied from EDGEweb's docs/wiki/rednode/making-mods.md at f5d1ce3 2026-11-25 by tools/sync-docs.mjs. Do not edit here: change it in EDGEweb. -->
-<!-- Live page: https://edgemodders.ai/wiki/rednode/making-mods.html (reviewed 2026-11-18) -->
+<!-- Copied from EDGEweb's docs/wiki/rednode/making-mods.md at b4b8f65 2026-11-25 by tools/sync-docs.mjs. Do not edit here: change it in EDGEweb. -->
+<!-- Live page: https://edgemodders.ai/wiki/rednode/making-mods.html (reviewed 2026-11-25) -->
 
 # Making mods and apps
 
@@ -326,11 +326,13 @@ await voice.speak('Choom, you look like hell.', 'judy');
 | Several do | The player picks one in the Mod Manager, in the package's **Provides** section. If they haven't picked and more than one is switched on, `use` fails and its error names them |
 | None does | `use` fails with "No installed package provides ..." |
 
+To list every package that provides a role, switched on or not, with its folder, whether its service runs and its manifest, call `service.providers(role)`; `service.onProviders(role, fn)` tells you when that list changes, for a mod that shows a button per provider (since 0.73.1).
+
 REDagent provides the `agent` role. You don't `use` it: call `agent.ask(...)` instead (see [Agents and MCP](https://edgemodders.ai/wiki/rednode/agents.html)). The **Roles test** sample in REDnode's repo passed in game. The rules are in [Roles](https://edgemodders.github.io/REDnode/overlay-apps.html#roles-a-service-found-by-what-it-does).
 
 ## Learn from the samples
 
-Each sample is small and readable. Twelve come with REDnode, in your apps folder, switched off: switch one on in the Mod Manager, then open its folder and read it.
+Each sample is small and readable. Fourteen come with REDnode, in your apps folder, switched off: switch one on in the Mod Manager, then open its folder and read it.
 
 | In the release | Shows |
 |---|---|
@@ -344,6 +346,8 @@ Each sample is small and readable. Twelve come with REDnode, in your apps folder
 | Ink markup | A HUD panel written as an `.ink.html` file, with a list and a health bar. See [Native UI: ink markup](https://edgemodders.ai/wiki/rednode/ink-markup.html) |
 | Quest test | Reading and setting quest facts and journal entries |
 | Quickhack test | A quickhack with its own check and its own effect |
+| Controller test | What REDnode reads from an Xbox or Sony controller |
+| Fight test | Fight events: V entering and leaving combat, and every person downed with their faction and whether V did it |
 
 More samples are in REDnode's repo only, where they serve as tests. Copy a folder from there into your apps folder to run it:
 
