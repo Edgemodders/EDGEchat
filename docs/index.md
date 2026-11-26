@@ -54,4 +54,4 @@ The knowledge skills (`rednode-mods`, `wolvenkit-projects`, `archives-and-cr2w`,
 | P2 Knowledge | **Done** 2026-10-23: `rednode-mods` (a working HUD widget built in the game), `wolvenkit-projects`, `archives-and-cr2w`, each checked against the game, with evals. No separate EDGEdeck or EDGEmat skill: their servers explain their tools |
 | P3 Commands | **Done** 2026-10-26: `/edge:new-mod` and `/edge:check-mod` (0.0.8), with evals; `/edge:new-mod` passed in the game and `/edge:init-project` on a real project |
 | P4 Ship | **Done** 2026-10-26: version 0.1.0 on GitHub and Nexus Mods; EDGEkit 1.140.2 offers it in one click |
-| P5 Grow | **Under way** (2026-11-25): `edgefab`, `edgehack` and `edgequest` added for 0.2.0, tests pending; EDGEwave, EDGEdir and EDGEguide as they ship |
+| P5 Grow | **Under way** (2026-11-25): `edgefab`, `edgehack` and `edgequest` added for the next release (plugin 0.2.1), tests pending; EDGEwave, EDGEdir and EDGEguide as they ship |

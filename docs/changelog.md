@@ -14,7 +14,7 @@ With the rename, write the section's **Nexus summary** under its heading: an HTM
 
 **New**
 
-- Three more EDGE servers, so one install covers them: `edgefab` (EDGEfab 0.2.0: props from a 3D model or from words, ready for the game), `edgehack` (EDGEhack 0.1.3: the game's quickhacks in plain words, new ones, tried live in the game) and `edgequest` (EDGEquest 0.1.1: the game's quests in plain words, new quests from a story file). They use the plugin's game folder and REDbridge settings.
+- Three more EDGE servers, so one install covers them: `edgefab` (EDGEfab 0.2.1: props from a 3D model or from words, ready for the game), `edgehack` (EDGEhack 0.1.3: the game's quickhacks in plain words, new ones, tried live in the game) and `edgequest` (EDGEquest 0.1.1: the game's quests in plain words, new quests from a story file). They use the plugin's game folder and REDbridge settings.
 - `/edge:continue`: picks up a chat from REDagent, the assistant in the game. REDagent's **VS Code** button (REDagent 0.4.5 or newer) writes the chat to a file and copies the command; Claude Code reads it, says which chat, mods and files it took over, and carries on.
 - A Tripo key setting (`tripo_api_key`), for EDGEfab's 3D models from words and EDGEmat's reshapes. Every key setting can stay empty when the key is in REDcode's **Keys** view, which every EDGE tool shares.
 

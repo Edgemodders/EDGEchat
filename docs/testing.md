@@ -18,7 +18,7 @@ Last updated 2026-11-25.
 | [edgedeck server through the wrapper](#edgedeck-server-through-the-wrapper) | By hand, over stdio | P1 | 2026-11-02 | Pass (0.30.0) |
 | [edgemat server](#edgemat-server) | By hand, over stdio | P1 | 2026-10-23 | Pass |
 | [0.2.0 servers, every option empty](#020-servers-every-option-empty) | By hand, over stdio | P5 | 2026-11-25 | Pass: all six stdio servers start and answer a read; `mesh_items` finds outfit sets, `cr2w_search` reads material buffers |
-| [0.2.0 in a session](#020-in-a-session) | By hand, in a session | P5 | 2026-11-25 | Partly run: steps 1 to 6 pass (asked, allowed and denied); step 7 waits on edgefab-mcp 0.2.1 |
+| [0.2.0 in a session](#020-in-a-session) | By hand, in a session | P5 | 2026-11-25 | Partly run: steps 1 to 6 pass (asked, allowed and denied); step 7 to run on plugin 0.2.1 |
 | [continue in the game](#continue-in-the-game) | By hand, in the game and a session | P5 | 2026-11-25 | Pass: all six steps (REDagent 0.4.6, REDnode 0.73.1, the plugin from the checkout) |
 | [rednode with no token](#rednode-with-no-token) | CLI, game running | P1 | 2026-10-16 | Seen: HTTP 401 |
 | [OAuth sign-in for a plugin server](#oauth-sign-in-for-a-plugin-server) | CLI, scratch config; then in the game | P4 | 2026-10-26 | Seen with a stand-in; against REDnode 0.40.1 in game: pass |
@@ -195,6 +195,7 @@ node tools/test/mcp-probe.cjs --empty EDGEQUEST_GAME_PATH --empty REDBRIDGE_EXE 
 | edgedeck-mcp 0.34.1, through the wrapper | `edgedeck_list` | The default library, one mod; deploy, undo and remove still flagged |
 | edgemat-mcp 0.3.4 | `mat_library` | 17,867 setups, built 2026-11-22. 16 tools, none flagged |
 | edgefab-mcp 0.2.0 | `fab_tripo` status, `fab_desk` | Both keys set, "from REDcode's Keys", the key never shown; 720 credits; the Desk's props. 12 tools, none flagged |
+| edgefab-mcp 0.2.1 (plugin 0.2.1, run again 2026-11-25) | `fab_tripo` status | The same: both keys from REDcode's Keys, 720 credits; ready with the Desk |
 | edgehack-mcp 0.1.3 | `hack_find` "overheat" | Overheat (6 tiers) and the device hack, and the Desk's documents. `hack_new`, `hack_edit`, `hack_script`, `hack_pack`, `hack_try` flagged |
 | edgequest-mcp 0.1.1 | `quest_find` "The Rescue" | q001's quest and phases; the index was already built. 10 tools, none flagged |
 
@@ -212,7 +213,7 @@ Partly run 2026-11-25 by the owner on the dev PC (REDnode 0.73.1, REDbridge 0.19
 | 4 | "Describe the quest The Rescue in plain words" | `edgequest`, no prompt |
 | 5 | "What is on my EDGEfab Desk?" | `edgefab`, no prompt |
 | 6 | "Make a new quickhack from Overheat called Test Burn, on the Desk" | Claude Code asks before `hack_new`. Deny: nothing written |
-| 7 | With edgefab-mcp 0.2.1 in the plugin: "Add Neon vending Box2 from my EDGEfab Desk to <a WolvenKit project>", on a PC or user without `redcode.bridgePath` and `edgemat.bridgePath` in VS Code (or with them removed for the test) | `fab_add` starts REDbridge from the plugin's `redbridge_exe` and writes the prop into the project. 0.2.0 says "REDbridge.exe not found" there ([EDGEchat#5](https://github.com/Edgemodders/EDGEchat/issues/5), fixed in EDGEfab `aa645ce`) |
+| 7 | With plugin 0.2.1 (edgefab-mcp 0.2.1), updated and the window reloaded: "Add Neon vending Box2 from my EDGEfab Desk to <a WolvenKit project>", on a PC or user without `redcode.bridgePath` and `edgemat.bridgePath` in VS Code (or with them removed for the test) | `fab_add` starts REDbridge from the plugin's `redbridge_exe` and writes the prop into the project. 0.2.0 says "REDbridge.exe not found" there ([EDGEchat#5](https://github.com/Edgemodders/EDGEchat/issues/5), fixed in EDGEfab `aa645ce`) |
 
 ### continue in the game
 
