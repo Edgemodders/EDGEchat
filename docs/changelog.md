@@ -16,7 +16,7 @@ With the rename, write the section's **Nexus summary** under its heading: an HTM
 
 <!-- nexus
 New: EDGEfab, EDGEhack and EDGEquest servers in the same install: props, quickhacks and quests
-New: /edge:continue picks up a chat from REDagent, the assistant in the game (REDagent 0.4.5 or newer)
+New: /edge:continue picks up a chat from REDagent, the assistant in the game (REDagent 0.4.6 or newer)
 New: A Tripo key setting; every key setting can stay empty when the key is in REDcode's Keys
 Changed: redcode-mcp 0.7.0, edgedeck-mcp 0.34.1, edgemat-mcp 0.3.4
 Changed: /edge:setup checks seven servers; the Safety page lists what each new tool asks first or costs
@@ -28,7 +28,7 @@ Other: The Nexus changelog is now a short summary for each release
 **New**
 
 - Three more EDGE servers, so one install covers them: `edgefab` (EDGEfab 0.2.1: props from a 3D model or from words, ready for the game), `edgehack` (EDGEhack 0.1.3: the game's quickhacks in plain words, new ones, tried live in the game) and `edgequest` (EDGEquest 0.1.1: the game's quests in plain words, new quests from a story file). They use the plugin's game folder and REDbridge settings.
-- `/edge:continue`: picks up a chat from REDagent, the assistant in the game. REDagent's **VS Code** button (REDagent 0.4.5 or newer) writes the chat to a file and copies the command; Claude Code reads it, says which chat, mods and files it took over, and carries on.
+- `/edge:continue`: picks up a chat from REDagent, the assistant in the game. REDagent's **VS Code** button (REDagent 0.4.6 or newer) writes the chat to a file and copies the command; Claude Code reads it, says which chat, mods and files it took over, and carries on.
 - A Tripo key setting (`tripo_api_key`), for EDGEfab's 3D models from words and EDGEmat's reshapes. Every key setting can stay empty when the key is in REDcode's **Keys** view, which every EDGE tool shares.
 
 **Changed**

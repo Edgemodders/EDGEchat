@@ -6,7 +6,7 @@ argument-hint: "[chat title or id]"
 
 # Continue a REDagent chat
 
-REDagent (0.4.5 or newer) has a **VS Code** button in its chat. It writes the chat as a Markdown file, the **handoff**, and puts `/edge:continue` on the clipboard. This command reads that file and carries the work on here. REDagent's design, "C6a: build", describes the file (format 1).
+REDagent (0.4.6 or newer) has a **VS Code** button in its chat. It writes the chat as a Markdown file, the **handoff**, and puts `/edge:continue` on the clipboard. This command reads that file and carries the work on here. REDagent's design, "C6a: build", describes the file (format 1).
 
 ## 1. Find the handoff
 
@@ -21,7 +21,7 @@ The handoffs are in REDagent's data folder, one file per chat, written again eac
 | Nothing | The newest `.md` there, by the time it was written (Glob lists newest first; or `Get-ChildItem ... \| Sort-Object LastWriteTime -Descending`) |
 | A word or an id (`$ARGUMENTS`) | The file whose chat id, or whose title in its first line, matches it. Several match: list them (title, time) and ask which |
 
-No folder, or no file in it: say there is nothing to pick up yet. In the game, in REDagent's chat, press **VS Code** (REDagent 0.4.5 or newer), then run `/edge:continue` again.
+No folder, or no file in it: say there is nothing to pick up yet. In the game, in REDagent's chat, press **VS Code** (REDagent 0.4.6 or newer), then run `/edge:continue` again.
 
 ## 2. Read it
 

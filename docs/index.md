@@ -32,7 +32,7 @@ Then restart Claude Code and run `/edge:setup`: it checks each server and gives 
 | `/edge:new-mod` | Starts a mod with you, even if you do not code: asks what it should do, picks the simplest kind, builds a first version and tests it in the game |
 | `/edge:check-mod` | Lists what is wrong with a mod (its files, the logs, EDGEdeck's view), with a fix for each, changing nothing |
 | `/edge:init-project` | Writes a `CLAUDE.md` into a mod project, so later sessions know its layout and how to test it |
-| `/edge:continue` | Picks up a chat from REDagent, the assistant in the game: its **VS Code** button writes the chat for Claude Code (REDagent 0.4.5 or newer) |
+| `/edge:continue` | Picks up a chat from REDagent, the assistant in the game: its **VS Code** button writes the chat for Claude Code (REDagent 0.4.6 or newer) |
 
 The knowledge skills (`rednode-mods`, `wolvenkit-projects`, `archives-and-cr2w`, `edge-tools`) load by themselves when a task needs them.
 

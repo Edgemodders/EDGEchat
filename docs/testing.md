@@ -219,7 +219,7 @@ Step 7 passes the same evening with plugin 0.2.1 (edgefab-mcp 0.2.1), the plugin
 
 ### continue in the game
 
-REDagent's design, "C6a test". Needs REDagent 0.4.5 or newer.
+REDagent's design, "C6a test". Needs REDagent 0.4.6 or newer (its first release with the **VS Code** button; 0.4.5 was never released).
 
 | Step | Do | Expect | 2026-11-25 |
 |---|---|---|---|
