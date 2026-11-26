@@ -12,6 +12,19 @@ With the rename, write the section's **Nexus summary** under its heading: an HTM
 
 ## Unreleased
 
+## 0.2.1 (2026-11-25)
+
+<!-- nexus
+New: EDGEfab, EDGEhack and EDGEquest servers in the same install: props, quickhacks and quests
+New: /edge:continue picks up a chat from REDagent, the assistant in the game (REDagent 0.4.5 or newer)
+New: A Tripo key setting; every key setting can stay empty when the key is in REDcode's Keys
+Changed: redcode-mcp 0.7.0, edgedeck-mcp 0.34.1, edgemat-mcp 0.3.4
+Changed: /edge:setup checks seven servers; the Safety page lists what each new tool asks first or costs
+Changed: mesh_items finds outfit sets and cr2w_search reads material buffers, with REDbridge 0.12.0 or newer
+Changed: REDnode's guide copied from REDnode 0.70.0, the EDGEmodders wiki from 2026-11-25
+Other: The Nexus changelog is now a short summary for each release
+-->
+
 **New**
 
 - Three more EDGE servers, so one install covers them: `edgefab` (EDGEfab 0.2.1: props from a 3D model or from words, ready for the game), `edgehack` (EDGEhack 0.1.3: the game's quickhacks in plain words, new ones, tried live in the game) and `edgequest` (EDGEquest 0.1.1: the game's quests in plain words, new quests from a story file). They use the plugin's game folder and REDbridge settings.
