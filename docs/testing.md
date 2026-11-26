@@ -202,7 +202,7 @@ node tools/test/mcp-probe.cjs --empty EDGEQUEST_GAME_PATH --empty REDBRIDGE_EXE 
 
 The plugin from `main` (0.2.0) in VS Code, the game at a loaded save with REDnode 0.70.0 or newer, signed in.
 
-Partly run 2026-11-25 by the owner on the dev PC (REDnode 0.73.1, REDbridge 0.19.0): steps 1 and 2 pass. The plugin updated to 0.2.0 from the marketplace. `/edge:setup` found all seven connected: rednode (world loaded), redcode (57 archives, 592,071 files), edgedeck (the `EDGEdek-Staging` library, game 2.5), edgemat (17,867 setups), edgefab (both keys from REDcode's Keys, 720 credits, the paid plan), edgehack (Overheat, and the Desk's and Library's documents), edgequest (index built 2026-10-28). It also found `edgefab`, `edgehack` and `edgemat` added by hand beside the plugin's (every tool twice), as step 1 of the skill says. Steps 3 to 6 to run.
+Partly run 2026-11-25 by the owner on the dev PC (REDnode 0.73.1, REDbridge 0.19.0): steps 1 and 2 pass. The plugin updated to 0.2.0 from the marketplace. `/edge:setup` found all seven connected: rednode (world loaded), redcode (57 archives, 592,071 files), edgedeck (the `EDGEdek-Staging` library, game 2.5), edgemat (17,867 setups), edgefab (both keys from REDcode's Keys, 720 credits, the paid plan), edgehack (Overheat, and the Desk's and Library's documents), edgequest (index built 2026-10-28). It also found `edgefab`, `edgehack` and `edgemat` added by hand beside the plugin's (every tool twice), as step 1 of the skill says. Steps 3 to 7 to run. Step 7 was added 2026-11-25 at EDGEfab's ask: in edgefab-mcp 0.2.0, `EDGEFAB_REDBRIDGE` reaches only the key store, not the REDbridge that `fab_add`, `fab_library_add` and `fab_refresh` start; 0.2.1 fixes it.
 
 | Step | Do | Expect |
 |---|---|---|
@@ -212,6 +212,7 @@ Partly run 2026-11-25 by the owner on the dev PC (REDnode 0.73.1, REDbridge 0.19
 | 4 | "Describe the quest The Rescue in plain words" | `edgequest`, no prompt |
 | 5 | "What is on my EDGEfab Desk?" | `edgefab`, no prompt |
 | 6 | "Make a new quickhack from Overheat called Test Burn, on the Desk" | Claude Code asks before `hack_new`. Deny: nothing written |
+| 7 | With edgefab-mcp 0.2.1 in the plugin: "Add Neon vending Box2 from my EDGEfab Desk to <a WolvenKit project>", on a PC or user without `redcode.bridgePath` and `edgemat.bridgePath` in VS Code (or with them removed for the test) | `fab_add` starts REDbridge from the plugin's `redbridge_exe` and writes the prop into the project. 0.2.0 says "REDbridge.exe not found" there ([EDGEchat#5](https://github.com/Edgemodders/EDGEchat/issues/5), fixed in EDGEfab `aa645ce`) |
 
 ### continue in the game
 
