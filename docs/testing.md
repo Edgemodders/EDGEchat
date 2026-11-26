@@ -18,7 +18,7 @@ Last updated 2026-11-25.
 | [edgedeck server through the wrapper](#edgedeck-server-through-the-wrapper) | By hand, over stdio | P1 | 2026-11-02 | Pass (0.30.0) |
 | [edgemat server](#edgemat-server) | By hand, over stdio | P1 | 2026-10-23 | Pass |
 | [0.2.0 servers, every option empty](#020-servers-every-option-empty) | By hand, over stdio | P5 | 2026-11-25 | Pass: all six stdio servers start and answer a read; `mesh_items` finds outfit sets, `cr2w_search` reads material buffers |
-| [0.2.0 in a session](#020-in-a-session) | By hand, in a session | P5 | - | Not run |
+| [0.2.0 in a session](#020-in-a-session) | By hand, in a session | P5 | 2026-11-25 | Partly run: steps 1 and 2 pass (seven servers connected) |
 | [continue in the game](#continue-in-the-game) | By hand, in the game and a session | P5 | 2026-11-25 | Pass: all six steps (REDagent 0.4.6, REDnode 0.73.1, the plugin from the checkout) |
 | [rednode with no token](#rednode-with-no-token) | CLI, game running | P1 | 2026-10-16 | Seen: HTTP 401 |
 | [OAuth sign-in for a plugin server](#oauth-sign-in-for-a-plugin-server) | CLI, scratch config; then in the game | P4 | 2026-10-26 | Seen with a stand-in; against REDnode 0.40.1 in game: pass |
@@ -200,7 +200,9 @@ node tools/test/mcp-probe.cjs --empty EDGEQUEST_GAME_PATH --empty REDBRIDGE_EXE 
 
 ### 0.2.0 in a session
 
-Not run yet. The plugin from `main` (0.2.0) in VS Code, the game at a loaded save with REDnode 0.70.0, signed in.
+The plugin from `main` (0.2.0) in VS Code, the game at a loaded save with REDnode 0.70.0 or newer, signed in.
+
+Partly run 2026-11-25 by the owner on the dev PC (REDnode 0.73.1, REDbridge 0.19.0): steps 1 and 2 pass. The plugin updated to 0.2.0 from the marketplace. `/edge:setup` found all seven connected: rednode (world loaded), redcode (57 archives, 592,071 files), edgedeck (the `EDGEdek-Staging` library, game 2.5), edgemat (17,867 setups), edgefab (both keys from REDcode's Keys, 720 credits, the paid plan), edgehack (Overheat, and the Desk's and Library's documents), edgequest (index built 2026-10-28). It also found `edgefab`, `edgehack` and `edgemat` added by hand beside the plugin's (every tool twice), as step 1 of the skill says. Steps 3 to 6 to run.
 
 | Step | Do | Expect |
 |---|---|---|
