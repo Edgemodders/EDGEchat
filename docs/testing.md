@@ -224,7 +224,7 @@ REDagent's design, "C6a test". Needs REDagent 0.4.5 or newer.
 | 5 | Open the handoff file | No key in it | Pass: 3.5 KB, no key or token (also searched from this session) |
 | 6 | `/edge:continue` with no handoff folder (another PC, or the folder renamed) | It says to press **VS Code** in REDagent first | Pass |
 
-Run 2026-11-25 by the owner on the dev PC: game 2.5, REDnode 0.73.1, REDagent 0.4.6, and Claude Code with EDGEchat 0.2.0 from the checkout (`claude --plugin-dir "E:\Modding\Cyberpunk 2077\EDGEchat"`, since the installed plugin was 0.0.15). Result reported by the REDnode session, which records REDagent's side as done (REDagent f422d5b). The mod's `mod.mjs` was last written at 18:38 and now shows the amount in the theme's plain text color, not red: changed again after step 4, not checked.
+Run 2026-11-25 by the owner on the dev PC: game 2.5, REDnode 0.73.1, REDagent 0.4.6, and Claude Code with EDGEchat 0.2.0 from the checkout (`claude --plugin-dir "E:\Modding\Cyberpunk 2077\EDGEchat"`, since the installed plugin was 0.0.15). Result reported by the REDnode session, which records REDagent's side as done (REDagent f422d5b). The mod's `mod.mjs` was last written at 18:38 and now shows the amount in the theme's plain text color: the owner asked for white after the test.
 
 ### edgedeck server through the wrapper
 
