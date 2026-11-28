@@ -119,6 +119,8 @@ claude plugin details edge@edgemodders
 claude mcp list
 ```
 
+Run again 2026-11-27 by script from this session, Claude Code 2.1.332, the CLI half only: **pass**, the same gap. A scratch `CLAUDE_CONFIG_DIR` and a scratch clone of `2eb7ed4` added as a local marketplace (`claude plugin marketplace add <clone>`), so the owner's own install (0.2.1) stayed as it was. Install of 0.2.2: "6 userConfig options not yet set". Then a test update in the clone (version `0.2.3-test` and one new optional option `update_test`, by a scratch script), `marketplace update`, `plugin update`: "updated from 0.2.2 to 0.2.3-test ... Restart to apply changes", nothing about the new option; `configure` lists `update_test` as not set. The VS Code half, whether the form opens after an update, is still not seen: it needs the same update made from VS Code's plugin dialog, in a VS Code started with the scratch `CLAUDE_CONFIG_DIR`.
+
 First run 2026-10-21, 0.0.1 to 0.0.2 (`5dbcc7c`), Claude Code 2.1.302: **pass**, with one gap.
 
 | Check | Seen |
